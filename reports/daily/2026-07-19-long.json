@@ -1,0 +1,59 @@
+{
+  "as_of": "2026-07-17T15:00:00+08:00",
+  "blocks": [
+    "BROAD_MARKET_SHOCK",
+    "NON_TRADING_DAY"
+  ],
+  "fills": [],
+  "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+  "mode": "long",
+  "new_orders": [],
+  "recommendations": [
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "metrics": null,
+      "name": "华夏上证50ETF",
+      "reasons": [
+        "INSUFFICIENT_HISTORY"
+      ],
+      "source_count": 3,
+      "symbol": "510050",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "metrics": null,
+      "name": "南方中证500ETF",
+      "reasons": [
+        "INSUFFICIENT_HISTORY"
+      ],
+      "source_count": 3,
+      "symbol": "510500",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "cash_etf",
+      "metrics": null,
+      "name": "银华日利ETF",
+      "reasons": [
+        "INSUFFICIENT_HISTORY"
+      ],
+      "source_count": 3,
+      "symbol": "511880",
+      "target_weight": 0.0
+    }
+  ],
+  "run_date": "2026-07-19",
+  "run_id": "dca782ee7cf14c4cbc81a2754866d464",
+  "schema_version": 1,
+  "valuation": {
+    "cash_cny": 29900.0,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 29900.0,
+    "positions_cny": 0.0,
+    "project_equity_cny": 30000.0
+  }
+}

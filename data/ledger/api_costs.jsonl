@@ -1,0 +1,1 @@
+{"actual_api_call": false, "amount_cny": 0.0, "event": "BUDGET_RESERVED", "note": "100 CNY is user-stated and not API-verified; no key is stored", "provider": "DeepSeek", "reserved_cny": 100.0, "timestamp": "2026-07-19T00:00:00+08:00"}

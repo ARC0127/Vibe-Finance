@@ -1,0 +1,30 @@
+{
+  "cash_cny": 29900.0,
+  "initial_project_capital_cny": 30000.0,
+  "initialized_at": "2026-07-19T00:00:00+08:00",
+  "last_run_id": "dca782ee7cf14c4cbc81a2754866d464",
+  "pending_orders": [],
+  "positions": {},
+  "research_infrastructure": {
+    "actual_calls": 0,
+    "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+    "provider": "DeepSeek",
+    "reserved_cny": 100.0,
+    "spent_cny": 0.0
+  },
+  "run_history": [
+    {
+      "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+      "mode": "short",
+      "run_date": "2026-07-19",
+      "run_id": "aa926b6e72824a3ba169f51c7dbbbcee"
+    },
+    {
+      "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+      "mode": "long",
+      "run_date": "2026-07-19",
+      "run_id": "dca782ee7cf14c4cbc81a2754866d464"
+    }
+  ],
+  "schema_version": 1
+}

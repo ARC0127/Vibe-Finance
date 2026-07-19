@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-07-19",
+  "as_of": "2026-07-17T15:00:00+08:00",
+  "is_trading_day": false,
+  "market_state": "weekend",
+  "collection_note": "2026-07-19 is Sunday; market observations are point-in-time values from the 2026-07-17 close.",
+  "indices": [
+    {"symbol": "000001", "name": "上证指数", "close": 3764.15, "daily_return": -0.0305, "broad": true, "source_ids": ["stcn", "sina_finance"]},
+    {"symbol": "399001", "name": "深证成指", "close": 13706.88, "daily_return": -0.0540, "broad": true, "source_ids": ["stcn", "cnfin"]},
+    {"symbol": "399006", "name": "创业板指", "close": 3428.63, "daily_return": -0.0715, "broad": true, "source_ids": ["stcn", "sina_finance"]},
+    {"symbol": "000300", "name": "沪深300", "close": 4529.10, "daily_return": -0.0360, "broad": true, "source_ids": ["investing", "cnfin"]}
+  ],
+  "assets": [
+    {
+      "symbol": "510050",
+      "name": "华夏上证50ETF",
+      "asset_type": "equity_etf",
+      "close": 2.9291,
+      "daily_return": -0.0247,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["chinaamc", "eastmoney", "sina_finance"],
+      "quality": "NAV_CROSSCHECKED_PRICE_HISTORY_MISSING"
+    },
+    {
+      "symbol": "510500",
+      "name": "南方中证500ETF",
+      "asset_type": "equity_etf",
+      "close": 7.505,
+      "daily_return": -0.0567,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["china_southern", "investing", "sina_finance"],
+      "quality": "SECONDARY_CLOSE_CROSSCHECK_PENDING"
+    },
+    {
+      "symbol": "511880",
+      "name": "银华日利ETF",
+      "asset_type": "cash_etf",
+      "close": 100.639,
+      "daily_return": 0.0,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["yinhua", "eastmoney", "sina_finance"],
+      "quality": "INDICATIVE_CLOSE_HISTORY_MISSING"
+    }
+  ],
+  "macro": [
+    {"name": "2026H1 GDP growth", "value": 0.047, "source_id": "nbs"},
+    {"name": "2026Q2 GDP growth", "value": 0.043, "source_id": "nbs"},
+    {"name": "World Bank 2026 GDP forecast", "value": 0.044, "source_id": "worldbank_china"},
+    {"name": "IMF 2026 GDP forecast", "value": 0.046, "source_id": "imf_china"}
+  ],
+  "evidence": [
+    {"title": "国家统计局：2026年上半年经济运行", "url": "https://www.stats.gov.cn/english/PressRelease/202607/t20260715_1964120.html", "as_of": "2026-07-15", "tier": "A"},
+    {"title": "国家统计局：二季度和上半年GDP初步核算", "url": "https://www.stats.gov.cn/english/PressRelease/202607/t20260717_1964160.html", "as_of": "2026-07-17", "tier": "A"},
+    {"title": "上交所基金信息披露", "url": "https://etf.sse.com.cn/disclosure/", "as_of": "2026-07-17", "tier": "A"},
+    {"title": "基金业协会公募基金统计", "url": "https://www.amac.org.cn/sjtj/tjbg/", "as_of": "2026-06-17", "tier": "A"},
+    {"title": "IMF China 2025 Article IV", "url": "https://www.imf.org/en/news/articles/2026/02/18/pr-26053-china-imf-executive-board-concludes-2025-article-iv-consultation", "as_of": "2026-02-18", "tier": "B"},
+    {"title": "World Bank China Economic Update", "url": "https://www.worldbank.org/en/news/press-release/2026/07/07/rebalancing-growth-china-economic-update", "as_of": "2026-07-07", "tier": "B"},
+    {"title": "证券时报：7月17日A股收评", "url": "https://stcn.com/article/detail/4025170.html", "as_of": "2026-07-17", "tier": "B"},
+    {"title": "每日经济新闻：7月17日盘后播报", "url": "https://www.nbd.com.cn/articles/2026-07-17/4476257.html", "as_of": "2026-07-17", "tier": "B"},
+    {"title": "沪深300历史数据交叉验证", "url": "https://cn.investing.com/indices/csi300-historical-data", "as_of": "2026-07-17", "tier": "C"}
+  ]
+}

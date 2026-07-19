@@ -1,0 +1,70 @@
+{
+  "version": "v1.3.2-vibe-finance-1",
+  "generated_at": "2026-07-19T00:00:00+08:00",
+  "activated_at": "2026-07-19",
+  "project": "Vibe Finance",
+  "language": "zh",
+  "web_browsing_policy": "ALLOW_AFTER_CONFIRM",
+  "unknown_strictness": "high",
+  "citation_mode": "conservative",
+  "debug_trace_default": "OFF",
+  "analysis_basis": "first_principles",
+  "fact_inference_split": "required",
+  "honesty_boundary": "strict",
+  "deliver_full_requested_scope": true,
+  "silent_simplification": "forbid",
+  "partial_completion_labeling": "required",
+  "discover_before_asking": true,
+  "simulation_only": true,
+  "real_broker_integration": "forbid",
+  "market_scope": [
+    "China_A_shares",
+    "China_exchange_traded_funds",
+    "China_public_funds"
+  ],
+  "excluded_by_default": [
+    "Hong_Kong_stocks",
+    "foreign_stocks",
+    "futures",
+    "options",
+    "margin_financing",
+    "leveraged_or_inverse_products",
+    "private_funds",
+    "crypto"
+  ],
+  "portfolio": {
+    "currency": "CNY",
+    "initial_capital": 30000.0,
+    "first_decision_max_new_risk_assets": 30000.0,
+    "allocation_discretion": "0_to_30000_CNY_subject_to_data_and_risk_gates",
+    "forced_full_investment": false
+  },
+  "scheduling": {
+    "short_cycle": "enabled_after_market_close_on_trading_days",
+    "long_cycle": "enabled_weekly",
+    "high_frequency": "disabled_until_quantitative_gates_pass"
+  },
+  "data_policy": {
+    "point_in_time_only": true,
+    "future_data": "forbid",
+    "stale_or_conflicting_data_action": "NO_TRADE",
+    "source_provenance_required": true,
+    "immutable_history": true
+  },
+  "evolution_policy": {
+    "walk_forward_or_out_of_sample_required": true,
+    "version_all_strategy_changes": true,
+    "single_day_rule_changes": "forbid",
+    "rollback_required": true
+  },
+  "first_delivery": [
+    "expanded_master_prompt",
+    "source_registry_and_references",
+    "one_command_local_pipeline",
+    "initial_virtual_ledger",
+    "2026-07-19_daily_analysis",
+    "tests_and_offline_fixture",
+    "daily_codex_automation"
+  ],
+  "stop_condition": "deliverable_first"
+}

@@ -1,0 +1,38 @@
+{
+  "version": "0.1.0",
+  "data_gates": {
+    "minimum_price_sources": 2,
+    "minimum_history_points": 20,
+    "max_snapshot_age_hours": 120
+  },
+  "risk": {
+    "broad_market_shock_daily_return": -0.03,
+    "single_asset_shock_daily_return": -0.04,
+    "exit_below_ma20_ratio": 0.95,
+    "maximum_next_open_gap": 0.015,
+    "max_single_stock_weight": 0.10,
+    "max_single_etf_weight": 0.20,
+    "cash_etf_target_weight": 0.35,
+    "cash_etf_max_volatility": 0.03,
+    "max_total_equity_weight": 0.60
+  },
+  "costs": {
+    "commission_rate": 0.0003,
+    "minimum_commission_cny": 5.0,
+    "stock_sell_stamp_rate": 0.0005
+  },
+  "schedules": {
+    "short_cycle": "weekdays_after_close",
+    "long_cycle": "weekly",
+    "high_frequency": {
+      "enabled": false,
+      "activation_requires": [
+        "licensed_point_in_time_data",
+        "slippage_and_fill_model",
+        "walk_forward_backtest",
+        "out_of_sample_pass",
+        "explicit_user_confirmation"
+      ]
+    }
+  }
+}
