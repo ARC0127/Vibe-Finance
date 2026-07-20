@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "checked_at": "2026-07-20T18:41:02.126799+08:00",
+  "status": "ACTIVE",
+  "last_success_at": "2026-07-20T08:38:17.129208+00:00",
+  "heartbeat_age_hours": 2.046,
+  "heartbeat_threshold_hours": 36.0,
+  "last_run": {
+    "run_id": "296f6ec61ce84147bcb4287b55123291",
+    "run_date": "2026-07-20",
+    "mode": "short"
+  },
+  "checks": {
+    "status_command": "PASS",
+    "heartbeat": "PASS",
+    "latest_required_workday_short_report": {
+      "status": "PASS",
+      "path": "reports/daily/2026-07-20-short.json",
+      "as_of": "2026-07-20T16:31:56+08:00"
+    },
+    "latest_long_report": {
+      "status": "PASS",
+      "path": "reports/daily/2026-07-19-long.json",
+      "age_days": 1,
+      "threshold_days": 8
+    },
+    "ledger_parseability": "PASS",
+    "ledger_report_input_consistency": "PASS",
+    "deepseek_budget_consistency": "PASS"
+  },
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "alerts": []
+}
