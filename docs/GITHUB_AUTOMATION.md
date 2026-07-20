@@ -4,20 +4,22 @@
 
 - 远端：`origin` 已配置为 `ARC0127/Vibe-Finance`。
 - 本地 Git 作者信息：已配置。
-- GitHub CLI：`MISSING`。
-- HTTPS 凭据：`MISSING_OR_UNAVAILABLE`；只读 `git ls-remote origin HEAD` 无法认证。
-- 自动推送：`BLOCKED_NOT_ENABLED`。在认证和私有仓库状态核验完成前，8 个定时任务只写本地不可变产物。
+- GitHub CLI：2.96.0，安装在 `/home/arc/.local/bin/gh`，官方 SHA-256 校验通过。
+- 认证账户：`ARC0127`；配置文件权限为 0600，Git HTTPS 凭据助手已由 `gh auth setup-git` 配置。
+- 远端核验：仓库为 `PRIVATE`，当前账户权限为 `ADMIN`，非交互 `git ls-remote` 已通过。
+- 自动化分支：`codex/vibe-finance-automation`。项目定时只允许推送该分支，不直接改写 `main`。
+- Codex 全局能力：同一 WSL 用户运行的其他 Codex 项目可以使用 `gh` 和 GitHub 凭据，但不会自动获得 Vibe Finance 的推送策略。
 
 不得把 Personal Access Token、API key 或密码写入仓库、自动化 Prompt、脚本参数、报告或日志。优先使用 GitHub CLI 的系统凭据存储完成认证。
 
 ## 启用所需条件
 
-1. 安装 GitHub CLI，并在当前运行自动化的同一用户/环境中执行 `gh auth login`。
-2. `gh auth status` 成功，且账户对 `ARC0127/Vibe-Finance` 有 push 权限。
-3. 核验远端仓库为 private；本项目不应因自动化而变为公开仓库。
-4. `git ls-remote origin HEAD` 成功，确认定时任务的非交互环境也能读取凭据。
-5. 建立 `codex/vibe-finance-automation` 持久分支，并以 Draft PR 汇总到默认分支；不得让无人审查的任务直接改写 `main`。
-6. 为所有 Git 操作使用同一个互斥锁，避免 08:00、09:35、活动监测或人工运行并发提交。
+以下条件现已完成：安装并认证 GitHub CLI、确认 private/ADMIN、验证非交互 Git、建立自动化分支。所有运行仍必须：
+
+1. 只推送 `codex/vibe-finance-automation`，通过长期 Draft PR 汇总到默认分支；
+2. 使用同一个互斥锁，避免 08:00、09:35、活动监测或人工运行并发提交；
+3. 通过密钥扫描、JSON/JSONL 解析、`git diff --check` 和测试后才允许提交；
+4. 只暂存当前任务 allowlist 内的文件，禁止无条件 `git add -A`。
 
 ## 每个定时任务的提交合同
 
@@ -63,6 +65,14 @@ GitHub 是证据链，不是放宽策略门禁的理由。反思任务修改 `co
 7. 推送自动化分支，核验远端提交 SHA。
 8. 更新一个长期 Draft PR；不得为每次运行重复创建 PR。
 
+项目统一入口：
+
+```bash
+scripts/sync_github.sh <task-id> <status> [--dry-run]
+```
+
+脚本支持八个固定 task-id，使用 `$HOME/.cache/vibe-finance/github-sync.lock` 跨任务互斥，并在每次提交前生成 `reports/automation-runs/<task-id>/` 机器审计清单。
+
 ## 各任务的预期 GitHub 产物
 
 | 任务 | 主要产物 |
@@ -75,4 +85,3 @@ GitHub 是证据链，不是放宽策略门禁的理由。反思任务修改 `co
 | 周六反思进化 | `reports/evolution/`，以及通过门禁后的版本化策略 |
 | 周日长周期 | 周报、归因和来源质量汇总 |
 | 23:10 文档整理 | `reports/document-log/` 与 `docs/DOCUMENT_LOG_INDEX.md` |
-
