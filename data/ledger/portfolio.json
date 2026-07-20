@@ -2,7 +2,7 @@
   "cash_cny": 29900.0,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "dca782ee7cf14c4cbc81a2754866d464",
+  "last_run_id": "296f6ec61ce84147bcb4287b55123291",
   "pending_orders": [],
   "positions": {},
   "research_infrastructure": {
@@ -24,6 +24,12 @@
       "mode": "long",
       "run_date": "2026-07-19",
       "run_id": "dca782ee7cf14c4cbc81a2754866d464"
+    },
+    {
+      "input_sha256": "3c00253ec9002068f90f435e9400bab13cf524fd7bd14ddfbd8f0f837b04bc21",
+      "mode": "short",
+      "run_date": "2026-07-20",
+      "run_id": "296f6ec61ce84147bcb4287b55123291"
     }
   ],
   "schema_version": 1

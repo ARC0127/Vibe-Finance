@@ -20,7 +20,19 @@
 - [中国证券投资基金业协会](https://www.amac.org.cn/sjtj/tjbg/)：公募基金行业统计。
 - [中国人民银行](https://www.pbc.gov.cn/)、[国家统计局](https://www.stats.gov.cn/)、[财政部](https://www.mof.gov.cn/)、[国家外汇管理局](https://www.safe.gov.cn/)：宏观与政策原始材料。
 - [中证指数](https://www.csindex.com.cn/)、[国证指数](https://www.cnindex.com.cn/)、[中国债券信息网](https://indices.chinabond.com.cn/cbweb-mn/indices/single_index_query?locale=zh_CN)：指数方法、样本与债券指数。
-- 基金管理人：[华夏基金](https://www.chinaamc.com/)、[易方达基金](https://www.efunds.com.cn/)、[南方基金](https://www.nffund.com/)、[银华基金](https://www.yhfund.com.cn/)。
+- 基金管理人包括：[华夏基金](https://www.chinaamc.com/)、[易方达基金](https://www.efunds.com.cn/)、[南方基金](https://www.nffund.com/)、[银华基金](https://www.yhfund.com.cn/)、[华泰柏瑞基金](https://www.huatai-pb.com/)、[博时基金](https://www.bosera.com/)、[招商基金](https://www.cmfchina.com/)等；完整清单见 `config/sources.json`。
+
+## 天天基金的专门地位
+
+[天天基金](https://fund.eastmoney.com/)是基金研究的重要 C 级渠道。每只基金优先从其[数据中心](https://fund.eastmoney.com/data/)、[排行](https://fund.eastmoney.com/data/fundranking.html)、[筛选](https://fund.eastmoney.com/data/fundguide.aspx)和单基金页面发现净值、申赎、费率、规模、经理、持仓、分红和公告。
+
+天天基金页面自身说明数据来自东方财富 Choice、需要核实且过往业绩不预示未来。因此：
+
+- 机器门禁要求基金出现 `eastmoney` 交叉验证，同时至少有基金公司或交易所原始来源；
+- 排行只用于发现，不能单独触发 BUY；
+- 净值更新时间、同类口径和份额类别必须一致；
+- 基金持仓按披露日处理，不能当作实时数据；
+- 完整规则见 `docs/TIANTIAN_FUND.md`。
 
 ## 国际与专家渠道
 
@@ -41,4 +53,4 @@
 
 ## 当前采集边界
 
-本环境测试公共聚合行情端点时遇到 TLS/访问限制，因此 v0.1 不依赖未文档化抓取接口。定时任务通过 Web 检索与官方页面生成带来源的点时 JSON；系统随后离线校验和决策。未来只有在确认许可、稳定性和时间点语义后，才接入自动数据适配器。
+初始 v0.1 测试公共聚合行情端点时曾遇到 TLS/访问限制。2026-07-20 午间虽可从两个 C 级端点取得一致行情，但其许可状态仍为 `UNKNOWN`，相关快照只用于研究、没有订单资格。当前仍不依赖未文档化接口自动成交：定时任务以 A 级原始来源为主，通过 Web 检索生成带来源的点时 JSON，再由本地流水线离线校验和决策。只有许可、稳定性和时间点语义都明确后，才接入自动数据适配器。

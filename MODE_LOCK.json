@@ -1,6 +1,7 @@
 {
-  "version": "v1.3.2-vibe-finance-1",
+  "version": "v1.3.2-vibe-finance-2",
   "generated_at": "2026-07-19T00:00:00+08:00",
+  "last_reconciled_at": "2026-07-20T16:31:00+08:00",
   "activated_at": "2026-07-19",
   "project": "Vibe Finance",
   "language": "zh",
@@ -35,13 +36,21 @@
   "portfolio": {
     "currency": "CNY",
     "initial_capital": 30000.0,
+    "research_infrastructure_budget_cny": 100.0,
+    "initial_investable_cash_cny": 29900.0,
     "first_decision_max_new_risk_assets": 30000.0,
     "allocation_discretion": "0_to_30000_CNY_subject_to_data_and_risk_gates",
     "forced_full_investment": false
   },
   "scheduling": {
-    "short_cycle": "enabled_after_market_close_on_trading_days",
-    "long_cycle": "enabled_weekly",
+    "activity_monitor": "every_6_hours",
+    "pre_open_review": "weekdays_08:00_Asia_Shanghai",
+    "open_settlement": "weekdays_09:35_Asia_Shanghai",
+    "short_cycle": "weekdays_16:30_Asia_Shanghai",
+    "fund_nav_cycle": "weekdays_22:30_Asia_Shanghai",
+    "reflection_evolution_cycle": "saturday_20:30_Asia_Shanghai",
+    "long_cycle": "sunday_20:00_Asia_Shanghai",
+    "document_log_cycle": "daily_23:10_Asia_Shanghai",
     "high_frequency": "disabled_until_quantitative_gates_pass"
   },
   "data_policy": {
@@ -52,10 +61,16 @@
     "immutable_history": true
   },
   "evolution_policy": {
+    "minimum_completed_virtual_trades_for_parameter_upgrade": 20,
     "walk_forward_or_out_of_sample_required": true,
     "version_all_strategy_changes": true,
     "single_day_rule_changes": "forbid",
     "rollback_required": true
+  },
+  "execution_policy": {
+    "stocks_and_listed_funds": "next_trading_day_double_sourced_open",
+    "open_end_funds": "pending_next_nav_confirmed_after_signal_date",
+    "real_trading": "forbid"
   },
   "first_delivery": [
     "expanded_master_prompt",

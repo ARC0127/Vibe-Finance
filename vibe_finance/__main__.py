@@ -6,13 +6,17 @@ from pathlib import Path
 
 from .pipeline import (
     DEFAULT_LEDGER,
+    DEFAULT_EXECUTION_REPORT_DIR,
+    DEFAULT_FUND_REPORT_DIR,
     DEFAULT_ORDERS_LOG,
     DEFAULT_REPORT_DIR,
     DEFAULT_STRATEGY,
     initialize_ledger,
     project_status,
     record_api_cost,
+    run_fund_nav_pipeline,
     run_pipeline,
+    settle_open_orders,
     validate_snapshot_file,
 )
 
@@ -38,6 +42,20 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--report-dir", type=Path, default=DEFAULT_REPORT_DIR)
     run.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
     run.add_argument("--mode", choices=("short", "long"), default="short")
+
+    settle = sub.add_parser("settle-open", help="只结算上一收盘生成的开盘虚拟订单")
+    settle.add_argument("--input", type=Path, required=True)
+    settle.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    settle.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
+    settle.add_argument("--report-dir", type=Path, default=DEFAULT_EXECUTION_REPORT_DIR)
+    settle.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
+
+    funds = sub.add_parser("run-funds", help="按下一开放日确认净值处理场外基金")
+    funds.add_argument("--input", type=Path, required=True)
+    funds.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    funds.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
+    funds.add_argument("--report-dir", type=Path, default=DEFAULT_FUND_REPORT_DIR)
+    funds.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
 
     status = sub.add_parser("status", help="只读检查心跳、报告和 API 预算")
     status.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
@@ -69,6 +87,22 @@ def main() -> None:
             report_dir=args.report_dir,
             orders_log=args.orders_log,
             mode=args.mode,
+        )
+    elif args.command == "settle-open":
+        result = settle_open_orders(
+            input_path=args.input,
+            ledger_path=args.ledger,
+            strategy_path=args.strategy,
+            report_dir=args.report_dir,
+            orders_log=args.orders_log,
+        )
+    elif args.command == "run-funds":
+        result = run_fund_nav_pipeline(
+            input_path=args.input,
+            ledger_path=args.ledger,
+            strategy_path=args.strategy,
+            report_dir=args.report_dir,
+            orders_log=args.orders_log,
         )
     elif args.command == "status":
         result = project_status(

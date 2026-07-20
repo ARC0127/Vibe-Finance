@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "task": "local_document_log_organization",
+  "snapshot_at": "2026-07-20T16:35:27+08:00",
+  "finalized_at": "2026-07-20T16:38:17+08:00",
+  "headroom_mode": "local_first_incremental",
+  "scope_excludes_generated_report_and_index": true,
+  "post_snapshot_changes": [
+    "docs/DOCUMENT_LOG_INDEX.md created",
+    "reports/document-log/2026-07-20-1635.md created",
+    "reports/document-log/2026-07-20-1635.json created",
+    "README.md linked the new document index",
+    "16:30 short-cycle automation created data/inbox/2026-07-20.json",
+    "16:30 short-cycle automation created reports/daily/2026-07-20-short.md and .json",
+    "16:30 short-cycle automation updated portfolio.json and heartbeat.json"
+  ],
+  "summary": {
+    "files": 25,
+    "bytes": 97437,
+    "categories": {
+      "canonical_document": 10,
+      "machine_configuration": 4,
+      "research_input": 2,
+      "ledger_or_audit_log": 3,
+      "decision_report": 4,
+      "research_report": 2
+    },
+    "parse_failures": 0,
+    "local_links": 16,
+    "broken_local_links": 0,
+    "duplicate_groups": 0,
+    "report_run_ids": 2,
+    "unmatched_report_run_ids": 0,
+    "secret_pattern_matches": 0
+  },
+  "github_sync": {
+    "origin_configured": true,
+    "repository": "ARC0127/Vibe-Finance",
+    "gh_cli_available": false,
+    "noninteractive_remote_auth_available": false,
+    "status": "BLOCKED_NOT_ENABLED"
+  },
+  "findings": [
+    {
+      "severity": "INFO",
+      "code": "ORDERS_LOG_NOT_CREATED",
+      "detail": "No virtual orders exist, so data/ledger/orders.jsonl is not expected yet."
+    },
+    {
+      "severity": "INFO",
+      "code": "HISTORICAL_REPORT_SCOPE",
+      "detail": "Earlier three-ETF and seven-test statements are preserved as point-in-time history, not treated as current canonical policy."
+    },
+    {
+      "severity": "ACTION_REQUIRED",
+      "code": "GITHUB_AUTH_MISSING",
+      "detail": "Install and authenticate GitHub CLI, verify private visibility and push permission before enabling recurring sync."
+    }
+  ],
+  "manifest": [
+    {"path":"MASTER_PROMPT.md","category":"canonical_document","bytes":7873,"mtime_cst":"2026-07-20T16:15:29+08:00","sha256":"b19768eab933f1ecf1508fbc7d3afada1e5151fe12eaff37404e9eacb061faaf","parse_status":"PASS"},
+    {"path":"MODE_LOCK.json","category":"machine_configuration","bytes":2818,"mtime_cst":"2026-07-20T16:32:53+08:00","sha256":"56ca9b49830c31962fdec69672c612e6f96a505c86e99828a1317ab58d24c64d","parse_status":"PASS"},
+    {"path":"MODE_LOCK.md","category":"canonical_document","bytes":7471,"mtime_cst":"2026-07-20T16:32:53+08:00","sha256":"48f3a3744c72e476b3918f230e7b81e9c44e9b87eb210b0f99458e8ff8d99dc2","parse_status":"PASS"},
+    {"path":"README.md","category":"canonical_document","bytes":6259,"mtime_cst":"2026-07-20T16:34:54+08:00","sha256":"c255d112b79f276b3a984240f7f7adb3724b57a05a24e8a4ec7626dddf0aa971","parse_status":"PASS"},
+    {"path":"config/sources.json","category":"machine_configuration","bytes":5647,"mtime_cst":"2026-07-20T16:00:05+08:00","sha256":"a82bbe176be533f889fcd2807626ce6d17078543515660cf023efbb00d45f073","parse_status":"PASS"},
+    {"path":"config/strategy.json","category":"machine_configuration","bytes":2753,"mtime_cst":"2026-07-20T16:23:15+08:00","sha256":"5e438e2f5e4181c348cb21a49a55e8ad7c5ffd5f42f317eb2734e0cf9f560357","parse_status":"PASS"},
+    {"path":"config/universe.json","category":"machine_configuration","bytes":8450,"mtime_cst":"2026-07-20T16:09:20+08:00","sha256":"23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7","parse_status":"PASS"},
+    {"path":"data/inbox/2026-07-19.json","category":"research_input","bytes":3720,"mtime_cst":"2026-07-20T00:10:06+08:00","sha256":"2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26","parse_status":"PASS"},
+    {"path":"data/ledger/api_costs.jsonl","category":"ledger_or_audit_log","bytes":236,"mtime_cst":"2026-07-20T00:10:57+08:00","sha256":"80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884","parse_status":"PASS"},
+    {"path":"data/ledger/heartbeat.json","category":"ledger_or_audit_log","bytes":262,"mtime_cst":"2026-07-20T00:20:51+08:00","sha256":"497e1072ba13cf3d169697e79a7cb036c4da0fbb222bd439c820f09aa5ae55bc","parse_status":"PASS"},
+    {"path":"data/ledger/portfolio.json","category":"ledger_or_audit_log","bytes":864,"mtime_cst":"2026-07-20T00:20:51+08:00","sha256":"48d7b4db9078ebf001fbac90c3f64e7620221f2d90bd91af38693143f765b1cd","parse_status":"PASS"},
+    {"path":"data/research/2026-07-20-midday.json","category":"research_input","bytes":2639,"mtime_cst":"2026-07-20T12:25:53+08:00","sha256":"f30eae33458b1c47c4023efaec165cfe658387f4d2819fdec30c613a8f64f38d","parse_status":"PASS"},
+    {"path":"docs/AUTOMATION.md","category":"canonical_document","bytes":5253,"mtime_cst":"2026-07-20T16:23:15+08:00","sha256":"2ff31da87f69c36caa79e635b5b09179087eadcad879c7446984bfe48dcc32b5","parse_status":"PASS"},
+    {"path":"docs/DEEPSEEK_COSTS.md","category":"canonical_document","bytes":2185,"mtime_cst":"2026-07-20T00:37:59+08:00","sha256":"f8243e5539bd311f0d16b390890c7946ac655b4c9c39b8c223503382f9a9f488","parse_status":"PASS"},
+    {"path":"docs/GITHUB_AUTOMATION.md","category":"canonical_document","bytes":4058,"mtime_cst":"2026-07-20T16:34:54+08:00","sha256":"d8158d3c6e07b2025e62fa046736393dd73c619d206fbde1fc5116f33bd5fb2c","parse_status":"PASS"},
+    {"path":"docs/REFERENCE_PROJECTS.md","category":"canonical_document","bytes":2701,"mtime_cst":"2026-07-20T00:31:41+08:00","sha256":"2735d3af9b120c41d4841e60cd250b3801e7960c4a70adea32e0ed62285393de","parse_status":"PASS"},
+    {"path":"docs/SOURCES.md","category":"canonical_document","bytes":5229,"mtime_cst":"2026-07-20T16:32:53+08:00","sha256":"97210da0be1ce29d4b5ced4f82109c21af4352990f19a56ee4f174dec1ebc1b6","parse_status":"PASS"},
+    {"path":"docs/STOCK_FUND_STRATEGY.md","category":"canonical_document","bytes":3900,"mtime_cst":"2026-07-20T16:15:29+08:00","sha256":"846fa3ea82830a4955c7e8a61d766967a8d36ead89b13f25155bdc6eda3885a6","parse_status":"PASS"},
+    {"path":"docs/TIANTIAN_FUND.md","category":"canonical_document","bytes":4105,"mtime_cst":"2026-07-20T16:15:29+08:00","sha256":"461f0cab93d4ed82870cb38725078cbc79f3ef7c0445ecc4322fb4a46ca07644","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-long.json","category":"decision_report","bytes":1360,"mtime_cst":"2026-07-20T00:20:51+08:00","sha256":"3361359842216f46085cdd8ac4fb890957fcbec35fa6793bcf4314bd7096590c","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-long.md","category":"decision_report","bytes":2225,"mtime_cst":"2026-07-20T00:20:51+08:00","sha256":"7840deffc167c256a0092c033f99a58cd86c65f3c13d87856cd5b32b0fe8f8af","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-short.json","category":"decision_report","bytes":1361,"mtime_cst":"2026-07-20T00:11:28+08:00","sha256":"de4e58ab2b86d1e509ea5b5e46b1177be8c4fd2ef5b35dc9628137daea216793","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-short.md","category":"decision_report","bytes":2225,"mtime_cst":"2026-07-20T00:11:28+08:00","sha256":"dfdbaa71d62b1c69ada9773b3be28dc974a11921bd1e3220d001525347f0d0a7","parse_status":"PASS"},
+    {"path":"reports/research/2026-07-19-analysis.md","category":"research_report","bytes":6118,"mtime_cst":"2026-07-20T00:32:54+08:00","sha256":"5f0c3d65a001a7f8f0e4dc2da6ed3ffb27112bc4c0b0e4c2fb18e73b9579a9ab","parse_status":"PASS"},
+    {"path":"reports/research/2026-07-20-preopen.md","category":"research_report","bytes":7725,"mtime_cst":"2026-07-20T12:25:53+08:00","sha256":"eb5b90d6a1e72f4d6c843191bc06ce511f0ded2b7e8fcb928c6090a50b027726","parse_status":"PASS"}
+  ]
+}

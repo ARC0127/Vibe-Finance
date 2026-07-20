@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "version": "0.2.0",
+  "as_of": "2026-07-20",
+  "purpose": "Research broadly, hold selectively. The research universe is not a buy list.",
+  "portfolio_policy": {
+    "research_instruments": 20,
+    "maximum_live_positions": 6,
+    "target_live_positions_when_fully_deployed": "4-6",
+    "maximum_positions_per_exposure_group": 1,
+    "reason": "A CNY 30,000 portfolio is harmed by excessive 100-share lots and minimum commissions; diversification is enforced by risk buckets rather than by holding every candidate."
+  },
+  "listed_funds": [
+    {"symbol": "510050", "name": "华夏上证50ETF", "asset_type": "equity_etf", "risk_bucket": "core_equity", "exposure_group": "large_cap_value", "role": "core", "primary_source_ids": ["sse_etf", "chinaamc"], "tiantian_url": "https://fund.eastmoney.com/510050.html", "order_engine": "next_open"},
+    {"symbol": "510300", "name": "华泰柏瑞沪深300ETF", "asset_type": "equity_etf", "risk_bucket": "core_equity", "exposure_group": "csi300", "role": "core", "primary_source_ids": ["sse_etf", "huatai_pinebridge"], "tiantian_url": "https://fund.eastmoney.com/510300.html", "order_engine": "next_open"},
+    {"symbol": "510500", "name": "南方中证500ETF", "asset_type": "equity_etf", "risk_bucket": "small_growth_equity", "exposure_group": "csi500", "role": "satellite", "primary_source_ids": ["sse_etf", "china_southern"], "tiantian_url": "https://fund.eastmoney.com/510500.html", "order_engine": "next_open"},
+    {"symbol": "512100", "name": "南方中证1000ETF", "asset_type": "equity_etf", "risk_bucket": "small_growth_equity", "exposure_group": "csi1000", "role": "satellite", "primary_source_ids": ["sse_etf", "china_southern"], "tiantian_url": "https://fund.eastmoney.com/512100.html", "order_engine": "next_open"},
+    {"symbol": "159915", "name": "易方达创业板ETF", "asset_type": "equity_etf", "risk_bucket": "small_growth_equity", "exposure_group": "chinext", "role": "satellite", "primary_source_ids": ["szse", "efunds"], "tiantian_url": "https://fund.eastmoney.com/159915.html", "order_engine": "next_open"},
+    {"symbol": "588000", "name": "华夏上证科创板50成份ETF", "asset_type": "equity_etf", "risk_bucket": "industry_equity", "exposure_group": "star50", "role": "satellite", "primary_source_ids": ["sse_etf", "chinaamc"], "tiantian_url": "https://fund.eastmoney.com/588000.html", "order_engine": "next_open"},
+    {"symbol": "510880", "name": "华泰柏瑞上证红利ETF", "asset_type": "equity_etf", "risk_bucket": "dividend_equity", "exposure_group": "dividend", "role": "defensive_equity", "primary_source_ids": ["sse_etf", "huatai_pinebridge"], "tiantian_url": "https://fund.eastmoney.com/510880.html", "order_engine": "next_open"},
+    {"symbol": "512480", "name": "国联安半导体ETF", "asset_type": "equity_etf", "risk_bucket": "industry_equity", "exposure_group": "semiconductor", "role": "high_volatility_satellite", "primary_source_ids": ["sse_etf", "fund_glac"], "tiantian_url": "https://fund.eastmoney.com/512480.html", "order_engine": "next_open"},
+    {"symbol": "512170", "name": "华宝中证医疗ETF", "asset_type": "equity_etf", "risk_bucket": "industry_equity", "exposure_group": "healthcare", "role": "satellite", "primary_source_ids": ["sse_etf", "chinaamc_huabo"], "tiantian_url": "https://fund.eastmoney.com/512170.html", "order_engine": "next_open"},
+    {"symbol": "159928", "name": "汇添富中证主要消费ETF", "asset_type": "equity_etf", "risk_bucket": "industry_equity", "exposure_group": "consumer", "role": "satellite", "primary_source_ids": ["szse", "china_universal"], "tiantian_url": "https://fund.eastmoney.com/159928.html", "order_engine": "next_open"},
+    {"symbol": "518880", "name": "华安黄金易ETF", "asset_type": "gold_etf", "risk_bucket": "gold", "exposure_group": "gold", "role": "diversifier", "primary_source_ids": ["sse_etf", "huaan"], "tiantian_url": "https://fund.eastmoney.com/518880.html", "order_engine": "next_open"},
+    {"symbol": "511010", "name": "国泰上证5年期国债ETF", "asset_type": "bond_etf", "risk_bucket": "fixed_income", "exposure_group": "government_bond_5y", "role": "defensive", "primary_source_ids": ["sse_etf", "guotai_fund"], "tiantian_url": "https://fund.eastmoney.com/511010.html", "order_engine": "next_open"},
+    {"symbol": "511880", "name": "银华日利ETF", "asset_type": "cash_etf", "risk_bucket": "cash_management", "exposure_group": "cash_management", "role": "liquidity", "primary_source_ids": ["sse_etf", "yinhua"], "tiantian_url": "https://fund.eastmoney.com/511880.html", "order_engine": "next_open"}
+  ],
+  "open_end_funds": [
+    {"symbol": "000051", "name": "华夏沪深300ETF联接A", "asset_type": "open_end_index_fund", "risk_bucket": "core_equity", "exposure_group": "csi300", "role": "off_exchange_peer", "primary_source_ids": ["chinaamc"], "tiantian_url": "https://fund.eastmoney.com/000051.html", "order_engine": "next_confirmed_nav"},
+    {"symbol": "110020", "name": "易方达沪深300ETF联接A", "asset_type": "open_end_index_fund", "risk_bucket": "core_equity", "exposure_group": "csi300", "role": "peer_comparison_only", "primary_source_ids": ["efunds"], "tiantian_url": "https://fund.eastmoney.com/110020.html", "order_engine": "next_confirmed_nav"},
+    {"symbol": "001052", "name": "华夏中证500ETF联接A", "asset_type": "open_end_index_fund", "risk_bucket": "small_growth_equity", "exposure_group": "csi500", "role": "off_exchange_peer", "primary_source_ids": ["chinaamc"], "tiantian_url": "https://fund.eastmoney.com/001052.html", "order_engine": "next_confirmed_nav"},
+    {"symbol": "012644", "name": "招商中证红利ETF联接C", "asset_type": "open_end_index_fund", "risk_bucket": "dividend_equity", "exposure_group": "dividend", "role": "off_exchange_peer", "primary_source_ids": ["china_merchants_fund"], "tiantian_url": "https://fund.eastmoney.com/012644.html", "order_engine": "next_confirmed_nav"},
+    {"symbol": "002610", "name": "博时黄金ETF联接A", "asset_type": "open_end_gold_fund", "risk_bucket": "gold", "exposure_group": "gold", "role": "off_exchange_diversifier", "primary_source_ids": ["bosera"], "tiantian_url": "https://fund.eastmoney.com/002610.html", "order_engine": "next_confirmed_nav"},
+    {"symbol": "110037", "name": "易方达纯债债券A", "asset_type": "open_end_bond_fund", "risk_bucket": "fixed_income", "exposure_group": "long_duration_bond", "role": "off_exchange_defensive", "primary_source_ids": ["efunds"], "tiantian_url": "https://fund.eastmoney.com/110037.html", "order_engine": "next_confirmed_nav"},
+    {"symbol": "000198", "name": "天弘余额宝货币", "asset_type": "money_market_fund", "risk_bucket": "cash_management", "exposure_group": "cash_management", "role": "off_exchange_liquidity_peer", "primary_source_ids": ["tianhong"], "tiantian_url": "https://fund.eastmoney.com/000198.html", "order_engine": "next_confirmed_nav"}
+  ],
+  "stock_screen": {
+    "source_universe": ["CSI300", "CSI500"],
+    "target_research_shortlist": 30,
+    "maximum_live_stock_positions": 2,
+    "required_filters": [
+      "not_st_or_delisting_risk",
+      "not_suspended",
+      "listed_at_least_250_trading_days",
+      "positive_trailing_twelve_month_operating_cash_flow",
+      "positive_trailing_twelve_month_net_profit",
+      "financial_statement_not_older_than_180_days",
+      "minimum_20_day_median_turnover_cny_100m",
+      "two_source_adjusted_price_history",
+      "corporate_actions_processed"
+    ],
+    "ranking_dimensions": ["quality", "valuation", "momentum", "low_volatility", "liquidity"],
+    "note": "No individual stock is order-eligible until the dynamic screen has point-in-time financial and market data."
+  },
+  "active_fund_screen": {
+    "target_research_shortlist": 10,
+    "order_engine": "next_confirmed_nav_after_all_active_fund_gates",
+    "required_filters": [
+      "tiantian_crosscheck_and_primary_disclosure",
+      "open_subscription_and_redemption",
+      "aum_at_least_cny_100m",
+      "manager_tenure_at_least_365_days",
+      "holdings_disclosure_not_older_than_120_days",
+      "fees_and_share_class_compared",
+      "style_drift_not_material",
+      "no_duplicate_exposure_with_existing_positions"
+    ],
+    "ranking_dimensions": ["rolling_excess_return", "drawdown", "manager_consistency", "style_stability", "fees", "capacity"],
+    "forbidden_shortcut": "Do not select from the recent-return leaderboard alone."
+  }
+}

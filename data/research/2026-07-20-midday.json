@@ -1,0 +1,100 @@
+{
+  "schema_version": "research_snapshot_v1",
+  "run_date": "2026-07-20",
+  "as_of": "2026-07-20T11:30:00+08:00",
+  "market_state": "lunch_break",
+  "simulation_only": true,
+  "order_eligible": false,
+  "order_block_reason": "INTRADAY_RESEARCH_ONLY",
+  "indices": [
+    {
+      "symbol": "000001",
+      "name": "上证指数",
+      "previous_close": 3764.1547,
+      "open": 3791.6616,
+      "high": 3831.6593,
+      "low": 3780.0197,
+      "last": 3808.3888,
+      "change_pct": 1.1751,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "399001",
+      "name": "深证成指",
+      "previous_close": 13706.884,
+      "open": 13869.056,
+      "high": 13972.992,
+      "low": 13574.089,
+      "last": 13735.814,
+      "change_pct": 0.2111,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "399006",
+      "name": "创业板指",
+      "previous_close": 3428.63,
+      "open": 3504.116,
+      "high": 3550.594,
+      "low": 3414.874,
+      "last": 3467.323,
+      "change_pct": 1.1285,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    }
+  ],
+  "assets": [
+    {
+      "symbol": "510050",
+      "name": "上证50ETF华夏",
+      "previous_close": 2.931,
+      "open": 2.956,
+      "high": 3.01,
+      "low": 2.956,
+      "last": 3.003,
+      "change_pct": 2.4565,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "510500",
+      "name": "中证500ETF南方",
+      "previous_close": 7.505,
+      "open": 7.614,
+      "high": 7.64,
+      "low": 7.418,
+      "last": 7.496,
+      "change_pct": -0.1199,
+      "corporate_action_gate": "UNADJUSTED_CORPORATE_ACTION",
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "511880",
+      "name": "银华日利ETF",
+      "previous_close": 100.639,
+      "open": 100.628,
+      "high": 100.63,
+      "low": 100.622,
+      "last": 100.626,
+      "change_pct": -0.0129,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    }
+  ],
+  "evidence": [
+    {
+      "source_id": "tencent_finance",
+      "url": "https://qt.gtimg.cn/q=sh000001,sz399001,sz399006,sh510050,sh510500,sh511880",
+      "tier": "C",
+      "license_status": "UNKNOWN"
+    },
+    {
+      "source_id": "sina_finance",
+      "url": "https://hq.sinajs.cn/list=sh000001,sz399001,sz399006,sh510050,sh510500,sh511880",
+      "tier": "C",
+      "license_status": "UNKNOWN"
+    },
+    {
+      "source_id": "chinamoney",
+      "url": "https://www.chinamoney.com.cn/chinese/rdgz/20260720/3379021.html",
+      "tier": "A",
+      "fact": "2026-07-20 LPR: 1Y 3.0%, 5Y+ 3.5%"
+    }
+  ]
+}
