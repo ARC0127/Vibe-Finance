@@ -8,6 +8,7 @@
 - 认证账户：`ARC0127`；配置文件权限为 0600，Git HTTPS 凭据助手已由 `gh auth setup-git` 配置。
 - 远端核验：仓库为 `PRIVATE`，当前账户权限为 `ADMIN`，非交互 `git ls-remote` 已通过。
 - 自动化分支：`codex/vibe-finance-automation`。项目定时只允许推送该分支，不直接改写 `main`。
+- 长期审查入口：[Draft PR #1](https://github.com/ARC0127/Vibe-Finance/pull/1)，所有定时提交持续追加到该 PR。
 - Codex 全局能力：同一 WSL 用户运行的其他 Codex 项目可以使用 `gh` 和 GitHub 凭据，但不会自动获得 Vibe Finance 的推送策略。
 
 不得把 Personal Access Token、API key 或密码写入仓库、自动化 Prompt、脚本参数、报告或日志。优先使用 GitHub CLI 的系统凭据存储完成认证。
