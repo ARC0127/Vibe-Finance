@@ -1,0 +1,113 @@
+<svg width="1200" height="500" viewBox="0 0 1200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111F"/>
+      <stop offset="0.55" stop-color="#0A1830"/>
+      <stop offset="1" stop-color="#10182B"/>
+    </linearGradient>
+    <linearGradient id="line" x1="628" y1="357" x2="1135" y2="144" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22C55E"/>
+      <stop offset="0.48" stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="fill" x1="868" y1="150" x2="868" y2="406" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2DD4BF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1004 82) rotate(142.5) scale(385 315)">
+      <stop stop-color="#2563EB" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="24" flood-color="#020617" flood-opacity="0.45"/>
+    </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#94A3B8" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="500" rx="28" fill="url(#bg)"/>
+  <rect width="1200" height="500" rx="28" fill="url(#glow)"/>
+  <rect x="1" y="1" width="1198" height="498" rx="27" stroke="#94A3B8" stroke-opacity="0.16" stroke-width="2"/>
+  <rect x="600" y="0" width="600" height="500" fill="url(#grid)"/>
+
+  <g opacity="0.8">
+    <circle cx="70" cy="62" r="4" fill="#22C55E"/>
+    <text x="85" y="68" fill="#86EFAC" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.4">AUTONOMOUS RESEARCH LAB</text>
+  </g>
+
+  <text x="68" y="170" fill="#F8FAFC" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="-2">VIBE</text>
+  <text x="68" y="244" fill="#F8FAFC" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="-2">FINANCE</text>
+
+  <text x="72" y="291" fill="#94A3B8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500">An auditable autonomous finance lab</text>
+  <text x="72" y="321" fill="#94A3B8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500">for China&#39;s A-shares and public funds.</text>
+
+  <g transform="translate(70 358)">
+    <rect width="159" height="38" rx="19" fill="#22C55E" fill-opacity="0.12" stroke="#22C55E" stroke-opacity="0.38"/>
+    <text x="18" y="25" fill="#86EFAC" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">CNY 30K VIRTUAL</text>
+  </g>
+  <g transform="translate(241 358)">
+    <rect width="132" height="38" rx="19" fill="#60A5FA" fill-opacity="0.12" stroke="#60A5FA" stroke-opacity="0.38"/>
+    <text x="18" y="25" fill="#93C5FD" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">POINT-IN-TIME</text>
+  </g>
+  <g transform="translate(385 358)">
+    <rect width="139" height="38" rx="19" fill="#A78BFA" fill-opacity="0.12" stroke="#A78BFA" stroke-opacity="0.38"/>
+    <text x="18" y="25" fill="#C4B5FD" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">AUDIT-FIRST</text>
+  </g>
+
+  <text x="71" y="447" fill="#64748B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="1.1">EVIDENCE &gt; EXCITEMENT</text>
+  <line x1="286" y1="442" x2="514" y2="442" stroke="#334155"/>
+
+  <g filter="url(#shadow)">
+    <rect x="618" y="70" width="514" height="354" rx="22" fill="#0B172A" fill-opacity="0.86" stroke="#64748B" stroke-opacity="0.2"/>
+  </g>
+
+  <circle cx="648" cy="101" r="5" fill="#F87171"/>
+  <circle cx="667" cy="101" r="5" fill="#FBBF24"/>
+  <circle cx="686" cy="101" r="5" fill="#4ADE80"/>
+  <text x="720" y="106" fill="#64748B" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12" letter-spacing="1.2">DECISION_LOOP.LOG</text>
+
+  <g opacity="0.68">
+    <line x1="650" y1="153" x2="1102" y2="153" stroke="#475569" stroke-opacity="0.55"/>
+    <line x1="650" y1="210" x2="1102" y2="210" stroke="#475569" stroke-opacity="0.55"/>
+    <line x1="650" y1="267" x2="1102" y2="267" stroke="#475569" stroke-opacity="0.55"/>
+    <line x1="650" y1="324" x2="1102" y2="324" stroke="#475569" stroke-opacity="0.55"/>
+    <line x1="650" y1="381" x2="1102" y2="381" stroke="#475569" stroke-opacity="0.55"/>
+    <line x1="650" y1="153" x2="650" y2="381" stroke="#475569" stroke-opacity="0.3"/>
+    <line x1="763" y1="153" x2="763" y2="381" stroke="#475569" stroke-opacity="0.3"/>
+    <line x1="876" y1="153" x2="876" y2="381" stroke="#475569" stroke-opacity="0.3"/>
+    <line x1="989" y1="153" x2="989" y2="381" stroke="#475569" stroke-opacity="0.3"/>
+    <line x1="1102" y1="153" x2="1102" y2="381" stroke="#475569" stroke-opacity="0.3"/>
+  </g>
+
+  <path d="M651 344 C697 337 716 310 757 315 C798 320 815 285 850 291 C891 298 904 244 944 252 C983 260 998 206 1034 213 C1062 219 1080 178 1102 171 L1102 382 L651 382 Z" fill="url(#fill)"/>
+  <path d="M651 344 C697 337 716 310 757 315 C798 320 815 285 850 291 C891 298 904 244 944 252 C983 260 998 206 1034 213 C1062 219 1080 178 1102 171" stroke="url(#line)" stroke-width="5" stroke-linecap="round"/>
+
+  <g>
+    <circle cx="651" cy="344" r="6" fill="#22C55E"/>
+    <circle cx="757" cy="315" r="6" fill="#2DD4BF"/>
+    <circle cx="850" cy="291" r="6" fill="#2DD4BF"/>
+    <circle cx="944" cy="252" r="6" fill="#38BDF8"/>
+    <circle cx="1034" cy="213" r="6" fill="#60A5FA"/>
+    <circle cx="1102" cy="171" r="8" fill="#93C5FD"/>
+    <circle cx="1102" cy="171" r="20" fill="#60A5FA" fill-opacity="0.18" filter="url(#soft)"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" font-weight="700">
+    <rect x="654" y="132" width="78" height="24" rx="12" fill="#172554" stroke="#3B82F6" stroke-opacity="0.4"/>
+    <text x="669" y="148" fill="#93C5FD">SOURCE</text>
+    <rect x="744" y="132" width="91" height="24" rx="12" fill="#134E4A" stroke="#14B8A6" stroke-opacity="0.4"/>
+    <text x="759" y="148" fill="#5EEAD4">SNAPSHOT</text>
+    <rect x="847" y="132" width="66" height="24" rx="12" fill="#14532D" stroke="#22C55E" stroke-opacity="0.4"/>
+    <text x="863" y="148" fill="#86EFAC">GATE</text>
+    <rect x="925" y="132" width="68" height="24" rx="12" fill="#3B0764" stroke="#A855F7" stroke-opacity="0.4"/>
+    <text x="941" y="148" fill="#D8B4FE">ORDER</text>
+    <rect x="1005" y="132" width="96" height="24" rx="12" fill="#3F1D0B" stroke="#F59E0B" stroke-opacity="0.4"/>
+    <text x="1020" y="148" fill="#FCD34D">EVOLVE</text>
+  </g>
+
+  <text x="660" y="405" fill="#64748B" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12">NO FUTURE DATA  ·  NO SILENT REWRITES  ·  NO REAL ORDERS</text>
+</svg>
