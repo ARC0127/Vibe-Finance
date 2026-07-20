@@ -7,17 +7,17 @@
 - GitHub CLI：2.96.0，安装在 `/home/arc/.local/bin/gh`，官方 SHA-256 校验通过。
 - 认证账户：`ARC0127`；配置文件权限为 0600，Git HTTPS 凭据助手已由 `gh auth setup-git` 配置。
 - 远端核验：仓库为 `PRIVATE`，当前账户权限为 `ADMIN`，非交互 `git ls-remote` 已通过。
-- 自动化分支：`codex/vibe-finance-automation`。项目定时只允许推送该分支，不直接改写 `main`。
-- 长期审查入口：[Draft PR #1](https://github.com/ARC0127/Vibe-Finance/pull/1)，所有定时提交持续追加到该 PR。
+- 同步分支：用户已明确授权由本项目独占维护仓库；8 个定时直接提交并推送 `main`。
+- 历史迁移：[Draft PR #1](https://github.com/ARC0127/Vibe-Finance/pull/1)只记录从自动化分支切换到直接维护 `main` 前的配置历史，迁移完成后关闭，不再追加定时提交。
 - Codex 全局能力：同一 WSL 用户运行的其他 Codex 项目可以使用 `gh` 和 GitHub 凭据，但不会自动获得 Vibe Finance 的推送策略。
 
 不得把 Personal Access Token、API key 或密码写入仓库、自动化 Prompt、脚本参数、报告或日志。优先使用 GitHub CLI 的系统凭据存储完成认证。
 
 ## 启用所需条件
 
-以下条件现已完成：安装并认证 GitHub CLI、确认 private/ADMIN、验证非交互 Git、建立自动化分支。所有运行仍必须：
+以下条件现已完成：安装并认证 GitHub CLI、确认 private/ADMIN、验证非交互 Git，以及用户对直接维护 `main` 的明确授权。所有运行仍必须：
 
-1. 只推送 `codex/vibe-finance-automation`，通过长期 Draft PR 汇总到默认分支；
+1. 只在本地 `main` 与 `origin/main` 完全一致时开始同步；发现远端漂移立即停止，不自动 rebase 或覆盖；
 2. 使用同一个互斥锁，避免 08:00、09:35、活动监测或人工运行并发提交；
 3. 通过密钥扫描、JSON/JSONL 解析、`git diff --check` 和测试后才允许提交；
 4. 只暂存当前任务 allowlist 内的文件，禁止无条件 `git add -A`。
@@ -58,13 +58,12 @@ GitHub 是证据链，不是放宽策略门禁的理由。反思任务修改 `co
 ## 安全同步顺序
 
 1. 获取跨任务互斥锁。
-2. 确认当前位于自动化分支，且没有不属于本次任务的工作区变化。
+2. 确认当前位于 `main`，本地 HEAD 与 `origin/main` 一致，且没有不属于本次任务的工作区变化。
 3. 执行密钥扫描、JSON/JSONL 校验和相关测试。
 4. 只暂存本次运行清单列出的 allowlist 文件，禁止无条件 `git add -A`。
 5. 创建带任务身份的提交。
-6. 先拉取并安全整合远端自动化分支；发生冲突立即停止并保留本地提交。
-7. 推送自动化分支，核验远端提交 SHA。
-8. 更新一个长期 Draft PR；不得为每次运行重复创建 PR。
+6. 创建带任务身份的本地提交并直接推送 `main`；服务器拒绝时保留本地提交，不强推。
+7. 核验 `origin/main` 与本地提交 SHA 一致。
 
 项目统一入口：
 
@@ -72,7 +71,7 @@ GitHub 是证据链，不是放宽策略门禁的理由。反思任务修改 `co
 scripts/sync_github.sh <task-id> <status> [--dry-run]
 ```
 
-脚本支持八个固定 task-id，使用 `$HOME/.cache/vibe-finance/github-sync.lock` 跨任务互斥，并在每次提交前生成 `reports/automation-runs/<task-id>/` 机器审计清单。
+脚本支持八个固定 task-id，使用 `$HOME/.cache/vibe-finance/github-sync.lock` 跨任务互斥，并在每次提交前生成 `reports/automation-runs/<task-id>/` 机器审计清单。脚本不允许 force push、自动 rebase、删除或从非 `main` 分支同步。
 
 ## 各任务的预期 GitHub 产物
 

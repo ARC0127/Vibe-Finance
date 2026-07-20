@@ -12,7 +12,7 @@ mode=${3:-}
 [[ -n "$task_id" && -n "$run_status" ]] || usage
 [[ -z "$mode" || "$mode" == "--dry-run" ]] || usage
 
-expected_branch=${VIBE_FINANCE_AUTOMATION_BRANCH:-codex/vibe-finance-automation}
+expected_branch=${VIBE_FINANCE_SYNC_BRANCH:-main}
 repo_root=$(git rev-parse --show-toplevel)
 cd "$repo_root"
 
@@ -63,6 +63,15 @@ gh auth status >/dev/null
 branch=$(git branch --show-current)
 if [[ "$branch" != "$expected_branch" ]]; then
   echo "refusing sync from branch '$branch'; expected '$expected_branch'" >&2
+  exit 4
+fi
+
+git fetch --quiet origin "$expected_branch"
+local_head=$(git rev-parse HEAD)
+remote_head=$(git rev-parse "origin/$expected_branch")
+if [[ "$local_head" != "$remote_head" ]]; then
+  echo "refusing sync because local $expected_branch ($local_head) differs from origin/$expected_branch ($remote_head)" >&2
+  echo "resolve with an explicit fast-forward or conflict review before retrying" >&2
   exit 4
 fi
 
