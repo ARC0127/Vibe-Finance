@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "task": "local_document_log_organization",
+  "snapshot_at": "2026-07-20T23:18:35+08:00",
+  "verified_unchanged_at": "2026-07-20T23:52:50+08:00",
+  "headroom_mode": "local_first_incremental",
+  "timezone": "Asia/Shanghai",
+  "scope": [
+    "README.md",
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "docs/",
+    "config/",
+    "reports/",
+    "data/research/",
+    "data/ledger/",
+    "orders.jsonl when present"
+  ],
+  "post_snapshot_changes": [
+    "reports/document-log/2026-07-20-2352.md created",
+    "reports/document-log/2026-07-20-2352.json created",
+    "docs/DOCUMENT_LOG_INDEX.md atomically updated",
+    "reports/automation-runs/document-log manifest will be created only by scripts/sync_github.sh"
+  ],
+  "summary": {
+    "files": 37,
+    "bytes": 150932,
+    "categories": {
+      "canonical_document": 11,
+      "configuration": 4,
+      "raw_research_data": 1,
+      "decision_report": 9,
+      "settlement_report": 2,
+      "evolution_report": 0,
+      "runtime_log": 10
+    },
+    "parse_failures": 0,
+    "markdown_local_links": 55,
+    "broken_local_links": 0,
+    "date_name_issues": 0,
+    "duplicate_groups": 0,
+    "report_run_ids": 4,
+    "unmatched_report_run_ids": 0,
+    "report_order_ids": 0,
+    "unmatched_report_order_ids": 0,
+    "pending_orders": 0,
+    "sensitive_filename_exclusions": 0
+  },
+  "incremental_baseline": {
+    "automation_memory_previous_completed_run": null,
+    "auxiliary_manifest": "reports/document-log/2026-07-20-1635.json",
+    "new_count": 13,
+    "modified_count": 4,
+    "unchanged_count": 20,
+    "out_of_current_scope_count": 1,
+    "new": [
+      "docs/DOCUMENT_LOG_INDEX.md",
+      "reports/automation-runs/activity-monitor/20260720T184225+0800.json",
+      "reports/automation-runs/document-log/20260720T165536+0800.json",
+      "reports/automation-runs/document-log/20260720T165610+0800.json",
+      "reports/automation-runs/document-log/20260720T170015+0800.json",
+      "reports/daily/2026-07-20-short.json",
+      "reports/daily/2026-07-20-short.md",
+      "reports/document-log/2026-07-20-1635.json",
+      "reports/document-log/2026-07-20-1635.md",
+      "reports/funds/2026-07-20-funds.json",
+      "reports/funds/2026-07-20-funds.md",
+      "reports/monitor/20260720T184102+0800.json",
+      "reports/research/2026-07-20-close-audit.md"
+    ],
+    "modified": [
+      "README.md",
+      "data/ledger/heartbeat.json",
+      "data/ledger/portfolio.json",
+      "docs/GITHUB_AUTOMATION.md"
+    ],
+    "out_of_current_scope": [
+      "data/inbox/2026-07-19.json"
+    ]
+  },
+  "same_day_multi_version_review": [
+    {
+      "date": "2026-07-20",
+      "paths": [
+        "reports/automation-runs/document-log/20260720T165536+0800.json",
+        "reports/automation-runs/document-log/20260720T165610+0800.json",
+        "reports/automation-runs/document-log/20260720T170015+0800.json"
+      ],
+      "assessment": "distinct immutable run timestamps; not duplicates"
+    },
+    {
+      "date": "2026-07-19",
+      "paths": [
+        "reports/daily/2026-07-19-short.md",
+        "reports/daily/2026-07-19-short.json",
+        "reports/daily/2026-07-19-long.md",
+        "reports/daily/2026-07-19-long.json"
+      ],
+      "assessment": "short and long modes with Markdown/JSON companion pairs"
+    },
+    {
+      "date": "2026-07-20",
+      "paths": [
+        "reports/research/2026-07-20-preopen.md",
+        "reports/research/2026-07-20-close-audit.md"
+      ],
+      "assessment": "distinct preopen and close audit phases"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "INFO",
+      "code": "ORDERS_LOG_NOT_CREATED",
+      "detail": "No report order references and no pending ledger orders; orders.jsonl is not expected yet."
+    },
+    {
+      "severity": "RESOLVED",
+      "code": "INDEX_GAPS",
+      "detail": "Added close-audit and fund-report entries and removed stale not-yet-produced notes for funds and monitor."
+    },
+    {
+      "severity": "INFO",
+      "code": "NO_ARCHIVE_CANDIDATE",
+      "detail": "No exact duplicates or evidence-supported archive candidates were found."
+    }
+  ],
+  "sensitive_file_policy": {
+    "rule": "exclude filenames matching env, secret, credential, password, token, cookie, browser, wallet, or private-key patterns",
+    "excluded_paths": [],
+    "scope_outside_requested_roots_not_inspected": true
+  },
+  "manifest": [
+    {"path":"MASTER_PROMPT.md","category":"canonical_document","file_type":"MD","bytes":7873,"mtime_cst":"2026-07-20T16:15:29+08:00","sha256":"b19768eab933f1ecf1508fbc7d3afada1e5151fe12eaff37404e9eacb061faaf","associated_date":null,"parse_status":"PASS"},
+    {"path":"MODE_LOCK.json","category":"configuration","file_type":"JSON","bytes":2818,"mtime_cst":"2026-07-20T16:32:53+08:00","sha256":"56ca9b49830c31962fdec69672c612e6f96a505c86e99828a1317ab58d24c64d","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"MODE_LOCK.md","category":"canonical_document","file_type":"MD","bytes":7471,"mtime_cst":"2026-07-20T16:32:53+08:00","sha256":"48f3a3744c72e476b3918f230e7b81e9c44e9b87eb210b0f99458e8ff8d99dc2","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"README.md","category":"canonical_document","file_type":"MD","bytes":16330,"mtime_cst":"2026-07-20T22:30:52+08:00","sha256":"8f0fc0f29d5f716c3a2e8240dc3ca21d62b503f1b92fcd9e7c17c93a48063319","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"config/sources.json","category":"configuration","file_type":"JSON","bytes":5647,"mtime_cst":"2026-07-20T16:00:05+08:00","sha256":"a82bbe176be533f889fcd2807626ce6d17078543515660cf023efbb00d45f073","associated_date":null,"parse_status":"PASS"},
+    {"path":"config/strategy.json","category":"configuration","file_type":"JSON","bytes":2753,"mtime_cst":"2026-07-20T16:23:15+08:00","sha256":"5e438e2f5e4181c348cb21a49a55e8ad7c5ffd5f42f317eb2734e0cf9f560357","associated_date":null,"parse_status":"PASS"},
+    {"path":"config/universe.json","category":"configuration","file_type":"JSON","bytes":8450,"mtime_cst":"2026-07-20T16:09:20+08:00","sha256":"23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"data/ledger/api_costs.jsonl","category":"runtime_log","file_type":"JSONL","bytes":236,"mtime_cst":"2026-07-20T00:10:57+08:00","sha256":"80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"data/ledger/heartbeat.json","category":"runtime_log","file_type":"JSON","bytes":266,"mtime_cst":"2026-07-20T22:44:25+08:00","sha256":"f61362cc5b4538764e0b9f1b93932a1c55e03ccce6120b353105d33ac2c1eaa5","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"data/ledger/portfolio.json","category":"runtime_log","file_type":"JSON","bytes":1285,"mtime_cst":"2026-07-20T22:44:25+08:00","sha256":"268d7ec8ba3512c6079898850e3750f789077fe5ab11f0a78915fb1d5bce91d8","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"data/research/2026-07-20-midday.json","category":"raw_research_data","file_type":"JSON","bytes":2639,"mtime_cst":"2026-07-20T12:25:53+08:00","sha256":"f30eae33458b1c47c4023efaec165cfe658387f4d2819fdec30c613a8f64f38d","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"docs/AUTOMATION.md","category":"canonical_document","file_type":"MD","bytes":5253,"mtime_cst":"2026-07-20T16:23:15+08:00","sha256":"2ff31da87f69c36caa79e635b5b09179087eadcad879c7446984bfe48dcc32b5","associated_date":null,"parse_status":"PASS"},
+    {"path":"docs/DEEPSEEK_COSTS.md","category":"canonical_document","file_type":"MD","bytes":2185,"mtime_cst":"2026-07-20T00:37:59+08:00","sha256":"f8243e5539bd311f0d16b390890c7946ac655b4c9c39b8c223503382f9a9f488","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"docs/DOCUMENT_LOG_INDEX.md","category":"canonical_document","file_type":"MD","bytes":2852,"mtime_cst":"2026-07-20T16:39:16+08:00","sha256":"f22c67e366edcad1979571f9868aa623bf285e85f911217920309887a421d10f","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"docs/GITHUB_AUTOMATION.md","category":"canonical_document","file_type":"MD","bytes":4889,"mtime_cst":"2026-07-20T16:59:19+08:00","sha256":"465f73e8908089e2a700bd04d02305d75c0366276ee1cf2572fef33096607249","associated_date":null,"parse_status":"PASS"},
+    {"path":"docs/REFERENCE_PROJECTS.md","category":"canonical_document","file_type":"MD","bytes":2701,"mtime_cst":"2026-07-20T00:31:41+08:00","sha256":"2735d3af9b120c41d4841e60cd250b3801e7960c4a70adea32e0ed62285393de","associated_date":null,"parse_status":"PASS"},
+    {"path":"docs/SOURCES.md","category":"canonical_document","file_type":"MD","bytes":5229,"mtime_cst":"2026-07-20T16:32:53+08:00","sha256":"97210da0be1ce29d4b5ced4f82109c21af4352990f19a56ee4f174dec1ebc1b6","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"docs/STOCK_FUND_STRATEGY.md","category":"canonical_document","file_type":"MD","bytes":3900,"mtime_cst":"2026-07-20T16:15:29+08:00","sha256":"846fa3ea82830a4955c7e8a61d766967a8d36ead89b13f25155bdc6eda3885a6","associated_date":null,"parse_status":"PASS"},
+    {"path":"docs/TIANTIAN_FUND.md","category":"canonical_document","file_type":"MD","bytes":4105,"mtime_cst":"2026-07-20T16:15:29+08:00","sha256":"461f0cab93d4ed82870cb38725078cbc79f3ef7c0445ecc4322fb4a46ca07644","associated_date":"2026-07-18","parse_status":"PASS"},
+    {"path":"reports/automation-runs/activity-monitor/20260720T184225+0800.json","category":"runtime_log","file_type":"JSON","bytes":943,"mtime_cst":"2026-07-20T18:42:25+08:00","sha256":"a153cf93117bec0ede23bb3bcdf2efd56c8ea907b46449efc106705fa3b788d8","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/automation-runs/document-log/20260720T165536+0800.json","category":"runtime_log","file_type":"JSON","bytes":914,"mtime_cst":"2026-07-20T16:59:19+08:00","sha256":"8fb93d8f4aecabc14e80d793ab4eec91f014cb496a657f845feb1dda31434410","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/automation-runs/document-log/20260720T165610+0800.json","category":"runtime_log","file_type":"JSON","bytes":1102,"mtime_cst":"2026-07-20T16:59:19+08:00","sha256":"81c48a845a3aef7e534e386bcb83b83fafce8ce69b86233a14b8eace31a9d0bf","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/automation-runs/document-log/20260720T170015+0800.json","category":"runtime_log","file_type":"JSON","bytes":889,"mtime_cst":"2026-07-20T17:00:16+08:00","sha256":"bee3c4fa9b4b356321ca21f8b2340f466083786640722b0a41b90f40b2818c3d","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-long.json","category":"decision_report","file_type":"JSON","bytes":1360,"mtime_cst":"2026-07-20T00:20:51+08:00","sha256":"3361359842216f46085cdd8ac4fb890957fcbec35fa6793bcf4314bd7096590c","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-long.md","category":"decision_report","file_type":"MD","bytes":2225,"mtime_cst":"2026-07-20T00:20:51+08:00","sha256":"7840deffc167c256a0092c033f99a58cd86c65f3c13d87856cd5b32b0fe8f8af","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-short.json","category":"decision_report","file_type":"JSON","bytes":1361,"mtime_cst":"2026-07-20T00:11:28+08:00","sha256":"de4e58ab2b86d1e509ea5b5e46b1177be8c4fd2ef5b35dc9628137daea216793","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-19-short.md","category":"decision_report","file_type":"MD","bytes":2225,"mtime_cst":"2026-07-20T00:11:28+08:00","sha256":"dfdbaa71d62b1c69ada9773b3be28dc974a11921bd1e3220d001525347f0d0a7","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-20-short.json","category":"decision_report","file_type":"JSON","bytes":9747,"mtime_cst":"2026-07-20T16:38:17+08:00","sha256":"48665c300786439ee4154e62d457fcb62f99ab368106d46fab87ec1df015c067","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/daily/2026-07-20-short.md","category":"decision_report","file_type":"MD","bytes":5508,"mtime_cst":"2026-07-20T16:38:17+08:00","sha256":"2bf4b95698cd6b0faea2ca7f6ec609b50961933a34b251ada15fdc68ba791588","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/document-log/2026-07-20-1635.json","category":"runtime_log","file_type":"JSON","bytes":7665,"mtime_cst":"2026-07-20T16:39:16+08:00","sha256":"520fe08246a244fa70fe4d07d30ed105eaec09428f991cd6b9fdf9f9f4506cf5","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/document-log/2026-07-20-1635.md","category":"runtime_log","file_type":"MD","bytes":4099,"mtime_cst":"2026-07-20T16:39:16+08:00","sha256":"d5488e536d9242cc4e62adf3d42d515416c00eb652f9a9bb63c8d938253dfd5b","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/funds/2026-07-20-funds.json","category":"settlement_report","file_type":"JSON","bytes":4842,"mtime_cst":"2026-07-20T22:44:25+08:00","sha256":"846958da0d0b7716a434d405a2e450c47e3607328c3dd73bc3dfa5799061bc39","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/funds/2026-07-20-funds.md","category":"settlement_report","file_type":"MD","bytes":2859,"mtime_cst":"2026-07-20T22:44:25+08:00","sha256":"0ca7c5cb54f016378d4305a73d4656d6ce42ebabab74ca3dccf14f5f1a36168d","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/monitor/20260720T184102+0800.json","category":"runtime_log","file_type":"JSON","bytes":1077,"mtime_cst":"2026-07-20T18:41:58+08:00","sha256":"322b94b9f1097d6d4302bf76be6bbdbc9a98e0aebeafbc2483176ed2ee569562","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/research/2026-07-19-analysis.md","category":"decision_report","file_type":"MD","bytes":6118,"mtime_cst":"2026-07-20T00:32:54+08:00","sha256":"5f0c3d65a001a7f8f0e4dc2da6ed3ffb27112bc4c0b0e4c2fb18e73b9579a9ab","associated_date":"2026-07-19","parse_status":"PASS"},
+    {"path":"reports/research/2026-07-20-close-audit.md","category":"decision_report","file_type":"MD","bytes":3391,"mtime_cst":"2026-07-20T16:39:13+08:00","sha256":"34f4aeb6dcb424e153ab644e2db4d472537c746c905eeb2d2ca0411c645fc4bf","associated_date":"2026-07-20","parse_status":"PASS"},
+    {"path":"reports/research/2026-07-20-preopen.md","category":"decision_report","file_type":"MD","bytes":7725,"mtime_cst":"2026-07-20T12:25:53+08:00","sha256":"eb5b90d6a1e72f4d6c843191bc06ce511f0ded2b7e8fcb928c6090a50b027726","associated_date":"2026-07-20","parse_status":"PASS"}
+  ]
+}
