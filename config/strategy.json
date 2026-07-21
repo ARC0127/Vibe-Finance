@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "data_gates": {
     "minimum_price_sources": 2,
     "minimum_history_points": 20,
@@ -19,24 +19,69 @@
     "single_asset_shock_daily_return": -0.04,
     "exit_below_ma20_ratio": 0.95,
     "maximum_next_open_gap": 0.015,
-    "max_single_stock_weight": 0.08,
+    "max_single_stock_weight": 0.10,
     "max_single_etf_weight": 0.20,
     "max_single_open_end_fund_weight": 0.15,
     "bond_fund_target_weight": 0.15,
     "gold_fund_target_weight": 0.10,
     "cash_etf_target_weight": 0.35,
     "cash_etf_max_volatility": 0.03,
-    "max_total_equity_weight": 0.60,
-    "minimum_cash_weight": 0.15
+    "max_total_equity_weight": 0.70,
+    "minimum_cash_weight": 0.10
+  },
+  "signals": {
+    "trend": {
+      "minimum_daily_return": 0.002,
+      "maximum_daily_return": 0.025,
+      "target_weights": {
+        "core_equity": 0.20,
+        "small_growth_equity": 0.12,
+        "industry_equity": 0.08,
+        "dividend_equity": 0.12,
+        "unclassified_equity": 0.08
+      }
+    },
+    "controlled_dip": {
+      "minimum_daily_return": -0.035,
+      "maximum_daily_return": -0.01,
+      "minimum_price_to_ma20": 0.94,
+      "allow_during_broad_market_shock": false,
+      "target_weights": {
+        "core_equity": 0.08,
+        "small_growth_equity": 0.08,
+        "industry_equity": 0.05,
+        "dividend_equity": 0.06,
+        "unclassified_equity": 0.05
+      }
+    },
+    "defensive": {
+      "maximum_abs_daily_return": 0.01,
+      "cold_start_gold_target_weight": 0.08
+    },
+    "cold_start": {
+      "enabled": true,
+      "eligible_asset_types": ["equity_etf", "gold_etf"],
+      "dip_exposure_groups": ["csi300", "csi500", "csi1000", "chinext"]
+    }
+  },
+  "daily_execution": {
+    "enabled": true,
+    "allow_conditional_preopen_order": true,
+    "minimum_filled_trades_per_trading_day": 1,
+    "fallback_increment_weight": 0.04,
+    "fallback_maximum_open_gap": 0.03,
+    "minimum_notional_cny": 800.0,
+    "eligible_asset_types": ["equity_etf", "gold_etf"],
+    "fallback_preference": ["510300", "518880", "510880", "159915", "512100"]
   },
   "diversification": {
     "maximum_positions": 6,
     "maximum_new_buys_per_cycle": 2,
     "one_position_per_exposure_group": true,
     "bucket_weight_caps": {
-      "core_equity": 0.35,
-      "small_growth_equity": 0.15,
-      "industry_equity": 0.10,
+      "core_equity": 0.40,
+      "small_growth_equity": 0.20,
+      "industry_equity": 0.15,
       "dividend_equity": 0.15,
       "gold": 0.10,
       "fixed_income": 0.20,

@@ -18,25 +18,28 @@ cd "$repo_root"
 
 case "$task_id" in
   activity-monitor)
-    allowlist=(reports/monitor)
+    allowlist=(reports/monitor README.md)
     ;;
   preopen-review)
-    allowlist=(reports/preopen reports/research data/research)
+    allowlist=(reports/preopen reports/research data/inbox data/research data/ledger README.md)
+    ;;
+  daily-order-guard)
+    allowlist=(reports/preopen reports/research data/inbox data/research data/ledger README.md)
     ;;
   open-settlement)
-    allowlist=(reports/execution data/inbox data/ledger)
+    allowlist=(reports/execution data/inbox data/ledger README.md)
     ;;
   close-analysis)
-    allowlist=(reports/daily reports/research data/inbox data/research data/ledger)
+    allowlist=(reports/daily reports/research data/inbox data/research data/ledger README.md)
     ;;
   fund-nav)
-    allowlist=(reports/funds data/inbox data/ledger)
+    allowlist=(reports/funds data/inbox data/ledger README.md)
     ;;
   reflection-evolution)
-    allowlist=(reports/evolution config docs MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json vibe_finance tests)
+    allowlist=(reports/evolution config docs MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md pyproject.toml scripts/sync_github.sh vibe_finance tests)
     ;;
   weekly-review)
-    allowlist=(reports/weekly reports/daily data/research data/ledger)
+    allowlist=(reports/weekly reports/daily data/research data/ledger README.md)
     ;;
   document-log)
     allowlist=(reports/document-log docs/DOCUMENT_LOG_INDEX.md docs/GITHUB_AUTOMATION.md README.md MODE_LOCK.md MODE_LOCK.json docs/SOURCES.md)
@@ -57,8 +60,21 @@ fi
 export GH_PROMPT_DISABLED=1
 export GIT_TERMINAL_PROMPT=0
 
-command -v gh >/dev/null
-gh auth status >/dev/null
+# WSL may not inherit the Windows desktop proxy. Prefer Windows Git/curl when
+# available: they can reach the same checkout and use Git Credential Manager.
+windows_proxy=${VIBE_FINANCE_WINDOWS_PROXY:-http://127.0.0.1:7890}
+use_windows_transport=false
+if command -v git.exe >/dev/null && command -v curl.exe >/dev/null; then
+  use_windows_transport=true
+fi
+
+remote_git() {
+  if [[ "$use_windows_transport" == true ]]; then
+    env HTTP_PROXY="$windows_proxy" HTTPS_PROXY="$windows_proxy" ALL_PROXY= git.exe "$@"
+  else
+    git "$@"
+  fi
+}
 
 branch=$(git branch --show-current)
 if [[ "$branch" != "$expected_branch" ]]; then
@@ -66,7 +82,7 @@ if [[ "$branch" != "$expected_branch" ]]; then
   exit 4
 fi
 
-git fetch --quiet origin "$expected_branch"
+remote_git fetch --quiet origin "$expected_branch"
 local_head=$(git rev-parse HEAD)
 remote_head=$(git rev-parse "origin/$expected_branch")
 if [[ "$local_head" != "$remote_head" ]]; then
@@ -75,15 +91,27 @@ if [[ "$local_head" != "$remote_head" ]]; then
   exit 4
 fi
 
-read -r visibility permission < <(
-  gh repo view ARC0127/Vibe-Finance --json visibility,viewerPermission \
-    --jq '[.visibility, .viewerPermission] | @tsv'
-)
-if [[ "$visibility" != "PRIVATE" ]]; then
-  echo "refusing sync because repository visibility is '$visibility'" >&2
+if [[ "$use_windows_transport" == true ]]; then
+  repo_json=$(
+    env HTTP_PROXY="$windows_proxy" HTTPS_PROXY="$windows_proxy" ALL_PROXY= \
+      curl.exe -fsS --max-time 30 https://api.github.com/repos/ARC0127/Vibe-Finance
+  )
+  visibility=$(printf '%s' "$repo_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["visibility"].upper())')
+  remote_git push --dry-run origin "$expected_branch" >/dev/null
+  permission="WRITE_VERIFIED_BY_DRY_RUN"
+else
+  command -v gh >/dev/null
+  gh auth status >/dev/null
+  read -r visibility permission < <(
+    gh repo view ARC0127/Vibe-Finance --json visibility,viewerPermission \
+      --jq '[.visibility, .viewerPermission] | @tsv'
+  )
+fi
+if [[ "$visibility" != "PRIVATE" && "$visibility" != "PUBLIC" ]]; then
+  echo "refusing sync because repository visibility '$visibility' is unsupported" >&2
   exit 5
 fi
-if [[ "$permission" != "ADMIN" && "$permission" != "WRITE" ]]; then
+if [[ "$permission" != "ADMIN" && "$permission" != "WRITE" && "$permission" != "WRITE_VERIFIED_BY_DRY_RUN" ]]; then
   echo "refusing sync because viewer permission is '$permission'" >&2
   exit 5
 fi
@@ -92,6 +120,11 @@ if ! git diff --cached --quiet; then
   echo "refusing sync because the Git index already contains staged changes" >&2
   exit 6
 fi
+
+# Keep the public status block ledger-derived for every scheduled sync. The
+# task allowlists above all include README.md, so a genuine status change is
+# committed by the same task that produced it.
+python3 -m vibe_finance update-readme >/dev/null
 
 deleted=$(git status --porcelain=v1 --untracked-files=all -- "${allowlist[@]}" | awk 'substr($0,1,2) ~ /D/ {print}')
 if [[ -n "$deleted" ]]; then
@@ -250,7 +283,7 @@ done
 
 commit_message="automation($task_id): $timestamp_human $run_status"
 git commit -m "$commit_message"
-git push -u origin "$branch"
+remote_git push -u origin "$branch"
 
 printf 'sync=PASS\ntask_id=%s\nmanifest=%s\ncommit=%s\nbranch=%s\n' \
   "$task_id" "$manifest" "$(git rev-parse HEAD)" "$branch"

@@ -1,7 +1,7 @@
 {
-  "version": "v1.3.2-vibe-finance-2",
+  "version": "v1.3.2-vibe-finance-3",
   "generated_at": "2026-07-19T00:00:00+08:00",
-  "last_reconciled_at": "2026-07-20T16:31:00+08:00",
+  "last_reconciled_at": "2026-07-21T00:00:00+08:00",
   "activated_at": "2026-07-19",
   "project": "Vibe Finance",
   "language": "zh",
@@ -45,6 +45,7 @@
   "scheduling": {
     "activity_monitor": "every_6_hours",
     "pre_open_review": "weekdays_08:00_Asia_Shanghai",
+    "daily_order_guard": "weekdays_09:10_Asia_Shanghai",
     "open_settlement": "weekdays_09:35_Asia_Shanghai",
     "short_cycle": "weekdays_16:30_Asia_Shanghai",
     "fund_nav_cycle": "weekdays_22:30_Asia_Shanghai",
@@ -56,7 +57,7 @@
   "data_policy": {
     "point_in_time_only": true,
     "future_data": "forbid",
-    "stale_or_conflicting_data_action": "NO_TRADE",
+    "stale_or_conflicting_data_action": "BLOCK_AFFECTED_ASSET_AND_USE_ELIGIBLE_LISTED_ETF_FALLBACK_IF_AVAILABLE",
     "source_provenance_required": true,
     "immutable_history": true
   },
@@ -68,9 +69,17 @@
     "rollback_required": true
   },
   "execution_policy": {
-    "stocks_and_listed_funds": "next_trading_day_double_sourced_open",
+    "minimum_virtual_fills_per_normal_trading_day": 1,
+    "stocks_and_listed_funds": "prior_close_or_same_day_preopen_signal_then_later_double_sourced_open",
+    "cold_start": "small_listed_etf_positions_only_after_source_status_and_corporate_action_gates",
     "open_end_funds": "pending_next_nav_confirmed_after_signal_date",
     "real_trading": "forbid"
+  },
+  "public_repository_policy": {
+    "political_content": "forbid",
+    "social_issue_analysis": "forbid",
+    "investment_advice_disclaimer": "required",
+    "virtual_experiment_disclaimer": "required"
   },
   "first_delivery": [
     "expanded_master_prompt",

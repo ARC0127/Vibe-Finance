@@ -1,6 +1,6 @@
 # Vibe Finance 本地文档与日志索引
 
-最近整理截点：2026-07-20 16:35:27 CST。
+最近整理截点：2026-07-20 23:18:35 CST（23:52:50 CST 复核期间无受控文件变化）。
 
 本索引只提供当前入口和历史定位，不替代原始文件。历史报告、输入、订单与账本遵循不可覆盖原则；需要更正时新增带时间戳的记录。
 
@@ -44,18 +44,24 @@
 - [2026-07-20 短周期报告](../reports/daily/2026-07-20-short.md) / [机器记录](../reports/daily/2026-07-20-short.json)
 - [2026-07-19 完整研究分析](../reports/research/2026-07-19-analysis.md)
 - [2026-07-20 盘前及午间追加分析](../reports/research/2026-07-20-preopen.md)
+- [2026-07-20 收盘审计](../reports/research/2026-07-20-close-audit.md)
 
 2026-07-20 盘前报告包含 09:25 主报告以及 12:22、12:25 的追加段落，其中“7 项测试”和 v0.1 回滚基线属于当时截点事实。当前规范和测试状态以 README、配置和最新整理报告为准；不回写历史报告。
 
-## 整理运行
+## 成交与基金结算报告
+
+- [2026-07-20 场外基金报告](../reports/funds/2026-07-20-funds.md) / [机器记录](../reports/funds/2026-07-20-funds.json)
+
+## 运行日志与整理运行
+
+- [2026-07-20 活动监测记录](../reports/monitor/20260720T184102+0800.json) / [GitHub 自动化运行清单](../reports/automation-runs/activity-monitor/20260720T184225+0800.json)
 
 - [2026-07-20 16:35 整理报告](../reports/document-log/2026-07-20-1635.md) / [完整机器清单](../reports/document-log/2026-07-20-1635.json)
+- [2026-07-20 23:18 整理报告](../reports/document-log/2026-07-20-2352.md) / [完整机器清单](../reports/document-log/2026-07-20-2352.json)
 
 ## 尚未产生的目录
 
 以下目录要等相应事件首次发生后创建，不应预先伪造空报告：
 
 - `reports/execution/`：股票或场内 ETF 开盘结算；
-- `reports/funds/`：场外基金净值订单或结算；
-- `reports/evolution/`：反思进化候选或策略升级；
-- `reports/monitor/`：启用 GitHub 每任务审计清单后的活动监测记录。
+- `reports/evolution/`：反思进化候选或策略升级。

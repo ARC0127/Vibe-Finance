@@ -15,6 +15,7 @@ from vibe_finance.pipeline import (
     run_fund_nav_pipeline,
     run_pipeline,
     settle_open_orders,
+    update_readme_status,
     validate_snapshot,
 )
 
@@ -89,6 +90,46 @@ def fund_snapshot(run_date: str, nav: float) -> dict:
             },
         }
     )
+    return value
+
+
+def cold_start_snapshot(
+    run_date: str,
+    *,
+    market_state: str = "closed",
+    as_of_time: str = "16:30:00",
+    with_open: bool = False,
+) -> dict:
+    value = snapshot(run_date, trading=True)
+    value["as_of"] = f"{run_date}T{as_of_time}+08:00"
+    value["market_state"] = market_state
+    assets = []
+    fixtures = [
+        ("518880", "黄金ETF", "gold_etf", 8.318, 0.0008, "gold", "gold"),
+        ("159915", "创业板ETF", "equity_etf", 3.477, 0.004, "small_growth_equity", "chinext"),
+        ("510300", "沪深300ETF", "equity_etf", 4.65, 0.0133, "core_equity", "csi300"),
+        ("512100", "中证1000ETF", "equity_etf", 2.818, -0.0309, "small_growth_equity", "csi1000"),
+    ]
+    for symbol, name, asset_type, close, daily_return, bucket, group in fixtures:
+        asset = {
+            "symbol": symbol,
+            "name": name,
+            "asset_type": asset_type,
+            "close": close,
+            "daily_return": daily_return,
+            "lot_size": 100,
+            "history": [],
+            "source_ids": ["eastmoney", "exchange_price"],
+            "primary_source_ids": ["exchange_price"],
+            "risk_bucket": bucket,
+            "exposure_group": group,
+            "order_engine": "next_open",
+        }
+        if with_open:
+            asset["open"] = close
+            asset["open_source_ids"] = ["open_a", "open_b"]
+        assets.append(asset)
+    value["assets"] = assets
     return value
 
 
@@ -534,6 +575,200 @@ class PipelineTests(unittest.TestCase):
                 "DUPLICATE_EXPOSURE_GROUP",
                 decision["recommendations"][3]["reasons"],
             )
+
+    def test_cold_start_ranks_trend_and_controlled_dip_instead_of_input_order(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            input_path = root / "close.json"
+            input_path.write_text(
+                json.dumps(cold_start_snapshot("2026-07-20")), encoding="utf-8"
+            )
+            result = run_pipeline(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "reports",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(result["new_orders"], 2)
+            self.assertEqual(result["daily_execution_status"], "ORDER_SCHEDULED")
+            ledger = json.loads((root / "portfolio.json").read_text(encoding="utf-8"))
+            orders = ledger["pending_orders"]
+            self.assertEqual({order["symbol"] for order in orders}, {"510300", "512100"})
+            self.assertEqual(
+                {order["signal_type"] for order in orders},
+                {"COLD_START_TREND", "CONTROLLED_DIP"},
+            )
+
+    def test_preopen_signal_can_fill_later_the_same_day(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            preopen_path = root / "preopen.json"
+            open_path = root / "open.json"
+            preopen_path.write_text(
+                json.dumps(
+                    cold_start_snapshot(
+                        "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+                    )
+                ),
+                encoding="utf-8",
+            )
+            open_path.write_text(
+                json.dumps(
+                    cold_start_snapshot(
+                        "2026-07-20",
+                        market_state="open",
+                        as_of_time="09:35:00",
+                        with_open=True,
+                    )
+                ),
+                encoding="utf-8",
+            )
+            ledger = root / "portfolio.json"
+            run_pipeline(
+                input_path=preopen_path,
+                ledger_path=ledger,
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "preopen",
+                orders_log=root / "orders.jsonl",
+                mode="preopen",
+            )
+            result = settle_open_orders(
+                input_path=open_path,
+                ledger_path=ledger,
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "execution",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(result["filled"], 2)
+            self.assertEqual(result["daily_execution_status"], "PASS")
+            value = json.loads(ledger.read_text(encoding="utf-8"))
+            self.assertEqual(value["performance"]["filled_trade_count"], 2)
+            self.assertEqual(value["performance"]["last_filled_trade_date"], "2026-07-20")
+            self.assertGreater(value["performance"]["cumulative_fees_cny"], 0)
+
+    def test_unverified_preopen_status_creates_conditional_order_but_open_stays_strict(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            preopen = cold_start_snapshot(
+                "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+            )
+            for asset in preopen["assets"]:
+                asset["trading_status"] = "UNVERIFIED_PREOPEN"
+            preopen_path = root / "preopen.json"
+            preopen_path.write_text(json.dumps(preopen), encoding="utf-8")
+            ledger = root / "portfolio.json"
+            result = run_pipeline(
+                input_path=preopen_path,
+                ledger_path=ledger,
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "preopen",
+                orders_log=root / "orders.jsonl",
+                mode="preopen",
+            )
+            self.assertEqual(result["new_orders"], 2)
+            self.assertEqual(result["daily_execution_status"], "ORDER_SCHEDULED")
+            value = json.loads(ledger.read_text(encoding="utf-8"))
+            self.assertTrue(
+                all(
+                    "PREOPEN_EXECUTION_STATUS_PENDING" in order["reasons"]
+                    for order in value["pending_orders"]
+                )
+            )
+
+            open_value = cold_start_snapshot(
+                "2026-07-20",
+                market_state="open",
+                as_of_time="09:35:00",
+                with_open=True,
+            )
+            for asset in open_value["assets"]:
+                asset["trading_status"] = "SUSPENDED"
+            open_path = root / "open.json"
+            open_path.write_text(json.dumps(open_value), encoding="utf-8")
+            settlement = settle_open_orders(
+                input_path=open_path,
+                ledger_path=ledger,
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "execution",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(settlement["filled"], 0)
+            self.assertEqual(settlement["status"], "FAILED_DAILY_TRADE")
+            value = json.loads(ledger.read_text(encoding="utf-8"))
+            self.assertTrue(
+                all(
+                    order["status"] == "CANCELLED_DATA_GATE"
+                    for order in value["pending_orders"]
+                )
+            )
+
+    def test_daily_fallback_creates_small_core_order_when_no_signal_exists(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            value = cold_start_snapshot("2026-07-20")
+            for asset in value["assets"]:
+                asset["daily_return"] = 0.03
+            core = next(asset for asset in value["assets"] if asset["symbol"] == "510300")
+            core["daily_return"] = 0.0
+            input_path = root / "close.json"
+            input_path.write_text(json.dumps(value), encoding="utf-8")
+            result = run_pipeline(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "reports",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(result["new_orders"], 1)
+            ledger = json.loads((root / "portfolio.json").read_text(encoding="utf-8"))
+            order = ledger["pending_orders"][0]
+            self.assertEqual(order["symbol"], "510300")
+            self.assertEqual(order["signal_type"], "DAILY_EXPLORATION_FALLBACK")
+            self.assertGreaterEqual(order["quantity"] * order["signal_close"], 800)
+
+    def test_open_settlement_fails_daily_requirement_without_pending_order(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            input_path = root / "open.json"
+            input_path.write_text(
+                json.dumps(
+                    cold_start_snapshot(
+                        "2026-07-20",
+                        market_state="open",
+                        as_of_time="09:35:00",
+                        with_open=True,
+                    )
+                ),
+                encoding="utf-8",
+            )
+            result = settle_open_orders(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "execution",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(result["status"], "FAILED_DAILY_TRADE")
+            self.assertIn("NO_PENDING_DAILY_ORDER", result["blocks"])
+            self.assertIn("DAILY_TRADE_REQUIREMENT_MISSED", result["blocks"])
+
+    def test_readme_status_is_generated_from_ledger(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger = root / "portfolio.json"
+            initialize_ledger(ledger)
+            readme = root / "README.md"
+            readme.write_text(
+                "# Demo\n\n<!-- VIBE_STATUS:START -->\nold\n<!-- VIBE_STATUS:END -->\n",
+                encoding="utf-8",
+            )
+            result = update_readme_status(readme_path=readme, ledger_path=ledger)
+            rendered = readme.read_text(encoding="utf-8")
+            self.assertEqual(result["project_equity_cny"], 30000.0)
+            self.assertIn("累计盈亏", rendered)
+            self.assertIn("持平 +0.00 元", rendered)
+            self.assertEqual(rendered.count("<!-- VIBE_STATUS:START -->"), 1)
 
 
 if __name__ == "__main__":

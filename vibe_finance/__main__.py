@@ -10,6 +10,7 @@ from .pipeline import (
     DEFAULT_FUND_REPORT_DIR,
     DEFAULT_ORDERS_LOG,
     DEFAULT_REPORT_DIR,
+    DEFAULT_README,
     DEFAULT_STRATEGY,
     initialize_ledger,
     project_status,
@@ -17,6 +18,7 @@ from .pipeline import (
     run_fund_nav_pipeline,
     run_pipeline,
     settle_open_orders,
+    update_readme_status,
     validate_snapshot_file,
 )
 
@@ -41,7 +43,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
     run.add_argument("--report-dir", type=Path, default=DEFAULT_REPORT_DIR)
     run.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
-    run.add_argument("--mode", choices=("short", "long"), default="short")
+    run.add_argument("--mode", choices=("short", "long", "preopen"), default="short")
 
     settle = sub.add_parser("settle-open", help="只结算上一收盘生成的开盘虚拟订单")
     settle.add_argument("--input", type=Path, required=True)
@@ -70,6 +72,10 @@ def build_parser() -> argparse.ArgumentParser:
     cost.add_argument("--output-tokens", type=int, required=True)
     cost.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
     cost.add_argument("--cost-log", type=Path, default=Path("data/ledger/api_costs.jsonl"))
+
+    readme = sub.add_parser("update-readme", help="从虚拟账本刷新 README 的公开状态区块")
+    readme.add_argument("--readme", type=Path, default=DEFAULT_README)
+    readme.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
     return parser
 
 
@@ -110,7 +116,7 @@ def main() -> None:
             report_dir=args.report_dir,
             max_age_hours=args.max_age_hours,
         )
-    else:
+    elif args.command == "record-api-cost":
         result = record_api_cost(
             ledger_path=args.ledger,
             cost_log=args.cost_log,
@@ -119,6 +125,11 @@ def main() -> None:
             purpose=args.purpose,
             input_tokens=args.input_tokens,
             output_tokens=args.output_tokens,
+        )
+    else:
+        result = update_readme_status(
+            readme_path=args.readme,
+            ledger_path=args.ledger,
         )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

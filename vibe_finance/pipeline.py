@@ -19,6 +19,7 @@ DEFAULT_REPORT_DIR = Path("reports/daily")
 DEFAULT_EXECUTION_REPORT_DIR = Path("reports/execution")
 DEFAULT_FUND_REPORT_DIR = Path("reports/funds")
 DEFAULT_STRATEGY = Path("config/strategy.json")
+DEFAULT_README = Path("README.md")
 CENT = Decimal("0.01")
 OPEN_END_FUND_TYPES = {
     "open_end_index_fund",
@@ -30,6 +31,9 @@ OPEN_END_FUND_TYPES = {
 EQUITY_EXPOSURE_TYPES = {"stock", "equity_etf", "open_end_index_fund", "open_end_active_fund"}
 FUND_ASSET_TYPES = OPEN_END_FUND_TYPES | {"equity_etf", "cash_etf", "bond_etf", "gold_etf"}
 AGGREGATOR_SOURCE_IDS = {"eastmoney", "sina_finance", "tencent_finance", "investing"}
+ACTIONABLE_BUY_ACTIONS = {"BUY", "ADD"}
+ACTIONABLE_SELL_ACTIONS = {"SELL", "REDUCE"}
+LISTED_ASSET_TYPES = {"stock", "equity_etf", "cash_etf", "bond_etf", "gold_etf"}
 
 
 class DataGateError(ValueError):
@@ -55,6 +59,16 @@ def _atomic_json(path: Path, value: dict[str, Any]) -> None:
     ) as handle:
         json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
         handle.write("\n")
+        temp_name = handle.name
+    os.replace(temp_name, path)
+
+
+def _atomic_text(path: Path, value: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w", encoding="utf-8", dir=path.parent, delete=False
+    ) as handle:
+        handle.write(value)
         temp_name = handle.name
     os.replace(temp_name, path)
 
@@ -90,11 +104,43 @@ def initialize_ledger(path: Path = DEFAULT_LEDGER) -> dict[str, Any]:
             "balance_basis": "USER_STATED_NOT_API_VERIFIED",
             "actual_calls": 0,
         },
+        "performance": {
+            "filled_trade_count": 0,
+            "cumulative_buy_notional_cny": 0.0,
+            "cumulative_sell_notional_cny": 0.0,
+            "cumulative_fees_cny": 0.0,
+            "realized_pnl_cny": 0.0,
+            "last_filled_trade_date": None,
+            "last_valuation_as_of": None,
+            "investable_value_cny": 29900.0,
+            "project_equity_cny": 30000.0,
+            "total_pnl_cny": 0.0,
+            "total_return_pct": 0.0,
+        },
         "last_run_id": None,
         "run_history": [],
     }
     _atomic_json(path, ledger)
     return {"status": "CREATED", "ledger": str(path)}
+
+
+def _ensure_ledger_schema(ledger: dict[str, Any]) -> None:
+    performance = ledger.setdefault("performance", {})
+    defaults = {
+        "filled_trade_count": 0,
+        "cumulative_buy_notional_cny": 0.0,
+        "cumulative_sell_notional_cny": 0.0,
+        "cumulative_fees_cny": 0.0,
+        "realized_pnl_cny": 0.0,
+        "last_filled_trade_date": None,
+        "last_valuation_as_of": None,
+        "investable_value_cny": float(ledger.get("cash_cny", 0.0)),
+        "project_equity_cny": float(ledger.get("initial_project_capital_cny", 0.0)),
+        "total_pnl_cny": 0.0,
+        "total_return_pct": 0.0,
+    }
+    for key, value in defaults.items():
+        performance.setdefault(key, value)
 
 
 def _parse_time(value: str) -> datetime:
@@ -242,6 +288,76 @@ def _project_value(ledger: dict[str, Any], assets: dict[str, dict[str, Any]]) ->
     }
 
 
+def _update_ledger_valuation(
+    ledger: dict[str, Any],
+    assets: dict[str, dict[str, Any]],
+    values: dict[str, float],
+    as_of: str,
+) -> None:
+    _ensure_ledger_schema(ledger)
+    for symbol, position in ledger["positions"].items():
+        asset = assets.get(symbol)
+        if not asset:
+            continue
+        price = float(asset.get("close", position.get("average_cost", 0.0)))
+        position["last_price"] = price
+        position["last_price_as_of"] = str(asset.get("price_as_of", as_of))
+        position["market_value_cny"] = float(_money(price * int(position["quantity"])))
+        position["unrealized_pnl_cny"] = float(
+            _money(
+                (price - float(position.get("average_cost", price)))
+                * int(position["quantity"])
+            )
+        )
+    performance = ledger["performance"]
+    initial = float(ledger.get("initial_project_capital_cny", 0.0))
+    project_equity = float(values["project_equity_cny"])
+    total_pnl = project_equity - initial
+    performance["last_valuation_as_of"] = as_of
+    performance["investable_value_cny"] = float(values["investable_value_cny"])
+    performance["project_equity_cny"] = project_equity
+    performance["total_pnl_cny"] = float(_money(total_pnl))
+    performance["total_return_pct"] = total_pnl / initial if initial else 0.0
+
+
+def _record_filled_trade(
+    ledger: dict[str, Any],
+    *,
+    side: str,
+    notional: Decimal,
+    fees: Decimal,
+    fill_date: str,
+    realized_pnl: Decimal = Decimal("0"),
+) -> None:
+    _ensure_ledger_schema(ledger)
+    performance = ledger["performance"]
+    performance["filled_trade_count"] = int(performance["filled_trade_count"]) + 1
+    key = "cumulative_buy_notional_cny" if side == "BUY" else "cumulative_sell_notional_cny"
+    performance[key] = float(_money(performance[key]) + notional)
+    performance["cumulative_fees_cny"] = float(
+        _money(performance["cumulative_fees_cny"]) + fees
+    )
+    performance["realized_pnl_cny"] = float(
+        _money(performance["realized_pnl_cny"]) + realized_pnl
+    )
+    performance["last_filled_trade_date"] = fill_date
+
+
+def _maximum_asset_weight(asset_type: str, strategy: dict[str, Any]) -> float:
+    risk = strategy["risk"]
+    if asset_type == "stock":
+        return float(risk["max_single_stock_weight"])
+    if asset_type == "cash_etf":
+        return float(risk["cash_etf_target_weight"])
+    if asset_type == "bond_etf":
+        return float(risk["bond_fund_target_weight"])
+    if asset_type == "gold_etf":
+        return float(risk["gold_fund_target_weight"])
+    if asset_type in OPEN_END_FUND_TYPES:
+        return float(risk["max_single_open_end_fund_weight"])
+    return float(risk["max_single_etf_weight"])
+
+
 def _trade_fees(
     notional: Decimal,
     asset_type: str,
@@ -284,6 +400,8 @@ def _settle_pending(
     if not snapshot["is_trading_day"] or snapshot.get("market_state") not in allowed_states:
         return []
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
+    snapshot_as_of = _parse_time(str(snapshot["as_of"]))
+    _ensure_ledger_schema(ledger)
     events: list[dict[str, Any]] = []
     still_pending: list[dict[str, Any]] = []
     for order in ledger["pending_orders"]:
@@ -291,7 +409,12 @@ def _settle_pending(
             still_pending.append(order)
             continue
         asset = assets.get(order["symbol"])
-        if snapshot["run_date"] <= order["signal_date"]:
+        signal_as_of = order.get("signal_as_of")
+        if signal_as_of:
+            if _parse_time(str(signal_as_of)) >= snapshot_as_of:
+                still_pending.append(order)
+                continue
+        elif snapshot["run_date"] <= order["signal_date"]:
             still_pending.append(order)
             continue
         if not asset:
@@ -352,8 +475,11 @@ def _settle_pending(
             position["exposure_group"] = asset.get(
                 "exposure_group", order.get("exposure_group", order["symbol"])
             )
+            position.setdefault("acquired_date", snapshot["run_date"])
+            position["last_buy_date"] = snapshot["run_date"]
             ledger["positions"][order["symbol"]] = position
             ledger["cash_cny"] = float(_money(ledger["cash_cny"]) - total)
+            realized_pnl = Decimal("0")
         else:
             position = ledger["positions"].get(order["symbol"])
             if not position or quantity > int(position["quantity"]):
@@ -361,6 +487,8 @@ def _settle_pending(
                 order["cancellation_reason"] = "INSUFFICIENT_POSITION"
                 events.append(order)
                 continue
+            cost_basis = _money(position["average_cost"] * quantity)
+            realized_pnl = notional - fees["total_fees_cny"] - cost_basis
             ledger["cash_cny"] = float(
                 _money(ledger["cash_cny"]) + notional - fees["total_fees_cny"]
             )
@@ -375,7 +503,16 @@ def _settle_pending(
         order["transfer_fee_cny"] = float(fees["transfer_fee_cny"])
         order["stamp_tax_cny"] = float(fees["stamp_tax_cny"])
         order["total_fees_cny"] = float(fees["total_fees_cny"])
+        order["realized_pnl_cny"] = float(realized_pnl)
         order["fee_model_version"] = str(strategy["version"])
+        _record_filled_trade(
+            ledger,
+            side=str(order["side"]),
+            notional=notional,
+            fees=fees["total_fees_cny"],
+            fill_date=str(snapshot["run_date"]),
+            realized_pnl=realized_pnl,
+        )
         events.append(order)
     ledger["pending_orders"] = still_pending
     return events
@@ -462,119 +599,300 @@ def _fund_gate_reasons(asset: dict[str, Any], strategy: dict[str, Any]) -> list[
     return sorted(set(reasons))
 
 
+def _signal_target_weight(
+    strategy: dict[str, Any], signal_name: str, risk_bucket: str, default: float
+) -> float:
+    signal = strategy.get("signals", {}).get(signal_name, {})
+    return float(signal.get("target_weights", {}).get(risk_bucket, default))
+
+
 def _recommendations(
     ledger: dict[str, Any], snapshot: dict[str, Any], strategy: dict[str, Any], warnings: list[str]
 ) -> tuple[list[dict[str, Any]], list[str]]:
+    _ensure_ledger_schema(ledger)
     shock = _market_shock(snapshot, strategy)
     global_blocks = list(warnings)
     if not snapshot["is_trading_day"]:
         global_blocks.append("NON_TRADING_DAY")
     if shock:
         global_blocks.append("BROAD_MARKET_SHOCK")
-    recommendations: list[dict[str, Any]] = []
+
+    assets = {str(item["symbol"]): item for item in snapshot["assets"]}
+    values = _project_value(ledger, assets)
+    portfolio_value = max(float(values["investable_value_cny"]), 1.0)
+    signals = strategy.get("signals", {})
+    cold_start_rules = signals.get("cold_start", {})
+    cold_start_types = set(cold_start_rules.get("eligible_asset_types", []))
+    cold_start_enabled = bool(cold_start_rules.get("enabled", False))
+    dip_rules = signals.get("controlled_dip", {})
+    trend_rules = signals.get("trend", {})
+    defensive_rules = signals.get("defensive", {})
+    daily_rules = strategy.get("daily_execution", {})
+    conditional_preopen_types = set(daily_rules.get("eligible_asset_types", []))
     min_sources = int(strategy["data_gates"]["minimum_price_sources"])
     min_history = int(strategy["data_gates"]["minimum_history_points"])
+
+    hard_reason_names = {
+        "PRICE_NOT_CROSSCHECKED",
+        "INSUFFICIENT_HISTORY",
+        "DAILY_RETURN_MISSING",
+        "NOT_TRADING",
+        "UNADJUSTED_CORPORATE_ACTION",
+        "TIANTIAN_CROSSCHECK_MISSING",
+        "FUND_PRIMARY_SOURCE_MISSING",
+        "FUND_NAV_DATE_MISSING",
+        "FUND_NAV_AGE_MISSING",
+        "FUND_NAV_STALE",
+        "FUND_SUBSCRIPTION_STATUS_MISSING",
+        "FUND_SUBSCRIPTION_NOT_OPEN",
+        "FUND_REDEMPTION_STATUS_MISSING",
+        "FUND_REDEMPTION_NOT_OPEN",
+        "FUND_AUM_MISSING",
+        "FUND_AUM_TOO_SMALL",
+        "FUND_FEES_NOT_VERIFIED",
+        "FUND_PURCHASE_FEE_MISSING",
+        "FUND_REDEMPTION_FEE_MISSING",
+        "FUND_MANAGER_TENURE_TOO_SHORT",
+        "FUND_HOLDINGS_STALE",
+        "FUND_STYLE_DRIFT_NOT_CLEARED",
+        "OPEN_END_FUND_EXECUTION_NOT_IMPLEMENTED",
+    }
+    recommendations: list[dict[str, Any]] = []
+
     for asset in snapshot["assets"]:
         symbol = str(asset["symbol"])
         asset_type = str(asset["asset_type"])
+        bucket = str(asset.get("risk_bucket", _default_risk_bucket(asset)))
         metrics = _metrics(asset)
+        history_points = len(asset.get("history", []))
+        full_history = metrics is not None and history_points >= min_history
+        cold_start = (
+            cold_start_enabled
+            and asset_type in cold_start_types
+            and asset_type not in OPEN_END_FUND_TYPES
+            and asset.get("daily_return") is not None
+        )
         reasons: list[str] = _fund_gate_reasons(asset, strategy)
-        action = "WATCH"
+        action = "HOLD" if symbol in ledger["positions"] else "WATCH"
         target_weight = 0.0
-        held = symbol in ledger["positions"]
+        score = 0.0
+        signal_type = "NONE"
+        current_quantity = int(ledger["positions"].get(symbol, {}).get("quantity", 0))
+        current_weight = float(asset["close"]) * current_quantity / portfolio_value
+
         if len(set(asset.get("source_ids", []))) < min_sources:
             reasons.append("PRICE_NOT_CROSSCHECKED")
-        if metrics is None or len(asset.get("history", [])) < min_history:
-            reasons.append("INSUFFICIENT_HISTORY")
+        if not full_history:
+            if cold_start:
+                reasons.append("COLD_START_LIMITED_HISTORY")
+            else:
+                reasons.append("INSUFFICIENT_HISTORY")
+        if asset.get("daily_return") is None and cold_start:
+            reasons.append("DAILY_RETURN_MISSING")
+        trading_status = str(asset.get("trading_status", "TRADING"))
+        conditional_preopen_status = (
+            snapshot.get("market_state") == "preopen"
+            and bool(daily_rules.get("allow_conditional_preopen_order", False))
+            and trading_status == "UNVERIFIED_PREOPEN"
+            and asset_type in conditional_preopen_types
+            and asset_type not in OPEN_END_FUND_TYPES
+        )
+        if trading_status != "TRADING":
+            if conditional_preopen_status:
+                reasons.append("PREOPEN_EXECUTION_STATUS_PENDING")
+            else:
+                reasons.append("NOT_TRADING")
         if asset.get("corporate_actions") and not asset.get(
             "history_adjusted_for_corporate_actions", False
         ):
             reasons.append("UNADJUSTED_CORPORATE_ACTION")
-        if any(
-            reason in reasons
-            for reason in (
-                "PRICE_NOT_CROSSCHECKED",
-                "INSUFFICIENT_HISTORY",
-                "UNADJUSTED_CORPORATE_ACTION",
-                "TIANTIAN_CROSSCHECK_MISSING",
-                "FUND_PRIMARY_SOURCE_MISSING",
-                "FUND_NAV_DATE_MISSING",
-                "FUND_NAV_AGE_MISSING",
-                "FUND_NAV_STALE",
-                "FUND_SUBSCRIPTION_STATUS_MISSING",
-                "FUND_SUBSCRIPTION_NOT_OPEN",
-                "FUND_REDEMPTION_STATUS_MISSING",
-                "FUND_REDEMPTION_NOT_OPEN",
-                "FUND_AUM_MISSING",
-                "FUND_AUM_TOO_SMALL",
-                "FUND_FEES_NOT_VERIFIED",
-                "FUND_PURCHASE_FEE_MISSING",
-                "FUND_REDEMPTION_FEE_MISSING",
-                "FUND_MANAGER_TENURE_TOO_SHORT",
-                "FUND_HOLDINGS_STALE",
-                "FUND_STYLE_DRIFT_NOT_CLEARED",
-                "OPEN_END_FUND_EXECUTION_NOT_IMPLEMENTED",
-            )
+
+        hard_blocked = any(reason in hard_reason_names for reason in reasons)
+        daily_return = float(asset.get("daily_return", 0.0))
+        if hard_blocked:
+            pass
+        elif full_history and current_quantity and float(asset["close"]) < metrics["ma20"] * float(
+            strategy["risk"]["exit_below_ma20_ratio"]
         ):
-            action = "HOLD" if held else "WATCH"
-        elif held and float(asset["close"]) < metrics["ma20"] * float(strategy["risk"]["exit_below_ma20_ratio"]):
             action = "SELL"
+            signal_type = "TREND_EXIT"
+            score = 2.0 + abs(metrics["return20"])
             reasons.append("TREND_EXIT")
-        elif asset_type in {"cash_etf", "money_market_fund"}:
+        elif asset_type in {"cash_etf", "money_market_fund"} and full_history:
             if metrics["volatility20"] <= float(strategy["risk"]["cash_etf_max_volatility"]):
-                action = "HOLD" if held else "BUY"
                 target_weight = float(strategy["risk"]["cash_etf_target_weight"])
+                action = "ADD" if current_quantity and current_weight + 1e-9 < target_weight else (
+                    "BUY" if not current_quantity else "HOLD"
+                )
+                signal_type = "CASH_MANAGEMENT"
+                score = 0.4
                 reasons.append("CASH_MANAGEMENT_ELIGIBLE")
             else:
                 reasons.append("CASH_ETF_VOLATILITY_TOO_HIGH")
-        elif asset_type in {"bond_etf", "open_end_bond_fund"}:
+        elif asset_type in {"bond_etf", "open_end_bond_fund"} and full_history:
             if float(asset["close"]) >= metrics["ma20"] and metrics["return20"] >= -0.005:
-                action = "HOLD" if held else "BUY"
                 target_weight = float(strategy["risk"]["bond_fund_target_weight"])
+                action = "ADD" if current_quantity and current_weight + 1e-9 < target_weight else (
+                    "BUY" if not current_quantity else "HOLD"
+                )
+                signal_type = "FIXED_INCOME_TREND"
+                score = 0.6 + metrics["return20"]
                 reasons.append("FIXED_INCOME_TREND_ELIGIBLE")
             else:
-                action = "HOLD" if held else "WATCH"
                 reasons.append("FIXED_INCOME_TREND_NOT_CONFIRMED")
-        elif asset_type in {"gold_etf", "open_end_gold_fund"}:
-            if float(asset["close"]) > metrics["ma20"] and metrics["ma5"] >= metrics["ma20"]:
-                action = "HOLD" if held else "BUY"
-                target_weight = float(strategy["risk"]["gold_fund_target_weight"])
-                reasons.append("GOLD_DIVERSIFIER_TREND_ELIGIBLE")
-            else:
-                action = "HOLD" if held else "WATCH"
-                reasons.append("GOLD_TREND_NOT_CONFIRMED")
-        elif shock and _is_equity_exposure(asset):
-            action = "HOLD" if held else "WATCH"
-            reasons.append("EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK")
-        elif (
-            float(asset["close"]) > metrics["ma20"]
+        elif asset_type in {"gold_etf", "open_end_gold_fund"} and (
+            full_history
+            and float(asset["close"]) > metrics["ma20"]
             and metrics["ma5"] >= metrics["ma20"]
-            and float(asset.get("daily_return", 0)) > float(strategy["risk"]["single_asset_shock_daily_return"])
         ):
-            action = "HOLD" if held else "BUY"
-            target_weight = float(strategy["risk"]["max_single_etf_weight"])
-            if asset_type == "stock":
-                target_weight = float(strategy["risk"]["max_single_stock_weight"])
-            elif asset_type in OPEN_END_FUND_TYPES:
-                target_weight = float(strategy["risk"]["max_single_open_end_fund_weight"])
-            reasons.append("POSITIVE_TREND_WITHOUT_SHOCK")
+            target_weight = float(strategy["risk"]["gold_fund_target_weight"])
+            action = "ADD" if current_quantity and current_weight + 1e-9 < target_weight else (
+                "BUY" if not current_quantity else "HOLD"
+            )
+            signal_type = "GOLD_TREND"
+            score = 0.8 + metrics["return20"]
+            reasons.append("GOLD_DIVERSIFIER_TREND_ELIGIBLE")
+        elif asset_type == "gold_etf" and cold_start and abs(daily_return) <= float(
+            defensive_rules.get("maximum_abs_daily_return", 0.01)
+        ):
+            target_weight = float(defensive_rules.get("cold_start_gold_target_weight", 0.08))
+            action = "ADD" if current_quantity and current_weight + 1e-9 < target_weight else (
+                "BUY" if not current_quantity else "HOLD"
+            )
+            signal_type = "COLD_START_DEFENSIVE"
+            score = 0.7
+            reasons.append("COLD_START_GOLD_DIVERSIFIER")
+        elif _is_equity_exposure(asset):
+            dip_min = float(dip_rules.get("minimum_daily_return", -0.035))
+            dip_max = float(dip_rules.get("maximum_daily_return", -0.01))
+            dip_history_ok = full_history and float(asset["close"]) >= metrics["ma20"] * float(
+                dip_rules.get("minimum_price_to_ma20", 0.94)
+            )
+            cold_dip_groups = set(cold_start_rules.get("dip_exposure_groups", []))
+            dip_cold_ok = cold_start and str(asset.get("exposure_group", symbol)) in cold_dip_groups
+            if (
+                dip_min <= daily_return <= dip_max
+                and (dip_history_ok or dip_cold_ok)
+                and (not shock or bool(dip_rules.get("allow_during_broad_market_shock", False)))
+            ):
+                target_weight = _signal_target_weight(strategy, "controlled_dip", bucket, 0.05)
+                action = "ADD" if current_quantity and current_weight + 1e-9 < target_weight else (
+                    "BUY" if not current_quantity else "HOLD"
+                )
+                signal_type = "CONTROLLED_DIP"
+                score = 1.15 + min(abs(daily_return), 0.05) + (0.08 if dip_cold_ok else 0.0)
+                reasons.append("CONTROLLED_DIP_ENTRY")
+            elif shock:
+                reasons.append("EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK")
+            else:
+                trend_min = float(trend_rules.get("minimum_daily_return", 0.002))
+                trend_max = float(trend_rules.get("maximum_daily_return", 0.025))
+                full_trend = (
+                    full_history
+                    and float(asset["close"]) > metrics["ma20"]
+                    and metrics["ma5"] >= metrics["ma20"]
+                    and daily_return > float(strategy["risk"]["single_asset_shock_daily_return"])
+                )
+                cold_trend = cold_start and trend_min <= daily_return <= trend_max
+                if full_trend or cold_trend:
+                    target_weight = _signal_target_weight(
+                        strategy,
+                        "trend",
+                        bucket,
+                        _maximum_asset_weight(asset_type, strategy),
+                    )
+                    action = "ADD" if current_quantity and current_weight + 1e-9 < target_weight else (
+                        "BUY" if not current_quantity else "HOLD"
+                    )
+                    signal_type = "TREND" if full_trend else "COLD_START_TREND"
+                    bucket_bonus = 0.25 if bucket == "core_equity" else 0.0
+                    score = 1.0 + bucket_bonus + min(max(daily_return, 0.0), trend_max)
+                    reasons.append(
+                        "POSITIVE_TREND_WITHOUT_SHOCK" if full_trend else "COLD_START_TREND_ENTRY"
+                    )
+                else:
+                    reasons.append("TREND_NOT_CONFIRMED")
         else:
-            action = "HOLD" if held else "WATCH"
             reasons.append("TREND_NOT_CONFIRMED")
+
         recommendations.append(
             {
                 "symbol": symbol,
                 "name": asset["name"],
                 "asset_type": asset["asset_type"],
-                "risk_bucket": asset.get("risk_bucket", _default_risk_bucket(asset)),
+                "risk_bucket": bucket,
                 "exposure_group": asset.get("exposure_group", symbol),
                 "action": action,
+                "signal_type": signal_type,
+                "score": round(score, 8),
+                "current_weight": current_weight,
                 "target_weight": target_weight,
-                "reasons": reasons,
+                "reasons": sorted(set(reasons)),
                 "metrics": metrics,
                 "source_count": len(set(asset.get("source_ids", []))),
             }
         )
+
+    has_pending_open = any(
+        order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
+    )
+    has_action = any(
+        item["action"] in ACTIONABLE_BUY_ACTIONS | ACTIONABLE_SELL_ACTIONS
+        for item in recommendations
+    )
+    if (
+        bool(daily_rules.get("enabled", False))
+        and snapshot["is_trading_day"]
+        and not warnings
+        and not has_pending_open
+        and not has_action
+    ):
+        by_symbol = {item["symbol"]: item for item in recommendations}
+        eligible_types = set(daily_rules.get("eligible_asset_types", []))
+        fallback_selected = False
+        for symbol in daily_rules.get("fallback_preference", []):
+            item = by_symbol.get(str(symbol))
+            asset = assets.get(str(symbol))
+            if not item or not asset or str(asset["asset_type"]) not in eligible_types:
+                continue
+            if shock and _is_equity_exposure(asset):
+                continue
+            if any(reason in hard_reason_names for reason in item["reasons"]):
+                continue
+            max_weight = _maximum_asset_weight(str(asset["asset_type"]), strategy)
+            if item["current_weight"] >= max_weight - 1e-9:
+                continue
+            increment = float(daily_rules.get("fallback_increment_weight", 0.04))
+            item["target_weight"] = min(max_weight, item["current_weight"] + increment)
+            item["action"] = "ADD" if item["current_weight"] > 0 else "BUY"
+            item["signal_type"] = "DAILY_EXPLORATION_FALLBACK"
+            item["score"] = 0.1
+            item["reasons"].append("DAILY_EXPLORATION_FALLBACK")
+            fallback_selected = True
+            break
+        if not fallback_selected:
+            trim_candidates: list[tuple[float, dict[str, Any], dict[str, Any]]] = []
+            for item in recommendations:
+                asset = assets.get(str(item["symbol"]))
+                position = ledger["positions"].get(str(item["symbol"]))
+                if not asset or not position or str(asset["asset_type"]) not in eligible_types:
+                    continue
+                if any(reason in hard_reason_names for reason in item["reasons"]):
+                    continue
+                lot = int(asset.get("lot_size", 100))
+                if int(position.get("quantity", 0)) < lot:
+                    continue
+                if str(position.get("last_buy_date", "")) >= str(snapshot["run_date"]):
+                    continue
+                trim_candidates.append((float(item["current_weight"]), item, asset))
+            if trim_candidates:
+                _, item, asset = max(trim_candidates, key=lambda value: value[0])
+                item["action"] = "REDUCE"
+                item["order_quantity"] = int(asset.get("lot_size", 100))
+                item["signal_type"] = "DAILY_REBALANCE_TRIM"
+                item["score"] = 0.1
+                item["reasons"].append("DAILY_REBALANCE_TRIM")
+
     return recommendations, sorted(set(global_blocks))
 
 
@@ -582,7 +900,11 @@ def _create_orders(
     ledger: dict[str, Any], snapshot: dict[str, Any], strategy: dict[str, Any], recommendations: list[dict[str, Any]], blocks: list[str]
 ) -> list[dict[str, Any]]:
     hard_blocks = [block for block in blocks if block != "BROAD_MARKET_SHOCK"]
-    if hard_blocks or not snapshot["is_trading_day"] or snapshot.get("market_state") != "closed":
+    if (
+        hard_blocks
+        or not snapshot["is_trading_day"]
+        or snapshot.get("market_state") not in {"closed", "preopen"}
+    ):
         return []
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
     values = _project_value(ledger, assets)
@@ -644,9 +966,17 @@ def _create_orders(
         if reason not in item["reasons"]:
             item["reasons"].append(reason)
 
-    for recommendation in recommendations:
+    exits = sorted(
+        (item for item in recommendations if item["action"] in ACTIONABLE_SELL_ACTIONS),
+        key=lambda item: (-float(item.get("score", 0.0)), str(item["symbol"])),
+    )
+    entries = sorted(
+        (item for item in recommendations if item["action"] in ACTIONABLE_BUY_ACTIONS),
+        key=lambda item: (-float(item.get("score", 0.0)), str(item["symbol"])),
+    )
+    for recommendation in exits + entries:
         symbol = recommendation["symbol"]
-        if symbol in existing or recommendation["action"] not in ("BUY", "SELL"):
+        if symbol in existing:
             continue
         asset = assets[symbol]
         if str(asset.get("asset_type")) in OPEN_END_FUND_TYPES:
@@ -656,38 +986,65 @@ def _create_orders(
         group = str(asset.get("exposure_group", symbol))
         lot = int(asset.get("lot_size", 100))
         current_quantity = int(ledger["positions"].get(symbol, {}).get("quantity", 0))
-        if recommendation["action"] == "BUY":
+        current_value = float(asset["close"]) * current_quantity
+        if recommendation["action"] in ACTIONABLE_BUY_ACTIONS:
             if buy_count >= max_new_buys:
                 block_recommendation(recommendation, "MAXIMUM_NEW_BUYS_REACHED")
                 continue
-            if len(used_symbols) >= max_positions:
+            if current_quantity == 0 and len(used_symbols) >= max_positions:
                 block_recommendation(recommendation, "MAXIMUM_POSITIONS_REACHED")
                 continue
-            if one_per_group and group in used_groups:
+            if current_quantity == 0 and one_per_group and group in used_groups:
                 block_recommendation(recommendation, "DUPLICATE_EXPOSURE_GROUP")
                 continue
             desired_value = values["investable_value_cny"] * recommendation["target_weight"]
+            if recommendation.get("signal_type") == "DAILY_EXPLORATION_FALLBACK":
+                desired_value = max(
+                    desired_value,
+                    current_value
+                    + float(
+                        strategy.get("daily_execution", {}).get(
+                            "minimum_notional_cny", 0.0
+                        )
+                    ),
+                )
+            desired_value = min(
+                desired_value,
+                portfolio_value * _maximum_asset_weight(str(asset["asset_type"]), strategy),
+            )
             bucket_cap_value = portfolio_value * float(bucket_caps.get(bucket, 1.0))
             desired_value = min(
                 desired_value,
-                max(0.0, bucket_cap_value - bucket_values.get(bucket, 0.0)),
+                current_value + max(0.0, bucket_cap_value - bucket_values.get(bucket, 0.0)),
             )
             if _is_equity_exposure(asset):
                 equity_cap_value = portfolio_value * float(strategy["risk"]["max_total_equity_weight"])
-                desired_value = min(desired_value, max(0.0, equity_cap_value - equity_value))
+                desired_value = min(
+                    desired_value,
+                    current_value + max(0.0, equity_cap_value - equity_value),
+                )
             purchase_capacity = max(
                 0.0,
                 float(ledger["cash_cny"]) - pending_buy_value - minimum_cash_value,
             )
-            desired_value = min(desired_value, purchase_capacity)
+            desired_value = min(desired_value, current_value + purchase_capacity)
             desired_quantity = math.floor(desired_value / float(asset["close"]) / lot) * lot
             quantity = max(0, desired_quantity - current_quantity)
             if quantity == 0:
                 block_recommendation(recommendation, "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION")
                 continue
             planned_value = float(asset["close"]) * quantity
-            recommendation["target_weight"] = planned_value / portfolio_value if portfolio_value else 0.0
-            limit = float(asset["close"]) * (1 + float(strategy["risk"]["maximum_next_open_gap"]))
+            recommendation["target_weight"] = (
+                (current_value + planned_value) / portfolio_value if portfolio_value else 0.0
+            )
+            gap_limit = float(strategy["risk"]["maximum_next_open_gap"])
+            if recommendation.get("signal_type") == "DAILY_EXPLORATION_FALLBACK":
+                gap_limit = float(
+                    strategy.get("daily_execution", {}).get(
+                        "fallback_maximum_open_gap", gap_limit
+                    )
+                )
+            limit = float(asset["close"]) * (1 + gap_limit)
             side = "BUY"
             buy_count += 1
             pending_buy_value += planned_value
@@ -697,7 +1054,12 @@ def _create_orders(
             used_symbols.add(symbol)
             used_groups.add(group)
         else:
-            quantity = current_quantity
+            position = ledger["positions"].get(symbol, {})
+            if str(position.get("last_buy_date", "")) >= str(snapshot["run_date"]):
+                block_recommendation(recommendation, "T_PLUS_ONE_SELL_BLOCK")
+                continue
+            requested = int(recommendation.get("order_quantity") or current_quantity)
+            quantity = min(current_quantity, max(lot, requested // lot * lot))
             if quantity == 0:
                 continue
             limit = 0.0
@@ -717,6 +1079,8 @@ def _create_orders(
             "signal_close": float(asset["close"]),
             "limit_price": round(limit, 6),
             "simulation_only": True,
+            "signal_type": recommendation.get("signal_type", "UNKNOWN"),
+            "signal_score": float(recommendation.get("score", 0.0)),
             "reasons": recommendation["reasons"],
         }
         ledger["pending_orders"].append(order)
@@ -728,7 +1092,7 @@ def _fmt_pct(value: float | None) -> str:
     return "UNKNOWN" if value is None else f"{value * 100:.2f}%"
 
 
-def _render_report(
+def _render_report_legacy(
     snapshot: dict[str, Any], ledger: dict[str, Any], values: dict[str, float], recommendations: list[dict[str, Any]], blocks: list[str], fills: list[dict[str, Any]], orders: list[dict[str, Any]], input_hash: str, mode: str
 ) -> str:
     status = "ORDERS_PENDING" if orders else ("FILLED" if fills else "NO_TRADE")
@@ -784,6 +1148,91 @@ def _render_report(
     return "\n".join(lines)
 
 
+def _render_report(
+    snapshot: dict[str, Any],
+    ledger: dict[str, Any],
+    values: dict[str, float],
+    recommendations: list[dict[str, Any]],
+    blocks: list[str],
+    fills: list[dict[str, Any]],
+    orders: list[dict[str, Any]],
+    input_hash: str,
+    mode: str,
+) -> str:
+    status = "ORDERS_PENDING" if orders else ("FILLED" if fills else "NO_TRADE")
+    mode_name = {"short": "收盘决策", "long": "长期复盘", "preopen": "盘前决策"}.get(mode, mode)
+    total_pnl = values["project_equity_cny"] - float(ledger["initial_project_capital_cny"])
+    lines = [
+        f"# Vibe Finance {snapshot['run_date']} {mode_name}报告",
+        "",
+        f"- 状态：`{status}`",
+        f"- 证据截点：{snapshot['as_of']}",
+        f"- 输入 SHA-256：`{input_hash}`",
+        f"- 项目总权益：¥{values['project_equity_cny']:.2f}",
+        f"- 累计盈亏：{total_pnl:+.2f} 元",
+        f"- 可投资现金：¥{values['cash_cny']:.2f}",
+        f"- 持仓市值：¥{values['positions_cny']:.2f}",
+        f"- DeepSeek 剩余预算：¥{values['infrastructure_remaining_cny']:.2f}",
+        "",
+        "## 数据与风险门禁",
+        "",
+    ]
+    if blocks:
+        lines.extend(f"- `{block}`" for block in blocks)
+    else:
+        lines.append("- 必要数据与组合约束已通过，可以登记虚拟订单。")
+    lines.extend(
+        [
+            "",
+            "## 决策",
+            "",
+            "| 代码 | 名称 | 动作 | 信号 | 评分 | 目标权重 | 依据 |",
+            "|---|---|---:|---|---:|---:|---|",
+        ]
+    )
+    for item in recommendations:
+        lines.append(
+            f"| {item['symbol']} | {item['name']} | {item['action']} | "
+            f"{item.get('signal_type', 'NONE')} | {float(item.get('score', 0.0)):.4f} | "
+            f"{_fmt_pct(item['target_weight'])} | {', '.join(item['reasons'])} |"
+        )
+    lines.extend(["", "## 虚拟成交与待执行订单", ""])
+    if not fills and not orders:
+        lines.append("- 本轮没有成交或新订单；具体原因见门禁与候选表。")
+    for fill in fills:
+        lines.append(
+            f"- {fill['status']} {fill['side']} {fill['symbol']} {fill['quantity']} "
+            f"@ {fill.get('fill_price', 'UNKNOWN')}"
+        )
+    for order in orders:
+        lines.append(
+            f"- PENDING {order['side']} {order['symbol']} {order['quantity']}；"
+            f"信号 {order.get('signal_type', 'UNKNOWN')}；开盘价格上限 {order['limit_price']}。"
+        )
+    lines.extend(["", "## 证据", ""])
+    for evidence in snapshot["evidence"]:
+        lines.append(
+            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}级"
+        )
+    infra = ledger["research_infrastructure"]
+    lines.extend(
+        [
+            "",
+            "## DeepSeek 使用审计",
+            "",
+            f"- 实际调用：{infra['actual_calls']} 次",
+            f"- 已记账成本：¥{infra['spent_cny']:.6f}",
+            "- API 密钥不写入仓库、报告或自动化提示。",
+            "",
+            "## 边界",
+            "",
+            "本报告只服务于虚拟投资实验，不连接券商，不产生真实订单，也不构成任何投资建议。项目不分析或发布政治议题。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_pipeline(
     input_path: Path,
     ledger_path: Path = DEFAULT_LEDGER,
@@ -801,11 +1250,25 @@ def run_pipeline(
         raise FileExistsError(f"不可覆盖既有运行产物: {report_path}")
     initialize_ledger(ledger_path)
     ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
     fills = _settle_pending(ledger, snapshot, strategy)
     recommendations, blocks = _recommendations(ledger, snapshot, strategy, warnings)
     orders = _create_orders(ledger, snapshot, strategy, recommendations, blocks)
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
     values = _project_value(ledger, assets)
+    _update_ledger_valuation(ledger, assets, values, str(snapshot["as_of"]))
+    pending_open = sum(
+        order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
+    )
+    daily_required = bool(strategy.get("daily_execution", {}).get("enabled", False))
+    if not snapshot["is_trading_day"]:
+        daily_execution_status = "NOT_APPLICABLE"
+    elif pending_open:
+        daily_execution_status = "ORDER_SCHEDULED"
+    else:
+        daily_execution_status = "FAILED_NO_OPEN_ORDER"
+        if daily_required:
+            blocks = sorted(set(blocks + ["DAILY_ORDER_REQUIREMENT_MISSED"]))
     input_hash = _sha256(input_path)
     run_id = uuid.uuid4().hex
     decision = {
@@ -819,6 +1282,7 @@ def run_pipeline(
         "recommendations": recommendations,
         "fills": fills,
         "new_orders": orders,
+        "daily_execution_status": daily_execution_status,
         "valuation": values,
     }
     ledger["last_run_id"] = run_id
@@ -846,13 +1310,18 @@ def run_pipeline(
         encoding="utf-8",
     )
     return {
-        "status": "PASS",
+        "status": (
+            "FAILED_DAILY_ORDER"
+            if daily_required and daily_execution_status == "FAILED_NO_OPEN_ORDER"
+            else "PASS"
+        ),
         "run_id": run_id,
         "report": str(report_path),
         "decision": str(decision_path),
         "blocks": blocks,
         "new_orders": len(orders),
         "fills": len(fills),
+        "daily_execution_status": daily_execution_status,
         "project_equity_cny": values["project_equity_cny"],
     }
 
@@ -915,6 +1384,7 @@ def _settle_pending_fund_orders(
                     "risk_bucket": asset.get("risk_bucket", _default_risk_bucket(asset)),
                     "exposure_group": asset.get("exposure_group", order["symbol"]),
                     "acquired_date": position.get("acquired_date", nav_date),
+                    "last_buy_date": nav_date,
                     "valuation_basis": "confirmed_nav",
                 }
             )
@@ -922,6 +1392,8 @@ def _settle_pending_fund_orders(
             ledger["cash_cny"] = float(_money(ledger["cash_cny"]) - amount)
             order["confirmed_shares"] = shares
             order["gross_amount_cny"] = float(amount)
+            trade_notional = amount
+            realized_pnl = Decimal("0")
         else:
             position = ledger["positions"].get(order["symbol"])
             shares = Decimal(str(order.get("quantity", 0)))
@@ -933,6 +1405,8 @@ def _settle_pending_fund_orders(
             gross = _money(nav * shares)
             fee_rate = Decimal(str(metadata["redemption_fee_rate"]))
             fee = _money(gross * fee_rate)
+            cost_basis = _money(Decimal(str(position["average_cost"])) * shares)
+            realized_pnl = gross - fee - cost_basis
             ledger["cash_cny"] = float(_money(ledger["cash_cny"]) + gross - fee)
             remaining = Decimal(str(position["quantity"])) - shares
             if remaining == 0:
@@ -941,13 +1415,23 @@ def _settle_pending_fund_orders(
                 position["quantity"] = float(remaining)
             order["gross_amount_cny"] = float(gross)
             order["confirmed_shares"] = float(shares)
+            trade_notional = gross
         order["status"] = "FILLED"
         order["fill_date"] = nav_date
         order["fill_as_of"] = snapshot["as_of"]
         order["fill_nav"] = float(nav)
         order["fund_fee_cny"] = float(fee)
         order["total_fees_cny"] = float(fee)
+        order["realized_pnl_cny"] = float(realized_pnl)
         order["settlement_kind"] = "CONFIRMED_NAV"
+        _record_filled_trade(
+            ledger,
+            side=str(order["side"]),
+            notional=trade_notional,
+            fees=fee,
+            fill_date=nav_date,
+            realized_pnl=realized_pnl,
+        )
         events.append(order)
     ledger["pending_orders"] = still_pending
     return events
@@ -1024,38 +1508,69 @@ def _create_fund_orders(
         if reason not in item["reasons"]:
             item["reasons"].append(reason)
 
-    for recommendation in recommendations:
+    exits = sorted(
+        (item for item in recommendations if item["action"] in ACTIONABLE_SELL_ACTIONS),
+        key=lambda item: (-float(item.get("score", 0.0)), str(item["symbol"])),
+    )
+    entries = sorted(
+        (item for item in recommendations if item["action"] in ACTIONABLE_BUY_ACTIONS),
+        key=lambda item: (-float(item.get("score", 0.0)), str(item["symbol"])),
+    )
+    for recommendation in exits + entries:
         symbol = str(recommendation["symbol"])
         asset = assets[symbol]
         if str(asset.get("asset_type")) not in OPEN_END_FUND_TYPES:
             continue
-        if symbol in existing_pending or recommendation["action"] not in ("BUY", "SELL"):
+        if symbol in existing_pending:
             continue
         bucket = str(asset.get("risk_bucket", _default_risk_bucket(asset)))
         group = str(asset.get("exposure_group", symbol))
-        if recommendation["action"] == "BUY":
+        position = ledger["positions"].get(symbol)
+        current_value = (
+            float(asset["close"]) * float(position["quantity"]) if position else 0.0
+        )
+        if recommendation["action"] in ACTIONABLE_BUY_ACTIONS:
             if buy_count >= max_new_buys:
                 block_item(recommendation, "MAXIMUM_NEW_BUYS_REACHED")
                 continue
-            if len(used_symbols) >= max_positions:
+            if not position and len(used_symbols) >= max_positions:
                 block_item(recommendation, "MAXIMUM_POSITIONS_REACHED")
                 continue
-            if diversification.get("one_position_per_exposure_group", False) and group in used_groups:
+            if (
+                not position
+                and diversification.get("one_position_per_exposure_group", False)
+                and group in used_groups
+            ):
                 block_item(recommendation, "DUPLICATE_EXPOSURE_GROUP")
                 continue
-            amount = portfolio_value * float(recommendation["target_weight"])
-            amount = min(
-                amount,
-                max(0.0, portfolio_value * float(bucket_caps.get(bucket, 1.0)) - bucket_values.get(bucket, 0.0)),
+            desired_total = portfolio_value * float(recommendation["target_weight"])
+            desired_total = min(
+                desired_total,
+                portfolio_value * _maximum_asset_weight(str(asset["asset_type"]), strategy),
+            )
+            desired_total = min(
+                desired_total,
+                current_value
+                + max(
+                    0.0,
+                    portfolio_value * float(bucket_caps.get(bucket, 1.0))
+                    - bucket_values.get(bucket, 0.0),
+                ),
             )
             if _is_equity_exposure(asset):
-                amount = min(
-                    amount,
-                    max(0.0, portfolio_value * float(strategy["risk"]["max_total_equity_weight"]) - equity_value),
+                desired_total = min(
+                    desired_total,
+                    current_value
+                    + max(
+                        0.0,
+                        portfolio_value
+                        * float(strategy["risk"]["max_total_equity_weight"])
+                        - equity_value,
+                    ),
                 )
             amount = _money(
                 min(
-                    amount,
+                    max(0.0, desired_total - current_value),
                     max(0.0, float(ledger["cash_cny"]) - pending_buy_value - minimum_cash_value),
                 )
             )
@@ -1070,14 +1585,19 @@ def _create_fund_orders(
                 equity_value += float(amount)
             used_symbols.add(symbol)
             used_groups.add(group)
-            recommendation["target_weight"] = float(amount) / portfolio_value if portfolio_value else 0.0
+            recommendation["target_weight"] = (
+                (current_value + float(amount)) / portfolio_value if portfolio_value else 0.0
+            )
             order_value: dict[str, Any] = {"amount_cny": float(amount)}
         else:
-            position = ledger["positions"].get(symbol)
             if not position:
                 continue
             side = "SELL"
-            order_value = {"quantity": float(position["quantity"])}
+            order_value = {
+                "quantity": float(
+                    recommendation.get("order_quantity") or position["quantity"]
+                )
+            }
         metadata = asset["fund_metadata"]
         order = {
             "order_id": uuid.uuid4().hex,
@@ -1095,6 +1615,8 @@ def _create_fund_orders(
             "purchase_fee_rate": float(metadata["purchase_fee_rate"]),
             "redemption_fee_rate": float(metadata["redemption_fee_rate"]),
             "simulation_only": True,
+            "signal_type": recommendation.get("signal_type", "UNKNOWN"),
+            "signal_score": float(recommendation.get("score", 0.0)),
             "reasons": recommendation["reasons"],
             **order_value,
         }
@@ -1103,7 +1625,7 @@ def _create_fund_orders(
     return orders
 
 
-def _render_fund_report(
+def _render_fund_report_legacy(
     snapshot: dict[str, Any],
     values: dict[str, float],
     recommendations: list[dict[str, Any]],
@@ -1156,6 +1678,77 @@ def _render_fund_report(
     return "\n".join(lines)
 
 
+def _render_fund_report(
+    snapshot: dict[str, Any],
+    values: dict[str, float],
+    recommendations: list[dict[str, Any]],
+    events: list[dict[str, Any]],
+    orders: list[dict[str, Any]],
+    blocks: list[str],
+    input_hash: str,
+) -> str:
+    lines = [
+        f"# Vibe Finance {snapshot['run_date']} 场外基金净值报告",
+        "",
+        f"- 证据截点：{snapshot['as_of']}",
+        f"- 输入 SHA-256：`{input_hash}`",
+        f"- 项目总权益：¥{values['project_equity_cny']:.2f}",
+        f"- 已确认净值成交：{sum(event.get('status') == 'FILLED' for event in events)}",
+        f"- 新增待确认净值订单：{len(orders)}",
+        "",
+        "## 门禁",
+        "",
+    ]
+    lines.extend((f"- `{block}`" for block in blocks),)
+    if not blocks:
+        lines.append("- 净值、申赎状态、费率和来源校验通过。")
+    lines.extend(
+        [
+            "",
+            "## 基金决策",
+            "",
+            "| 代码 | 名称 | 动作 | 信号 | 目标权重 | 原因 |",
+            "|---|---|---:|---|---:|---|",
+        ]
+    )
+    for item in recommendations:
+        if str(item["asset_type"]) not in OPEN_END_FUND_TYPES:
+            continue
+        lines.append(
+            f"| {item['symbol']} | {item['name']} | {item['action']} | "
+            f"{item.get('signal_type', 'NONE')} | {_fmt_pct(item['target_weight'])} | "
+            f"{', '.join(item['reasons'])} |"
+        )
+    lines.extend(["", "## 订单与成交", ""])
+    if not events and not orders:
+        lines.append("- 本轮没有场外基金订单或确认净值成交。")
+    for event in events:
+        lines.append(
+            f"- {event['status']} {event['side']} {event['symbol']}；"
+            f"确认净值 {event.get('fill_nav', 'UNKNOWN')}；费用 ¥{float(event.get('total_fees_cny', 0)):.2f}。"
+        )
+    for order in orders:
+        size = order.get("amount_cny", order.get("quantity", "UNKNOWN"))
+        lines.append(
+            f"- PENDING_NEXT_NAV {order['side']} {order['symbol']}；申请规模 {size}。"
+        )
+    lines.extend(["", "## 证据", ""])
+    for evidence in snapshot["evidence"]:
+        lines.append(
+            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}级"
+        )
+    lines.extend(
+        [
+            "",
+            "场外基金遵循未知价原则：订单登记后，只能使用信号日之后公开并完成交叉验证的确认净值结算。",
+            "",
+            "本报告仅用于虚拟实验，不构成任何投资建议；项目不分析或发布政治议题。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_fund_nav_pipeline(
     input_path: Path,
     ledger_path: Path = DEFAULT_LEDGER,
@@ -1172,6 +1765,7 @@ def run_fund_nav_pipeline(
         raise FileExistsError(f"不可覆盖既有基金净值产物: {report_path}")
     initialize_ledger(ledger_path)
     ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
     blocks = list(warnings)
     if not snapshot["is_trading_day"]:
         blocks.append("NON_TRADING_DAY")
@@ -1185,6 +1779,7 @@ def run_fund_nav_pipeline(
     orders = _create_fund_orders(ledger, snapshot, strategy, recommendations, blocks)
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
     values = _project_value(ledger, assets)
+    _update_ledger_valuation(ledger, assets, values, str(snapshot["as_of"]))
     input_hash = _sha256(input_path)
     run_id = uuid.uuid4().hex
     decision = {
@@ -1238,7 +1833,7 @@ def run_fund_nav_pipeline(
     }
 
 
-def _render_execution_report(
+def _render_execution_report_legacy(
     snapshot: dict[str, Any],
     values: dict[str, float],
     events: list[dict[str, Any]],
@@ -1305,6 +1900,70 @@ def _render_execution_report(
     return "\n".join(lines)
 
 
+def _render_execution_report(
+    snapshot: dict[str, Any],
+    values: dict[str, float],
+    events: list[dict[str, Any]],
+    blocks: list[str],
+    input_hash: str,
+    pending_before: int,
+    pending_after: int,
+    strategy: dict[str, Any],
+) -> str:
+    filled = sum(event.get("status") == "FILLED" for event in events)
+    cancelled = sum(str(event.get("status", "")).startswith("CANCELLED") for event in events)
+    status = "BLOCKED" if blocks else ("FILLED" if filled else "NO_PENDING_OR_FILL")
+    costs = strategy["costs"]
+    lines = [
+        f"# Vibe Finance {snapshot['run_date']} 开盘虚拟成交结算",
+        "",
+        f"- 状态：`{status}`",
+        f"- 证据截点：{snapshot['as_of']}",
+        f"- 输入 SHA-256：`{input_hash}`",
+        f"- 结算前待执行：{pending_before}",
+        f"- 成交：{filled}；取消：{cancelled}；结算后待执行：{pending_after}",
+        f"- 估值后项目总权益：¥{values['project_equity_cny']:.2f}",
+        "",
+        "## 结算门禁",
+        "",
+    ]
+    if blocks:
+        lines.extend(f"- `{block}`" for block in blocks)
+    else:
+        lines.append("- 交易日、时间顺序、交易状态和双源价格均已通过。")
+    lines.extend(["", "## 虚拟成交事件", ""])
+    if not events:
+        lines.append("- 没有可结算订单。")
+    for event in events:
+        if event.get("status") == "FILLED":
+            lines.append(
+                f"- FILLED {event['side']} {event['symbol']} {event['quantity']} @ "
+                f"{event['fill_price']}；佣金 ¥{event['commission_cny']:.2f}，"
+                f"过户费 ¥{event['transfer_fee_cny']:.2f}，印花税 ¥{event['stamp_tax_cny']:.2f}，"
+                f"合计 ¥{event['total_fees_cny']:.2f}。"
+            )
+        else:
+            lines.append(
+                f"- {event['status']} {event['side']} {event['symbol']} {event['quantity']}；"
+                f"{event.get('cancellation_reason', '未通过结算门禁')}。"
+            )
+    lines.extend(
+        [
+            "",
+            "## 费用模型",
+            "",
+            f"- 模拟佣金：成交额的 {float(costs['commission_rate']) * 100:.3f}%，"
+            f"单笔最低 ¥{float(costs['minimum_commission_cny']):.2f}。",
+            f"- A股卖出印花税：成交额的 {float(costs['stock_sell_stamp_rate']) * 100:.3f}%。",
+            "- 股票ETF不计证券交易印花税；所有费用仍按虚拟账本记录。",
+            "",
+            "本报告仅用于虚拟实验，不连接券商，不构成任何投资建议；项目不分析或发布政治议题。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def settle_open_orders(
     input_path: Path,
     ledger_path: Path = DEFAULT_LEDGER,
@@ -1323,6 +1982,7 @@ def settle_open_orders(
 
     initialize_ledger(ledger_path)
     ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
     pending_before = sum(
         order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
     )
@@ -1331,6 +1991,10 @@ def settle_open_orders(
         blocks.append("NON_TRADING_DAY")
     if snapshot.get("market_state") not in {"open", "opening_auction_complete"}:
         blocks.append("MARKET_NOT_OPEN")
+    daily_rules = strategy.get("daily_execution", {})
+    daily_required = bool(daily_rules.get("enabled", False))
+    if snapshot["is_trading_day"] and daily_required and pending_before == 0:
+        blocks.append("NO_PENDING_DAILY_ORDER")
     events: list[dict[str, Any]] = []
     if not blocks:
         events = _settle_pending(
@@ -1346,8 +2010,21 @@ def settle_open_orders(
         valued = dict(item)
         if valued.get("open") is not None:
             valued["close"] = valued["open"]
+            valued["price_as_of"] = snapshot["as_of"]
         valuation_assets[str(valued["symbol"])] = valued
     values = _project_value(ledger, valuation_assets)
+    _update_ledger_valuation(ledger, valuation_assets, values, str(snapshot["as_of"]))
+    filled_count = sum(event.get("status") == "FILLED" for event in events)
+    required_count = int(daily_rules.get("minimum_filled_trades_per_trading_day", 1))
+    if not snapshot["is_trading_day"]:
+        daily_execution_status = "NOT_APPLICABLE"
+    elif filled_count >= required_count:
+        daily_execution_status = "PASS"
+    else:
+        daily_execution_status = "FAILED_NO_FILL"
+        if daily_required:
+            blocks.append("DAILY_TRADE_REQUIREMENT_MISSED")
+    blocks = sorted(set(blocks))
     input_hash = _sha256(input_path)
     run_id = uuid.uuid4().hex
     decision = {
@@ -1363,6 +2040,7 @@ def settle_open_orders(
         "pending_after": sum(
             order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
         ),
+        "daily_execution_status": daily_execution_status,
         "valuation": values,
     }
     ledger["last_run_id"] = run_id
@@ -1395,7 +2073,7 @@ def settle_open_orders(
             snapshot,
             values,
             events,
-            sorted(set(blocks)),
+            blocks,
             input_hash,
             pending_before,
             sum(
@@ -1407,12 +2085,16 @@ def settle_open_orders(
         encoding="utf-8",
     )
     return {
-        "status": "PASS",
+        "status": (
+            "FAILED_DAILY_TRADE"
+            if daily_required and daily_execution_status == "FAILED_NO_FILL"
+            else "PASS"
+        ),
         "run_id": run_id,
         "report": str(report_path),
         "decision": str(decision_path),
-        "blocks": sorted(set(blocks)),
-        "filled": sum(event.get("status") == "FILLED" for event in events),
+        "blocks": blocks,
+        "filled": filled_count,
         "cancelled": sum(
             str(event.get("status", "")).startswith("CANCELLED")
             for event in events
@@ -1420,7 +2102,98 @@ def settle_open_orders(
         "pending_after": sum(
             order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
         ),
+        "daily_execution_status": daily_execution_status,
         "project_equity_cny": values["project_equity_cny"],
+    }
+
+
+def update_readme_status(
+    readme_path: Path = DEFAULT_README,
+    ledger_path: Path = DEFAULT_LEDGER,
+) -> dict[str, Any]:
+    """Replace only the public ledger block in README with ledger-derived values."""
+    start_marker = "<!-- VIBE_STATUS:START -->"
+    end_marker = "<!-- VIBE_STATUS:END -->"
+    source = readme_path.read_text(encoding="utf-8")
+    if start_marker not in source or end_marker not in source:
+        raise DataGateError("README 缺少 VIBE_STATUS 标记，拒绝改写其他内容")
+    ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
+    infra = ledger["research_infrastructure"]
+    performance = ledger["performance"]
+    initial = float(ledger["initial_project_capital_cny"])
+    cash = float(ledger["cash_cny"])
+    infrastructure_remaining = float(
+        _money(infra["reserved_cny"]) - _money(infra["spent_cny"])
+    )
+    positions_value = 0.0
+    position_lines: list[str] = []
+    for symbol, position in sorted(ledger["positions"].items()):
+        quantity = float(position["quantity"])
+        mark = float(position.get("last_price", position["average_cost"]))
+        market_value = mark * quantity
+        positions_value += market_value
+        unrealized = market_value - float(position["average_cost"]) * quantity
+        position_lines.append(
+            f"| {symbol} | {position.get('name', symbol)} | {quantity:g} | "
+            f"¥{float(position['average_cost']):,.4f} | ¥{mark:,.4f} | "
+            f"¥{market_value:,.2f} | {unrealized:+,.2f} |"
+        )
+    investable = cash + positions_value
+    project_equity = investable + infrastructure_remaining
+    total_pnl = project_equity - initial
+    total_return = total_pnl / initial if initial else 0.0
+    valuation_as_of = performance.get("last_valuation_as_of") or "尚无成交后估值"
+    pnl_state = "盈利" if total_pnl > 0 else ("亏损" if total_pnl < 0 else "持平")
+    pending = [
+        order
+        for order in ledger["pending_orders"]
+        if str(order.get("status", "")).startswith("PENDING")
+    ]
+    block = [
+        start_marker,
+        "### 公开实验账本",
+        "",
+        f"> 数据截点：`{valuation_as_of}`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。",
+        "",
+        "| 指标 | 当前值 |",
+        "|---|---:|",
+        f"| 初始项目资本 | ¥{initial:,.2f} |",
+        f"| 累计买入金额 | ¥{float(performance['cumulative_buy_notional_cny']):,.2f} |",
+        f"| 当前持仓市值 | ¥{positions_value:,.2f} |",
+        f"| 可投资现金 | ¥{cash:,.2f} |",
+        f"| 累计交易费用 | ¥{float(performance['cumulative_fees_cny']):,.2f} |",
+        f"| DeepSeek 已用预算 | ¥{float(infra['spent_cny']):,.6f} |",
+        f"| 项目总权益 | ¥{project_equity:,.2f} |",
+        f"| 累计盈亏 | **{pnl_state} {total_pnl:+,.2f} 元（{total_return:+.2%}）** |",
+        f"| 已成交笔数 | {int(performance['filled_trade_count'])} |",
+        f"| 待执行订单 | {len(pending)} |",
+        "",
+        "#### 当前持仓",
+        "",
+    ]
+    if position_lines:
+        block.extend(
+            [
+                "| 代码 | 标的 | 数量 | 平均成本 | 最近估值 | 市值 | 未实现盈亏（元） |",
+                "|---|---|---:|---:|---:|---:|---:|",
+                *position_lines,
+            ]
+        )
+    else:
+        block.append("暂无已成交持仓。待成交订单会先进入账本，成交后才计入这里。")
+    block.extend(["", end_marker])
+    before, remainder = source.split(start_marker, 1)
+    _, after = remainder.split(end_marker, 1)
+    updated = before.rstrip() + "\n\n" + "\n".join(block) + after
+    _atomic_text(readme_path, updated)
+    return {
+        "status": "UPDATED",
+        "readme": str(readme_path),
+        "project_equity_cny": round(project_equity, 2),
+        "total_pnl_cny": round(total_pnl, 2),
+        "positions": len(position_lines),
+        "pending_orders": len(pending),
     }
 
 
@@ -1435,6 +2208,7 @@ def project_status(
     if not ledger_path.exists() or not heartbeat_path.exists():
         return {"status": "INACTIVE", "reason": "LEDGER_OR_HEARTBEAT_MISSING"}
     ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
     heartbeat = _read_json(heartbeat_path)
     last_success = _parse_time(str(heartbeat["last_success_at"]))
     current = now or datetime.now(timezone.utc)
@@ -1444,6 +2218,7 @@ def project_status(
     reports = sorted(report_dir.glob("*.json")) if report_dir.exists() else []
     infra = ledger["research_infrastructure"]
     remaining = _money(infra["reserved_cny"]) - _money(infra["spent_cny"])
+    performance = ledger["performance"]
     return {
         "status": "ACTIVE" if age_hours <= max_age_hours else "STALE",
         "heartbeat_age_hours": round(max(0.0, age_hours), 3),
@@ -1455,6 +2230,11 @@ def project_status(
         "decision_report_count": len(reports),
         "pending_orders": len(ledger["pending_orders"]),
         "positions": len(ledger["positions"]),
+        "filled_trade_count": int(performance["filled_trade_count"]),
+        "last_filled_trade_date": performance["last_filled_trade_date"],
+        "project_equity_cny": float(performance["project_equity_cny"]),
+        "total_pnl_cny": float(performance["total_pnl_cny"]),
+        "total_return_pct": float(performance["total_return_pct"]),
         "deepseek_actual_calls": int(infra["actual_calls"]),
         "deepseek_spent_cny": float(_money(infra["spent_cny"])),
         "deepseek_remaining_cny": float(remaining),
@@ -1473,12 +2253,30 @@ def record_api_cost(
     if amount_cny <= 0 or input_tokens < 0 or output_tokens < 0:
         raise ValueError("成本必须为正，token 数不得为负")
     ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
     infra = ledger["research_infrastructure"]
     new_spent = _money(infra["spent_cny"]) + _money(amount_cny)
     if new_spent > _money(infra["reserved_cny"]):
         raise ValueError("DeepSeek 调用将超过 100 元研究预算")
     infra["spent_cny"] = float(new_spent)
     infra["actual_calls"] = int(infra["actual_calls"]) + 1
+    positions_value = sum(
+        float(position.get("last_price", position["average_cost"]))
+        * float(position["quantity"])
+        for position in ledger["positions"].values()
+    )
+    project_equity = (
+        float(ledger["cash_cny"])
+        + positions_value
+        + float(_money(infra["reserved_cny"]) - new_spent)
+    )
+    initial = float(ledger["initial_project_capital_cny"])
+    performance = ledger["performance"]
+    performance["last_valuation_as_of"] = datetime.now(timezone.utc).isoformat()
+    performance["investable_value_cny"] = float(ledger["cash_cny"]) + positions_value
+    performance["project_equity_cny"] = project_equity
+    performance["total_pnl_cny"] = float(_money(project_equity - initial))
+    performance["total_return_pct"] = (project_equity - initial) / initial if initial else 0.0
     event = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "provider": "DeepSeek",
