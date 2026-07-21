@@ -2,8 +2,68 @@
   "cash_cny": 29900.0,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "296f6ec61ce84147bcb4287b55123291",
-  "pending_orders": [],
+  "last_run_id": "be4f642a51ee4cbabeb663ced76c90ca",
+  "pending_orders": [
+    {
+      "exposure_group": "csi300",
+      "limit_price": 4.71975,
+      "lot_size": 100,
+      "name": "华泰柏瑞沪深300ETF",
+      "order_id": "7972556993aa4b0b983a72c2db283c38",
+      "quantity": 1200,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "core_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-21T08:00:00+08:00",
+      "signal_close": 4.65,
+      "signal_date": "2026-07-21",
+      "signal_score": 1.2633,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "510300"
+    },
+    {
+      "exposure_group": "csi1000",
+      "limit_price": 2.86027,
+      "lot_size": 100,
+      "name": "南方中证1000ETF",
+      "order_id": "f311b8df23c9416da2ee399bdcaa2d8d",
+      "quantity": 800,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "CONTROLLED_DIP_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-21T08:00:00+08:00",
+      "signal_close": 2.818,
+      "signal_date": "2026-07-21",
+      "signal_score": 1.2609,
+      "signal_type": "CONTROLLED_DIP",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "512100"
+    }
+  ],
+  "performance": {
+    "cumulative_buy_notional_cny": 0.0,
+    "cumulative_fees_cny": 0.0,
+    "cumulative_sell_notional_cny": 0.0,
+    "filled_trade_count": 0,
+    "investable_value_cny": 29900.0,
+    "last_filled_trade_date": null,
+    "last_valuation_as_of": "2026-07-21T08:00:00+08:00",
+    "project_equity_cny": 30000.0,
+    "realized_pnl_cny": 0.0,
+    "total_pnl_cny": 0.0,
+    "total_return_pct": 0.0
+  },
   "positions": {},
   "research_infrastructure": {
     "actual_calls": 0,
@@ -30,6 +90,24 @@
       "mode": "short",
       "run_date": "2026-07-20",
       "run_id": "296f6ec61ce84147bcb4287b55123291"
+    },
+    {
+      "input_sha256": "93accaecd21491245810e7ecd8b4e5b2a2ef1330b30f5bd2165613c42eb83220",
+      "mode": "fund_nav",
+      "run_date": "2026-07-20",
+      "run_id": "f509baa49afa48f79660553ebd1c4706"
+    },
+    {
+      "input_sha256": "6e547a7a927695039d310ec3c5abd690f25c8ce3a0821cd0b81a28e3f5a6bbff",
+      "mode": "preopen",
+      "run_date": "2026-07-21",
+      "run_id": "66abf97bac94497a940eee06946f2c5c"
+    },
+    {
+      "input_sha256": "6e547a7a927695039d310ec3c5abd690f25c8ce3a0821cd0b81a28e3f5a6bbff",
+      "mode": "preopen",
+      "run_date": "2026-07-21",
+      "run_id": "be4f642a51ee4cbabeb663ced76c90ca"
     }
   ],
   "schema_version": 1
