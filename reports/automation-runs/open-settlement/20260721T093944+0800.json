@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "task_id": "open-settlement",
+  "task_status": "PASS",
+  "run_timestamp": "2026-07-21 09:39:44 CST",
+  "run_id": "a953ee89d0ac4875a2118e552baebfa1",
+  "branch": "main",
+  "base_commit": "b5631214819495a77775797bdde798f1a1c3a16b",
+  "allowlist": [
+    "reports/execution",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 12843,
+      "sha256": "4ee59e3ef972e94a2abc6e5db316fddcde577bb5d81bf9b385ac5649a519a326"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 281,
+      "sha256": "af7905defe409d9e9895144aafe15638bb52f33dd7c8431996c137be2367b062"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/orders.jsonl",
+      "bytes": 2856,
+      "sha256": "d968dfb763d9934e0f32eb2d24d144fa2aab54e78bc0182b7d990381a410214e"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 3384,
+      "sha256": "fa03393d51c35e0e1df9fecc3a5b8c4bded181a51da1ed9ac5946ed358b63959"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-07-21-open.json",
+      "bytes": 4597,
+      "sha256": "20c709a22d767c2460953b8c4f1cf664f7210b3575f760b4c367be8700228bd2"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/execution/2026-07-21-open.json",
+      "bytes": 2607,
+      "sha256": "bf8032637e620d89ffde73d244e341046e75757bd6c0a79a734d12064edf164e"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/execution/2026-07-21-open.md",
+      "bytes": 997,
+      "sha256": "c48d3607390d3e71b83a3baafaf2f2543cb5beb3e7cd701f823f3c21b8e3483f"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-21T01:39:44.870887+00:00",
+  "simulation_only": true
+}

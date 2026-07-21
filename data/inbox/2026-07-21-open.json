@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-07-21",
+  "as_of": "2026-07-21T09:30:24+08:00",
+  "is_trading_day": true,
+  "market_state": "open",
+  "simulation_only": true,
+  "collection_note": "只保存09:30至09:35窗口内已经公开的开盘数据。腾讯证券与东方财富对两只待结算ETF的开盘价逐只一致，且均报告非零成交量；据此将本快照中的交易状态标为TRADING。未使用09:35以后数据。",
+  "indices": [
+    {
+      "symbol": "000001",
+      "name": "上证指数",
+      "close": 3796.2814,
+      "daily_return": 0.0085,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "399001",
+      "name": "深证成指",
+      "close": 13610.231,
+      "daily_return": -0.0071,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "399006",
+      "name": "创业板指",
+      "close": 3443.102,
+      "daily_return": 0.0042,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "000300",
+      "name": "沪深300",
+      "close": 4598.3208,
+      "daily_return": 0.0153,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    },
+    {
+      "symbol": "000905",
+      "name": "中证500",
+      "close": 7411.3134,
+      "daily_return": -0.0136,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"]
+    }
+  ],
+  "assets": [
+    {
+      "symbol": "510300",
+      "name": "华泰柏瑞沪深300ETF",
+      "asset_type": "equity_etf",
+      "close": 4.65,
+      "open": 4.677,
+      "daily_return": 0.0133,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "eastmoney", "sina_finance"],
+      "open_source_ids": ["tencent_finance", "eastmoney"],
+      "primary_source_ids": ["sse_etf", "huatai_pinebridge"],
+      "risk_bucket": "core_equity",
+      "exposure_group": "csi300",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-20T15:35:00+08:00",
+      "open_as_of": "2026-07-21T09:30:24+08:00",
+      "trading_status": "TRADING",
+      "open_volume_units": 347191,
+      "quality": "OPEN_PRICE_DUAL_SOURCE_MATCH_AND_NONZERO_VOLUME"
+    },
+    {
+      "symbol": "512100",
+      "name": "南方中证1000ETF",
+      "asset_type": "equity_etf",
+      "close": 2.818,
+      "open": 2.824,
+      "daily_return": -0.0309,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "eastmoney", "sina_finance"],
+      "open_source_ids": ["tencent_finance", "eastmoney"],
+      "primary_source_ids": ["sse_etf", "china_southern"],
+      "risk_bucket": "small_growth_equity",
+      "exposure_group": "csi1000",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-20T15:35:00+08:00",
+      "open_as_of": "2026-07-21T09:30:23+08:00",
+      "trading_status": "TRADING",
+      "open_volume_units": 239931,
+      "quality": "OPEN_PRICE_DUAL_SOURCE_MATCH_AND_NONZERO_VOLUME"
+    }
+  ],
+  "sources": [
+    {
+      "id": "tencent_finance",
+      "name": "腾讯证券实时行情",
+      "url": "https://qt.gtimg.cn/q=sh510300,sh512100",
+      "accessed_at": "2026-07-21T09:30:21+08:00",
+      "tier": "C"
+    },
+    {
+      "id": "eastmoney",
+      "name": "东方财富实时行情接口",
+      "url": "https://push2.eastmoney.com/api/qt/stock/get",
+      "accessed_at": "2026-07-21T09:30:24+08:00",
+      "tier": "C"
+    }
+  ],
+  "evidence": [
+    {
+      "title": "腾讯证券510300与512100开盘行情",
+      "url": "https://qt.gtimg.cn/q=sh510300,sh512100",
+      "published_at": "2026-07-21T09:30:21+08:00",
+      "as_of": "2026-07-21T09:30:21+08:00",
+      "tier": "C",
+      "source_id": "tencent_finance",
+      "result": "OPEN_PRICES_4_677_AND_2_824_WITH_NONZERO_VOLUME"
+    },
+    {
+      "title": "东方财富510300开盘行情",
+      "url": "https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f43,f44,f45,f46,f47,f48,f57,f58,f60,f86",
+      "published_at": "2026-07-21T09:30:24+08:00",
+      "as_of": "2026-07-21T09:30:24+08:00",
+      "tier": "C",
+      "source_id": "eastmoney",
+      "result": "OPEN_PRICE_4_677_WITH_NONZERO_VOLUME"
+    },
+    {
+      "title": "东方财富512100开盘行情",
+      "url": "https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f43,f44,f45,f46,f47,f48,f57,f58,f60,f86",
+      "published_at": "2026-07-21T09:30:23+08:00",
+      "as_of": "2026-07-21T09:30:23+08:00",
+      "tier": "C",
+      "source_id": "eastmoney",
+      "result": "OPEN_PRICE_2_824_WITH_NONZERO_VOLUME"
+    }
+  ]
+}

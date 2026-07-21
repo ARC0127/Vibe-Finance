@@ -1,70 +1,52 @@
 {
-  "cash_cny": 29900.0,
+  "cash_cny": 22018.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "be4f642a51ee4cbabeb663ced76c90ca",
-  "pending_orders": [
-    {
-      "exposure_group": "csi300",
-      "limit_price": 4.71975,
-      "lot_size": 100,
-      "name": "华泰柏瑞沪深300ETF",
-      "order_id": "7972556993aa4b0b983a72c2db283c38",
-      "quantity": 1200,
-      "reasons": [
-        "COLD_START_LIMITED_HISTORY",
-        "COLD_START_TREND_ENTRY",
-        "PREOPEN_EXECUTION_STATUS_PENDING"
-      ],
-      "risk_bucket": "core_equity",
-      "side": "BUY",
-      "signal_as_of": "2026-07-21T08:00:00+08:00",
-      "signal_close": 4.65,
-      "signal_date": "2026-07-21",
-      "signal_score": 1.2633,
-      "signal_type": "COLD_START_TREND",
-      "simulation_only": true,
-      "status": "PENDING_NEXT_OPEN",
-      "symbol": "510300"
-    },
-    {
-      "exposure_group": "csi1000",
-      "limit_price": 2.86027,
-      "lot_size": 100,
-      "name": "南方中证1000ETF",
-      "order_id": "f311b8df23c9416da2ee399bdcaa2d8d",
-      "quantity": 800,
-      "reasons": [
-        "COLD_START_LIMITED_HISTORY",
-        "CONTROLLED_DIP_ENTRY",
-        "PREOPEN_EXECUTION_STATUS_PENDING"
-      ],
-      "risk_bucket": "small_growth_equity",
-      "side": "BUY",
-      "signal_as_of": "2026-07-21T08:00:00+08:00",
-      "signal_close": 2.818,
-      "signal_date": "2026-07-21",
-      "signal_score": 1.2609,
-      "signal_type": "CONTROLLED_DIP",
-      "simulation_only": true,
-      "status": "PENDING_NEXT_OPEN",
-      "symbol": "512100"
-    }
-  ],
+  "last_run_id": "a953ee89d0ac4875a2118e552baebfa1",
+  "pending_orders": [],
   "performance": {
-    "cumulative_buy_notional_cny": 0.0,
-    "cumulative_fees_cny": 0.0,
+    "cumulative_buy_notional_cny": 7871.6,
+    "cumulative_fees_cny": 10.0,
     "cumulative_sell_notional_cny": 0.0,
-    "filled_trade_count": 0,
-    "investable_value_cny": 29900.0,
-    "last_filled_trade_date": null,
-    "last_valuation_as_of": "2026-07-21T08:00:00+08:00",
-    "project_equity_cny": 30000.0,
+    "filled_trade_count": 2,
+    "investable_value_cny": 29890.0,
+    "last_filled_trade_date": "2026-07-21",
+    "last_valuation_as_of": "2026-07-21T09:30:24+08:00",
+    "project_equity_cny": 29990.0,
     "realized_pnl_cny": 0.0,
-    "total_pnl_cny": 0.0,
-    "total_return_pct": 0.0
+    "total_pnl_cny": -10.0,
+    "total_return_pct": -0.0003333333333333333
   },
-  "positions": {},
+  "positions": {
+    "510300": {
+      "acquired_date": "2026-07-21",
+      "asset_type": "equity_etf",
+      "average_cost": 4.681166666666667,
+      "exposure_group": "csi300",
+      "last_buy_date": "2026-07-21",
+      "last_price": 4.677,
+      "last_price_as_of": "2026-07-21T09:30:24+08:00",
+      "market_value_cny": 5612.4,
+      "name": "华泰柏瑞沪深300ETF",
+      "quantity": 1200,
+      "risk_bucket": "core_equity",
+      "unrealized_pnl_cny": -5.0
+    },
+    "512100": {
+      "acquired_date": "2026-07-21",
+      "asset_type": "equity_etf",
+      "average_cost": 2.83025,
+      "exposure_group": "csi1000",
+      "last_buy_date": "2026-07-21",
+      "last_price": 2.824,
+      "last_price_as_of": "2026-07-21T09:30:24+08:00",
+      "market_value_cny": 2259.2,
+      "name": "南方中证1000ETF",
+      "quantity": 800,
+      "risk_bucket": "small_growth_equity",
+      "unrealized_pnl_cny": -5.0
+    }
+  },
   "research_infrastructure": {
     "actual_calls": 0,
     "balance_basis": "USER_STATED_NOT_API_VERIFIED",
@@ -108,6 +90,12 @@
       "mode": "preopen",
       "run_date": "2026-07-21",
       "run_id": "be4f642a51ee4cbabeb663ced76c90ca"
+    },
+    {
+      "input_sha256": "20c709a22d767c2460953b8c4f1cf664f7210b3575f760b4c367be8700228bd2",
+      "mode": "open_settlement",
+      "run_date": "2026-07-21",
+      "run_id": "a953ee89d0ac4875a2118e552baebfa1"
     }
   ],
   "schema_version": 1
