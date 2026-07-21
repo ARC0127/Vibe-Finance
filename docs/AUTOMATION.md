@@ -73,6 +73,9 @@ python3 -m vibe_finance settle-open \
 
 - 汇总一周订单、持仓、费用、来源失败和组合暴露。
 - 比较策略版本与基准，记录可证伪假设和下一周重点。
+- 权威 Markdown/JSON 周报通过校验后，若 `Default templates` 与 Spreadsheets 能力可用，使用 `Analytics Dashboard` 模板生成 `artifacts/weekly-dashboard/YYYY-Www-vibe-finance.xlsx`。
+- Excel 只用于展示，不参与信号、订单或账本计算；模板不可用时记录 `TEMPLATE_EXPORT_SKIPPED`，不得让周复盘失败。
+- `Investment Banking` 插件不用于本项目的公开股票或基金决策；详细边界见 `docs/PLUGIN_POLICY.md`。
 
 ## 每日 23:10：文档与日志
 

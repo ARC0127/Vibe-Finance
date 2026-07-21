@@ -39,7 +39,7 @@ case "$task_id" in
     allowlist=(reports/evolution config docs MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md pyproject.toml scripts/sync_github.sh vibe_finance tests)
     ;;
   weekly-review)
-    allowlist=(reports/weekly reports/daily data/research data/ledger README.md)
+    allowlist=(reports/weekly reports/daily data/research data/ledger artifacts/weekly-dashboard README.md)
     ;;
   document-log)
     allowlist=(reports/document-log docs/DOCUMENT_LOG_INDEX.md docs/GITHUB_AUTOMATION.md README.md MODE_LOCK.md MODE_LOCK.json docs/SOURCES.md)

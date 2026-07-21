@@ -162,7 +162,7 @@ flowchart LR
 | 工作日 22:30 | 核验场外基金净值与天天基金交叉信息 |
 | 每6小时 | 检查任务、心跳、账本和报告是否仍在更新 |
 | 周六 20:30 | 归因交易结果，提出可回滚的策略修改候选 |
-| 周日 20:00 | 汇总组合表现、来源质量和长期风险 |
+| 周日 20:00 | 汇总组合表现、来源质量和长期风险；可用时额外导出只读 Excel 仪表盘 |
 | 每日 23:10 | 整理本地文档、索引和日志 |
 
 每个任务结束前运行密钥扫描、JSON/JSONL解析、测试、任务文件白名单和 Git 提交检查，再推送 `main`。公开仓库不会接收 API 密钥或其他凭据。
@@ -209,6 +209,7 @@ python -m vibe_finance update-readme
 | [`reports/`](reports/) | 决策、成交、基金、进化与自动化报告 |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | 来源等级和证据使用规则 |
 | [`docs/AUTOMATION.md`](docs/AUTOMATION.md) | 定时任务及失败处理 |
+| [`docs/PLUGIN_POLICY.md`](docs/PLUGIN_POLICY.md) | 插件接入边界：模板只做派生展示，投行插件不进入选股 |
 | [`tests/test_pipeline.py`](tests/test_pipeline.py) | 前视偏差、冷启动、每日交易、费用和结算测试 |
 
 ## 明确边界

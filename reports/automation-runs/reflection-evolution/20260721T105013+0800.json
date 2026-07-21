@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "task_id": "reflection-evolution",
+  "task_status": "PASS",
+  "run_timestamp": "2026-07-21 10:50:13 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "6452ca21ed67d631540342d4352aa6f32aa4c742",
+  "allowlist": [
+    "reports/evolution",
+    "config",
+    "docs",
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "pyproject.toml",
+    "scripts/sync_github.sh",
+    "vibe_finance",
+    "tests"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "MODE_LOCK.md",
+      "bytes": 8378,
+      "sha256": "a4662f5ea3d8b0ed286e29061808f9f639ab1ae16f07ff4bfe8337ee5320d9b9"
+    },
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 13020,
+      "sha256": "ccdc06b5abe2fab70eb6a1324987df2cb3cfcf8d56be648e44d32f5c6e9d1185"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/AUTOMATION.md",
+      "bytes": 5460,
+      "sha256": "df21a89016ee5c55094a5b4bab5e45c92c941ea7b95796d8aceceb68f08d316c"
+    },
+    {
+      "git_status": " M",
+      "path": "scripts/sync_github.sh",
+      "bytes": 9504,
+      "sha256": "fb2ff575a7169afab069c6913b2e4c4be57b2e50af16ddd10ab9d5ea6bf6a426"
+    },
+    {
+      "git_status": "??",
+      "path": "docs/PLUGIN_POLICY.md",
+      "bytes": 2284,
+      "sha256": "ae35209717447678b5a027013698ec6b339dc35aa4926f8d6cfd2c64194c48af"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "6452ca2",
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-21T02:50:13.411271+00:00",
+  "simulation_only": true
+}
