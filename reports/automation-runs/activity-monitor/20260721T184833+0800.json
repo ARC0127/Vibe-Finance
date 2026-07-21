@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "PASS",
+  "run_timestamp": "2026-07-21 18:48:33 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+  "allowlist": [
+    "reports/monitor",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 13024,
+      "sha256": "2a2a05ff7e87ef9d5dbfaac47906d4f471dd386b7d8b0be5996baa0875a71aaa"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/monitor/20260721T124530+0800.json",
+      "bytes": 1679,
+      "sha256": "46cd842bd8553db1c11fce220a2ee84995a8151696ab41c018854a351ec27907"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/monitor/20260721T184634+0800.json",
+      "bytes": 1808,
+      "sha256": "4803864df67fc3f2f3ce6c449a67c0b20666203f4e87de7ce585310edf9b1b48"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-21T10:48:33.968286+00:00",
+  "simulation_only": true
+}
