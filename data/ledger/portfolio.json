@@ -2,20 +2,71 @@
   "cash_cny": 22018.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "a953ee89d0ac4875a2118e552baebfa1",
-  "pending_orders": [],
+  "last_run_id": "aaf11168887f4b6c98400e883caf69f7",
+  "pending_orders": [
+    {
+      "exposure_group": "large_cap_value",
+      "limit_price": 3.125185,
+      "lot_size": 100,
+      "name": "华夏上证50ETF",
+      "order_id": "fe6b5d9784bd4ae99193f7d95d624918",
+      "quantity": 1900,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "core_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-21T16:43:00+08:00",
+      "signal_close": 3.079,
+      "signal_date": "2026-07-21",
+      "signal_score": 1.2739,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "510050"
+    },
+    {
+      "exposure_group": "healthcare",
+      "limit_price": 0.33292,
+      "lot_size": 100,
+      "name": "华宝中证医疗ETF",
+      "order_id": "e6bcdc787d5a49638b037e2e82ea9c05",
+      "quantity": 7300,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-21T16:43:00+08:00",
+      "signal_close": 0.328,
+      "signal_date": "2026-07-21",
+      "signal_score": 1.0061,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "512170"
+    }
+  ],
   "performance": {
     "cumulative_buy_notional_cny": 7871.6,
     "cumulative_fees_cny": 10.0,
     "cumulative_sell_notional_cny": 0.0,
     "filled_trade_count": 2,
-    "investable_value_cny": 29890.0,
+    "investable_value_cny": 30109.2,
     "last_filled_trade_date": "2026-07-21",
-    "last_valuation_as_of": "2026-07-21T09:30:24+08:00",
-    "project_equity_cny": 29990.0,
+    "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
+    "last_valuation_as_of": "2026-07-21T16:43:00+08:00",
+    "project_equity_cny": 30209.2,
     "realized_pnl_cny": 0.0,
-    "total_pnl_cny": -10.0,
-    "total_return_pct": -0.0003333333333333333
+    "total_pnl_cny": 209.2,
+    "total_return_pct": 0.006973333333333357,
+    "valuation_complete": false,
+    "valuation_stale_symbols": [
+      "510300",
+      "512100"
+    ]
   },
   "positions": {
     "510300": {
@@ -24,13 +75,13 @@
       "average_cost": 4.681166666666667,
       "exposure_group": "csi300",
       "last_buy_date": "2026-07-21",
-      "last_price": 4.677,
-      "last_price_as_of": "2026-07-21T09:30:24+08:00",
-      "market_value_cny": 5612.4,
+      "last_price": 4.787,
+      "last_price_as_of": "2026-07-21T15:34:59+08:00",
+      "market_value_cny": 5744.4,
       "name": "华泰柏瑞沪深300ETF",
       "quantity": 1200,
       "risk_bucket": "core_equity",
-      "unrealized_pnl_cny": -5.0
+      "unrealized_pnl_cny": 127.0
     },
     "512100": {
       "acquired_date": "2026-07-21",
@@ -38,13 +89,13 @@
       "average_cost": 2.83025,
       "exposure_group": "csi1000",
       "last_buy_date": "2026-07-21",
-      "last_price": 2.824,
-      "last_price_as_of": "2026-07-21T09:30:24+08:00",
-      "market_value_cny": 2259.2,
+      "last_price": 2.933,
+      "last_price_as_of": "2026-07-21T15:34:59+08:00",
+      "market_value_cny": 2346.4,
       "name": "南方中证1000ETF",
       "quantity": 800,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": -5.0
+      "unrealized_pnl_cny": 82.2
     }
   },
   "research_infrastructure": {
@@ -96,6 +147,30 @@
       "mode": "open_settlement",
       "run_date": "2026-07-21",
       "run_id": "a953ee89d0ac4875a2118e552baebfa1"
+    },
+    {
+      "input_sha256": "b5840e769fc97a9e24a4579668b2d0b9e99e9b41f275dec09f16148ef895ebc2",
+      "mode": "short",
+      "run_date": "2026-07-21",
+      "run_id": "89b12f8760674924bb471c96b9a4a244"
+    },
+    {
+      "input_sha256": "4f21d4b89267730c06835c8d30bf87692de11dfc0c37b58280767cd8ec4847a5",
+      "mode": "short",
+      "run_date": "2026-07-21",
+      "run_id": "37d77226e9344b82b2d78949c01b8515"
+    },
+    {
+      "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+      "mode": "preopen",
+      "run_date": "2026-07-22",
+      "run_id": "8f2ec4afc526467a857df39734b6087a"
+    },
+    {
+      "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+      "mode": "preopen",
+      "run_date": "2026-07-22",
+      "run_id": "aaf11168887f4b6c98400e883caf69f7"
     }
   ],
   "schema_version": 1

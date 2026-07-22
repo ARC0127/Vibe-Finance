@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-07-21",
+  "as_of": "2026-07-21T16:43:00+08:00",
+  "is_trading_day": true,
+  "market_state": "closed",
+  "simulation_only": true,
+  "collection_note": "对不可变data/inbox/2026-07-21.json和FAILED_DAILY_ORDER报告的追加恢复证据。原始价格、交易日、市场状态、资产元数据和策略不变；仅把已在原快照evidence/fund_metadata中保存的天天基金逐资产交叉验证归入机器门禁实际读取的source_ids。腾讯与新浪仍是两个独立收盘价格来源，eastmoney仅表示基金资料交叉验证，不替代价格双源。恢复快照只保留两只现有持仓和两只通过冷启动候选，用于避免重复全量研究和重复下单。",
+  "indices": [
+    {"symbol":"000001","name":"上证指数","close":3864.3671,"daily_return":0.0179,"broad":true,"source_ids":["tencent_finance","sina_finance"],"value_as_of":"2026-07-21T15:30:36+08:00"},
+    {"symbol":"399001","name":"深证成指","close":14264.291,"daily_return":0.0481,"broad":true,"source_ids":["tencent_finance","sina_finance"],"value_as_of":"2026-07-21T15:00:03+08:00"},
+    {"symbol":"399006","name":"创业板指","close":3685.969,"daily_return":0.0705,"broad":true,"source_ids":["tencent_finance","sina_finance"],"value_as_of":"2026-07-21T15:00:03+08:00"},
+    {"symbol":"000300","name":"沪深300","close":4739.2287,"daily_return":0.0306,"broad":true,"source_ids":["tencent_finance","sina_finance"],"value_as_of":"2026-07-21T15:35:34+08:00"},
+    {"symbol":"000905","name":"中证500","close":7800.6085,"daily_return":0.0525,"broad":true,"source_ids":["tencent_finance","sina_finance"],"value_as_of":"2026-07-21T15:35:40+08:00"}
+  ],
+  "assets": [
+    {"symbol":"510050","name":"华夏上证50ETF","asset_type":"equity_etf","close":3.079,"daily_return":0.0239,"lot_size":100,"history":[],"source_ids":["tencent_finance","sina_finance","eastmoney"],"primary_source_ids":["sse_etf","chinaamc"],"risk_bucket":"core_equity","exposure_group":"large_cap_value","order_engine":"next_open","price_as_of":"2026-07-21T15:34:59+08:00","trading_status":"TRADING","volume_units":1579527764,"fund_metadata":{"latest_published_nav":3.0168,"nav_date":"2026-07-20","previous_close_discount_to_nav":-0.00325,"aum_cny":19698000000,"aum_as_of":"2026-06-30","manager_names":["徐猛"],"annual_tracking_error":0.0068,"tracking_index":"上证50指数","tiantian_trade_label":"场内交易","primary_subscription_status":"OPEN","holdings_as_of":"2026-06-30","latest_dividend_ex_date":"2025-12-17","current_day_nav_available_at_cutoff":false},"quality":"DUAL_SOURCE_CLOSE_NONZERO_VOLUME_PRIMARY_AND_TIANTIAN_PROFILE_CHECKED_CURRENT_DAY_NAV_PENDING"},
+    {"symbol":"510300","name":"华泰柏瑞沪深300ETF","asset_type":"equity_etf","close":4.787,"daily_return":0.0295,"lot_size":100,"history":[],"source_ids":["tencent_finance","sina_finance","eastmoney"],"primary_source_ids":["sse_etf","huatai_pinebridge"],"risk_bucket":"core_equity","exposure_group":"csi300","order_engine":"next_open","price_as_of":"2026-07-21T15:34:59+08:00","trading_status":"TRADING","volume_units":2738832112,"quality":"DUAL_SOURCE_CLOSE_NONZERO_VOLUME_CURRENT_POSITION"},
+    {"symbol":"512100","name":"南方中证1000ETF","asset_type":"equity_etf","close":2.933,"daily_return":0.0408,"lot_size":100,"history":[],"source_ids":["tencent_finance","sina_finance","eastmoney"],"primary_source_ids":["sse_etf","china_southern"],"risk_bucket":"small_growth_equity","exposure_group":"csi1000","order_engine":"next_open","price_as_of":"2026-07-21T15:34:59+08:00","trading_status":"TRADING","volume_units":3065818819,"quality":"DUAL_SOURCE_CLOSE_NONZERO_VOLUME_CURRENT_POSITION"},
+    {"symbol":"512170","name":"华宝中证医疗ETF","asset_type":"equity_etf","close":0.328,"daily_return":0.0061,"lot_size":100,"history":[],"source_ids":["tencent_finance","sina_finance","eastmoney"],"primary_source_ids":["sse_etf","fsfund"],"risk_bucket":"industry_equity","exposure_group":"healthcare","order_engine":"next_open","price_as_of":"2026-07-21T15:34:59+08:00","trading_status":"TRADING","volume_units":1825588247,"fund_metadata":{"latest_published_nav":0.3257,"nav_date":"2026-07-20","previous_close_premium_to_nav":0.00092,"aum_cny":25624000000,"aum_as_of":"2026-06-30","manager_names":["张放"],"annual_tracking_error":0.0047,"tracking_index":"中证医疗指数","tiantian_trade_label":"场内交易","holdings_as_of":"2026-06-30","dividend_count":0,"split_count":1,"primary_creation_redemption_list_available":true,"sse_market_maker_effective_date":"2026-06-12","current_day_nav_available_at_cutoff":false},"quality":"DUAL_SOURCE_CLOSE_NONZERO_VOLUME_PRIMARY_AND_TIANTIAN_PROFILE_CHECKED_CURRENT_DAY_NAV_PENDING"}
+  ],
+  "evidence": [
+    {"title":"原始不可变收盘快照","url":"data/inbox/2026-07-21.json","published_at":"2026-07-21T16:39:07+08:00","as_of":"2026-07-21T16:43:00+08:00","tier":"LOCAL_IMMUTABLE","source_id":"local","sha256":"b5840e769fc97a9e24a4579668b2d0b9e99e9b41f275dec09f16148ef895ebc2"},
+    {"title":"原始FAILED_DAILY_ORDER决策","url":"reports/daily/2026-07-21-short.json","published_at":"2026-07-21T16:39:21+08:00","as_of":"2026-07-21T16:43:00+08:00","tier":"LOCAL_IMMUTABLE","source_id":"local","result":"TIANTIAN_EVIDENCE_PRESENT_BUT_NOT_MAPPED_TO_ASSET_SOURCE_IDS"},
+    {"title":"上交所2026年部分节假日休市安排","url":"https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml","published_at":"2025-12-22","as_of":"2026-07-21T16:43:00+08:00","tier":"A","source_id":"sse"},
+    {"title":"深交所2026年部分节假日休市安排","url":"https://www.szse.cn/disclosure/notice/t20251222_618087.html","published_at":"2025-12-22","as_of":"2026-07-21T16:43:00+08:00","tier":"A","source_id":"szse"},
+    {"title":"腾讯财经2026-07-21收盘行情批量交叉验证","url":"https://qt.gtimg.cn/q=sh000001,sz399001,sz399006,sh000300,sh000905,sh510050,sh510300,sh512100,sh512170","published_at":"2026-07-21T16:15:00+08:00","as_of":"2026-07-21T15:35:45+08:00","tier":"C","source_id":"tencent_finance"},
+    {"title":"新浪财经2026-07-21收盘行情批量交叉验证","url":"https://hq.sinajs.cn/list=sh000001,sz399001,sz399006,sh000300,sh000905,sh510050,sh510300,sh512100,sh512170","published_at":"2026-07-21T15:35:45+08:00","as_of":"2026-07-21T15:35:45+08:00","tier":"C","source_id":"sina_finance"},
+    {"title":"华夏上证50ETF基金公司产品页","url":"https://fund.chinaamc.com/fund/510050/index.shtml","published_at":"UNKNOWN","as_of":"2026-07-21T16:43:00+08:00","tier":"A","source_id":"chinaamc"},
+    {"title":"华夏上证50ETF天天基金交叉验证","url":"https://fund.eastmoney.com/510050.html","published_at":"2026-07-20","as_of":"2026-07-21T16:43:00+08:00","tier":"C","source_id":"eastmoney"},
+    {"title":"华宝中证医疗ETF基金公司产品页","url":"https://www.fsfund.com/fund/512170/fundDetail.shtml","published_at":"UNKNOWN","as_of":"2026-07-21T16:43:00+08:00","tier":"A","source_id":"fsfund"},
+    {"title":"上交所华宝中证医疗ETF主做市服务公告","url":"https://etf.sse.com.cn/disclosure/ssenotice/c/c_20260611_10821552.shtml","published_at":"2026-06-11","as_of":"2026-07-21T16:43:00+08:00","tier":"A","source_id":"sse"},
+    {"title":"华宝中证医疗ETF天天基金交叉验证","url":"https://fund.eastmoney.com/512170.html","published_at":"2026-07-20","as_of":"2026-07-21T16:43:00+08:00","tier":"C","source_id":"eastmoney"}
+  ],
+  "deepseek_usage":{"actual_calls":0,"input_tokens":0,"output_tokens":0,"cost_cny":0.0,"budget_remaining_cny":100.0}
+}
