@@ -85,9 +85,9 @@ python3 -m vibe_finance settle-open \
 
 ## GitHub 同步
 
-每个任务结束后必须运行对应的 `scripts/sync_github.sh <task-id> <status>`。脚本执行互斥锁、密钥扫描、JSON/JSONL解析、`git diff --check`、单元测试、任务白名单、提交、推送和远端SHA核验。
+每个业务任务完成本地产物和校验后，立即运行对应的 `scripts/sync_github.sh <task-id> <status>`，不再等待 02:00，也不设置每日提交次数限制。脚本负责互斥、凭据扫描、JSON/JSONL 解析、测试、任务 allowlist、提交、推送和远端 SHA 核验。
 
-公开仓库可以同步，但任何凭据命中都会立即拒绝推送。任务同步前统一刷新README公开账本；历史报告保持不可覆盖。
+仓库由本项目独占维护，用户授权直接更新 `main`。公开仓库可以同步，但任何凭据命中、远端历史冲突、测试失败或账本不一致仍必须失败关闭；不得 force push、自动 rebase、覆盖历史金融报告或上传密钥。
 
 ## 高频状态
 

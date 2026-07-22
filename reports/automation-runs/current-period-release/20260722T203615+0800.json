@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "task_id": "current-period-release",
+  "task_status": "PASS",
+  "run_timestamp": "2026-07-22 20:36:15 CST",
+  "run_id": "88bbd1b60ca149ae9d5b30d9cce624cb",
+  "branch": "main",
+  "base_commit": "876daa47b66ce374fee1122ec99ce8607a5bba32",
+  "allowlist": [
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "config",
+    "data",
+    "docs",
+    "reports",
+    "scripts",
+    "tests",
+    "vibe_finance"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "MASTER_PROMPT.md",
+      "bytes": 9528,
+      "sha256": "aff48ef7e22ec27475d976fd172795f712ed2948ceaf1b3f3f258f3966911aec"
+    },
+    {
+      "git_status": " M",
+      "path": "MODE_LOCK.json",
+      "bytes": 3772,
+      "sha256": "94e8ade24c48e8bb46f7d8aa2cdf247aec9493e2450c20f93ba5e4c43baeeab9"
+    },
+    {
+      "git_status": " M",
+      "path": "MODE_LOCK.md",
+      "bytes": 9890,
+      "sha256": "cdd68abf1fd22a53b2e5fee2af6786bf48cea76d10d962197bc0100f844e1f96"
+    },
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 13024,
+      "sha256": "c184838dd7a28f366ca50afa108e927a915c57bdbffbf040ab4a852ed932709c"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 263,
+      "sha256": "6f36b84bc0a347325c7a3c9b6eef2777699f4fcfdbce73012bf53e6faf001add"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/orders.jsonl",
+      "bytes": 9127,
+      "sha256": "d5218995735138f4b5a70ff1f6c9645b040d3e0da5654d1691528bd97cf459e9"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 5160,
+      "sha256": "ba3626f5635e9cb7ae61ac67a7b32ce78ff49031d2d00f7dfa890c0b276d1261"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/AUTOMATION.md",
+      "bytes": 5639,
+      "sha256": "efdcfd0c0cb154e2d1e856a674a174bd6dfff43ee1d3b1b357a8e61c634cc279"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/GITHUB_AUTOMATION.md",
+      "bytes": 7154,
+      "sha256": "b7091a2ed6c22b84ad7f47fcf4c5389452a7ad13f7feb5c98467f583398ef375"
+    },
+    {
+      "git_status": " M",
+      "path": "scripts/sync_github.sh",
+      "bytes": 20878,
+      "sha256": "2c0ea3d4d5a48cca35b3e16b8e53fe1744e4d5dfbc7b0a218be932965d9b3f26"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_pipeline.py",
+      "bytes": 38380,
+      "sha256": "6bc6012d8c67cdd2122dfffd257e9330eeb2cadc34689ec8d65f719a0f37ac1f"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/__main__.py",
+      "bytes": 10341,
+      "sha256": "544111e03bded5447d44d269f66ee00dcae4f130f4f6e507c2933c4aa41f04df"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/pipeline.py",
+      "bytes": 115975,
+      "sha256": "dfec7d0bbc3d3f8a05d948e638d67c7cbff70bcaaff4ca655e3cccf3198474fe"
+    },
+    {
+      "git_status": "??",
+      "path": "config/evaluation/b0-b1-b2-v1.json",
+      "bytes": 6754,
+      "sha256": "5679ca06263a22243fc6f06852d2832f0ebac4dc8f4de16979976f2e35fa688e"
+    },
+    {
+      "git_status": "??",
+      "path": "config/evaluation/b3-mg-erc-proposal-v1.json",
+      "bytes": 2144,
+      "sha256": "b85e54180f56ef88c5bcbfa0527fefbc538d4f9d20abae8eba057d9aa8c75231"
+    },
+    {
+      "git_status": "??",
+      "path": "config/evaluation/trading-calendar.json",
+      "bytes": 348,
+      "sha256": "d5228970b61e60acf11cdd9dcacf91eb4f185bd8dc7647d3a76a30003d289abf"
+    },
+    {
+      "git_status": "??",
+      "path": "config/ledger_legacy_anchor.json",
+      "bytes": 469,
+      "sha256": "b8986ef7d41d79c2aefc3601bf383a8e2f5062c9889382811471a46f7e227bcd"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-07-22-close-recovery-2024.json",
+      "bytes": 8668,
+      "sha256": "8e3e6294384d625cb796229505a3e454c30bbf21b3665f892a5011354907da9e"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-07-22-open.json",
+      "bytes": 6605,
+      "sha256": "727ec69dc239e51beaf5a67e799c9228e292d0d66549f36f1f2a4f578edfe68c"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-07-22.json",
+      "bytes": 7838,
+      "sha256": "c8083dfbf1d5b73e83a39f3e9bc079e7435387faba56302fc8bb7d4bd284b8c2"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/88bbd1b60ca149ae9d5b30d9cce624cb/commit.json",
+      "bytes": 973,
+      "sha256": "bfa93645a77f7d7fbf07e0cdc757226bcf9601c3a32b9a4d9b4b93443ac3df0f"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/88bbd1b60ca149ae9d5b30d9cce624cb/prepare.json",
+      "bytes": 19808,
+      "sha256": "089b66488b7f918f4deb99c7131947aa5255029ae941b8cff5d67fe2620b5dc6"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-current-period-review.json",
+      "bytes": 1876,
+      "sha256": "211f8041e6ed6d75b262b4ed54ee7a37be4ff0f26f9c01afe7c9e634d7df2bba"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-current-period-review.md",
+      "bytes": 1151,
+      "sha256": "933994402080cff26371e5745cd19e73c4ce01c403159930258293325245c376"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-git-deferred.json",
+      "bytes": 1302,
+      "sha256": "ed55d900a2bb065c4b4a2311a52cc31c072993f3e7f2e96ab32fcfd472becca8"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-git-restored.json",
+      "bytes": 1169,
+      "sha256": "3a2141d94774e9242fa83026ab58db89ab185e010d5ce2d03c313569cc995a51"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-git-restored.md",
+      "bytes": 1090,
+      "sha256": "cf20a4a2d8bc8c47558d0e917a704ff7679268c705e261e365b792d2471ac98b"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-open-settlement-correction.json",
+      "bytes": 1310,
+      "sha256": "dccad7092c56330d2dc099e9a25369cebd747ef34f21dd36dd8792d4414447b6"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-open-settlement-correction.md",
+      "bytes": 1141,
+      "sha256": "3911d774cf8c62a048e079a4f56e613e10bbcfd9fe683796e5fdf2b0b739ddbd"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/2026-07-22-orphan-transaction-audit.json",
+      "bytes": 831,
+      "sha256": "ad93c0cd302ccbdfb892f7cbd824a65f1ac2f9de77540ff275ec2173a18ad5c6"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/automation-runs/activity-monitor/20260721T124643+0800.json",
+      "bytes": 986,
+      "sha256": "49ebe8d1c30c3c0b0871044056001d6e19adeba69964ef215b29e8b628a82982"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-07-21-short.json",
+      "bytes": 12123,
+      "sha256": "37c674893c9f9454270e368fd05f58f9ef9fd9ac03fd5ec7b02ad4e82bf540d1"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-07-21-short.md",
+      "bytes": 6211,
+      "sha256": "3f614455640497c138c46fe272ba075189301f99b905dd3e5d8da4db0859efe3"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-07-22-preopen.json",
+      "bytes": 3604,
+      "sha256": "c5677f8d5ec358a7f8a0421f16ad79837be4d05350360f4eac39b811a8a3dd5d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-07-22-preopen.md",
+      "bytes": 3308,
+      "sha256": "a793dfb6f5982fbaa8df59a7122bdf6fd76d5d325ff3bc08879d0c3f7defa92d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-07-22-short.json",
+      "bytes": 5344,
+      "sha256": "956deb4684c5f7bd6682d29012831fad33fa6760277cbc5bddbb3e381494621d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-07-22-short.md",
+      "bytes": 2381,
+      "sha256": "42248987167197882df6ffce0deb790c133cf1a396d320f8372ed44c177f1c49"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/recovery/2026-07-21-short.json",
+      "bytes": 3823,
+      "sha256": "324195ad192b199f8642a63dc6b15bf839aa2530d3009ffe90bf9776eb61cc72"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/recovery/2026-07-21-short.md",
+      "bytes": 3216,
+      "sha256": "84b12cc08ada92e17db274ea7d169b47fb3f6e27f4382950ddde9222f5987d14"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/2026-07-21-b0-historical-fixture-smoke-v2.json",
+      "bytes": 28537,
+      "sha256": "aa0f1efd842160094904ac65226aec32ffd3b590ab29c27d143b01be04313815"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/2026-07-21-b0-historical-fixture-smoke.json",
+      "bytes": 28537,
+      "sha256": "2ac0aae1e03e2c3b39856b5b0b8812b9d287579eedc8351798789dc2d3d047a8"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/20260721-legacy-v0.3-remediation/candidate_strategy.json",
+      "bytes": 4142,
+      "sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/20260721-legacy-v0.3-remediation/gate.json",
+      "bytes": 3513,
+      "sha256": "434fb27b49ad3d471f8c405e1bbda9380da6313ff8f104d7cbdacd1ce3fd7a5c"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/20260721-legacy-v0.3-remediation/implementation_validation.json",
+      "bytes": 4431,
+      "sha256": "f47081bab56886f0dd9e84724df5d1c972d01ee5b1311155f82d55c762e05471"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/20260721-legacy-v0.3-remediation/proposal.json",
+      "bytes": 733,
+      "sha256": "cbdf35d6782dedbc3b94a1498d6a2eb6fcb869cc3f7d0711f794fba72ad0818b"
+    },
+    {
+      "git_status": "??",
+      "path": "scripts/audit_evolution_gate.py",
+      "bytes": 5383,
+      "sha256": "018fd920cf1f2dc6602fcc034cb91e3bed0a44281a6faa1e80bdc6dc73b64a85"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_candidate_strategies.py",
+      "bytes": 10758,
+      "sha256": "5975b0fc0326ea939928f9f49e2aed70d6e9233b30e221c461fe3d40badac486"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_evaluation.py",
+      "bytes": 11580,
+      "sha256": "80319319ad79209c296a1c674290215b6e348c740c01b34e5a26f3719381eb3f"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_evaluation_execution.py",
+      "bytes": 18438,
+      "sha256": "10a1198b8735ff80df45248d01889b48d04843f979fdbc9ec37538d9f3c4fe60"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_evaluation_runner.py",
+      "bytes": 13182,
+      "sha256": "0ff0d5b328d496b72321105858ce2eb22e9e8a75ed723b86884d20e384f6cc7d"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_evolution.py",
+      "bytes": 22306,
+      "sha256": "54aa613b0ef87fa73b7c148c4202c4ea19ec8b7c4d05435e04cb8116de970377"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_frozen_baseline.py",
+      "bytes": 13875,
+      "sha256": "9de672193c9bdece295ca4d5a6dc3f888295fcf2f64781b44dc4bb71dbcda226"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_sync_evolution.py",
+      "bytes": 2097,
+      "sha256": "31b6ba7e18e33a534ecf3084dec6a7147baaf8dcbab61db7708426e1b27a53d0"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_transactions.py",
+      "bytes": 14034,
+      "sha256": "0d9510c42fc88eb423a00efa217ee35b6dae48dd827e3f0f8a6918f1b90f1fe9"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/candidate_strategies.py",
+      "bytes": 26224,
+      "sha256": "5cdeaa86f641761715778ab2b923f209579e5d7e870462e0df60a9206719c222"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/evaluation.py",
+      "bytes": 28367,
+      "sha256": "e6bb40065e6fa440041d130fd5d2fbeeb0c6880d01f1dc09e5b0fa7975dc3ce6"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/evaluation_execution.py",
+      "bytes": 36511,
+      "sha256": "db3bde5bffe8e75f4a3b38b1f606d62fcb98411d02a435f4baca752a6270bf5c"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/evaluation_runner.py",
+      "bytes": 24381,
+      "sha256": "9782479e655959ca57a1d29425c2c93ed9b3bbfa25a4429869565f52a3f233f5"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/evolution.py",
+      "bytes": 49990,
+      "sha256": "fafd2af18431945671afcf25f8a0b1f6437fa7efc43184ceb67898838e6e7d91"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/frozen_baseline.py",
+      "bytes": 31282,
+      "sha256": "6609d5b30aaada5c3d8d053f73342d09ce1472fe275f2b4fb4cddcc0cb1a85bd"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/transaction.py",
+      "bytes": 14823,
+      "sha256": "3c2ef1b3bac1d69d847fe6f29262f75817a03de5a3de8ed187285be814d98f10"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-22T12:36:16.539844+00:00",
+  "simulation_only": true
+}

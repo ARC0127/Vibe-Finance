@@ -36,13 +36,16 @@ case "$task_id" in
     allowlist=(reports/funds data/inbox data/ledger README.md)
     ;;
   reflection-evolution)
-    allowlist=(reports/evolution config docs MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md pyproject.toml scripts/sync_github.sh vibe_finance tests)
+    allowlist=(reports/evolution)
     ;;
   weekly-review)
     allowlist=(reports/weekly reports/daily data/research data/ledger artifacts/weekly-dashboard README.md)
     ;;
   document-log)
     allowlist=(reports/document-log docs/DOCUMENT_LOG_INDEX.md docs/GITHUB_AUTOMATION.md README.md MODE_LOCK.md MODE_LOCK.json docs/SOURCES.md)
+    ;;
+  current-period-release)
+    allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config data docs reports scripts tests vibe_finance)
     ;;
   *)
     echo "unknown task-id: $task_id" >&2
@@ -121,10 +124,211 @@ if ! git diff --cached --quiet; then
   exit 6
 fi
 
-# Keep the public status block ledger-derived for every scheduled sync. The
-# task allowlists above all include README.md, so a genuine status change is
-# committed by the same task that produced it.
-python3 -m vibe_finance update-readme >/dev/null
+evolution_gate=""
+evolution_gate_sha="NOT_APPLICABLE"
+evolution_decision="NOT_APPLICABLE"
+evolution_rollback_base="NOT_APPLICABLE"
+evolution_run_id="NOT_APPLICABLE"
+evolution_allowed_paths=()
+if [[ "$task_id" == "reflection-evolution" ]]; then
+  if [[ -n "${VIBE_EVOLUTION_DECISION:-}" || -n "${VIBE_ROLLBACK_BASE:-}" ]]; then
+    echo "refusing caller-supplied evolution decision or rollback base" >&2
+    exit 6
+  fi
+  protected_paths=(
+    MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md docs pyproject.toml
+    scripts/sync_github.sh vibe_finance tests config data/ledger
+  )
+  protected_dirty=$(git status --porcelain=v1 --untracked-files=all -- "${protected_paths[@]}")
+  if [[ -n "$protected_dirty" ]]; then
+    echo "refusing reflection because protected paths are dirty:" >&2
+    echo "$protected_dirty" >&2
+    exit 6
+  fi
+  proposal=${VIBE_EVOLUTION_PROPOSAL:-}
+  if [[ -z "$proposal" ]]; then
+    echo "reflection requires VIBE_EVOLUTION_PROPOSAL under reports/evolution/<run-id>/proposal.json" >&2
+    exit 6
+  fi
+  proposal=$(PROPOSAL="$proposal" python3 - <<'PY'
+import os
+from pathlib import Path
+
+root = Path("reports/evolution").resolve()
+proposal = Path(os.environ["PROPOSAL"])
+if proposal.is_absolute() or ".." in proposal.parts:
+    raise SystemExit("proposal path must be relative and cannot contain '..'")
+resolved = proposal.resolve(strict=True)
+if root not in resolved.parents or resolved.name != "proposal.json":
+    raise SystemExit("proposal must be reports/evolution/<run-id>/proposal.json")
+print(resolved.relative_to(Path.cwd().resolve()).as_posix())
+PY
+  )
+  proposal_dir=$(dirname "$proposal")
+  evolution_gate="$proposal_dir/gate.json"
+  if [[ "$mode" == "--dry-run" ]]; then
+    evolution_json=$(python3 -m vibe_finance evolution-gate \
+      --proposal "$proposal" \
+      --baseline-ref "$local_head")
+  else
+    evolution_json=$(python3 -m vibe_finance evolution-gate \
+      --proposal "$proposal" \
+      --baseline-ref "$local_head" \
+      --output "$evolution_gate")
+  fi
+  read -r evolution_decision evolution_rollback_base evolution_run_id evolution_gate_sha < <(
+    EVOLUTION_JSON="$evolution_json" EVOLUTION_GATE="$evolution_gate" RUN_MODE="$mode" python3 - <<'PY'
+import hashlib
+import json
+import os
+from pathlib import Path
+
+value = json.loads(os.environ["EVOLUTION_JSON"])
+gate_sha = "NOT_APPLICABLE"
+if os.environ["RUN_MODE"] != "--dry-run":
+    gate_path = Path(os.environ["EVOLUTION_GATE"])
+    raw = gate_path.read_bytes()
+    gate = json.loads(raw)
+    if gate != value:
+        raise SystemExit("gate file differs from the verifier result captured on stdout")
+    gate_sha = hashlib.sha256(raw).hexdigest()
+print(value["decision"], value["baseline"]["commit"], value["run_id"], gate_sha)
+PY
+  )
+  case "$evolution_decision" in
+    PROPOSED_ONLY|REJECTED|NOT_APPLICABLE)
+      ;;
+    ACCEPTED)
+      echo "ACCEPTED is disabled until a protected trusted-evaluator registry exists" >&2
+      exit 6
+      ;;
+    *)
+      echo "refusing unknown evolution decision: $evolution_decision" >&2
+      exit 6
+      ;;
+  esac
+
+  mapfile -t evolution_allowed_paths < <(
+    EVOLUTION_JSON="$evolution_json" PROPOSAL="$proposal" EVOLUTION_GATE="$evolution_gate" \
+      RUN_MODE="$mode" python3 - <<'PY'
+import json
+import os
+from pathlib import Path
+
+root = Path.cwd().resolve()
+run_dir = Path(os.environ["PROPOSAL"]).resolve().parent
+value = json.loads(os.environ["EVOLUTION_JSON"])
+paths = [Path(os.environ["PROPOSAL"]).resolve()]
+if os.environ["RUN_MODE"] != "--dry-run":
+    paths.append(Path(os.environ["EVOLUTION_GATE"]).resolve())
+candidate = value.get("candidate")
+if candidate:
+    paths.append(Path(candidate["path"]).resolve())
+for evidence in value.get("evidence", {}).values():
+    if evidence.get("path"):
+        paths.append(Path(evidence["path"]).resolve())
+for path in paths:
+    if path.parent != run_dir or not path.is_file() or path.is_symlink():
+        raise SystemExit(f"evolution artifact must be a regular file directly under the unique run directory: {path}")
+    print(path.relative_to(root).as_posix())
+PY
+  )
+
+  while IFS= read -r record; do
+    [[ -z "$record" ]] && continue
+    status=${record:0:2}
+    if [[ "$status" != "??" ]]; then
+      echo "reflection may only add a new evidence run; historical evolution artifacts are immutable: $record" >&2
+      exit 6
+    fi
+    artifact=${record:3}
+    permitted=false
+    for expected in "${evolution_allowed_paths[@]}"; do
+      if [[ "$artifact" == "$expected" ]]; then
+        permitted=true
+        break
+      fi
+    done
+    if [[ "$permitted" != true ]]; then
+      echo "reflection contains an unreferenced or extra evolution artifact: $artifact" >&2
+      exit 6
+    fi
+  done < <(git status --porcelain=v1 --untracked-files=all -- reports/evolution)
+  for expected in "${evolution_allowed_paths[@]}"; do
+    if [[ "$(git status --porcelain=v1 --untracked-files=all -- "$expected")" != "?? $expected" ]]; then
+      echo "reflection artifact is not a unique untracked file: $expected" >&2
+      exit 6
+    fi
+  done
+fi
+
+verify_evolution_worktree_contract() {
+  EVOLUTION_GATE="$evolution_gate" \
+  EVOLUTION_GATE_SHA="$evolution_gate_sha" \
+  EVOLUTION_DECISION="$evolution_decision" \
+  EVOLUTION_ROLLBACK_BASE="$evolution_rollback_base" \
+  EVOLUTION_RUN_ID="$evolution_run_id" \
+  PROPOSAL="$proposal" \
+  python3 - <<'PY'
+import hashlib
+import json
+import os
+import subprocess
+from pathlib import Path
+
+root = Path.cwd().resolve()
+
+def digest(raw: bytes) -> str:
+    return hashlib.sha256(raw).hexdigest()
+
+gate_path = Path(os.environ["EVOLUTION_GATE"])
+gate_raw = gate_path.read_bytes()
+if digest(gate_raw) != os.environ["EVOLUTION_GATE_SHA"]:
+    raise SystemExit("evolution gate SHA drifted after verification")
+gate = json.loads(gate_raw)
+if gate["decision"] != os.environ["EVOLUTION_DECISION"]:
+    raise SystemExit("evolution gate decision drifted after verification")
+if gate["baseline"]["commit"] != os.environ["EVOLUTION_ROLLBACK_BASE"]:
+    raise SystemExit("evolution rollback base drifted after verification")
+if gate["run_id"] != os.environ["EVOLUTION_RUN_ID"]:
+    raise SystemExit("evolution run_id drifted after verification")
+
+proposal_path = Path(os.environ["PROPOSAL"]).resolve()
+if digest(proposal_path.read_bytes()) != gate["source_sha256"]["proposal"]:
+    raise SystemExit("proposal SHA drifted after gate computation")
+references = []
+if gate.get("candidate"):
+    references.append((Path(gate["candidate"]["path"]), gate["candidate"]["sha256"]))
+for value in gate.get("evidence", {}).values():
+    if value.get("path"):
+        references.append((Path(value["path"]), value["sha256"]))
+for path, expected in references:
+    if path.resolve().parent != proposal_path.parent or digest(path.read_bytes()) != expected:
+        raise SystemExit(f"referenced evolution artifact drifted: {path}")
+
+protected = {
+    "config/ledger_legacy_anchor.json": gate["source_sha256"]["anchor"],
+    "MODE_LOCK.json": gate["source_sha256"]["mode_lock"],
+    "data/ledger/portfolio.json": gate["source_sha256"]["portfolio"],
+    "vibe_finance/evolution.py": gate["verifier"]["source_sha256"],
+}
+for relative, expected in protected.items():
+    working = (root / relative).read_bytes()
+    committed = subprocess.check_output(["git", "show", f"HEAD:{relative}"])
+    if digest(working) != expected or digest(committed) != expected:
+        raise SystemExit(f"protected gate authority is not pinned to HEAD: {relative}")
+PY
+}
+
+if [[ "$task_id" == "reflection-evolution" && "$mode" != "--dry-run" ]]; then
+  verify_evolution_worktree_contract
+fi
+
+# Keep the public status block ledger-derived for operational tasks. Reflection
+# owns proposal evidence only and must not touch README or any live projection.
+if [[ "$task_id" != "reflection-evolution" ]]; then
+  python3 -m vibe_finance update-readme >/dev/null
+fi
 
 deleted=$(git status --porcelain=v1 --untracked-files=all -- "${allowlist[@]}" | awk 'substr($0,1,2) ~ /D/ {print}')
 if [[ -n "$deleted" ]]; then
@@ -160,6 +364,10 @@ PY
 git diff --check
 python3 -m unittest discover -s tests -q
 
+if [[ "$task_id" == "reflection-evolution" && "$mode" != "--dry-run" ]]; then
+  verify_evolution_worktree_contract
+fi
+
 if [[ "$mode" == "--dry-run" ]]; then
   printf 'dry_run=PASS\ntask_id=%s\nbranch=%s\nvisibility=%s\npermission=%s\n' \
     "$task_id" "$branch" "$visibility" "$permission"
@@ -178,6 +386,11 @@ RUN_TIMESTAMP="$timestamp_human" \
 RUN_BRANCH="$branch" \
 RUN_MANIFEST="$manifest" \
 RUN_ALLOWLIST="${allowlist[*]}" \
+EVOLUTION_GATE="$evolution_gate" \
+EVOLUTION_GATE_SHA="$evolution_gate_sha" \
+EVOLUTION_DECISION="$evolution_decision" \
+EVOLUTION_ROLLBACK_BASE="$evolution_rollback_base" \
+EVOLUTION_RUN_ID="$evolution_run_id" \
 python3 - <<'PY'
 from __future__ import annotations
 
@@ -215,13 +428,18 @@ ledger = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exis
 strategy_path = Path("config/strategy.json")
 strategy = json.loads(strategy_path.read_text(encoding="utf-8")) if strategy_path.exists() else {}
 infra = ledger.get("research_infrastructure", {})
+gate_path = Path(os.environ["EVOLUTION_GATE"]) if os.environ.get("EVOLUTION_GATE") else None
 
 manifest = {
     "schema_version": 1,
     "task_id": os.environ["TASK_ID"],
     "task_status": os.environ["RUN_STATUS"],
     "run_timestamp": os.environ["RUN_TIMESTAMP"],
-    "run_id": os.environ.get("VIBE_RUN_ID", "UNKNOWN"),
+    "run_id": (
+        os.environ["EVOLUTION_RUN_ID"]
+        if os.environ["EVOLUTION_RUN_ID"] != "NOT_APPLICABLE"
+        else os.environ.get("VIBE_RUN_ID", "UNKNOWN")
+    ),
     "branch": os.environ["RUN_BRANCH"],
     "base_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
     "allowlist": allowlist,
@@ -233,8 +451,16 @@ manifest = {
         "unit_tests": "PASS",
     },
     "strategy_version": strategy.get("version", "UNKNOWN"),
-    "evolution_decision": os.environ.get("VIBE_EVOLUTION_DECISION", "NOT_APPLICABLE"),
-    "rollback_base": os.environ.get("VIBE_ROLLBACK_BASE", "NOT_APPLICABLE"),
+    "evolution_decision": os.environ["EVOLUTION_DECISION"],
+    "rollback_base": os.environ["EVOLUTION_ROLLBACK_BASE"],
+    "evolution_gate": (
+        {
+            "path": gate_path.as_posix(),
+            "sha256": os.environ["EVOLUTION_GATE_SHA"],
+        }
+        if gate_path and gate_path.exists()
+        else None
+    ),
     "deepseek": {
         "actual_calls": infra.get("actual_calls", 0),
         "spent_cny": infra.get("spent_cny", 0),
@@ -250,12 +476,85 @@ temporary.replace(path)
 PY
 
 stage_paths=("$manifest")
-for path in "${allowlist[@]}"; do
+if [[ "$task_id" == "reflection-evolution" ]]; then
+  paths_to_stage=("${evolution_allowed_paths[@]}")
+else
+  paths_to_stage=("${allowlist[@]}")
+fi
+for path in "${paths_to_stage[@]}"; do
   if [[ -e "$path" ]]; then
     stage_paths+=("$path")
   fi
 done
 git add -- "${stage_paths[@]}"
+staged_tree_after_add=$(git write-tree)
+
+if [[ "$task_id" == "reflection-evolution" ]]; then
+  printf -v evolution_allowed_paths_lines '%s\n' "${evolution_allowed_paths[@]}"
+  EVOLUTION_GATE="$evolution_gate" \
+  EVOLUTION_GATE_SHA="$evolution_gate_sha" \
+  EVOLUTION_DECISION="$evolution_decision" \
+  EVOLUTION_ROLLBACK_BASE="$evolution_rollback_base" \
+  EVOLUTION_RUN_ID="$evolution_run_id" \
+  EVOLUTION_ALLOWED_PATHS="$evolution_allowed_paths_lines" \
+  RUN_MANIFEST="$manifest" \
+  python3 - <<'PY'
+import hashlib
+import json
+import os
+import subprocess
+from pathlib import Path
+
+root = Path.cwd().resolve()
+
+def staged(path: str) -> bytes:
+    return subprocess.check_output(["git", "show", f":{path}"])
+
+def digest(raw: bytes) -> str:
+    return hashlib.sha256(raw).hexdigest()
+
+allowed = set(os.environ["EVOLUTION_ALLOWED_PATHS"].splitlines())
+gate_path = os.environ["EVOLUTION_GATE"]
+if gate_path not in allowed:
+    raise SystemExit("pinned gate is absent from the exact staging contract")
+gate_raw = staged(gate_path)
+if digest(gate_raw) != os.environ["EVOLUTION_GATE_SHA"]:
+    raise SystemExit("staged evolution gate differs from the pinned verifier result")
+gate = json.loads(gate_raw)
+if (
+    gate["decision"] != os.environ["EVOLUTION_DECISION"]
+    or gate["baseline"]["commit"] != os.environ["EVOLUTION_ROLLBACK_BASE"]
+    or gate["run_id"] != os.environ["EVOLUTION_RUN_ID"]
+):
+    raise SystemExit("staged gate authority differs from pinned control-flow values")
+
+proposal_path = next(path for path in allowed if path.endswith("/proposal.json"))
+if digest(staged(proposal_path)) != gate["source_sha256"]["proposal"]:
+    raise SystemExit("staged proposal differs from its gate hash")
+references = []
+if gate.get("candidate"):
+    references.append((gate["candidate"]["path"], gate["candidate"]["sha256"]))
+for value in gate.get("evidence", {}).values():
+    if value.get("path"):
+        references.append((value["path"], value["sha256"]))
+for raw_path, expected in references:
+    path = Path(raw_path).resolve().relative_to(root).as_posix()
+    if path not in allowed or digest(staged(path)) != expected:
+        raise SystemExit(f"staged referenced artifact differs from its gate hash: {path}")
+
+manifest = json.loads(staged(os.environ["RUN_MANIFEST"]))
+if (
+    manifest["evolution_decision"] != os.environ["EVOLUTION_DECISION"]
+    or manifest["rollback_base"] != os.environ["EVOLUTION_ROLLBACK_BASE"]
+    or manifest["run_id"] != os.environ["EVOLUTION_RUN_ID"]
+    or manifest["evolution_gate"] != {
+        "path": gate_path,
+        "sha256": os.environ["EVOLUTION_GATE_SHA"],
+    }
+):
+    raise SystemExit("staged manifest is not bound to the pinned evolution gate")
+PY
+fi
 
 mapfile -t staged_paths < <(git diff --cached --name-only)
 if [[ ${#staged_paths[@]} -eq 0 ]]; then
@@ -280,6 +579,11 @@ for staged in "${staged_paths[@]}"; do
     exit 10
   fi
 done
+
+if [[ "$(git write-tree)" != "$staged_tree_after_add" ]]; then
+  echo "refusing commit because the staged tree changed during verification" >&2
+  exit 10
+fi
 
 commit_message="automation($task_id): $timestamp_human $run_status"
 git commit -m "$commit_message"

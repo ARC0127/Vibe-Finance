@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "proposal_id": "b3-momentum-gated-erc-v1",
+  "status": "PREREGISTERED_PROPOSED_ONLY",
+  "simulation_only": true,
+  "base_manifest_id": "b0-b1-b2-v1",
+  "base_manifest_sha256": "5679ca06263a22243fc6f06852d2832f0ebac4dc8f4de16979976f2e35fa688e",
+  "candidate": {
+    "id": "B3",
+    "name": "momentum_gated_equal_risk_contribution",
+    "symbols": ["510300", "510880", "512100", "518880"],
+    "signal_at": "last_trading_day_month_close",
+    "execution_at": "next_trading_day_open",
+    "eligibility": {
+      "source": "B1_absolute_momentum",
+      "windows_trading_days": [126, 252],
+      "skip_recent_trading_days": 21,
+      "rule": "both_window_returns_strictly_greater_than_zero"
+    },
+    "allocation": {
+      "source": "B2_shrunk_covariance_erc",
+      "covariance_window_trading_days": 60,
+      "sample_covariance_weight": 0.75,
+      "diagonal_covariance_weight": 0.25,
+      "solver_tolerance": 1e-08,
+      "solver_maximum_iterations": 1000,
+      "all_ineligible_action": "100_percent_cash",
+      "single_eligible_action": "continuous_weight_one_then_apply_shared_caps",
+      "multiple_eligible_action": "solve_erc_on_eligible_subset_then_apply_shared_caps"
+    },
+    "execution_contract": "inherit_B1_B2_common_execution_without_override",
+    "new_numeric_hyperparameters": 0
+  },
+  "mechanical_refutation_gates": [
+    "all_eligible_target_equals_B2",
+    "all_ineligible_target_is_100_percent_cash",
+    "single_eligible_weight_equals_asset_cap",
+    "subset_normalized_erc_residual_lte_1e-8",
+    "future_open_does_not_change_signal",
+    "input_order_does_not_change_signal",
+    "proposal_or_base_manifest_drift_fails_closed"
+  ],
+  "performance_hypothesis": "B3 base-cost aggregate non-sealed test-fold net wealth strictly exceeds both B1 and B2",
+  "performance_refutation": [
+    "B3_10bps_not_strictly_above_B1_and_B2",
+    "B3_25bps_not_strictly_above_B1_and_B2",
+    "any_protocol_or_hard_risk_failure"
+  ],
+  "claim_boundary": {
+    "strategy_returns": null,
+    "strategy_ranking": null,
+    "walk_forward": null,
+    "independent_oos": null,
+    "promotion_authorized": false
+  }
+}

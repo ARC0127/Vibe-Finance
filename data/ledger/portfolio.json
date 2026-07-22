@@ -2,51 +2,30 @@
   "cash_cny": 22018.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "aaf11168887f4b6c98400e883caf69f7",
+  "last_run_id": "88bbd1b60ca149ae9d5b30d9cce624cb",
   "pending_orders": [
     {
-      "exposure_group": "large_cap_value",
-      "limit_price": 3.125185,
+      "exposure_group": "csi300",
+      "limit_price": 0.0,
       "lot_size": 100,
-      "name": "华夏上证50ETF",
-      "order_id": "fe6b5d9784bd4ae99193f7d95d624918",
-      "quantity": 1900,
+      "name": "华泰柏瑞沪深300ETF",
+      "order_id": "9bbf2cd8d6374b4b938d023ce9538b44",
+      "quantity": 100,
       "reasons": [
         "COLD_START_LIMITED_HISTORY",
-        "COLD_START_TREND_ENTRY"
+        "EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK",
+        "DAILY_REBALANCE_TRIM"
       ],
       "risk_bucket": "core_equity",
-      "side": "BUY",
-      "signal_as_of": "2026-07-21T16:43:00+08:00",
-      "signal_close": 3.079,
-      "signal_date": "2026-07-21",
-      "signal_score": 1.2739,
-      "signal_type": "COLD_START_TREND",
+      "side": "SELL",
+      "signal_as_of": "2026-07-22T20:23:22+08:00",
+      "signal_close": 4.765,
+      "signal_date": "2026-07-22",
+      "signal_score": 0.1,
+      "signal_type": "DAILY_REBALANCE_TRIM",
       "simulation_only": true,
       "status": "PENDING_NEXT_OPEN",
-      "symbol": "510050"
-    },
-    {
-      "exposure_group": "healthcare",
-      "limit_price": 0.33292,
-      "lot_size": 100,
-      "name": "华宝中证医疗ETF",
-      "order_id": "e6bcdc787d5a49638b037e2e82ea9c05",
-      "quantity": 7300,
-      "reasons": [
-        "COLD_START_LIMITED_HISTORY",
-        "COLD_START_TREND_ENTRY"
-      ],
-      "risk_bucket": "industry_equity",
-      "side": "BUY",
-      "signal_as_of": "2026-07-21T16:43:00+08:00",
-      "signal_close": 0.328,
-      "signal_date": "2026-07-21",
-      "signal_score": 1.0061,
-      "signal_type": "COLD_START_TREND",
-      "simulation_only": true,
-      "status": "PENDING_NEXT_OPEN",
-      "symbol": "512170"
+      "symbol": "510300"
     }
   ],
   "performance": {
@@ -54,19 +33,16 @@
     "cumulative_fees_cny": 10.0,
     "cumulative_sell_notional_cny": 0.0,
     "filled_trade_count": 2,
-    "investable_value_cny": 30109.2,
+    "investable_value_cny": 30049.2,
     "last_filled_trade_date": "2026-07-21",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-07-21T16:43:00+08:00",
-    "project_equity_cny": 30209.2,
+    "last_valuation_as_of": "2026-07-22T20:23:22+08:00",
+    "project_equity_cny": 30149.2,
     "realized_pnl_cny": 0.0,
-    "total_pnl_cny": 209.2,
-    "total_return_pct": 0.006973333333333357,
-    "valuation_complete": false,
-    "valuation_stale_symbols": [
-      "510300",
-      "512100"
-    ]
+    "total_pnl_cny": 149.2,
+    "total_return_pct": 0.004973333333333357,
+    "valuation_complete": true,
+    "valuation_stale_symbols": []
   },
   "positions": {
     "510300": {
@@ -75,13 +51,13 @@
       "average_cost": 4.681166666666667,
       "exposure_group": "csi300",
       "last_buy_date": "2026-07-21",
-      "last_price": 4.787,
-      "last_price_as_of": "2026-07-21T15:34:59+08:00",
-      "market_value_cny": 5744.4,
+      "last_price": 4.765,
+      "last_price_as_of": "2026-07-22T15:34:59+08:00",
+      "market_value_cny": 5718.0,
       "name": "华泰柏瑞沪深300ETF",
       "quantity": 1200,
       "risk_bucket": "core_equity",
-      "unrealized_pnl_cny": 127.0
+      "unrealized_pnl_cny": 100.6
     },
     "512100": {
       "acquired_date": "2026-07-21",
@@ -89,13 +65,13 @@
       "average_cost": 2.83025,
       "exposure_group": "csi1000",
       "last_buy_date": "2026-07-21",
-      "last_price": 2.933,
-      "last_price_as_of": "2026-07-21T15:34:59+08:00",
-      "market_value_cny": 2346.4,
+      "last_price": 2.891,
+      "last_price_as_of": "2026-07-22T15:34:59+08:00",
+      "market_value_cny": 2312.8,
       "name": "南方中证1000ETF",
       "quantity": 800,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 82.2
+      "unrealized_pnl_cny": 48.6
     }
   },
   "research_infrastructure": {
@@ -171,6 +147,12 @@
       "mode": "preopen",
       "run_date": "2026-07-22",
       "run_id": "aaf11168887f4b6c98400e883caf69f7"
+    },
+    {
+      "input_sha256": "8e3e6294384d625cb796229505a3e454c30bbf21b3665f892a5011354907da9e",
+      "mode": "short",
+      "run_date": "2026-07-22",
+      "run_id": "88bbd1b60ca149ae9d5b30d9cce624cb"
     }
   ],
   "schema_version": 1

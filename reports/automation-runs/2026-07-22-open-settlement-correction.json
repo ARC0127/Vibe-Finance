@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-22T10:09:00+08:00",
+  "simulation_only": true,
+  "status": "FAILED_DAILY_TRADE",
+  "git_persistence_status": "WMI_GIT_DEFERRED",
+  "source_snapshot": "data/inbox/2026-07-22-open.json",
+  "authoritative_portfolio": "data/ledger/portfolio.json",
+  "authoritative_order_ledger": "data/ledger/orders.jsonl",
+  "correction": {
+    "incorrect_interpretation": "The source snapshot note says the two pending orders were cancelled.",
+    "authoritative_state": "No cancellation event was committed. Both orders remain PENDING_NEXT_OPEN.",
+    "cause": [
+      "No timely dual-source 09:30-09:35 open snapshot was saved.",
+      "Repository Git metadata was unavailable under the active WMI safety gate, so provenance verification failed closed before any ledger mutation."
+    ],
+    "immutable_source_policy": "Do not rewrite or backfill the source snapshot. This additive correction controls its interpretation."
+  },
+  "pending_order_ids": [
+    "fe6b5d9784bd4ae99193f7d95d624918",
+    "e6bcdc787d5a49638b037e2e82ea9c05"
+  ],
+  "fills_created": 0,
+  "cancellations_committed": 0,
+  "next_action": "At the next governed trading cycle, reconcile or cancel stale pending orders only after repository Git metadata is available; never fabricate the missing open snapshot."
+}

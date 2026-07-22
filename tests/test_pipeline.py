@@ -1,15 +1,18 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from vibe_finance.pipeline import (
     DataGateError,
+    _project_value,
     _trade_fees,
+    _update_ledger_valuation,
     initialize_ledger,
     project_status,
     run_fund_nav_pipeline,
@@ -35,12 +38,16 @@ def snapshot(run_date: str, *, trading: bool, shock: bool = False, with_open: bo
         "lot_size": 100,
         "history": prices,
         "source_ids": ["source_a", "eastmoney"],
+        "price_source_ids": ["source_a", "eastmoney"],
+        "price_as_of": f"{run_date}T15:00:00+08:00",
     }
     if with_open:
+        asset["price_as_of"] = f"{run_date}T09:30:00+08:00"
         asset["open"] = 100.02
         asset["open_source_ids"] = ["open_source_a", "open_source_b"]
+        asset["open_price_as_of"] = f"{run_date}T09:35:00+08:00"
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "run_date": run_date,
         "as_of": f"{run_date}T15:00:00+08:00",
         "is_trading_day": trading,
@@ -75,6 +82,8 @@ def fund_snapshot(run_date: str, nav: float) -> dict:
             "close": nav,
             "history": [nav - 0.019 + index * 0.001 for index in range(20)],
             "source_ids": ["eastmoney", "efunds"],
+            "price_source_ids": ["eastmoney", "efunds"],
+            "price_as_of": f"{run_date}T22:30:00+08:00",
             "risk_bucket": "fixed_income",
             "exposure_group": "long_duration_bond",
             "order_engine": "next_confirmed_nav",
@@ -120,6 +129,8 @@ def cold_start_snapshot(
             "lot_size": 100,
             "history": [],
             "source_ids": ["eastmoney", "exchange_price"],
+            "price_source_ids": ["eastmoney", "exchange_price"],
+            "price_as_of": value["as_of"],
             "primary_source_ids": ["exchange_price"],
             "risk_bucket": bucket,
             "exposure_group": group,
@@ -128,12 +139,93 @@ def cold_start_snapshot(
         if with_open:
             asset["open"] = close
             asset["open_source_ids"] = ["open_a", "open_b"]
+            asset["open_price_as_of"] = f"{run_date}T09:35:00+08:00"
         assets.append(asset)
     value["assets"] = assets
     return value
 
 
 class PipelineTests(unittest.TestCase):
+    def setUp(self) -> None:
+        # Keep historical fixtures deterministic. Production still evaluates
+        # snapshot freshness against the real wall clock.
+        self._datetime_patcher = patch("vibe_finance.pipeline.datetime", wraps=datetime)
+        mocked_datetime = self._datetime_patcher.start()
+        mocked_datetime.now.return_value = datetime(
+            2026, 7, 21, 12, 0, 0, tzinfo=timezone.utc
+        )
+        self.addCleanup(self._datetime_patcher.stop)
+
+    def test_run_date_and_point_in_time_fields_fail_closed(self) -> None:
+        strategy = json.loads(STRATEGY_PATH.read_text(encoding="utf-8"))
+        timestamp_date = snapshot("2026-07-17", trading=True)
+        timestamp_date["run_date"] = "2026-07-17T00:00:00"
+        with self.assertRaisesRegex(DataGateError, "run_date"):
+            validate_snapshot(timestamp_date, strategy)
+
+        future_price = snapshot("2026-07-17", trading=True)
+        future_price["assets"][0]["price_as_of"] = "2026-07-17T15:00:01+08:00"
+        with self.assertRaisesRegex(DataGateError, "price_as_of"):
+            validate_snapshot(future_price, strategy)
+
+        future_evidence = snapshot("2026-07-17", trading=True)
+        future_evidence["evidence"][0]["as_of"] = "2026-07-18"
+        with self.assertRaisesRegex(DataGateError, "evidence"):
+            validate_snapshot(future_evidence, strategy)
+
+    def test_schema_v1_remains_readable_but_unscoped_prices_are_blocked(self) -> None:
+        strategy = json.loads(STRATEGY_PATH.read_text(encoding="utf-8"))
+        value = snapshot("2026-07-17", trading=True)
+        value["schema_version"] = 1
+        value["assets"][0].pop("price_as_of")
+        value["assets"][0].pop("price_source_ids")
+        warnings = validate_snapshot(value, strategy)
+        self.assertIn("LEGACY_IMPLICIT_PRICE_AS_OF:511880", warnings)
+        self.assertIn("LEGACY_UNSCOPED_PRICE_SOURCES:511880", warnings)
+
+    def test_fractional_position_uses_one_mark_context_without_cost_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            ledger_path = Path(directory) / "portfolio.json"
+            initialize_ledger(ledger_path)
+            ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+            ledger["positions"] = {
+                "FUND": {
+                    "quantity": "1.75",
+                    "average_cost": 10.0,
+                    "last_price": 20.0,
+                    "last_price_as_of": "2026-07-16T22:30:00+08:00",
+                }
+            }
+            values = _project_value(
+                ledger, {}, "2026-07-17T22:30:00+08:00"
+            )
+            self.assertEqual(values["positions_cny"], 35.0)
+            self.assertEqual(values["mark_status"], "STALE")
+            self.assertEqual(
+                values["blocks"], ["POSITION_MARK_NOT_IN_SNAPSHOT:FUND"]
+            )
+            _update_ledger_valuation(
+                ledger, {}, values, "2026-07-17T22:30:00+08:00"
+            )
+            self.assertEqual(ledger["positions"]["FUND"]["market_value_cny"], 35.0)
+            self.assertFalse(ledger["performance"]["valuation_complete"])
+            self.assertIsNone(ledger["performance"]["last_valuation_as_of"])
+
+            untrusted = _project_value(
+                ledger,
+                {"FUND": {"symbol": "FUND", "close": 999.0, "source_ids": ["legacy"]}},
+                "2026-07-17T22:30:00+08:00",
+            )
+            self.assertEqual(untrusted["positions_cny"], 35.0)
+            self.assertEqual(
+                untrusted["blocks"], ["POSITION_MARK_UNTRUSTED:FUND"]
+            )
+
+            ledger["positions"]["FUND"].pop("last_price")
+            ledger["positions"]["FUND"].pop("last_price_as_of")
+            with self.assertRaisesRegex(DataGateError, "MISSING_POSITION_MARK"):
+                _project_value(ledger, {}, "2026-07-17T22:30:00+08:00")
+
     def test_initialize_reserves_research_budget(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             ledger = Path(directory) / "portfolio.json"
@@ -399,6 +491,7 @@ class PipelineTests(unittest.TestCase):
             root = Path(directory)
             value = snapshot("2026-07-17", trading=True)
             value["assets"][0]["source_ids"] = ["source_a", "source_b"]
+            value["assets"][0]["price_source_ids"] = ["source_a", "source_b"]
             input_path = root / "snapshot.json"
             input_path.write_text(json.dumps(value), encoding="utf-8")
 
@@ -424,6 +517,7 @@ class PipelineTests(unittest.TestCase):
             asset = value["assets"][0]
             asset["asset_type"] = "open_end_bond_fund"
             asset["source_ids"] = ["eastmoney", "efunds"]
+            asset["price_source_ids"] = ["eastmoney", "efunds"]
             asset["fund_metadata"] = {
                 "nav_date": "2026-07-17",
                 "nav_age_trading_days": 0,
@@ -478,7 +572,7 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(second_result["filled"], 1)
             second_ledger = json.loads((root / "portfolio.json").read_text(encoding="utf-8"))
             position = second_ledger["positions"]["110037"]
-            self.assertGreater(position["quantity"], 0)
+            self.assertGreater(Decimal(str(position["quantity"])), 0)
             self.assertEqual(position["acquired_date"], "2026-07-18")
             self.assertEqual(second_ledger["pending_orders"], [])
             event = json.loads(
@@ -486,6 +580,8 @@ class PipelineTests(unittest.TestCase):
             )["events"][0]
             self.assertEqual(event["fill_nav"], 1.116)
             self.assertGreater(event["fund_fee_cny"], 0)
+            self.assertIsInstance(event["confirmed_shares"], str)
+            self.assertIsInstance(position["quantity"], str)
 
     def test_open_and_nav_orders_share_cash_and_position_limits(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -546,6 +642,7 @@ class PipelineTests(unittest.TestCase):
                 asset["history"] = [10.0 + point * 0.01 for point in range(20)]
                 asset["close"] = asset["history"][-1]
                 asset["source_ids"] = ["sse_etf", "eastmoney"]
+                asset["price_source_ids"] = ["sse_etf", "eastmoney"]
                 asset["risk_bucket"] = f"test_bucket_{index}"
                 asset["exposure_group"] = "duplicate" if index > 1 else f"group_{index}"
                 assets.append(asset)

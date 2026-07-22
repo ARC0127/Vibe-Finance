@@ -1,0 +1,138 @@
+{
+  "as_of": "2026-07-21T16:43:00+08:00",
+  "blocks": [],
+  "daily_execution_status": "ORDER_SCHEDULED",
+  "fills": [],
+  "input_sha256": "4f21d4b89267730c06835c8d30bf87692de11dfc0c37b58280767cd8ec4847a5",
+  "mode": "short",
+  "new_orders": [
+    {
+      "exposure_group": "large_cap_value",
+      "limit_price": 3.125185,
+      "lot_size": 100,
+      "name": "华夏上证50ETF",
+      "order_id": "fe6b5d9784bd4ae99193f7d95d624918",
+      "quantity": 1900,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "core_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-21T16:43:00+08:00",
+      "signal_close": 3.079,
+      "signal_date": "2026-07-21",
+      "signal_score": 1.2739,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "510050"
+    },
+    {
+      "exposure_group": "healthcare",
+      "limit_price": 0.33292,
+      "lot_size": 100,
+      "name": "华宝中证医疗ETF",
+      "order_id": "e6bcdc787d5a49638b037e2e82ea9c05",
+      "quantity": 7300,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-21T16:43:00+08:00",
+      "signal_close": 0.328,
+      "signal_date": "2026-07-21",
+      "signal_score": 1.0061,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "512170"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "BUY",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "large_cap_value",
+      "metrics": null,
+      "name": "华夏上证50ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "core_equity",
+      "score": 1.2739,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 3,
+      "symbol": "510050",
+      "target_weight": 0.19429609554554755
+    },
+    {
+      "action": "HOLD",
+      "asset_type": "equity_etf",
+      "current_weight": 0.19078554063209915,
+      "exposure_group": "csi300",
+      "metrics": null,
+      "name": "华泰柏瑞沪深300ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "core_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 3,
+      "symbol": "510300",
+      "target_weight": 0.0
+    },
+    {
+      "action": "HOLD",
+      "asset_type": "equity_etf",
+      "current_weight": 0.07792966933694684,
+      "exposure_group": "csi1000",
+      "metrics": null,
+      "name": "南方中证1000ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 3,
+      "symbol": "512100",
+      "target_weight": 0.0
+    },
+    {
+      "action": "BUY",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "healthcare",
+      "metrics": null,
+      "name": "华宝中证医疗ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "industry_equity",
+      "score": 1.0061,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 3,
+      "symbol": "512170",
+      "target_weight": 0.07952386645942104
+    }
+  ],
+  "run_date": "2026-07-21",
+  "run_id": "37d77226e9344b82b2d78949c01b8515",
+  "schema_version": 1,
+  "valuation": {
+    "cash_cny": 22018.4,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 30109.2,
+    "positions_cny": 8090.8,
+    "project_equity_cny": 30209.2
+  }
+}

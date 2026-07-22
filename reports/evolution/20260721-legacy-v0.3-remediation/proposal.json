@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "run_id": "20260721-legacy-v0.3-remediation",
+  "hypothesis": "The historical v0.3.0 ACCEPTED label is invalid because it preceded eligible closed-round-trip, walk-forward, independent OOS, and rollback-replay evidence; a protected verifier should recompute the state without changing the live strategy.",
+  "candidate_strategy": {
+    "path": "candidate_strategy.json",
+    "sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d",
+    "version": "0.3.0"
+  },
+  "scope": "GOVERNANCE_REMEDIATION_ONLY_SIMULATION_NO_PROMOTION",
+  "known_missing_evidence": [
+    "preregistration",
+    "walk_forward",
+    "independent_out_of_sample",
+    "rollback_replay",
+    "trusted_evaluator"
+  ]
+}

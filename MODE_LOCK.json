@@ -1,5 +1,5 @@
 {
-  "version": "v1.3.2-vibe-finance-3",
+  "version": "v1.3.3-vibe-finance-5",
   "generated_at": "2026-07-19T00:00:00+08:00",
   "last_reconciled_at": "2026-07-21T00:00:00+08:00",
   "activated_at": "2026-07-19",
@@ -63,10 +63,17 @@
   },
   "evolution_policy": {
     "minimum_completed_virtual_trades_for_parameter_upgrade": 20,
-    "walk_forward_or_out_of_sample_required": true,
+    "walk_forward_and_independent_oos_required": true,
     "version_all_strategy_changes": true,
     "single_day_rule_changes": "forbid",
-    "rollback_required": true
+    "rollback_required": true,
+    "acceptance_authority": "protected_static_verifier_only",
+    "caller_supplied_decision": "forbid",
+    "missing_evidence_decision": "PROPOSED_ONLY",
+    "trusted_evaluator_required": true,
+    "eligible_sample_authority": "git_head_prefix_plus_pending_filled_fsm_plus_hash_bound_provenance",
+    "manifest_gate_sha_pinning_required": true,
+    "pipeline_cross_file_transaction_status": "NOT_IMPLEMENTED_FAIL_CLOSED_FOR_ACCEPTANCE"
   },
   "execution_policy": {
     "minimum_virtual_fills_per_normal_trading_day": 1,

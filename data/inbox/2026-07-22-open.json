@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-07-22",
+  "as_of": "2026-07-22T09:35:00+08:00",
+  "is_trading_day": true,
+  "market_state": "open",
+  "simulation_only": true,
+  "collection_note": "截至09:35未形成并保存可证明为窗口内采集的双源开盘快照。09:35后查询到的行情仅用于诊断，未写入open、open_source_ids或成交依据，严禁回填。两笔既有PENDING_NEXT_OPEN因此以UNVERIFIED_TIMELY_OPEN_SNAPSHOT失败关闭并取消；不生成新信号或新订单。",
+  "indices": [
+    {
+      "symbol": "000001",
+      "name": "上证指数",
+      "close": 3864.3671,
+      "daily_return": 0.0179,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "price_as_of": "2026-07-21T15:30:36+08:00"
+    },
+    {
+      "symbol": "399001",
+      "name": "深证成指",
+      "close": 14264.291,
+      "daily_return": 0.0481,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "price_as_of": "2026-07-21T15:00:03+08:00"
+    },
+    {
+      "symbol": "399006",
+      "name": "创业板指",
+      "close": 3685.969,
+      "daily_return": 0.0705,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "price_as_of": "2026-07-21T15:00:03+08:00"
+    },
+    {
+      "symbol": "000300",
+      "name": "沪深300",
+      "close": 4739.2287,
+      "daily_return": 0.0306,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "price_as_of": "2026-07-21T15:35:34+08:00"
+    },
+    {
+      "symbol": "000905",
+      "name": "中证500",
+      "close": 7800.6085,
+      "daily_return": 0.0525,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "price_as_of": "2026-07-21T15:35:40+08:00"
+    }
+  ],
+  "assets": [
+    {
+      "symbol": "510050",
+      "name": "华夏上证50ETF",
+      "asset_type": "equity_etf",
+      "close": 3.079,
+      "daily_return": 0.0239,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney", "sse_etf", "chinaamc"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "open_source_ids": [],
+      "primary_source_ids": ["sse_etf", "chinaamc"],
+      "risk_bucket": "core_equity",
+      "exposure_group": "large_cap_value",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-21T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_TIMELY_OPEN_SNAPSHOT",
+      "security_identity_status": "VERIFIED_ETF_510050",
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "history_adjusted_for_corporate_actions": true,
+      "quality": "FAIL_CLOSED_NO_TIMELY_DUAL_SOURCE_OPEN"
+    },
+    {
+      "symbol": "510300",
+      "name": "华泰柏瑞沪深300ETF",
+      "asset_type": "equity_etf",
+      "close": 4.787,
+      "daily_return": 0.0295,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney", "sse_etf", "huatai_pinebridge"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "primary_source_ids": ["sse_etf", "huatai_pinebridge"],
+      "risk_bucket": "core_equity",
+      "exposure_group": "csi300",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-21T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_TIMELY_OPEN_SNAPSHOT",
+      "corporate_actions": [],
+      "history_adjusted_for_corporate_actions": true,
+      "quality": "SEALED_PRIOR_CLOSE_POSITION_MARK_ONLY"
+    },
+    {
+      "symbol": "512100",
+      "name": "南方中证1000ETF",
+      "asset_type": "equity_etf",
+      "close": 2.933,
+      "daily_return": 0.0408,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney", "sse_etf", "china_southern"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "primary_source_ids": ["sse_etf", "china_southern"],
+      "risk_bucket": "small_growth_equity",
+      "exposure_group": "csi1000",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-21T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_TIMELY_OPEN_SNAPSHOT",
+      "corporate_actions": [],
+      "history_adjusted_for_corporate_actions": true,
+      "quality": "SEALED_PRIOR_CLOSE_POSITION_MARK_ONLY"
+    },
+    {
+      "symbol": "512170",
+      "name": "华宝中证医疗ETF",
+      "asset_type": "equity_etf",
+      "close": 0.328,
+      "daily_return": 0.0061,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney", "sse_etf", "chinaamc_huabo"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "open_source_ids": [],
+      "primary_source_ids": ["sse_etf", "chinaamc_huabo"],
+      "risk_bucket": "industry_equity",
+      "exposure_group": "healthcare",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-21T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_TIMELY_OPEN_SNAPSHOT",
+      "security_identity_status": "VERIFIED_ETF_512170",
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "history_adjusted_for_corporate_actions": true,
+      "quality": "FAIL_CLOSED_NO_TIMELY_DUAL_SOURCE_OPEN"
+    }
+  ],
+  "evidence": [
+    {
+      "title": "上交所2026年休市安排",
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/",
+      "published_at": "2025-12-22",
+      "as_of": "2026-07-22T09:35:00+08:00",
+      "tier": "A",
+      "source_id": "sse",
+      "result": "2026-07-22_NOT_LISTED_AS_HOLIDAY"
+    },
+    {
+      "title": "深交所2026年休市安排与现行交易规则",
+      "url": "https://www.szse.cn/disclosure/notice/general/",
+      "published_at": "2025-12-22",
+      "as_of": "2026-07-22T09:35:00+08:00",
+      "tier": "A",
+      "source_id": "szse",
+      "result": "2026-07-22_WEEKDAY_AND_NOT_LISTED_AS_HOLIDAY"
+    },
+    {
+      "title": "2026-07-22盘前不可变快照",
+      "url": "data/inbox/2026-07-22-preopen.json",
+      "published_at": "2026-07-22T08:00:00+08:00",
+      "as_of": "2026-07-22T08:00:00+08:00",
+      "tier": "LOCAL_IMMUTABLE",
+      "source_id": "local",
+      "result": "IDENTITY_AND_PRIOR_CLOSE_VERIFIED_OPEN_STATUS_REMAINS_UNVERIFIED"
+    }
+  ],
+  "deepseek_usage": {
+    "actual_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_cny": 0.0,
+    "budget_remaining_cny": 100.0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "ledger_path": "data/ledger/orders.jsonl",
+  "source_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+  "source_blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29",
+  "legacy_line_count": 4,
+  "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+  "chain_head_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+  "policy": "LEGACY_GIT_ANCHORED_READ_ONLY_PREFIX_V1"
+}

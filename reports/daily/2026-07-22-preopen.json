@@ -1,0 +1,130 @@
+{
+  "as_of": "2026-07-22T08:00:00+08:00",
+  "blocks": [
+    "LEGACY_UNSCOPED_PRICE_SOURCES:510050",
+    "LEGACY_UNSCOPED_PRICE_SOURCES:510300",
+    "LEGACY_UNSCOPED_PRICE_SOURCES:512100",
+    "LEGACY_UNSCOPED_PRICE_SOURCES:512170",
+    "POSITION_MARK_UNTRUSTED:510300",
+    "POSITION_MARK_UNTRUSTED:512100"
+  ],
+  "daily_execution_status": "ORDER_SCHEDULED",
+  "fills": [],
+  "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+  "mode": "preopen",
+  "new_orders": [],
+  "recommendations": [
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "large_cap_value",
+      "metrics": null,
+      "name": "华夏上证50ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "PREOPEN_EXECUTION_STATUS_PENDING",
+        "PRICE_NOT_CROSSCHECKED"
+      ],
+      "risk_bucket": "core_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 0,
+      "symbol": "510050",
+      "target_weight": 0.0
+    },
+    {
+      "action": "HOLD",
+      "asset_type": "equity_etf",
+      "current_weight": 0.19078554063209915,
+      "exposure_group": "csi300",
+      "metrics": null,
+      "name": "华泰柏瑞沪深300ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "PREOPEN_EXECUTION_STATUS_PENDING",
+        "PRICE_NOT_CROSSCHECKED"
+      ],
+      "risk_bucket": "core_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 0,
+      "symbol": "510300",
+      "target_weight": 0.0
+    },
+    {
+      "action": "HOLD",
+      "asset_type": "equity_etf",
+      "current_weight": 0.07792966933694685,
+      "exposure_group": "csi1000",
+      "metrics": null,
+      "name": "南方中证1000ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "PREOPEN_EXECUTION_STATUS_PENDING",
+        "PRICE_NOT_CROSSCHECKED"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 0,
+      "symbol": "512100",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "healthcare",
+      "metrics": null,
+      "name": "华宝中证医疗ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "PREOPEN_EXECUTION_STATUS_PENDING",
+        "PRICE_NOT_CROSSCHECKED"
+      ],
+      "risk_bucket": "industry_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 0,
+      "symbol": "512170",
+      "target_weight": 0.0
+    }
+  ],
+  "run_date": "2026-07-22",
+  "run_id": "8f2ec4afc526467a857df39734b6087a",
+  "schema_version": 1,
+  "strategy_sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d",
+  "valuation": {
+    "blocks": [
+      "POSITION_MARK_UNTRUSTED:510300",
+      "POSITION_MARK_UNTRUSTED:512100"
+    ],
+    "cash_cny": 22018.4,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 30109.2,
+    "mark_status": "STALE",
+    "position_marks": {
+      "510300": {
+        "basis": "LEDGER_LAST_PRICE",
+        "market_value_cny": 5744.4,
+        "price": "4.787",
+        "price_as_of": "2026-07-21T15:34:59+08:00",
+        "quantity": "1200"
+      },
+      "512100": {
+        "basis": "LEDGER_LAST_PRICE",
+        "market_value_cny": 2346.4,
+        "price": "2.933",
+        "price_as_of": "2026-07-21T15:34:59+08:00",
+        "quantity": "800"
+      }
+    },
+    "positions_cny": 8090.8,
+    "project_equity_cny": 30209.2,
+    "stale_symbols": [
+      "510300",
+      "512100"
+    ]
+  }
+}

@@ -4,6 +4,29 @@ import argparse
 import json
 from pathlib import Path
 
+from .evolution import (
+    DEFAULT_ANCHOR as DEFAULT_EVOLUTION_ANCHOR,
+    DEFAULT_LEDGER as DEFAULT_EVENT_LEDGER,
+    DEFAULT_MODE_LOCK,
+    DEFAULT_PORTFOLIO,
+    verify_evolution_gate,
+    write_json_atomic,
+)
+from .evaluation import (
+    DEFAULT_EVALUATION_MANIFEST,
+    DEFAULT_SOURCES,
+    DEFAULT_TRADING_CALENDAR,
+    DEFAULT_UNIVERSE,
+    audit_evaluation_readiness,
+    verify_readiness_artifact,
+    write_readiness_artifact,
+)
+from .frozen_baseline import (
+    run_frozen_b0_mechanical,
+    verify_frozen_b0_artifact,
+    verify_frozen_b0_sources,
+)
+
 from .pipeline import (
     DEFAULT_LEDGER,
     DEFAULT_EXECUTION_REPORT_DIR,
@@ -76,6 +99,50 @@ def build_parser() -> argparse.ArgumentParser:
     readme = sub.add_parser("update-readme", help="从虚拟账本刷新 README 的公开状态区块")
     readme.add_argument("--readme", type=Path, default=DEFAULT_README)
     readme.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+
+    evolution = sub.add_parser("evolution-gate", help="只读计算策略进化门禁，调用方不能指定结论")
+    evolution.add_argument("--proposal", type=Path, required=True)
+    evolution.add_argument("--ledger", type=Path, default=DEFAULT_EVENT_LEDGER)
+    evolution.add_argument("--portfolio", type=Path, default=DEFAULT_PORTFOLIO)
+    evolution.add_argument("--anchor", type=Path, default=DEFAULT_EVOLUTION_ANCHOR)
+    evolution.add_argument("--mode-lock", type=Path, default=DEFAULT_MODE_LOCK)
+    evolution.add_argument("--baseline-ref", required=True)
+    evolution.add_argument("--output", type=Path)
+
+    readiness = sub.add_parser(
+        "evaluation-readiness",
+        help="只读审计点时历史是否足以运行 B0/B1/B2 走前与独立 OOS",
+    )
+    readiness.add_argument("--inputs", type=Path, nargs="+", required=True)
+    readiness.add_argument(
+        "--minimum-unique-dates",
+        type=int,
+        help="只能收紧 manifest 的共同日期下限，不能放宽",
+    )
+    readiness.add_argument("--output", type=Path)
+
+    verify_readiness = sub.add_parser(
+        "evaluation-verify-readiness",
+        help="重载 readiness 工件并重新核验所有输入绑定哈希",
+    )
+    verify_readiness.add_argument("--artifact", type=Path, required=True)
+
+    sub.add_parser(
+        "evaluation-b0-source-check",
+        help="只读核验冻结 B0 的历史 commit、策略和 pipeline 哈希（不运行绩效）",
+    )
+    b0_smoke = sub.add_parser(
+        "evaluation-b0-mechanical",
+        help="隔离重放冻结 B0 历史 fixture 并保存不可覆盖工件（不运行绩效）",
+    )
+    b0_smoke.add_argument("--inputs", type=Path, nargs="+", required=True)
+    b0_smoke.add_argument("--output", type=Path, required=True)
+
+    b0_verify = sub.add_parser(
+        "evaluation-b0-verify",
+        help="重载冻结 B0 历史 fixture 烟测工件并重新执行核验",
+    )
+    b0_verify.add_argument("--artifact", type=Path, required=True)
     return parser
 
 
@@ -126,12 +193,62 @@ def main() -> None:
             input_tokens=args.input_tokens,
             output_tokens=args.output_tokens,
         )
+    elif args.command == "evolution-gate":
+        result = verify_evolution_gate(
+            proposal_path=args.proposal,
+            ledger_path=args.ledger,
+            portfolio_path=args.portfolio,
+            anchor_path=args.anchor,
+            mode_lock_path=args.mode_lock,
+            baseline_ref=args.baseline_ref,
+        )
+        if args.output:
+            write_json_atomic(args.output, result)
+    elif args.command == "evaluation-readiness":
+        result = audit_evaluation_readiness(
+            args.inputs,
+            sources_path=DEFAULT_SOURCES,
+            universe_path=DEFAULT_UNIVERSE,
+            manifest_path=DEFAULT_EVALUATION_MANIFEST,
+            calendar_path=DEFAULT_TRADING_CALENDAR,
+            minimum_unique_dates=args.minimum_unique_dates,
+        )
+        if args.output:
+            write_readiness_artifact(args.output, result)
+    elif args.command == "evaluation-verify-readiness":
+        result = verify_readiness_artifact(args.artifact)
+    elif args.command == "evaluation-b0-source-check":
+        result = verify_frozen_b0_sources(
+            Path(__file__).resolve().parents[1], DEFAULT_EVALUATION_MANIFEST
+        )
+    elif args.command == "evaluation-b0-mechanical":
+        result = run_frozen_b0_mechanical(
+            Path(__file__).resolve().parents[1],
+            DEFAULT_EVALUATION_MANIFEST,
+            args.inputs,
+            output_path=args.output,
+        )
+    elif args.command == "evaluation-b0-verify":
+        result = verify_frozen_b0_artifact(
+            Path(__file__).resolve().parents[1],
+            DEFAULT_EVALUATION_MANIFEST,
+            args.artifact,
+        )
     else:
         result = update_readme_status(
             readme_path=args.readme,
             ledger_path=args.ledger,
         )
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+    if args.command == "evaluation-readiness" and result["status"] != "READY_FOR_MECHANICAL_EVALUATION":
+        raise SystemExit(2)
+    if args.command == "evaluation-verify-readiness":
+        if result["status"] == "VERIFIED_NOT_EVALUABLE":
+            raise SystemExit(2)
+        if result["status"] != "VERIFIED_READY":
+            raise SystemExit(3)
+    if args.command == "evaluation-b0-verify" and result["status"] == "INVALID":
+        raise SystemExit(3)
 
 
 if __name__ == "__main__":

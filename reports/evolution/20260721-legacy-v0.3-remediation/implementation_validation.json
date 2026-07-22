@@ -1,0 +1,119 @@
+{
+  "checked_at": "2026-07-21T04:56:49.605807+00:00",
+  "checks": {
+    "accepted_path_disabled": true,
+    "all_verification_commands_pass": true,
+    "completed_round_trips_are_zero": true,
+    "current_decision_is_proposed_only": true,
+    "current_event_count_is_four": true,
+    "ledger_git_head_prefix_and_chain": true,
+    "legacy_acceptance_invalidated": true,
+    "legacy_anchor": true,
+    "portfolio_projection": true
+  },
+  "claim_boundary": {
+    "accepted_strategy_upgrade": "DISABLED",
+    "current_legacy_prefix": "GIT_HEAD_ANCHORED",
+    "financial_data_modified_by_audit": false,
+    "future_v2_append": "GIT_HEAD_PREFIX_REWRITE_REJECTED_IN_TEMP_REPO_TEST",
+    "github_sync": "NOT_RUN",
+    "governance_mechanics": "STATIC_PROPOSED_ONLY_PATH_VERIFIED",
+    "order_sample_fsm": "DIRECT_FILLED_FABRICATION_REJECTED",
+    "pipeline_cross_file_transaction": "NOT_IMPLEMENTED",
+    "rollback": "NOT_RUN",
+    "simulation_only": true,
+    "strategy_promotion": "NOT_RUN",
+    "sync_manifest_integration": "STATIC_AND_STAGED_CONTRACT_NOT_END_TO_END_RUN",
+    "trusted_walk_forward_oos_evaluator": "NOT_IMPLEMENTED"
+  },
+  "commands": {
+    "diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": ""
+    },
+    "shell_syntax": {
+      "command": [
+        "bash",
+        "-n",
+        "scripts/sync_github.sh"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": ""
+    },
+    "unit_tests": {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "----------------------------------------------------------------------\nRan 38 tests in 8.967s\n\nOK\n",
+      "stdout_tail": ""
+    }
+  },
+  "decision": {
+    "current": "PROPOSED_ONLY",
+    "legacy": "INVALID_LEGACY_ACCEPTANCE",
+    "reasons": [
+      "ELIGIBLE_ROUND_TRIPS_0_LT_20",
+      "INDEPENDENT_OOS_ARTIFACT_MISSING",
+      "PREREGISTRATION_MISSING",
+      "ROLLBACK_REPLAY_MISSING",
+      "TRUSTED_EVALUATOR_UNAVAILABLE",
+      "WALK_FORWARD_ARTIFACT_MISSING"
+    ]
+  },
+  "ledger": {
+    "completed_round_trip_count": 0,
+    "event_count": 4,
+    "git_head_prefix": {
+      "blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29",
+      "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+      "commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+      "committed_event_count": 4,
+      "ledger_path": "data/ledger/orders.jsonl",
+      "status": "VERIFIED_GIT_HEAD_PREFIX"
+    },
+    "head_event_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+    "legacy_event_count": 4,
+    "positions": {
+      "510300": "1200",
+      "512100": "800"
+    },
+    "v2_event_count": 0
+  },
+  "runtime": {
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "python": "3.10.12"
+  },
+  "schema_version": 1,
+  "source_sha256": {
+    "MODE_LOCK.json": "94e8ade24c48e8bb46f7d8aa2cdf247aec9493e2450c20f93ba5e4c43baeeab9",
+    "config/ledger_legacy_anchor.json": "b8986ef7d41d79c2aefc3601bf383a8e2f5062c9889382811471a46f7e227bcd",
+    "data/ledger/orders.jsonl": "d968dfb763d9934e0f32eb2d24d144fa2aab54e78bc0182b7d990381a410214e",
+    "data/ledger/portfolio.json": "fa03393d51c35e0e1df9fecc3a5b8c4bded181a51da1ed9ac5946ed358b63959",
+    "reports/evolution/20260721-legacy-v0.3-remediation/gate.json": "434fb27b49ad3d471f8c405e1bbda9380da6313ff8f104d7cbdacd1ce3fd7a5c",
+    "scripts/audit_evolution_gate.py": "87761476f9b35d069bc11a4c5b1bcd416ca0e2bd44369eff42e961452eecd343",
+    "scripts/sync_github.sh": "d71ad26c6cba897316738dd4684bd6dca8bf0bb4d27e32a23955cab5877e5d6c",
+    "tests/test_evolution.py": "6a6dd28b22540a1faad91cea30a8ddcc66069a53070145be979958d143cdb94e",
+    "tests/test_sync_evolution.py": "31b6ba7e18e33a534ecf3084dec6a7147baaf8dcbab61db7708426e1b27a53d0",
+    "vibe_finance/__main__.py": "a0281d8bbdf6ff0f090d9c3590608e44e2cbea6d2fda616e7a07777ad7986cdb",
+    "vibe_finance/evolution.py": "fb1aefbbbd3694ed52fdb418d9b311a58a30cb15ba87d1ac8ec40271d185126f",
+    "vibe_finance/pipeline.py": "bc0d89347c570ea7272f85ee20a6300f139244895205aaacd213b01ec4f7f16f"
+  },
+  "status": "PASS_STATIC_PROPOSED_ONLY_GATE"
+}

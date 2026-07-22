@@ -1,0 +1,91 @@
+{
+  "baseline": {
+    "commit": "3950ea74801c28a63fd99ba3c6a9e7fe3e2cc6e5",
+    "strategy_sha256": "5e438e2f5e4181c348cb21a49a55e8ad7c5ffd5f42f317eb2734e0cf9f560357"
+  },
+  "candidate": {
+    "path": "/mnt/f/Git/Vibe Finance/reports/evolution/20260721-legacy-v0.3-remediation/candidate_strategy.json",
+    "sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d",
+    "version": "0.3.0"
+  },
+  "claim_boundary": {
+    "accepted_path": "DISABLED_UNTIL_TRUSTED_EVALUATOR_EXISTS",
+    "closed_round_trips": "DERIVED_FROM_VALIDATED_PENDING_TO_FILLED_FSM",
+    "eligible_samples": "REQUIRE_DECLARED_HASH_BOUND_PROVENANCE_UNTRUSTED_UNTIL_EVALUATOR_EXISTS",
+    "independent_oos": "NOT_VERIFIED",
+    "ledger_integrity": "VERIFIED_GIT_HEAD_PREFIX_AND_CURRENT_CHAIN",
+    "rollback_replay": "NOT_VERIFIED",
+    "simulation_only": true,
+    "walk_forward": "NOT_VERIFIED"
+  },
+  "decision": "PROPOSED_ONLY",
+  "evidence": {
+    "out_of_sample": {
+      "status": "MISSING"
+    },
+    "preregistration": {
+      "status": "MISSING"
+    },
+    "rollback_replay": {
+      "status": "MISSING"
+    },
+    "walk_forward": {
+      "status": "MISSING"
+    }
+  },
+  "ledger": {
+    "anchor": {
+      "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+      "chain_head_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+      "line_count": 4,
+      "source_blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29",
+      "source_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+      "status": "VERIFIED_LEGACY_GIT_ANCHORED"
+    },
+    "completed_round_trip_count": 0,
+    "eligible_sample_count": 0,
+    "event_count": 4,
+    "git_head_prefix": {
+      "blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29",
+      "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+      "commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+      "committed_event_count": 4,
+      "ledger_path": "data/ledger/orders.jsonl",
+      "status": "VERIFIED_GIT_HEAD_PREFIX"
+    },
+    "head_event_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+    "ledger_path": "/mnt/f/Git/Vibe Finance/data/ledger/orders.jsonl",
+    "legacy_event_count": 4,
+    "next_sequence": 5,
+    "portfolio_projection": "PASS",
+    "positions": {
+      "510300": "1200",
+      "512100": "800"
+    },
+    "sha256": "d968dfb763d9934e0f32eb2d24d144fa2aab54e78bc0182b7d990381a410214e",
+    "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "v2_event_count": 0
+  },
+  "legacy_acceptance_status": "INVALID_LEGACY_ACCEPTANCE",
+  "reasons": [
+    "ELIGIBLE_ROUND_TRIPS_0_LT_20",
+    "INDEPENDENT_OOS_ARTIFACT_MISSING",
+    "PREREGISTRATION_MISSING",
+    "ROLLBACK_REPLAY_MISSING",
+    "TRUSTED_EVALUATOR_UNAVAILABLE",
+    "WALK_FORWARD_ARTIFACT_MISSING"
+  ],
+  "run_id": "20260721-legacy-v0.3-remediation",
+  "schema_version": 1,
+  "source_sha256": {
+    "anchor": "b8986ef7d41d79c2aefc3601bf383a8e2f5062c9889382811471a46f7e227bcd",
+    "mode_lock": "94e8ade24c48e8bb46f7d8aa2cdf247aec9493e2450c20f93ba5e4c43baeeab9",
+    "portfolio": "fa03393d51c35e0e1df9fecc3a5b8c4bded181a51da1ed9ac5946ed358b63959",
+    "proposal": "cbdf35d6782dedbc3b94a1498d6a2eb6fcb869cc3f7d0711f794fba72ad0818b"
+  },
+  "verifier": {
+    "checked_at": "2026-07-21T04:56:39.668488+00:00",
+    "head_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+    "source_sha256": "fb1aefbbbd3694ed52fdb418d9b311a58a30cb15ba87d1ac8ec40271d185126f"
+  }
+}

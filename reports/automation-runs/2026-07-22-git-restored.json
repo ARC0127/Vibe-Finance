@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-22T13:47:41.673+08:00",
+  "timezone": "Asia/Shanghai",
+  "status": "GIT_METADATA_RESTORED",
+  "authorization": "User explicitly declared the external safety process terminated and authorized full Git restoration.",
+  "source_path": ".git.disabled-by-codex-wmi-20260722-0922",
+  "target_path": ".git",
+  "restore_method": "Same-directory Move-Item after absolute-path, uniqueness and target-absence checks.",
+  "post_restore": {
+    "git_directory_present": true,
+    "disabled_marker_count": 0,
+    "repository_root": "/mnt/f/Git/Vibe Finance",
+    "branch": "main",
+    "local_head": "876daa47b66ce374fee1122ec99ce8607a5bba32",
+    "github_default_branch": "main",
+    "github_main_head": "876daa47b66ce374fee1122ec99ce8607a5bba32",
+    "github_visibility": "public",
+    "github_permission": "admin",
+    "git_fsck_connectivity": "PASS_WITH_UNREFERENCED_DANGLING_OBJECTS"
+  },
+  "commit_created": false,
+  "push_performed": false,
+  "persistence_policy": "GIT_DEFERRED_TO_0200",
+  "next_action": "The daily 02:00 automation may execute scripts/sync_github_0200.sh if all repository, secret, test and remote gates pass."
+}

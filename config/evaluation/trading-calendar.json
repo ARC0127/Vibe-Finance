@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "calendar_id": "mainland-a-share-common-calendar",
+  "status": "NOT_ACQUIRED",
+  "source_id": null,
+  "license_snapshot_sha256": null,
+  "observed_at": null,
+  "dates": [],
+  "claim_boundary": "No trading dates may be inferred from weekdays or input availability. Populate only from a licensed authoritative calendar."
+}

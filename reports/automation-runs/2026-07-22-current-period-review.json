@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-22T20:24:36+08:00",
+  "simulation_only": true,
+  "status": "PASS_CURRENT_PERIOD_RECONCILED",
+  "initial_project_capital_cny": 30000.0,
+  "project_equity_cny": 30149.2,
+  "cumulative_pnl_cny": 149.2,
+  "cumulative_return_pct": 0.497333,
+  "today_pnl_cny": -60.0,
+  "today_return_on_prior_equity_pct": -0.198615,
+  "cash_cny": 22018.4,
+  "investable_value_cny": 30049.2,
+  "research_budget_reserved_cny": 100.0,
+  "research_budget_spent_cny": 0.0,
+  "filled_trade_count": 2,
+  "today_filled_trade_count": 0,
+  "today_cancelled_order_count": 2,
+  "pending_order_count": 1,
+  "positions": [
+    {
+      "symbol": "510300",
+      "name": "华泰柏瑞沪深300ETF",
+      "quantity": 1200,
+      "close": 4.765,
+      "market_value_cny": 5718.0,
+      "unrealized_pnl_cny": 100.6,
+      "today_pnl_cny": -26.4
+    },
+    {
+      "symbol": "512100",
+      "name": "南方中证1000ETF",
+      "quantity": 800,
+      "close": 2.891,
+      "market_value_cny": 2312.8,
+      "unrealized_pnl_cny": 48.6,
+      "today_pnl_cny": -33.6
+    }
+  ],
+  "next_order": {
+    "order_id": "9bbf2cd8d6374b4b938d023ce9538b44",
+    "status": "PENDING_NEXT_OPEN",
+    "side": "SELL",
+    "symbol": "510300",
+    "quantity": 100,
+    "reason": "BROAD_MARKET_SHOCK_DAILY_REBALANCE_TRIM"
+  },
+  "market": {
+    "shanghai_composite_return_pct": 0.069,
+    "shenzhen_component_return_pct": -1.4221,
+    "chinext_return_pct": -3.2349,
+    "csi300_return_pct": -0.4639,
+    "csi500_return_pct": -0.6275,
+    "block": "BROAD_MARKET_SHOCK"
+  },
+  "source_snapshot": "data/inbox/2026-07-22-close-recovery-2024.json",
+  "decision": "reports/daily/2026-07-22-short.json",
+  "run_id": "88bbd1b60ca149ae9d5b30d9cce624cb",
+  "deepseek_calls": 0,
+  "deepseek_cost_cny": 0.0,
+  "disclaimer": "Virtual experiment only; no live broker connection and no investment advice."
+}

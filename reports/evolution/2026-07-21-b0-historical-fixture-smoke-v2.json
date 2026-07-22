@@ -1,0 +1,832 @@
+{
+  "adapter_source_sha256": "6609d5b30aaada5c3d8d053f73342d09ce1472fe275f2b4fb4cddcc0cb1a85bd",
+  "behavior": {
+    "decisions": [
+      {
+        "as_of": "2026-07-17T15:00:00+08:00",
+        "blocks": [
+          "BROAD_MARKET_SHOCK",
+          "NON_TRADING_DAY"
+        ],
+        "daily_execution_status": "NOT_APPLICABLE",
+        "fills": [],
+        "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+        "mode": "short",
+        "new_orders": [],
+        "recommendations": [
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "510050",
+            "metrics": null,
+            "name": "华夏上证50ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK"
+            ],
+            "risk_bucket": "unclassified_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "510050",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "510500",
+            "metrics": null,
+            "name": "南方中证500ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "TIANTIAN_CROSSCHECK_MISSING"
+            ],
+            "risk_bucket": "unclassified_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "510500",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "cash_etf",
+            "current_weight": 0.0,
+            "exposure_group": "511880",
+            "metrics": null,
+            "name": "银华日利ETF",
+            "reasons": [
+              "INSUFFICIENT_HISTORY"
+            ],
+            "risk_bucket": "cash_management",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "511880",
+            "target_weight": 0.0
+          }
+        ],
+        "run_date": "2026-07-19",
+        "run_id": "ab7162c82c2f11c84e76aba7c7c13f79",
+        "schema_version": 1,
+        "valuation": {
+          "cash_cny": 29900.0,
+          "infrastructure_remaining_cny": 100.0,
+          "investable_value_cny": 29900.0,
+          "positions_cny": 0.0,
+          "project_equity_cny": 30000.0
+        }
+      },
+      {
+        "as_of": "2026-07-20T16:31:56+08:00",
+        "blocks": [],
+        "daily_execution_status": "ORDER_SCHEDULED",
+        "fills": [],
+        "input_sha256": "3c00253ec9002068f90f435e9400bab13cf524fd7bd14ddfbd8f0f837b04bc21",
+        "mode": "short",
+        "new_orders": [
+          {
+            "exposure_group": "csi300",
+            "limit_price": 4.71975,
+            "lot_size": 100,
+            "name": "华泰柏瑞沪深300ETF",
+            "order_id": "3bac9e33297761f3bcf0e99653b34079",
+            "quantity": 1200,
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "COLD_START_TREND_ENTRY"
+            ],
+            "risk_bucket": "core_equity",
+            "side": "BUY",
+            "signal_as_of": "2026-07-20T16:31:56+08:00",
+            "signal_close": 4.65,
+            "signal_date": "2026-07-20",
+            "signal_score": 1.2633,
+            "signal_type": "COLD_START_TREND",
+            "simulation_only": true,
+            "status": "PENDING_NEXT_OPEN",
+            "symbol": "510300"
+          },
+          {
+            "exposure_group": "csi1000",
+            "limit_price": 2.86027,
+            "lot_size": 100,
+            "name": "南方中证1000ETF",
+            "order_id": "41a9cc4c687766f470c55c8ff0ec3d93",
+            "quantity": 800,
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "CONTROLLED_DIP_ENTRY"
+            ],
+            "risk_bucket": "small_growth_equity",
+            "side": "BUY",
+            "signal_as_of": "2026-07-20T16:31:56+08:00",
+            "signal_close": 2.818,
+            "signal_date": "2026-07-20",
+            "signal_score": 1.2609,
+            "signal_type": "CONTROLLED_DIP",
+            "simulation_only": true,
+            "status": "PENDING_NEXT_OPEN",
+            "symbol": "512100"
+          }
+        ],
+        "recommendations": [
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "large_cap_value",
+            "metrics": null,
+            "name": "华夏上证50ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "TREND_NOT_CONFIRMED"
+            ],
+            "risk_bucket": "core_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "510050",
+            "target_weight": 0.0
+          },
+          {
+            "action": "BUY",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "csi300",
+            "metrics": null,
+            "name": "华泰柏瑞沪深300ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "COLD_START_TREND_ENTRY"
+            ],
+            "risk_bucket": "core_equity",
+            "score": 1.2633,
+            "signal_type": "COLD_START_TREND",
+            "source_count": 3,
+            "symbol": "510300",
+            "target_weight": 0.1866220735785953
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "csi500",
+            "metrics": null,
+            "name": "南方中证500ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "UNADJUSTED_CORPORATE_ACTION"
+            ],
+            "risk_bucket": "small_growth_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "510500",
+            "target_weight": 0.0
+          },
+          {
+            "action": "BUY",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "csi1000",
+            "metrics": null,
+            "name": "南方中证1000ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "CONTROLLED_DIP_ENTRY"
+            ],
+            "risk_bucket": "small_growth_equity",
+            "score": 1.2609,
+            "signal_type": "CONTROLLED_DIP",
+            "source_count": 3,
+            "symbol": "512100",
+            "target_weight": 0.07539799331103679
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "chinext",
+            "metrics": null,
+            "name": "易方达创业板ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "COLD_START_TREND_ENTRY",
+              "MAXIMUM_NEW_BUYS_REACHED"
+            ],
+            "risk_bucket": "small_growth_equity",
+            "score": 1.004,
+            "signal_type": "COLD_START_TREND",
+            "source_count": 3,
+            "symbol": "159915",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "star50",
+            "metrics": null,
+            "name": "华夏上证科创板50成份ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "COLD_START_TREND_ENTRY",
+              "MAXIMUM_NEW_BUYS_REACHED"
+            ],
+            "risk_bucket": "industry_equity",
+            "score": 1.0044,
+            "signal_type": "COLD_START_TREND",
+            "source_count": 3,
+            "symbol": "588000",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "dividend",
+            "metrics": null,
+            "name": "华泰柏瑞上证红利ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "TREND_NOT_CONFIRMED"
+            ],
+            "risk_bucket": "dividend_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "510880",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "semiconductor",
+            "metrics": null,
+            "name": "国联安半导体ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "TREND_NOT_CONFIRMED"
+            ],
+            "risk_bucket": "industry_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "512480",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "healthcare",
+            "metrics": null,
+            "name": "华宝中证医疗ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "TREND_NOT_CONFIRMED"
+            ],
+            "risk_bucket": "industry_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "512170",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "equity_etf",
+            "current_weight": 0.0,
+            "exposure_group": "consumer",
+            "metrics": null,
+            "name": "汇添富中证主要消费ETF",
+            "reasons": [
+              "COLD_START_LIMITED_HISTORY",
+              "TREND_NOT_CONFIRMED"
+            ],
+            "risk_bucket": "industry_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "159928",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "gold_etf",
+            "current_weight": 0.0,
+            "exposure_group": "gold",
+            "metrics": null,
+            "name": "华安黄金易ETF",
+            "reasons": [
+              "COLD_START_GOLD_DIVERSIFIER",
+              "COLD_START_LIMITED_HISTORY",
+              "MAXIMUM_NEW_BUYS_REACHED"
+            ],
+            "risk_bucket": "gold",
+            "score": 0.7,
+            "signal_type": "COLD_START_DEFENSIVE",
+            "source_count": 3,
+            "symbol": "518880",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "bond_etf",
+            "current_weight": 0.0,
+            "exposure_group": "government_bond_5y",
+            "metrics": null,
+            "name": "国泰上证5年期国债ETF",
+            "reasons": [
+              "INSUFFICIENT_HISTORY"
+            ],
+            "risk_bucket": "fixed_income",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "511010",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "cash_etf",
+            "current_weight": 0.0,
+            "exposure_group": "cash_management",
+            "metrics": null,
+            "name": "银华日利ETF",
+            "reasons": [
+              "INSUFFICIENT_HISTORY"
+            ],
+            "risk_bucket": "cash_management",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 3,
+            "symbol": "511880",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "open_end_index_fund",
+            "current_weight": 0.0,
+            "exposure_group": "csi300",
+            "metrics": null,
+            "name": "华夏沪深300ETF联接A",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "core_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "000051",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "open_end_index_fund",
+            "current_weight": 0.0,
+            "exposure_group": "csi300",
+            "metrics": null,
+            "name": "易方达沪深300ETF联接A",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "core_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "110020",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "open_end_index_fund",
+            "current_weight": 0.0,
+            "exposure_group": "csi500",
+            "metrics": null,
+            "name": "华夏中证500ETF联接A",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "small_growth_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "001052",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "open_end_index_fund",
+            "current_weight": 0.0,
+            "exposure_group": "dividend",
+            "metrics": null,
+            "name": "招商中证红利ETF联接C",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "dividend_equity",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "012644",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "open_end_gold_fund",
+            "current_weight": 0.0,
+            "exposure_group": "gold",
+            "metrics": null,
+            "name": "博时黄金ETF联接A",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "gold",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "002610",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "open_end_bond_fund",
+            "current_weight": 0.0,
+            "exposure_group": "long_duration_bond",
+            "metrics": null,
+            "name": "易方达纯债债券A",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "fixed_income",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "110037",
+            "target_weight": 0.0
+          },
+          {
+            "action": "WATCH",
+            "asset_type": "money_market_fund",
+            "current_weight": 0.0,
+            "exposure_group": "cash_management",
+            "metrics": null,
+            "name": "天弘余额宝货币",
+            "reasons": [
+              "FUND_PRIMARY_SOURCE_MISSING",
+              "FUND_PURCHASE_FEE_MISSING",
+              "FUND_REDEMPTION_FEE_MISSING",
+              "FUND_REDEMPTION_NOT_OPEN",
+              "FUND_REDEMPTION_STATUS_MISSING",
+              "FUND_SUBSCRIPTION_NOT_OPEN",
+              "FUND_SUBSCRIPTION_STATUS_MISSING",
+              "INSUFFICIENT_HISTORY",
+              "PRICE_NOT_CROSSCHECKED"
+            ],
+            "risk_bucket": "cash_management",
+            "score": 0.0,
+            "signal_type": "NONE",
+            "source_count": 1,
+            "symbol": "000198",
+            "target_weight": 0.0
+          }
+        ],
+        "run_date": "2026-07-20",
+        "run_id": "b9e181678f7bb166170aa0246f1bb364",
+        "schema_version": 1,
+        "valuation": {
+          "cash_cny": 29900.0,
+          "infrastructure_remaining_cny": 100.0,
+          "investable_value_cny": 29900.0,
+          "positions_cny": 0.0,
+          "project_equity_cny": 30000.0
+        }
+      }
+    ],
+    "final_ledger": {
+      "cash_cny": 29900.0,
+      "initial_project_capital_cny": 30000.0,
+      "initialized_at": "2026-07-19T00:00:00+08:00",
+      "last_run_id": "b9e181678f7bb166170aa0246f1bb364",
+      "pending_orders": [
+        {
+          "exposure_group": "csi300",
+          "limit_price": 4.71975,
+          "lot_size": 100,
+          "name": "华泰柏瑞沪深300ETF",
+          "order_id": "3bac9e33297761f3bcf0e99653b34079",
+          "quantity": 1200,
+          "reasons": [
+            "COLD_START_LIMITED_HISTORY",
+            "COLD_START_TREND_ENTRY"
+          ],
+          "risk_bucket": "core_equity",
+          "side": "BUY",
+          "signal_as_of": "2026-07-20T16:31:56+08:00",
+          "signal_close": 4.65,
+          "signal_date": "2026-07-20",
+          "signal_score": 1.2633,
+          "signal_type": "COLD_START_TREND",
+          "simulation_only": true,
+          "status": "PENDING_NEXT_OPEN",
+          "symbol": "510300"
+        },
+        {
+          "exposure_group": "csi1000",
+          "limit_price": 2.86027,
+          "lot_size": 100,
+          "name": "南方中证1000ETF",
+          "order_id": "41a9cc4c687766f470c55c8ff0ec3d93",
+          "quantity": 800,
+          "reasons": [
+            "COLD_START_LIMITED_HISTORY",
+            "CONTROLLED_DIP_ENTRY"
+          ],
+          "risk_bucket": "small_growth_equity",
+          "side": "BUY",
+          "signal_as_of": "2026-07-20T16:31:56+08:00",
+          "signal_close": 2.818,
+          "signal_date": "2026-07-20",
+          "signal_score": 1.2609,
+          "signal_type": "CONTROLLED_DIP",
+          "simulation_only": true,
+          "status": "PENDING_NEXT_OPEN",
+          "symbol": "512100"
+        }
+      ],
+      "performance": {
+        "cumulative_buy_notional_cny": 0.0,
+        "cumulative_fees_cny": 0.0,
+        "cumulative_sell_notional_cny": 0.0,
+        "filled_trade_count": 0,
+        "investable_value_cny": 29900.0,
+        "last_filled_trade_date": null,
+        "last_valuation_as_of": "2026-07-20T16:31:56+08:00",
+        "project_equity_cny": 30000.0,
+        "realized_pnl_cny": 0.0,
+        "total_pnl_cny": 0.0,
+        "total_return_pct": 0.0
+      },
+      "positions": {},
+      "research_infrastructure": {
+        "actual_calls": 0,
+        "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+        "provider": "DeepSeek",
+        "reserved_cny": 100.0,
+        "spent_cny": 0.0
+      },
+      "run_history": [
+        {
+          "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+          "mode": "short",
+          "run_date": "2026-07-19",
+          "run_id": "ab7162c82c2f11c84e76aba7c7c13f79"
+        },
+        {
+          "input_sha256": "3c00253ec9002068f90f435e9400bab13cf524fd7bd14ddfbd8f0f837b04bc21",
+          "mode": "short",
+          "run_date": "2026-07-20",
+          "run_id": "b9e181678f7bb166170aa0246f1bb364"
+        }
+      ],
+      "schema_version": 1
+    },
+    "order_events": [
+      {
+        "exposure_group": "csi300",
+        "limit_price": 4.71975,
+        "lot_size": 100,
+        "name": "华泰柏瑞沪深300ETF",
+        "order_id": "3bac9e33297761f3bcf0e99653b34079",
+        "quantity": 1200,
+        "reasons": [
+          "COLD_START_LIMITED_HISTORY",
+          "COLD_START_TREND_ENTRY"
+        ],
+        "risk_bucket": "core_equity",
+        "run_id": "b9e181678f7bb166170aa0246f1bb364",
+        "side": "BUY",
+        "signal_as_of": "2026-07-20T16:31:56+08:00",
+        "signal_close": 4.65,
+        "signal_date": "2026-07-20",
+        "signal_score": 1.2633,
+        "signal_type": "COLD_START_TREND",
+        "simulation_only": true,
+        "status": "PENDING_NEXT_OPEN",
+        "symbol": "510300"
+      },
+      {
+        "exposure_group": "csi1000",
+        "limit_price": 2.86027,
+        "lot_size": 100,
+        "name": "南方中证1000ETF",
+        "order_id": "41a9cc4c687766f470c55c8ff0ec3d93",
+        "quantity": 800,
+        "reasons": [
+          "COLD_START_LIMITED_HISTORY",
+          "CONTROLLED_DIP_ENTRY"
+        ],
+        "risk_bucket": "small_growth_equity",
+        "run_id": "b9e181678f7bb166170aa0246f1bb364",
+        "side": "BUY",
+        "signal_as_of": "2026-07-20T16:31:56+08:00",
+        "signal_close": 2.818,
+        "signal_date": "2026-07-20",
+        "signal_score": 1.2609,
+        "signal_type": "CONTROLLED_DIP",
+        "simulation_only": true,
+        "status": "PENDING_NEXT_OPEN",
+        "symbol": "512100"
+      }
+    ],
+    "runs": [
+      {
+        "blocks": [
+          "BROAD_MARKET_SHOCK",
+          "NON_TRADING_DAY"
+        ],
+        "daily_execution_status": "NOT_APPLICABLE",
+        "decision": "../scratch/out/reports/2026-07-19-short.json",
+        "fills": 0,
+        "new_orders": 0,
+        "project_equity_cny": 30000.0,
+        "report": "../scratch/out/reports/2026-07-19-short.md",
+        "run_id": "ab7162c82c2f11c84e76aba7c7c13f79",
+        "status": "PASS"
+      },
+      {
+        "blocks": [],
+        "daily_execution_status": "ORDER_SCHEDULED",
+        "decision": "../scratch/out/reports/2026-07-20-short.json",
+        "fills": 0,
+        "new_orders": 2,
+        "project_equity_cny": 30000.0,
+        "report": "../scratch/out/reports/2026-07-20-short.md",
+        "run_id": "b9e181678f7bb166170aa0246f1bb364",
+        "status": "PASS"
+      }
+    ],
+    "status": {
+      "decision_report_count": 2,
+      "deepseek_actual_calls": 0,
+      "deepseek_remaining_cny": 100.0,
+      "deepseek_spent_cny": 0.0,
+      "filled_trade_count": 0,
+      "heartbeat_age_hours": 0.0,
+      "last_filled_trade_date": null,
+      "last_mode": "short",
+      "last_run_date": "2026-07-20",
+      "last_run_id": "b9e181678f7bb166170aa0246f1bb364",
+      "last_success_at": "2026-07-20T08:31:56+00:00",
+      "max_age_hours": 36.0,
+      "pending_orders": 2,
+      "positions": 0,
+      "project_equity_cny": 30000.0,
+      "status": "ACTIVE",
+      "total_pnl_cny": 0.0,
+      "total_return_pct": 0.0
+    }
+  },
+  "behavior_sha256": "3684049a2f87761ff31ed751135e7fcef82ad68cced63fbe612949600a5c9217",
+  "claim_boundary": {
+    "artifacts_saved_in_isolated_sandbox": true,
+    "fair_evaluation_adapter_ready": false,
+    "financial_ledger_modified": false,
+    "historical_core_entered_execution_graph": true,
+    "historical_fixture_only": true,
+    "independent_oos_computed": false,
+    "promotion_authorized": false,
+    "reload_replay_required": true,
+    "strategy_returns_computed": false,
+    "walk_forward_computed": false
+  },
+  "determinism": {
+    "clock": "EACH_SNAPSHOT_AS_OF",
+    "environment_allowlist": [
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "PYTHONDONTWRITEBYTECODE",
+      "PYTHONHASHSEED",
+      "PYTHONNOUSERSITE",
+      "TEMP",
+      "TMP",
+      "TMPDIR",
+      "TZ"
+    ],
+    "input_files_read_only": true,
+    "network_guard": "PYTHON_SOCKET_CONNECT_DENIED_APPLICATION_LEVEL",
+    "pythonhashseed": 0,
+    "scratch_only_designated_writable_tree": true,
+    "source_tree_read_only": true,
+    "timezone": "UTC",
+    "uuid_seed_sha256": "a71f8f6cc29f9f69b8c825924d73cdbea8da83613a2c824682d8685aa2562fe8"
+  },
+  "evidence_class": "FROZEN_B0_HISTORICAL_FIXTURE_SMOKE_NO_PERFORMANCE",
+  "inputs": [
+    {
+      "as_of": "2026-07-17T15:00:00+08:00",
+      "path": "/mnt/f/Git/Vibe Finance/data/inbox/2026-07-19.json",
+      "run_date": "2026-07-19",
+      "sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26"
+    },
+    {
+      "as_of": "2026-07-20T16:31:56+08:00",
+      "path": "/mnt/f/Git/Vibe Finance/data/inbox/2026-07-20.json",
+      "run_date": "2026-07-20",
+      "sha256": "3c00253ec9002068f90f435e9400bab13cf524fd7bd14ddfbd8f0f837b04bc21"
+    }
+  ],
+  "output_file_sha256": {
+    "scratch/out/heartbeat.json": "c3a1994a022a214348a387b8cdf5f4a4473211d4cb2e35fe131900eb625f8b13",
+    "scratch/out/orders.jsonl": "72b55332c14633e092bdf77b500c80fd554e5eb60cefa20dee7552a028518b82",
+    "scratch/out/portfolio.json": "09d51cf32f14ca22e7dc26b7329c0a0e782ecf317313f635ecac36426012d025",
+    "scratch/out/reports/2026-07-19-short.json": "a3f7cf5cb7054fb90cfbaea76e42f125dfdecd3dd92f3d8d90352faff9152b08",
+    "scratch/out/reports/2026-07-19-short.md": "d07d02d13a31cd914afc8740fd19c64ba1475a63bda58051506347840ba7ddd7",
+    "scratch/out/reports/2026-07-20-short.json": "ac67f37beb60d6beac6d52647155f0a644565329d75ef82be01e2642ad6ffe10",
+    "scratch/out/reports/2026-07-20-short.md": "c49b951ad248fa2e37a5ef1a0de300e68505937faf286b40ce266fa67f69ca54"
+  },
+  "protected_financial_files_unchanged": {
+    "data/ledger/heartbeat.json": true,
+    "data/ledger/orders.jsonl": true,
+    "data/ledger/portfolio.json": true
+  },
+  "replay_contract_sha256": "8c76b7d1cbf1f526c5e9065c98ea64d264bb79339574537f71b765931483b7f5",
+  "runtime": {
+    "implementation": "CPython",
+    "python": "3.10.12"
+  },
+  "schema_version": 1,
+  "source_contract": {
+    "claim_boundary": {
+      "golden_behavior_verified": false,
+      "promotion_authorized": false,
+      "source_identity_verified": true,
+      "strategy_returns_computed": false
+    },
+    "code_ref": "081a45c95d078281733100479d6239e8f4eb9429",
+    "manifest_sha256": "5679ca06263a22243fc6f06852d2832f0ebac4dc8f4de16979976f2e35fa688e",
+    "pipeline_sha256": "188da8ec280dcf52eb73406eccb47a5ab9a35c80bdfe8e488e316ec3a6c516f0",
+    "schema_version": 1,
+    "source_identity_sha256": "a8b9a7b2cfcf328412497c935063d8b9fe7f3cbc49ab0aff0fe955bf42ad8cbe",
+    "sources_sha256": "a82bbe176be533f889fcd2807626ce6d17078543515660cf023efbb00d45f073",
+    "status": "FROZEN_SOURCES_VERIFIED",
+    "strategy_sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d",
+    "strategy_version": "0.3.0",
+    "universe_sha256": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7"
+  },
+  "status": "PASS_FROZEN_B0_HISTORICAL_FIXTURE_SMOKE"
+}

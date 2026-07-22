@@ -1,0 +1,278 @@
+{
+  "as_of": "2026-07-22T20:23:22+08:00",
+  "assets": [
+    {
+      "asset_type": "equity_etf",
+      "close": 3.086,
+      "daily_return": 0.002273,
+      "exposure_group": "large_cap_value",
+      "fund_metadata": {
+        "annual_tracking_error": 0.0068,
+        "aum_as_of": "2026-06-30",
+        "aum_cny": 19698000000,
+        "current_day_nav_available_at_cutoff": false,
+        "holdings_as_of": "2026-06-30",
+        "latest_dividend_ex_date": "2025-12-17",
+        "latest_published_nav": 3.0168,
+        "manager_names": [
+          "徐猛"
+        ],
+        "nav_date": "2026-07-20",
+        "previous_close_discount_to_nav": -0.00325,
+        "primary_subscription_status": "OPEN",
+        "tiantian_trade_label": "场内交易",
+        "tracking_index": "上证50指数"
+      },
+      "history": [],
+      "lot_size": 100,
+      "name": "华夏上证50ETF",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "chinaamc"
+      ],
+      "quality": "DUAL_SOURCE_CLOSE_MATCH_NONZERO_VOLUME_TIANTIAN_PROFILE_CARRIED_FORWARD",
+      "risk_bucket": "core_equity",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance",
+        "eastmoney"
+      ],
+      "symbol": "510050",
+      "trading_status": "TRADING",
+      "volume_units": 949096724
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 4.765,
+      "daily_return": -0.004596,
+      "exposure_group": "csi300",
+      "history": [],
+      "lot_size": 100,
+      "name": "华泰柏瑞沪深300ETF",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "huatai_pinebridge"
+      ],
+      "quality": "DUAL_SOURCE_CLOSE_MATCH_NONZERO_VOLUME_TIANTIAN_PROFILE_CARRIED_FORWARD",
+      "risk_bucket": "core_equity",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance",
+        "eastmoney"
+      ],
+      "symbol": "510300",
+      "trading_status": "TRADING",
+      "volume_units": 1265037941
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 2.891,
+      "daily_return": -0.01432,
+      "exposure_group": "csi1000",
+      "history": [],
+      "lot_size": 100,
+      "name": "南方中证1000ETF",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "china_southern"
+      ],
+      "quality": "DUAL_SOURCE_CLOSE_MATCH_NONZERO_VOLUME_TIANTIAN_PROFILE_CARRIED_FORWARD",
+      "risk_bucket": "small_growth_equity",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance",
+        "eastmoney"
+      ],
+      "symbol": "512100",
+      "trading_status": "TRADING",
+      "volume_units": 2798478266
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 0.327,
+      "daily_return": -0.003049,
+      "exposure_group": "healthcare",
+      "fund_metadata": {
+        "annual_tracking_error": 0.0047,
+        "aum_as_of": "2026-06-30",
+        "aum_cny": 25624000000,
+        "current_day_nav_available_at_cutoff": false,
+        "dividend_count": 0,
+        "holdings_as_of": "2026-06-30",
+        "latest_published_nav": 0.3257,
+        "manager_names": [
+          "张放"
+        ],
+        "nav_date": "2026-07-20",
+        "previous_close_premium_to_nav": 0.00092,
+        "primary_creation_redemption_list_available": true,
+        "split_count": 1,
+        "sse_market_maker_effective_date": "2026-06-12",
+        "tiantian_trade_label": "场内交易",
+        "tracking_index": "中证医疗指数"
+      },
+      "history": [],
+      "lot_size": 100,
+      "name": "华宝中证医疗ETF",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "fsfund"
+      ],
+      "quality": "DUAL_SOURCE_CLOSE_MATCH_NONZERO_VOLUME_TIANTIAN_PROFILE_CARRIED_FORWARD",
+      "risk_bucket": "industry_equity",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance",
+        "eastmoney"
+      ],
+      "symbol": "512170",
+      "trading_status": "TRADING",
+      "volume_units": 1743954800
+    }
+  ],
+  "collection_note": "2026-07-22收盘补录：腾讯与新浪对5个主要指数及510050、510300、512100、512170四只场内ETF收盘行情一致，全部为非零成交量；行情日期均为2026-07-22。天天基金资料沿用上一不可变快照，仅作基金身份、净值与资料交叉验证，不替代价格双源。原09:35开盘结算因缺少及时开盘快照失败，本快照不得回填开盘成交，只用于收盘估值和下一交易窗口决策。 追加恢复文件仅补充机器门禁要求的price_source_ids，不改变任何价格、时间戳、成交量或基金资料。",
+  "deepseek_usage": {
+    "actual_calls": 0,
+    "budget_remaining_cny": 100.0,
+    "cost_cny": 0.0,
+    "input_tokens": 0,
+    "output_tokens": 0
+  },
+  "evidence": [
+    {
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "published_at": "2026-07-22T20:23:22+08:00",
+      "sha256": "c8083dfbf1d5b73e83a39f3e9bc079e7435387faba56302fc8bb7d4bd284b8c2",
+      "source_id": "local",
+      "tier": "LOCAL_IMMUTABLE",
+      "title": "原始不可变2026-07-22收盘快照",
+      "url": "data/inbox/2026-07-22.json"
+    },
+    {
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "published_at": "2026-07-22",
+      "sha256": "bed7ffaf7ab7d54991008e28ee0d0c57a8ef0d4f25bc9e7335d2e974f797b2c1",
+      "source_id": "tencent_finance",
+      "tier": "B",
+      "title": "腾讯财经收盘行情原始响应",
+      "url": "https://qt.gtimg.cn/q=sh510050,sh510300,sh512100,sh512170,sh000001,sz399001,sz399006,sh000300,sh000905"
+    },
+    {
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "published_at": "2026-07-22",
+      "sha256": "3eb8bea267cce108cd358b8e89251e63751d8d0219a9cf2f255c910f3ebb5ca5",
+      "source_id": "sina_finance",
+      "tier": "B",
+      "title": "新浪财经收盘行情原始响应",
+      "url": "https://hq.sinajs.cn/list=sh510050,sh510300,sh512100,sh512170,sh000001,sz399001,sz399006,sh000300,sh000905"
+    },
+    {
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "published_at": "2026-07-21T16:43:00+08:00",
+      "sha256": "4f21d4b89267730c06835c8d30bf87692de11dfc0c37b58280767cd8ec4847a5",
+      "source_id": "local",
+      "tier": "LOCAL_IMMUTABLE",
+      "title": "天天基金基金资料交叉验证基线",
+      "url": "data/inbox/2026-07-21-close-recovery-1643.json"
+    },
+    {
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "published_at": "2025-12-22",
+      "source_id": "sse",
+      "tier": "A",
+      "title": "上交所2026年休市安排",
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/"
+    }
+  ],
+  "indices": [
+    {
+      "broad": true,
+      "close": 3867.0336,
+      "daily_return": 0.00069,
+      "name": "上证指数",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "000001",
+      "value_as_of": "2026-07-22T15:30:36+08:00"
+    },
+    {
+      "broad": true,
+      "close": 14061.436,
+      "daily_return": -0.014221,
+      "name": "深证成指",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "399001",
+      "value_as_of": "2026-07-22T15:00:03+08:00"
+    },
+    {
+      "broad": true,
+      "close": 3566.732,
+      "daily_return": -0.032349,
+      "name": "创业板指",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "399006",
+      "value_as_of": "2026-07-22T15:00:03+08:00"
+    },
+    {
+      "broad": true,
+      "close": 4717.2442,
+      "daily_return": -0.004639,
+      "name": "沪深300",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "000300",
+      "value_as_of": "2026-07-22T15:35:34+08:00"
+    },
+    {
+      "broad": true,
+      "close": 7751.6618,
+      "daily_return": -0.006275,
+      "name": "中证500",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "000905",
+      "value_as_of": "2026-07-22T15:35:40+08:00"
+    }
+  ],
+  "is_trading_day": true,
+  "market_state": "closed",
+  "run_date": "2026-07-22",
+  "schema_version": 1,
+  "simulation_only": true
+}

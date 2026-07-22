@@ -6,11 +6,22 @@ import math
 import os
 import tempfile
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from statistics import pstdev
 from typing import Any
+
+from .evolution import (
+    REPO_ROOT as EVOLUTION_REPO_ROOT,
+    pipeline_event_payload_sha256,
+)
+from .transaction import (
+    inspect_transaction_state,
+    locked_state,
+    prepare_run_transaction,
+    recover_incomplete_transactions,
+)
 
 
 DEFAULT_LEDGER = Path("data/ledger/portfolio.json")
@@ -44,6 +55,13 @@ def _money(value: float | str | Decimal) -> Decimal:
     return Decimal(str(value)).quantize(CENT, rounding=ROUND_HALF_UP)
 
 
+def _decimal_string(value: Decimal) -> str:
+    rendered = format(value, "f")
+    if "." in rendered:
+        rendered = rendered.rstrip("0").rstrip(".")
+    return rendered or "0"
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         value = json.load(handle)
@@ -59,8 +77,15 @@ def _atomic_json(path: Path, value: dict[str, Any]) -> None:
     ) as handle:
         json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
         handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
         temp_name = handle.name
     os.replace(temp_name, path)
+    descriptor = os.open(path.parent, os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 def _atomic_text(path: Path, value: str) -> None:
@@ -69,14 +94,23 @@ def _atomic_text(path: Path, value: str) -> None:
         "w", encoding="utf-8", dir=path.parent, delete=False
     ) as handle:
         handle.write(value)
+        handle.flush()
+        os.fsync(handle.fileno())
         temp_name = handle.name
     os.replace(temp_name, path)
+    descriptor = os.open(path.parent, os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 def _append_jsonl(path: Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(value, ensure_ascii=False, sort_keys=True) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
 
 
 def _sha256(path: Path) -> str:
@@ -85,6 +119,66 @@ def _sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(65536), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _repo_relative_artifact(path: Path, repo_root: Path) -> str | None:
+    try:
+        resolved = path.resolve(strict=False)
+        relative = resolved.relative_to(repo_root.resolve())
+    except (OSError, ValueError):
+        return None
+    if path.exists() and path.is_symlink():
+        return None
+    return relative.as_posix()
+
+
+def _prepare_pipeline_events(
+    *,
+    events: list[dict[str, Any]],
+    run_id: str,
+    mode: str,
+    input_path: Path,
+    strategy_path: Path,
+    decision_path: Path,
+    decision: dict[str, Any],
+    repo_root: Path = EVOLUTION_REPO_ROOT,
+) -> list[dict[str, Any]]:
+    input_relative = _repo_relative_artifact(input_path, repo_root)
+    strategy_relative = _repo_relative_artifact(strategy_path, repo_root)
+    decision_relative = _repo_relative_artifact(decision_path, repo_root)
+    artifact_bound = all(
+        value is not None
+        for value in (input_relative, strategy_relative, decision_relative)
+    )
+    appended: list[dict[str, Any]] = []
+    decision_payload = (
+        json.dumps(
+            decision,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+            allow_nan=False,
+        )
+        + "\n"
+    ).encode("utf-8")
+    for event in events:
+        payload = {"run_id": run_id, **event}
+        if artifact_bound:
+            provenance = {
+                "schema_version": 2,
+                "producer": "vibe_finance.pipeline",
+                "pipeline_mode": mode,
+                "input_path": input_relative,
+                "input_sha256": _sha256(input_path),
+                "strategy_path": strategy_relative,
+                "strategy_sha256": _sha256(strategy_path),
+                "decision_manifest_path": decision_relative,
+                "decision_manifest_sha256": hashlib.sha256(decision_payload).hexdigest(),
+            }
+            provenance["event_payload_sha256"] = pipeline_event_payload_sha256(payload)
+            payload["evolution_provenance"] = provenance
+        appended.append(payload)
+    return appended
 
 
 def initialize_ledger(path: Path = DEFAULT_LEDGER) -> dict[str, Any]:
@@ -153,6 +247,49 @@ def _parse_time(value: str) -> datetime:
     return parsed
 
 
+def _parse_run_date(value: Any) -> date:
+    if not isinstance(value, str):
+        raise DataGateError("run_date 必须是 YYYY-MM-DD")
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError as exc:
+        raise DataGateError("run_date 必须是 YYYY-MM-DD") from exc
+    if parsed.isoformat() != value:
+        raise DataGateError("run_date 必须是 YYYY-MM-DD")
+    return parsed
+
+
+def _validate_observed_at(
+    value: Any,
+    cutoff: datetime,
+    label: str,
+    *,
+    allow_date_only: bool = False,
+) -> None:
+    if allow_date_only and isinstance(value, str):
+        try:
+            observed_date = date.fromisoformat(value)
+        except ValueError:
+            pass
+        else:
+            if observed_date > cutoff.date():
+                raise DataGateError(f"{label} 位于快照截点之后")
+            return
+    try:
+        observed = _parse_time(str(value))
+    except (DataGateError, TypeError) as exc:
+        raise DataGateError(f"{label} 必须是带时区 ISO 时间") from exc
+    if observed > cutoff.astimezone(observed.tzinfo):
+        raise DataGateError(f"{label} 位于快照截点之后")
+
+
+def _price_source_ids(asset: dict[str, Any]) -> set[str]:
+    values = asset.get("price_source_ids", [])
+    if not isinstance(values, list):
+        raise DataGateError(f"{asset.get('symbol', '')} price_source_ids 必须是 list")
+    return {str(value) for value in values if str(value)}
+
+
 def validate_snapshot(
     snapshot: dict[str, Any], strategy: dict[str, Any], now: datetime | None = None
 ) -> list[str]:
@@ -160,13 +297,12 @@ def validate_snapshot(
     missing = [key for key in required if key not in snapshot]
     if missing:
         raise DataGateError(f"快照缺少字段: {', '.join(missing)}")
-    if snapshot["schema_version"] != 1:
+    if snapshot["schema_version"] not in {1, 2}:
         raise DataGateError("不支持的快照 schema_version")
-    try:
-        datetime.fromisoformat(snapshot["run_date"])
-    except ValueError as exc:
-        raise DataGateError("run_date 必须是 YYYY-MM-DD") from exc
+    run_date = _parse_run_date(snapshot["run_date"])
     as_of = _parse_time(snapshot["as_of"])
+    if as_of.date() > run_date:
+        raise DataGateError("as_of 日期不得晚于 run_date")
     current = now or datetime.now(timezone.utc)
     if current.tzinfo is None:
         current = current.replace(tzinfo=timezone.utc)
@@ -189,6 +325,42 @@ def validate_snapshot(
             raise DataGateError(f"{symbol} close 必须为正数")
         if not asset.get("source_ids"):
             raise DataGateError(f"{symbol} 缺少 source_ids")
+        sources = asset.get("source_ids")
+        if not isinstance(sources, list):
+            raise DataGateError(f"{symbol} source_ids 必须是 list")
+        price_as_of = asset.get("price_as_of")
+        price_sources = _price_source_ids(asset)
+        if snapshot["schema_version"] == 2:
+            if not price_as_of:
+                raise DataGateError(f"{symbol} schema v2 缺少 price_as_of")
+            if not price_sources:
+                raise DataGateError(f"{symbol} schema v2 缺少 price_source_ids")
+        else:
+            if not price_as_of:
+                warnings.append(f"LEGACY_IMPLICIT_PRICE_AS_OF:{symbol}")
+            if not price_sources:
+                warnings.append(f"LEGACY_UNSCOPED_PRICE_SOURCES:{symbol}")
+        if price_as_of:
+            _validate_observed_at(price_as_of, as_of, f"{symbol} price_as_of")
+        if not price_sources.issubset({str(value) for value in sources}):
+            raise DataGateError(f"{symbol} price_source_ids 必须是 source_ids 的子集")
+        if snapshot["schema_version"] == 2 and len(price_sources) < int(
+            strategy["data_gates"]["minimum_price_sources"]
+        ):
+            raise DataGateError(f"{symbol} price_source_ids 未达到双源门禁")
+        if asset.get("open") is not None:
+            open_as_of = asset.get("open_price_as_of")
+            open_sources = asset.get("open_source_ids")
+            if snapshot["schema_version"] == 2 and not open_as_of:
+                raise DataGateError(f"{symbol} schema v2 缺少 open_price_as_of")
+            if open_as_of:
+                _validate_observed_at(open_as_of, as_of, f"{symbol} open_price_as_of")
+            if snapshot["schema_version"] == 2 and (
+                not isinstance(open_sources, list)
+                or len({str(value) for value in open_sources if str(value)})
+                < int(strategy["data_gates"]["minimum_price_sources"])
+            ):
+                raise DataGateError(f"{symbol} open_source_ids 未达到双源门禁")
         history = asset.get("history", [])
         if history and abs(float(history[-1]) - float(asset["close"])) > 1e-8:
             raise DataGateError(f"{symbol} history 末值与 close 不一致")
@@ -229,6 +401,17 @@ def validate_snapshot(
         for field in ("risk_bucket", "exposure_group"):
             if field in asset and not isinstance(asset[field], str):
                 raise DataGateError(f"{symbol} {field} 必须是 string")
+    if not isinstance(snapshot["evidence"], list):
+        raise DataGateError("evidence 必须是 list")
+    for index, evidence in enumerate(snapshot["evidence"], 1):
+        if not isinstance(evidence, dict) or not evidence.get("as_of"):
+            raise DataGateError(f"evidence[{index}] 缺少 as_of")
+        _validate_observed_at(
+            evidence["as_of"],
+            as_of,
+            f"evidence[{index}].as_of",
+            allow_date_only=True,
+        )
     return warnings
 
 
@@ -271,11 +454,57 @@ def _metrics(asset: dict[str, Any]) -> dict[str, float] | None:
     }
 
 
-def _project_value(ledger: dict[str, Any], assets: dict[str, dict[str, Any]]) -> dict[str, float]:
+def _project_value(
+    ledger: dict[str, Any],
+    assets: dict[str, dict[str, Any]],
+    valuation_as_of: str | None = None,
+) -> dict[str, Any]:
     positions_value = Decimal("0")
+    position_marks: dict[str, dict[str, Any]] = {}
+    stale_symbols: list[str] = []
+    mark_blocks: list[str] = []
     for symbol, position in ledger["positions"].items():
-        price = assets.get(symbol, {}).get("close", position["average_cost"])
-        positions_value += _money(Decimal(str(price)) * Decimal(str(position["quantity"])))
+        asset = assets.get(symbol)
+        asset_price_sources = (
+            asset.get("price_source_ids", []) if asset is not None else []
+        )
+        asset_is_trusted = (
+            asset is not None
+            and bool(asset.get("price_as_of"))
+            and isinstance(asset_price_sources, list)
+            and len({str(value) for value in asset_price_sources if str(value)}) >= 2
+        )
+        if asset_is_trusted:
+            price = Decimal(str(asset["close"]))
+            price_as_of = str(asset["price_as_of"])
+            basis = "SNAPSHOT_PRICE"
+        elif position.get("last_price") is not None and position.get("last_price_as_of"):
+            price = Decimal(str(position["last_price"]))
+            price_as_of = str(position["last_price_as_of"])
+            basis = "LEDGER_LAST_PRICE"
+            stale_symbols.append(str(symbol))
+            mark_blocks.append(
+                (
+                    f"POSITION_MARK_UNTRUSTED:{symbol}"
+                    if asset is not None
+                    else f"POSITION_MARK_NOT_IN_SNAPSHOT:{symbol}"
+                )
+            )
+        else:
+            reason = "UNTRUSTED" if asset is not None else "MISSING"
+            raise DataGateError(f"{reason}_POSITION_MARK:{symbol}")
+        quantity = Decimal(str(position["quantity"]))
+        if not quantity.is_finite() or quantity < 0:
+            raise DataGateError(f"INVALID_POSITION_QUANTITY:{symbol}")
+        market_value = _money(price * quantity)
+        positions_value += market_value
+        position_marks[str(symbol)] = {
+            "price": str(price),
+            "quantity": str(quantity),
+            "market_value_cny": float(market_value),
+            "price_as_of": price_as_of,
+            "basis": basis,
+        }
     cash = _money(ledger["cash_cny"])
     infra = ledger["research_infrastructure"]
     infrastructure_remaining = _money(infra["reserved_cny"]) - _money(infra["spent_cny"])
@@ -285,35 +514,41 @@ def _project_value(ledger: dict[str, Any], assets: dict[str, dict[str, Any]]) ->
         "investable_value_cny": float(cash + positions_value),
         "infrastructure_remaining_cny": float(infrastructure_remaining),
         "project_equity_cny": float(cash + positions_value + infrastructure_remaining),
+        "mark_status": "STALE" if stale_symbols else "COMPLETE",
+        "stale_symbols": stale_symbols,
+        "blocks": mark_blocks,
+        "position_marks": position_marks,
     }
 
 
 def _update_ledger_valuation(
     ledger: dict[str, Any],
     assets: dict[str, dict[str, Any]],
-    values: dict[str, float],
+    values: dict[str, Any],
     as_of: str,
 ) -> None:
     _ensure_ledger_schema(ledger)
     for symbol, position in ledger["positions"].items():
-        asset = assets.get(symbol)
-        if not asset:
-            continue
-        price = float(asset.get("close", position.get("average_cost", 0.0)))
-        position["last_price"] = price
-        position["last_price_as_of"] = str(asset.get("price_as_of", as_of))
-        position["market_value_cny"] = float(_money(price * int(position["quantity"])))
-        position["unrealized_pnl_cny"] = float(
-            _money(
-                (price - float(position.get("average_cost", price)))
-                * int(position["quantity"])
-            )
-        )
+        mark = values["position_marks"][str(symbol)]
+        price = Decimal(str(mark["price"]))
+        quantity = Decimal(str(mark["quantity"]))
+        if mark["basis"] == "SNAPSHOT_PRICE":
+            position["last_price"] = float(price)
+            position["last_price_as_of"] = str(mark["price_as_of"])
+        position["market_value_cny"] = float(_money(price * quantity))
+        average_cost = Decimal(str(position.get("average_cost", price)))
+        position["unrealized_pnl_cny"] = float(_money((price - average_cost) * quantity))
     performance = ledger["performance"]
     initial = float(ledger.get("initial_project_capital_cny", 0.0))
     project_equity = float(values["project_equity_cny"])
     total_pnl = project_equity - initial
-    performance["last_valuation_as_of"] = as_of
+    valuation_complete = values.get("mark_status") == "COMPLETE"
+    performance["valuation_complete"] = valuation_complete
+    performance["valuation_stale_symbols"] = list(values.get("stale_symbols", []))
+    if valuation_complete:
+        performance["last_valuation_as_of"] = as_of
+    else:
+        performance["last_partial_valuation_as_of"] = as_of
     performance["investable_value_cny"] = float(values["investable_value_cny"])
     performance["project_equity_cny"] = project_equity
     performance["total_pnl_cny"] = float(_money(total_pnl))
@@ -618,7 +853,8 @@ def _recommendations(
         global_blocks.append("BROAD_MARKET_SHOCK")
 
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
-    values = _project_value(ledger, assets)
+    values = _project_value(ledger, assets, str(snapshot["as_of"]))
+    global_blocks.extend(values["blocks"])
     portfolio_value = max(float(values["investable_value_cny"]), 1.0)
     signals = strategy.get("signals", {})
     cold_start_rules = signals.get("cold_start", {})
@@ -677,10 +913,13 @@ def _recommendations(
         target_weight = 0.0
         score = 0.0
         signal_type = "NONE"
-        current_quantity = int(ledger["positions"].get(symbol, {}).get("quantity", 0))
-        current_weight = float(asset["close"]) * current_quantity / portfolio_value
+        current_quantity = Decimal(
+            str(ledger["positions"].get(symbol, {}).get("quantity", 0))
+        )
+        current_weight = float(Decimal(str(asset["close"])) * current_quantity) / portfolio_value
 
-        if len(set(asset.get("source_ids", []))) < min_sources:
+        price_sources = _price_source_ids(asset)
+        if len(price_sources) < min_sources:
             reasons.append("PRICE_NOT_CROSSCHECKED")
         if not full_history:
             if cold_start:
@@ -829,7 +1068,7 @@ def _recommendations(
                 "target_weight": target_weight,
                 "reasons": sorted(set(reasons)),
                 "metrics": metrics,
-                "source_count": len(set(asset.get("source_ids", []))),
+                "source_count": len(price_sources),
             }
         )
 
@@ -907,7 +1146,7 @@ def _create_orders(
     ):
         return []
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
-    values = _project_value(ledger, assets)
+    values = _project_value(ledger, assets, str(snapshot["as_of"]))
     portfolio_value = float(values["investable_value_cny"])
     diversification = strategy.get("diversification", {})
     bucket_caps = diversification.get("bucket_weight_caps", {})
@@ -924,7 +1163,8 @@ def _create_orders(
 
     for symbol, position in ledger["positions"].items():
         asset = assets.get(symbol, position)
-        price = float(assets.get(symbol, {}).get("close", position["average_cost"]))
+        mark = values["position_marks"][str(symbol)]
+        price = float(mark["price"])
         market_value = price * int(position["quantity"])
         bucket = str(position.get("risk_bucket", asset.get("risk_bucket", _default_risk_bucket(asset))))
         group = str(position.get("exposure_group", asset.get("exposure_group", symbol)))
@@ -1233,7 +1473,7 @@ def _render_report(
     return "\n".join(lines)
 
 
-def run_pipeline(
+def _run_pipeline_locked(
     input_path: Path,
     ledger_path: Path = DEFAULT_LEDGER,
     strategy_path: Path = DEFAULT_STRATEGY,
@@ -1255,7 +1495,7 @@ def run_pipeline(
     recommendations, blocks = _recommendations(ledger, snapshot, strategy, warnings)
     orders = _create_orders(ledger, snapshot, strategy, recommendations, blocks)
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
-    values = _project_value(ledger, assets)
+    values = _project_value(ledger, assets, str(snapshot["as_of"]))
     _update_ledger_valuation(ledger, assets, values, str(snapshot["as_of"]))
     pending_open = sum(
         order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
@@ -1270,6 +1510,7 @@ def run_pipeline(
         if daily_required:
             blocks = sorted(set(blocks + ["DAILY_ORDER_REQUIREMENT_MISSED"]))
     input_hash = _sha256(input_path)
+    strategy_hash = _sha256(strategy_path)
     run_id = uuid.uuid4().hex
     decision = {
         "schema_version": 1,
@@ -1277,6 +1518,7 @@ def run_pipeline(
         "run_date": snapshot["run_date"],
         "mode": mode,
         "input_sha256": input_hash,
+        "strategy_sha256": strategy_hash,
         "as_of": snapshot["as_of"],
         "blocks": blocks,
         "recommendations": recommendations,
@@ -1289,10 +1531,37 @@ def run_pipeline(
     ledger["run_history"].append(
         {"run_id": run_id, "run_date": snapshot["run_date"], "mode": mode, "input_sha256": input_hash}
     )
-    _atomic_json(ledger_path, ledger)
-    _atomic_json(
-        ledger_path.parent / "heartbeat.json",
-        {
+    report_text = _render_report(
+        snapshot,
+        ledger,
+        values,
+        recommendations,
+        blocks,
+        fills,
+        orders,
+        input_hash,
+        mode,
+    )
+    event_payloads = _prepare_pipeline_events(
+        events=fills + orders,
+        run_id=run_id,
+        mode=mode,
+        input_path=input_path,
+        strategy_path=strategy_path,
+        decision_path=decision_path,
+        decision=decision,
+    )
+    prepare_run_transaction(
+        run_id=run_id,
+        ledger_path=ledger_path,
+        orders_log=orders_log,
+        recorded_at=str(snapshot["as_of"]),
+        portfolio=ledger,
+        decision_path=decision_path,
+        decision=decision,
+        report_path=report_path,
+        report_text=report_text,
+        heartbeat={
             "status": "ACTIVE",
             "last_success_at": datetime.now(timezone.utc).isoformat(),
             "run_id": run_id,
@@ -1300,14 +1569,7 @@ def run_pipeline(
             "mode": mode,
             "input_sha256": input_hash,
         },
-    )
-    for event in fills + orders:
-        _append_jsonl(orders_log, {"run_id": run_id, **event})
-    report_dir.mkdir(parents=True, exist_ok=True)
-    _atomic_json(decision_path, decision)
-    report_path.write_text(
-        _render_report(snapshot, ledger, values, recommendations, blocks, fills, orders, input_hash, mode),
-        encoding="utf-8",
+        events=event_payloads,
     )
     return {
         "status": (
@@ -1331,6 +1593,12 @@ def _settle_pending_fund_orders(
 ) -> list[dict[str, Any]]:
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
     precision = int(strategy.get("fund_orders", {}).get("share_precision", 4))
+    quantum = Decimal("1").scaleb(-precision)
+    rounding_name = str(
+        strategy.get("fund_orders", {}).get("share_rounding", "ROUND_HALF_UP")
+    )
+    if rounding_name != "ROUND_HALF_UP":
+        raise DataGateError(f"不支持的基金份额舍入规则: {rounding_name}")
     events: list[dict[str, Any]] = []
     still_pending: list[dict[str, Any]] = []
     for order in ledger["pending_orders"]:
@@ -1363,7 +1631,7 @@ def _settle_pending_fund_orders(
             fee_rate = Decimal(str(metadata["purchase_fee_rate"]))
             net_subscription = amount / (Decimal("1") + fee_rate)
             fee = _money(amount - net_subscription)
-            shares = round(float(net_subscription / nav), precision)
+            shares = (net_subscription / nav).quantize(quantum, rounding=ROUND_HALF_UP)
             if shares <= 0:
                 order["status"] = "CANCELLED_ZERO_SHARES"
                 order["cancellation_reason"] = "ZERO_SHARES_AFTER_FEES"
@@ -1377,7 +1645,7 @@ def _settle_pending_fund_orders(
             new_quantity = old_quantity + Decimal(str(shares))
             position.update(
                 {
-                    "quantity": float(new_quantity),
+                    "quantity": _decimal_string(new_quantity),
                     "average_cost": float((old_cost + amount) / new_quantity),
                     "name": asset["name"],
                     "asset_type": asset["asset_type"],
@@ -1390,8 +1658,9 @@ def _settle_pending_fund_orders(
             )
             ledger["positions"][order["symbol"]] = position
             ledger["cash_cny"] = float(_money(ledger["cash_cny"]) - amount)
-            order["confirmed_shares"] = shares
+            order["confirmed_shares"] = _decimal_string(shares)
             order["gross_amount_cny"] = float(amount)
+            order["purchase_fee_rate_applied"] = _decimal_string(fee_rate)
             trade_notional = amount
             realized_pnl = Decimal("0")
         else:
@@ -1412,9 +1681,10 @@ def _settle_pending_fund_orders(
             if remaining == 0:
                 del ledger["positions"][order["symbol"]]
             else:
-                position["quantity"] = float(remaining)
+                position["quantity"] = _decimal_string(remaining)
             order["gross_amount_cny"] = float(gross)
-            order["confirmed_shares"] = float(shares)
+            order["confirmed_shares"] = _decimal_string(shares)
+            order["redemption_fee_rate_applied"] = _decimal_string(fee_rate)
             trade_notional = gross
         order["status"] = "FILLED"
         order["fill_date"] = nav_date
@@ -1424,6 +1694,8 @@ def _settle_pending_fund_orders(
         order["total_fees_cny"] = float(fee)
         order["realized_pnl_cny"] = float(realized_pnl)
         order["settlement_kind"] = "CONFIRMED_NAV"
+        order["share_precision"] = precision
+        order["fund_share_rounding"] = rounding_name
         _record_filled_trade(
             ledger,
             side=str(order["side"]),
@@ -1448,7 +1720,7 @@ def _create_fund_orders(
     if hard_blocks or not snapshot["is_trading_day"] or snapshot.get("market_state") != "nav_published":
         return []
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
-    values = _project_value(ledger, assets)
+    values = _project_value(ledger, assets, str(snapshot["as_of"]))
     portfolio_value = float(values["investable_value_cny"])
     diversification = strategy.get("diversification", {})
     bucket_caps = diversification.get("bucket_weight_caps", {})
@@ -1471,7 +1743,7 @@ def _create_fund_orders(
     }
     for symbol, position in ledger["positions"].items():
         asset = assets.get(symbol, position)
-        value = float(assets.get(symbol, {}).get("close", position["average_cost"])) * float(position["quantity"])
+        value = float(values["position_marks"][str(symbol)]["market_value_cny"])
         bucket = str(position.get("risk_bucket", asset.get("risk_bucket", _default_risk_bucket(asset))))
         bucket_values[bucket] = bucket_values.get(bucket, 0.0) + value
         if _is_equity_exposure(asset):
@@ -1594,8 +1866,10 @@ def _create_fund_orders(
                 continue
             side = "SELL"
             order_value = {
-                "quantity": float(
-                    recommendation.get("order_quantity") or position["quantity"]
+                "quantity": _decimal_string(
+                    Decimal(
+                        str(recommendation.get("order_quantity") or position["quantity"])
+                    )
                 )
             }
         metadata = asset["fund_metadata"]
@@ -1614,6 +1888,14 @@ def _create_fund_orders(
             "pricing_rule": "NEXT_OPEN_DAY_CONFIRMED_NAV",
             "purchase_fee_rate": float(metadata["purchase_fee_rate"]),
             "redemption_fee_rate": float(metadata["redemption_fee_rate"]),
+            "share_precision": int(
+                strategy.get("fund_orders", {}).get("share_precision", 4)
+            ),
+            "fund_share_rounding": str(
+                strategy.get("fund_orders", {}).get(
+                    "share_rounding", "ROUND_HALF_UP"
+                )
+            ),
             "simulation_only": True,
             "signal_type": recommendation.get("signal_type", "UNKNOWN"),
             "signal_score": float(recommendation.get("score", 0.0)),
@@ -1749,7 +2031,7 @@ def _render_fund_report(
     return "\n".join(lines)
 
 
-def run_fund_nav_pipeline(
+def _run_fund_nav_pipeline_locked(
     input_path: Path,
     ledger_path: Path = DEFAULT_LEDGER,
     strategy_path: Path = DEFAULT_STRATEGY,
@@ -1778,9 +2060,10 @@ def run_fund_nav_pipeline(
     blocks = sorted(set(blocks + recommendation_blocks))
     orders = _create_fund_orders(ledger, snapshot, strategy, recommendations, blocks)
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
-    values = _project_value(ledger, assets)
+    values = _project_value(ledger, assets, str(snapshot["as_of"]))
     _update_ledger_valuation(ledger, assets, values, str(snapshot["as_of"]))
     input_hash = _sha256(input_path)
+    strategy_hash = _sha256(strategy_path)
     run_id = uuid.uuid4().hex
     decision = {
         "schema_version": 1,
@@ -1788,6 +2071,7 @@ def run_fund_nav_pipeline(
         "run_date": snapshot["run_date"],
         "mode": "fund_nav",
         "input_sha256": input_hash,
+        "strategy_sha256": strategy_hash,
         "as_of": snapshot["as_of"],
         "blocks": blocks,
         "recommendations": recommendations,
@@ -1799,10 +2083,29 @@ def run_fund_nav_pipeline(
     ledger["run_history"].append(
         {"run_id": run_id, "run_date": snapshot["run_date"], "mode": "fund_nav", "input_sha256": input_hash}
     )
-    _atomic_json(ledger_path, ledger)
-    _atomic_json(
-        ledger_path.parent / "heartbeat.json",
-        {
+    report_text = _render_fund_report(
+        snapshot, values, recommendations, events, orders, blocks, input_hash
+    )
+    event_payloads = _prepare_pipeline_events(
+        events=events + orders,
+        run_id=run_id,
+        mode="fund_nav",
+        input_path=input_path,
+        strategy_path=strategy_path,
+        decision_path=decision_path,
+        decision=decision,
+    )
+    prepare_run_transaction(
+        run_id=run_id,
+        ledger_path=ledger_path,
+        orders_log=orders_log,
+        recorded_at=str(snapshot["as_of"]),
+        portfolio=ledger,
+        decision_path=decision_path,
+        decision=decision,
+        report_path=report_path,
+        report_text=report_text,
+        heartbeat={
             "status": "ACTIVE",
             "last_success_at": datetime.now(timezone.utc).isoformat(),
             "run_id": run_id,
@@ -1810,14 +2113,7 @@ def run_fund_nav_pipeline(
             "mode": "fund_nav",
             "input_sha256": input_hash,
         },
-    )
-    for event in events + orders:
-        _append_jsonl(orders_log, {"run_id": run_id, **event})
-    report_dir.mkdir(parents=True, exist_ok=True)
-    _atomic_json(decision_path, decision)
-    report_path.write_text(
-        _render_fund_report(snapshot, values, recommendations, events, orders, blocks, input_hash),
-        encoding="utf-8",
+        events=event_payloads,
     )
     return {
         "status": "PASS",
@@ -1964,7 +2260,7 @@ def _render_execution_report(
     return "\n".join(lines)
 
 
-def settle_open_orders(
+def _settle_open_orders_locked(
     input_path: Path,
     ledger_path: Path = DEFAULT_LEDGER,
     strategy_path: Path = DEFAULT_STRATEGY,
@@ -2010,9 +2306,11 @@ def settle_open_orders(
         valued = dict(item)
         if valued.get("open") is not None:
             valued["close"] = valued["open"]
-            valued["price_as_of"] = snapshot["as_of"]
+            valued["price_as_of"] = valued.get("open_price_as_of", snapshot["as_of"])
+            valued["price_source_ids"] = list(valued.get("open_source_ids", []))
         valuation_assets[str(valued["symbol"])] = valued
-    values = _project_value(ledger, valuation_assets)
+    values = _project_value(ledger, valuation_assets, str(snapshot["as_of"]))
+    blocks.extend(values["blocks"])
     _update_ledger_valuation(ledger, valuation_assets, values, str(snapshot["as_of"]))
     filled_count = sum(event.get("status") == "FILLED" for event in events)
     required_count = int(daily_rules.get("minimum_filled_trades_per_trading_day", 1))
@@ -2026,6 +2324,7 @@ def settle_open_orders(
             blocks.append("DAILY_TRADE_REQUIREMENT_MISSED")
     blocks = sorted(set(blocks))
     input_hash = _sha256(input_path)
+    strategy_hash = _sha256(strategy_path)
     run_id = uuid.uuid4().hex
     decision = {
         "schema_version": 1,
@@ -2033,6 +2332,7 @@ def settle_open_orders(
         "run_date": snapshot["run_date"],
         "mode": "open_settlement",
         "input_sha256": input_hash,
+        "strategy_sha256": strategy_hash,
         "as_of": snapshot["as_of"],
         "blocks": sorted(set(blocks)),
         "events": events,
@@ -2052,10 +2352,39 @@ def settle_open_orders(
             "input_sha256": input_hash,
         }
     )
-    _atomic_json(ledger_path, ledger)
-    _atomic_json(
-        ledger_path.parent / "heartbeat.json",
-        {
+    report_text = _render_execution_report(
+        snapshot,
+        values,
+        events,
+        blocks,
+        input_hash,
+        pending_before,
+        sum(
+            order.get("status") == "PENDING_NEXT_OPEN"
+            for order in ledger["pending_orders"]
+        ),
+        strategy,
+    )
+    event_payloads = _prepare_pipeline_events(
+        events=events,
+        run_id=run_id,
+        mode="open_settlement",
+        input_path=input_path,
+        strategy_path=strategy_path,
+        decision_path=decision_path,
+        decision=decision,
+    )
+    prepare_run_transaction(
+        run_id=run_id,
+        ledger_path=ledger_path,
+        orders_log=orders_log,
+        recorded_at=str(snapshot["as_of"]),
+        portfolio=ledger,
+        decision_path=decision_path,
+        decision=decision,
+        report_path=report_path,
+        report_text=report_text,
+        heartbeat={
             "status": "ACTIVE",
             "last_success_at": datetime.now(timezone.utc).isoformat(),
             "run_id": run_id,
@@ -2063,26 +2392,7 @@ def settle_open_orders(
             "mode": "open_settlement",
             "input_sha256": input_hash,
         },
-    )
-    for event in events:
-        _append_jsonl(orders_log, {"run_id": run_id, **event})
-    report_dir.mkdir(parents=True, exist_ok=True)
-    _atomic_json(decision_path, decision)
-    report_path.write_text(
-        _render_execution_report(
-            snapshot,
-            values,
-            events,
-            blocks,
-            input_hash,
-            pending_before,
-            sum(
-                order.get("status") == "PENDING_NEXT_OPEN"
-                for order in ledger["pending_orders"]
-            ),
-            strategy,
-        ),
-        encoding="utf-8",
+        events=event_payloads,
     )
     return {
         "status": (
@@ -2197,7 +2507,7 @@ def update_readme_status(
     }
 
 
-def project_status(
+def _project_status_locked(
     ledger_path: Path = DEFAULT_LEDGER,
     report_dir: Path = DEFAULT_REPORT_DIR,
     max_age_hours: float = 36.0,
@@ -2205,11 +2515,22 @@ def project_status(
 ) -> dict[str, Any]:
     """Read-only liveness and budget status; never refreshes the heartbeat."""
     heartbeat_path = ledger_path.parent / "heartbeat.json"
-    if not ledger_path.exists() or not heartbeat_path.exists():
+    if not ledger_path.exists():
+        return {"status": "INACTIVE", "reason": "LEDGER_OR_HEARTBEAT_MISSING"}
+    transaction_state = inspect_transaction_state(ledger_path)
+    if transaction_state["status"] == "INCOMPLETE":
+        return transaction_state
+    if not heartbeat_path.exists():
         return {"status": "INACTIVE", "reason": "LEDGER_OR_HEARTBEAT_MISSING"}
     ledger = _read_json(ledger_path)
     _ensure_ledger_schema(ledger)
     heartbeat = _read_json(heartbeat_path)
+    if heartbeat.get("run_id") != ledger.get("last_run_id"):
+        return {
+            "status": "INCOMPLETE",
+            "reason": "HEARTBEAT_PORTFOLIO_RUN_ID_MISMATCH",
+            "recoverable": False,
+        }
     last_success = _parse_time(str(heartbeat["last_success_at"]))
     current = now or datetime.now(timezone.utc)
     if current.tzinfo is None:
@@ -2241,7 +2562,7 @@ def project_status(
     }
 
 
-def record_api_cost(
+def _record_api_cost_locked(
     ledger_path: Path,
     cost_log: Path,
     amount_cny: float,
@@ -2260,11 +2581,11 @@ def record_api_cost(
         raise ValueError("DeepSeek 调用将超过 100 元研究预算")
     infra["spent_cny"] = float(new_spent)
     infra["actual_calls"] = int(infra["actual_calls"]) + 1
-    positions_value = sum(
-        float(position.get("last_price", position["average_cost"]))
-        * float(position["quantity"])
-        for position in ledger["positions"].values()
-    )
+    positions_value = 0.0
+    for symbol, position in ledger["positions"].items():
+        if position.get("last_price") is None or not position.get("last_price_as_of"):
+            raise DataGateError(f"MISSING_POSITION_MARK:{symbol}")
+        positions_value += float(position["last_price"]) * float(position["quantity"])
     project_equity = (
         float(ledger["cash_cny"])
         + positions_value
@@ -2272,13 +2593,13 @@ def record_api_cost(
     )
     initial = float(ledger["initial_project_capital_cny"])
     performance = ledger["performance"]
-    performance["last_valuation_as_of"] = datetime.now(timezone.utc).isoformat()
     performance["investable_value_cny"] = float(ledger["cash_cny"]) + positions_value
     performance["project_equity_cny"] = project_equity
     performance["total_pnl_cny"] = float(_money(project_equity - initial))
     performance["total_return_pct"] = (project_equity - initial) / initial if initial else 0.0
+    timestamp = datetime.now(timezone.utc).isoformat()
     event = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": timestamp,
         "provider": "DeepSeek",
         "model": model,
         "purpose": purpose,
@@ -2287,11 +2608,166 @@ def record_api_cost(
         "amount_cny": float(_money(amount_cny)),
         "actual_api_call": True,
     }
-    _atomic_json(ledger_path, ledger)
-    _append_jsonl(cost_log, event)
+    run_id = uuid.uuid4().hex
+    ledger["last_run_id"] = run_id
+    ledger["run_history"].append(
+        {
+            "run_id": run_id,
+            "run_date": timestamp[:10],
+            "mode": "api_cost",
+            "input_sha256": hashlib.sha256(
+                json.dumps(event, ensure_ascii=False, sort_keys=True).encode("utf-8")
+            ).hexdigest(),
+        }
+    )
+    cost_line = (
+        json.dumps(event, ensure_ascii=False, sort_keys=True, allow_nan=False) + "\n"
+    ).encode("utf-8")
+    existing_costs = cost_log.read_bytes() if cost_log.exists() else b""
+    if existing_costs and not existing_costs.endswith(b"\n"):
+        raise DataGateError("API cost log must end with a newline")
+    input_hash = hashlib.sha256(cost_line).hexdigest()
+    decision = {
+        "schema_version": 1,
+        "run_id": run_id,
+        "run_date": timestamp[:10],
+        "mode": "api_cost",
+        "input_sha256": input_hash,
+        "api_cost_event": event,
+        "project_equity_cny": project_equity,
+    }
+    artifact_dir = ledger_path.parent / "api_cost_transactions"
+    report_text = (
+        "# DeepSeek API 成本事务\n\n"
+        f"- run_id: `{run_id}`\n"
+        f"- timestamp: {timestamp}\n"
+        f"- amount_cny: {float(_money(amount_cny)):.2f}\n"
+        f"- model: {model}\n"
+        f"- purpose: {purpose}\n"
+        "- actual_api_call: true\n"
+    )
+    prepare_run_transaction(
+        run_id=run_id,
+        ledger_path=ledger_path,
+        orders_log=DEFAULT_ORDERS_LOG if ledger_path == DEFAULT_LEDGER else ledger_path.parent / "orders.jsonl",
+        recorded_at=timestamp,
+        portfolio=ledger,
+        decision_path=artifact_dir / f"{run_id}.json",
+        decision=decision,
+        report_path=artifact_dir / f"{run_id}.md",
+        report_text=report_text,
+        heartbeat={
+            "status": "ACTIVE",
+            "last_success_at": timestamp,
+            "run_id": run_id,
+            "run_date": timestamp[:10],
+            "mode": "api_cost",
+            "input_sha256": input_hash,
+        },
+        events=[],
+        auxiliary_files=[(cost_log, existing_costs + cost_line)],
+    )
     return {
         "status": "RECORDED",
+        "run_id": run_id,
         "actual_calls": infra["actual_calls"],
         "spent_cny": infra["spent_cny"],
         "remaining_cny": float(_money(infra["reserved_cny"]) - new_spent),
     }
+
+
+def _recovered_result(commits: list[dict[str, Any]]) -> dict[str, Any]:
+    latest = commits[-1]
+    return {
+        "status": "RECOVERED",
+        "run_id": latest.get("run_id"),
+        "recovered_transactions": len(commits),
+        "decision": latest.get("decision_path"),
+        "report": latest.get("report_path"),
+    }
+
+
+def run_pipeline(
+    input_path: Path,
+    ledger_path: Path = DEFAULT_LEDGER,
+    strategy_path: Path = DEFAULT_STRATEGY,
+    report_dir: Path = DEFAULT_REPORT_DIR,
+    orders_log: Path = DEFAULT_ORDERS_LOG,
+    mode: str = "short",
+) -> dict[str, Any]:
+    with locked_state(ledger_path, exclusive=True):
+        recovered = recover_incomplete_transactions(ledger_path)
+        if recovered:
+            return _recovered_result(recovered)
+        return _run_pipeline_locked(
+            input_path,
+            ledger_path,
+            strategy_path,
+            report_dir,
+            orders_log,
+            mode,
+        )
+
+
+def run_fund_nav_pipeline(
+    input_path: Path,
+    ledger_path: Path = DEFAULT_LEDGER,
+    strategy_path: Path = DEFAULT_STRATEGY,
+    report_dir: Path = DEFAULT_FUND_REPORT_DIR,
+    orders_log: Path = DEFAULT_ORDERS_LOG,
+) -> dict[str, Any]:
+    with locked_state(ledger_path, exclusive=True):
+        recovered = recover_incomplete_transactions(ledger_path)
+        if recovered:
+            return _recovered_result(recovered)
+        return _run_fund_nav_pipeline_locked(
+            input_path, ledger_path, strategy_path, report_dir, orders_log
+        )
+
+
+def settle_open_orders(
+    input_path: Path,
+    ledger_path: Path = DEFAULT_LEDGER,
+    strategy_path: Path = DEFAULT_STRATEGY,
+    report_dir: Path = DEFAULT_EXECUTION_REPORT_DIR,
+    orders_log: Path = DEFAULT_ORDERS_LOG,
+) -> dict[str, Any]:
+    with locked_state(ledger_path, exclusive=True):
+        recovered = recover_incomplete_transactions(ledger_path)
+        if recovered:
+            return _recovered_result(recovered)
+        return _settle_open_orders_locked(
+            input_path, ledger_path, strategy_path, report_dir, orders_log
+        )
+
+
+def project_status(
+    ledger_path: Path = DEFAULT_LEDGER,
+    report_dir: Path = DEFAULT_REPORT_DIR,
+    max_age_hours: float = 36.0,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    with locked_state(ledger_path, exclusive=False):
+        return _project_status_locked(ledger_path, report_dir, max_age_hours, now)
+
+
+def record_api_cost(
+    ledger_path: Path,
+    cost_log: Path,
+    amount_cny: float,
+    model: str,
+    purpose: str,
+    input_tokens: int,
+    output_tokens: int,
+) -> dict[str, Any]:
+    with locked_state(ledger_path, exclusive=True):
+        recover_incomplete_transactions(ledger_path)
+        return _record_api_cost_locked(
+            ledger_path,
+            cost_log,
+            amount_cny,
+            model,
+            purpose,
+            input_tokens,
+            output_tokens,
+        )

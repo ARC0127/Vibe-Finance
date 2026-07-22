@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-22T20:23:00+08:00",
+  "status": "ORPHAN_TRANSACTION_DIRECTORY_QUARANTINED",
+  "run_id": "45df9472db7044c78e8c3c5068823ba6",
+  "original_path": "data/ledger/transactions/45df9472db7044c78e8c3c5068823ba6",
+  "observed_state": {
+    "directory_present": true,
+    "file_count": 0,
+    "prepare_json_present": false,
+    "commit_json_present": false,
+    "modified_at": "2026-07-22T09:53:02+08:00"
+  },
+  "financial_effect": "NONE",
+  "orders_added": 0,
+  "portfolio_modified": false,
+  "action": "Removed the empty directory with rmdir after recording this audit; no file or prepared transaction was discarded.",
+  "code_fix": "Ledger verification now runs before transaction-directory creation, and orphan directories are reported as non-recoverable instead of PREPARED_NOT_COMMITTED."
+}

@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "manifest_id": "b0-b1-b2-v1",
+  "status": "PREREGISTERED_PROPOSED_ONLY",
+  "simulation_only": true,
+  "objective": "maximize independent-OOS net terminal virtual project equity subject to evidence, cost, risk, and rollback gates",
+  "claim_boundary": {
+    "historical_results": null,
+    "strategy_ranking": null,
+    "promotion_authorized": false,
+    "reason": "NO_LONGITUDINAL_POINT_IN_TIME_PANEL"
+  },
+  "capital": {
+    "initial_project_capital_cny": 30000.0,
+    "research_infrastructure_reserve_cny": 100.0,
+    "initial_investable_cash_cny": 29900.0,
+    "cash_return_series": "UNKNOWN_USE_ZERO_UNTIL_LICENSED_SERIES_EXISTS"
+  },
+  "dataset_contract": {
+    "minimum_common_history_trading_days": 2016,
+    "required_prior_intervals_before_signal": 273,
+    "required_close_observations_through_signal": 274,
+    "required_snapshot_schema": 2,
+    "required_price_sources": 2,
+    "point_in_time_fields": [
+      "date",
+      "symbol",
+      "raw_open",
+      "raw_close",
+      "total_return_close",
+      "open_observed_at",
+      "close_observed_at",
+      "open_source_ids",
+      "close_source_ids",
+      "trading_status",
+      "corporate_actions",
+      "license_status",
+      "snapshot_sha256"
+    ],
+    "recovery_snapshots_allowed": false,
+    "undated_history_arrays_allowed": false
+  },
+  "splits": {
+    "absolute_dates": "UNKNOWN_PENDING_DATASET",
+    "maximum_forward_label_horizon_trading_days": 0,
+    "purge_rule": "no_forward_supervised_labels_are_used_by_B0_B1_B2",
+    "walk_forward": {
+      "development_window_trading_days": 756,
+      "validation_window_trading_days": 252,
+      "test_window_trading_days": 126,
+      "step_trading_days": 126
+    },
+    "independent_oos": {
+      "sealed_tail_trading_days": 504,
+      "read_before_final_evaluation": false
+    }
+  },
+  "candidates": {
+    "B0": {
+      "name": "frozen_v0.3.0",
+      "strategy_version": "0.3.0",
+      "strategy_sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d",
+      "pipeline_sha256": "188da8ec280dcf52eb73406eccb47a5ab9a35c80bdfe8e488e316ec3a6c516f0",
+      "universe_sha256": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7",
+      "sources_sha256": "a82bbe176be533f889fcd2807626ce6d17078543515660cf023efbb00d45f073",
+      "code_ref": "081a45c95d078281733100479d6239e8f4eb9429",
+      "frequency": "daily",
+      "signal_at": "every_common_trading_day_close",
+      "execution_at": "next_common_trading_day_open",
+      "daily_return_definition": "adjacent_total_return_close_simple_return",
+      "evaluation_universe": ["510300", "510880", "512100", "518880"],
+      "semantic_contract": "exact frozen decision adapter plus shared execution required; historical operational fixture smoke is not the fair evaluation adapter; future live pipeline changes cannot alter B0"
+    },
+    "B1": {
+      "name": "monthly_dual_momentum_inverse_volatility",
+      "symbols": ["510300", "510880", "512100", "518880"],
+      "signal_at": "last_trading_day_month_close",
+      "execution_at": "next_trading_day_open",
+      "momentum_windows_trading_days": [126, 252],
+      "skip_recent_trading_days": 21,
+      "absolute_momentum_rule": "both window returns greater than contemporaneous cash return",
+      "relative_score": "equal_weight_cross_sectional_rank_of_126d_and_252d",
+      "rank_percentile_formula": "average_one_based_ascending_rank_divided_by_eligible_count_with_symbol_ascending_final_tiebreak",
+      "maximum_selected_assets": 3,
+      "weighting": "inverse_60d_annualized_volatility",
+      "return_definition": "simple_total_return",
+      "missing_window_action": "FAIL_CLOSED_FOR_SIGNAL_DATE",
+      "risk_asset_budget": 0.9,
+      "cap_projection": "iterative_capped_redistribution_then_proportional_equity_cap_with_remainder_to_cash",
+      "no_trade_band_percentage_points": 3.0,
+      "minimum_order_notional_cny": 2500.0,
+      "ordinary_order_gate": "absolute_weight_delta_and_notional_threshold_must_both_pass",
+      "hard_limit_repair_and_full_exit_bypass_order_gate": true
+    },
+    "B2": {
+      "name": "monthly_equal_risk_contribution",
+      "symbols": ["510300", "510880", "512100", "518880"],
+      "signal_at": "last_trading_day_month_close",
+      "execution_at": "next_trading_day_open",
+      "covariance_window_trading_days": 60,
+      "covariance_shrinkage": {
+        "sample_covariance_weight": 0.75,
+        "diagonal_covariance_weight": 0.25
+      },
+      "solver": {
+        "long_only": true,
+        "tolerance": 1e-08,
+        "tolerance_definition": "maximum_relative_risk_budget_residual",
+        "maximum_iterations": 1000,
+        "minimum_variance_absolute": 1e-15,
+        "symmetry_absolute_tolerance": 1e-12,
+        "linear_pivot_absolute_tolerance": 1e-18,
+        "failure_action": "FAIL_CLOSED"
+      },
+      "cap_projection": "uniform_scale_preserving_continuous_erc_risk_contribution_ratios_with_remainder_to_cash",
+      "no_trade_band_percentage_points": 3.0,
+      "minimum_order_notional_cny": 2500.0,
+      "ordinary_order_gate": "absolute_weight_delta_and_notional_threshold_must_both_pass",
+      "hard_limit_repair_and_full_exit_bypass_order_gate": true
+    }
+  },
+  "shared_risk_limits": {
+    "maximum_positions": 6,
+    "maximum_single_etf_weight": 0.2,
+    "maximum_gold_weight": 0.1,
+    "maximum_total_equity_weight": 0.7,
+    "minimum_cash_weight": 0.1,
+    "leverage": false,
+    "shorting": false
+  },
+  "execution_costs": {
+    "commission_rate": 0.0003,
+    "minimum_commission_cny": 5.0,
+    "etf_stamp_tax_rate": 0.0,
+    "etf_transfer_fee_rate": 0.0,
+    "base_one_way_slippage_bps": 10,
+    "stress_one_way_slippage_bps": [25, 50],
+    "lot_size": 100,
+    "missing_or_untrusted_open_action": "CANCEL",
+    "deferred_fill_allowed": false
+  },
+  "metrics": {
+    "primary": [
+      "net_terminal_investable_value_cny",
+      "net_terminal_project_equity_cny"
+    ],
+    "required_secondary": [
+      "cumulative_return",
+      "cagr",
+      "maximum_drawdown",
+      "annualized_volatility",
+      "turnover",
+      "commission_cny",
+      "slippage_cny",
+      "average_equity_exposure",
+      "cancelled_order_count",
+      "per_asset_pnl_contribution",
+      "per_fold_terminal_value"
+    ],
+    "sharpe_and_sortino": "UNKNOWN_UNTIL_CASH_RETURN_SERIES_EXISTS"
+  },
+  "selection_gate": {
+    "maximum_drawdown_budget": "UNKNOWN_MUST_BE_PREREGISTERED_BEFORE_ACCEPTANCE",
+    "b1_requires_base_cost_outperformance_over": ["B0", "B2"],
+    "b1_25bps_stress_advantage_must_remain_positive": true,
+    "minimum_eligible_completed_round_trips": 20,
+    "trusted_static_evaluator_required": true,
+    "rollback_replay_required": true,
+    "missing_any_evidence_decision": "PROPOSED_ONLY"
+  }
+}
