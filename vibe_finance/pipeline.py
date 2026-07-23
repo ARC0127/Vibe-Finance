@@ -29,6 +29,8 @@ DEFAULT_ORDERS_LOG = Path("data/ledger/orders.jsonl")
 DEFAULT_REPORT_DIR = Path("reports/daily")
 DEFAULT_EXECUTION_REPORT_DIR = Path("reports/execution")
 DEFAULT_FUND_REPORT_DIR = Path("reports/funds")
+DEFAULT_REPORT_ROOT = Path("reports")
+DEFAULT_INBOX_DIR = Path("data/inbox")
 DEFAULT_STRATEGY = Path("config/strategy.json")
 DEFAULT_README = Path("README.md")
 CENT = Decimal("0.01")
@@ -2452,11 +2454,343 @@ def _settle_open_orders_locked(
     }
 
 
+def _latest_strategy_report(
+    report_root: Path,
+    directories: tuple[str, ...],
+) -> tuple[Path, dict[str, Any]] | None:
+    candidates: list[tuple[datetime, str, Path, dict[str, Any]]] = []
+    for directory in directories:
+        report_dir = report_root / directory
+        if not report_dir.exists():
+            continue
+        for path in sorted(report_dir.glob("*.json")):
+            value = _read_json(path)
+            if not value.get("as_of") or not value.get("run_date"):
+                continue
+            if "recommendations" not in value and "events" not in value:
+                continue
+            candidates.append(
+                (_parse_time(str(value["as_of"])), path.as_posix(), path, value)
+            )
+    if not candidates:
+        return None
+    _, _, path, value = max(candidates, key=lambda item: (item[0], item[1]))
+    return path, value
+
+
+def _matching_snapshot(
+    inbox_dir: Path,
+    report: dict[str, Any],
+) -> tuple[Path, dict[str, Any]] | None:
+    expected_hash = str(report.get("input_sha256", ""))
+    run_date = str(report.get("run_date", ""))
+    if not expected_hash or not run_date or not inbox_dir.exists():
+        return None
+    for path in sorted(inbox_dir.glob(f"{run_date}*.json")):
+        if _sha256(path) == expected_hash:
+            return path, _read_json(path)
+    return None
+
+
+def _readme_link(path: Path, readme_path: Path) -> str:
+    try:
+        return path.resolve().relative_to(readme_path.parent.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _markdown_cell(value: Any) -> str:
+    return str(value).replace("|", "\\|").replace("\n", " ")
+
+
+def _reason_summary(reasons: list[Any]) -> str:
+    labels = {
+        "COLD_START_LIMITED_HISTORY": "历史仍处于冷启动",
+        "EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK": "市场冲击下暂停新增权益",
+        "PREOPEN_EXECUTION_STATUS_PENDING": "盘前交易状态待核验",
+        "DAILY_REBALANCE_TRIM": "每日再平衡减仓",
+        "DAILY_EXPLORATION_FALLBACK": "每日小额探索",
+        "CONTROLLED_DIP_ENTRY": "受控回撤信号",
+        "POSITIVE_TREND_WITHOUT_SHOCK": "正向趋势信号",
+        "COLD_START_TREND_ENTRY": "冷启动趋势信号",
+        "TREND_EXIT": "中期趋势退出",
+        "INSUFFICIENT_HISTORY": "历史样本不足",
+        "PRICE_NOT_CROSSCHECKED": "价格未通过双源核验",
+        "TIANTIAN_CROSSCHECK_MISSING": "缺少天天基金交叉核验",
+        "FUND_SUBSCRIPTION_NOT_OPEN": "基金申购状态不开放",
+        "CASH_MANAGEMENT_ELIGIBLE": "现金管理条件通过",
+        "FIXED_INCOME_TREND_ELIGIBLE": "固收趋势条件通过",
+        "GOLD_DIVERSIFIER_TREND_ELIGIBLE": "黄金分散条件通过",
+    }
+    rendered = [labels.get(str(reason), f"`{reason}`") for reason in reasons]
+    return "；".join(rendered[:3]) if rendered else "暂无附加理由"
+
+
+def _action_label(action: Any) -> str:
+    return {
+        "BUY": "买入",
+        "ADD": "加仓",
+        "SELL": "卖出",
+        "REDUCE": "减仓",
+        "HOLD": "持有",
+        "WATCH": "观察",
+    }.get(str(action), str(action))
+
+
+def _render_daily_strategy_blocks(
+    *,
+    ledger: dict[str, Any],
+    readme_path: Path,
+    report_root: Path,
+    inbox_dir: Path,
+    strategy_path: Path,
+) -> tuple[list[str], list[str], dict[str, Any]]:
+    strategy = _read_json(strategy_path)
+    decision_entry = _latest_strategy_report(report_root, ("daily", "preopen"))
+    if decision_entry is None:
+        unavailable = [
+            "<!-- VIBE_DAILY_STRATEGY:START -->",
+            "## 当前市场判断",
+            "",
+            "> 尚无可用的每日策略报告；README 不会用历史首日文案冒充当前判断。",
+            "",
+            "<!-- VIBE_DAILY_STRATEGY:END -->",
+        ]
+        plan = [
+            "<!-- VIBE_DAILY_PLAN:START -->",
+            "## 未来五个交易日怎么做？",
+            "",
+            "> 等待首份通过门禁的每日策略报告后生成滚动计划。",
+            "",
+            "<!-- VIBE_DAILY_PLAN:END -->",
+        ]
+        return unavailable, plan, {"daily_strategy_as_of": None, "daily_strategy_run_date": None}
+
+    decision_path, decision = decision_entry
+    run_date = str(decision["run_date"])
+    as_of = str(decision["as_of"])
+    current_strategy_sha = _sha256(strategy_path)
+    report_strategy_sha = str(decision.get("strategy_sha256", ""))
+    if report_strategy_sha and report_strategy_sha != current_strategy_sha:
+        strategy_identity = (
+            f"报告策略 SHA `{report_strategy_sha[:12]}`；当前配置为 `v{strategy.get('version', 'UNKNOWN')}`，"
+            "已在该决策截点后变化"
+        )
+    else:
+        strategy_identity = f"策略版本：`v{strategy.get('version', 'UNKNOWN')}`"
+    snapshot_entry = _matching_snapshot(inbox_dir, decision)
+    execution_entry = _latest_strategy_report(report_root, ("execution",))
+    execution_path: Path | None = None
+    execution: dict[str, Any] | None = None
+    if execution_entry and str(execution_entry[1].get("run_date")) == run_date:
+        execution_path, execution = execution_entry
+    fund_entry = _latest_strategy_report(report_root, ("funds",))
+
+    blocks = [str(value) for value in decision.get("blocks", [])]
+    shock = "BROAD_MARKET_SHOCK" in blocks
+    pending = [
+        order
+        for order in ledger.get("pending_orders", [])
+        if str(order.get("status", "")).startswith("PENDING")
+    ]
+    strategy_lines = [
+        "<!-- VIBE_DAILY_STRATEGY:START -->",
+        "## 当前市场判断",
+        "",
+        f"> 每日策略日期：**{run_date}**；决策截点：`{as_of}`；{strategy_identity}。本区块由最新不可变报告自动生成，不再保留首日静态策略。",
+        "",
+    ]
+
+    if snapshot_entry:
+        snapshot_path, snapshot = snapshot_entry
+        indices = snapshot.get("indices", [])
+        observed_times = [
+            str(item.get("value_as_of") or item.get("price_as_of"))
+            for item in indices
+            if item.get("value_as_of") or item.get("price_as_of")
+        ]
+        strategy_lines.extend(
+            [
+                "### 市场温度",
+                "",
+                (
+                    f"行情观测截至 `{max(observed_times)}`。"
+                    if observed_times
+                    else "行情观测时间以输入快照为准。"
+                ),
+                "",
+                "| 指数 | 当日涨跌 |",
+                "|---|---:|",
+            ]
+        )
+        for item in indices:
+            if item.get("daily_return") is None:
+                continue
+            strategy_lines.append(
+                f"| {_markdown_cell(item.get('name', item.get('symbol', 'UNKNOWN')))} | {float(item['daily_return']):+.2%} |"
+            )
+        strategy_lines.extend(
+            [
+                "",
+                (
+                    "**结论：广泛市场冲击门已触发。新增权益买入暂停，先保护组合并核验防御资产。**"
+                    if shock
+                    else "**结论：广泛市场冲击门未触发，可继续按趋势、受控回撤和分散规则筛选。**"
+                ),
+                "",
+                f"点时输入：[`{_markdown_cell(snapshot_path.name)}`]({_readme_link(snapshot_path, readme_path)})。",
+                "",
+            ]
+        )
+    else:
+        strategy_lines.extend(
+            [
+                "### 市场温度",
+                "",
+                "未找到与决策输入 SHA-256 对应的本地快照，因此不展示指数数字。",
+                "",
+            ]
+        )
+
+    recommendations = list(decision.get("recommendations", []))
+    action_rank = {"SELL": 0, "REDUCE": 1, "BUY": 2, "ADD": 3, "HOLD": 4, "WATCH": 5}
+    recommendations.sort(
+        key=lambda item: (
+            action_rank.get(str(item.get("action")), 9),
+            -float(item.get("score", 0.0)),
+            str(item.get("symbol", "")),
+        )
+    )
+    strategy_lines.extend(
+        [
+            "### 今日策略动作",
+            "",
+            "| 代码 | 标的 | 动作 | 当前权重 | 主要依据 |",
+            "|---|---|---:|---:|---|",
+        ]
+    )
+    for item in recommendations[:10]:
+        strategy_lines.append(
+            f"| {_markdown_cell(item.get('symbol', 'UNKNOWN'))} | {_markdown_cell(item.get('name', 'UNKNOWN'))} | "
+            f"{_action_label(item.get('action'))} | {float(item.get('current_weight', 0.0)):.1%} | "
+            f"{_reason_summary(list(item.get('reasons', [])))} |"
+        )
+    if not recommendations:
+        strategy_lines.append("| — | 当日报告未产生标的建议 | 观察 | — | 等待下一周期 |")
+    if len(recommendations) > 10:
+        strategy_lines.append(f"\n其余 {len(recommendations) - 10} 个低优先级观察项保留在机器报告中。")
+    strategy_lines.extend(
+        [
+            "",
+            f"决策报告：[`{_markdown_cell(decision_path.name)}`]({_readme_link(decision_path, readme_path)})。",
+            "",
+            "### 今日执行与订单",
+            "",
+        ]
+    )
+    if execution is not None and execution_path is not None:
+        events = list(execution.get("events", []))
+        filled = [event for event in events if event.get("status") == "FILLED"]
+        cancelled = [
+            event for event in events if str(event.get("status", "")).startswith("CANCELLED")
+        ]
+        strategy_lines.append(
+            f"- 开盘结算截点：`{execution.get('as_of')}`；实际虚拟成交 **{len(filled)}** 笔，取消 **{len(cancelled)}** 笔。"
+        )
+        for event in events[:5]:
+            strategy_lines.append(
+                f"- `{event.get('status', 'UNKNOWN')}` {_action_label(event.get('side'))} "
+                f"`{event.get('symbol', 'UNKNOWN')}` {event.get('quantity', 0)} 份；"
+                f"原因：`{event.get('cancellation_reason', event.get('signal_type', 'UNKNOWN'))}`。"
+            )
+        strategy_lines.append(
+            f"- 执行报告：[`{_markdown_cell(execution_path.name)}`]({_readme_link(execution_path, readme_path)})。"
+        )
+    else:
+        strategy_lines.append("- 当日开盘结算报告尚未生成；当前只展示最新策略信号。")
+    strategy_lines.append(f"- 当前账本待执行订单：**{len(pending)}** 笔。")
+
+    strategy_lines.extend(["", "### 场外基金周期", ""])
+    if fund_entry:
+        fund_path, fund_report = fund_entry
+        open_end = [
+            item
+            for item in fund_report.get("recommendations", [])
+            if str(item.get("asset_type")) in OPEN_END_FUND_TYPES
+        ]
+        actionable = [item for item in open_end if str(item.get("action")) in ACTIONABLE_BUY_ACTIONS | ACTIONABLE_SELL_ACTIONS]
+        strategy_lines.append(
+            f"- 最新净值周期：**{fund_report.get('run_date')}** `{fund_report.get('as_of')}`；扫描 {len(open_end)} 只场外基金，可执行信号 {len(actionable)} 个。"
+        )
+        strategy_lines.append(
+            f"- 天天基金只作净值、申赎、费率等交叉检查；详情见 [`{_markdown_cell(fund_path.name)}`]({_readme_link(fund_path, readme_path)})。"
+        )
+        if str(fund_report.get("run_date")) != run_date:
+            strategy_lines.append("- 今日 22:30 基金净值周期尚未产出；不会把上一交易日净值冒充今日结果。")
+    else:
+        strategy_lines.append("- 尚无基金净值报告；场外基金保持观察，不生成未知价成交。")
+    strategy_lines.extend(["", "<!-- VIBE_DAILY_STRATEGY:END -->"])
+
+    shock_next = (
+        "先复核市场冲击是否解除；未解除时不新增权益仓，优先核验现金、国债与黄金 ETF 的完整数据。"
+        if shock
+        else "继续比较趋势与受控回撤信号，只在双源价格、交易状态和仓位上限全部通过时下单。"
+    )
+    plan_lines = [
+        "<!-- VIBE_DAILY_PLAN:START -->",
+        "## 未来五个交易日怎么做？",
+        "",
+        f"> 这是依据 **{run_date}** 最新证据生成的滚动计划；下一次 `update-readme` 会整体替换本区块，历史判断仍保留在不可变日报中。",
+        "",
+        "| 阶段 | 计划 | 判定条件 |",
+        "|---|---|---|",
+        "| 本交易日后续 | 16:30 保存权益、黄金、国债和现金 ETF 的完整收盘截面并重新计算订单 | 数据类型齐全、双源一致、公司行为已核验 |",
+        f"| 下一交易日 | {shock_next} | 广泛冲击门、开盘时间窗、价格冲突与 T+1 |",
+        "| 第 2–3 个交易日 | 比较 510300 与 512100 的相对强弱；趋势失效则减仓，冲击解除后才允许受控回撤或趋势加仓 | 组合回撤、MA20、日收益区间、风险桶占用 |",
+        "| 第 3–4 个交易日 | 用天天基金与基金公司复核场外指数、债券、黄金和现金管理基金；未知净值只登记、不假成交 | 净值日期、申赎、费率、规模与双源 |",
+        "| 第 5 个交易日 | 归因趋势、回撤、防御与取消订单的贡献，只提出可证伪策略候选 | 净收益、费用、最大回撤、取消率与样本外门禁 |",
+        "",
+        "所有订单和计划均为虚拟实验，不构成投资建议。",
+        "",
+        "<!-- VIBE_DAILY_PLAN:END -->",
+    ]
+    metadata = {
+        "daily_strategy_as_of": as_of,
+        "daily_strategy_run_date": run_date,
+        "daily_strategy_report": str(decision_path),
+        "daily_strategy_sha256": report_strategy_sha or None,
+        "current_strategy_sha256": current_strategy_sha,
+        "daily_execution_report": str(execution_path) if execution_path else None,
+        "daily_strategy_blocks": blocks,
+    }
+    return strategy_lines, plan_lines, metadata
+
+
+def _replace_optional_marked_block(
+    source: str,
+    start_marker: str,
+    end_marker: str,
+    lines: list[str],
+) -> tuple[str, bool]:
+    has_start = start_marker in source
+    has_end = end_marker in source
+    if has_start != has_end:
+        raise DataGateError(f"README 标记不完整: {start_marker} / {end_marker}")
+    if not has_start:
+        return source, False
+    before, remainder = source.split(start_marker, 1)
+    _, after = remainder.split(end_marker, 1)
+    return before.rstrip() + "\n\n" + "\n".join(lines) + after, True
+
+
 def update_readme_status(
     readme_path: Path = DEFAULT_README,
     ledger_path: Path = DEFAULT_LEDGER,
+    report_root: Path = DEFAULT_REPORT_ROOT,
+    inbox_dir: Path = DEFAULT_INBOX_DIR,
+    strategy_path: Path = DEFAULT_STRATEGY,
 ) -> dict[str, Any]:
-    """Replace only the public ledger block in README with ledger-derived values."""
+    """Refresh public ledger and daily strategy blocks from immutable artifacts."""
     start_marker = "<!-- VIBE_STATUS:START -->"
     end_marker = "<!-- VIBE_STATUS:END -->"
     source = readme_path.read_text(encoding="utf-8")
@@ -2531,6 +2865,38 @@ def update_readme_status(
     before, remainder = source.split(start_marker, 1)
     _, after = remainder.split(end_marker, 1)
     updated = before.rstrip() + "\n\n" + "\n".join(block) + after
+    daily_markers = (
+        "<!-- VIBE_DAILY_STRATEGY:START -->",
+        "<!-- VIBE_DAILY_STRATEGY:END -->",
+        "<!-- VIBE_DAILY_PLAN:START -->",
+        "<!-- VIBE_DAILY_PLAN:END -->",
+    )
+    strategy_metadata = {
+        "daily_strategy_as_of": None,
+        "daily_strategy_run_date": None,
+    }
+    strategy_updated = False
+    plan_updated = False
+    if any(marker in updated for marker in daily_markers):
+        strategy_lines, plan_lines, strategy_metadata = _render_daily_strategy_blocks(
+            ledger=ledger,
+            readme_path=readme_path,
+            report_root=report_root,
+            inbox_dir=inbox_dir,
+            strategy_path=strategy_path,
+        )
+        updated, strategy_updated = _replace_optional_marked_block(
+            updated,
+            daily_markers[0],
+            daily_markers[1],
+            strategy_lines,
+        )
+        updated, plan_updated = _replace_optional_marked_block(
+            updated,
+            daily_markers[2],
+            daily_markers[3],
+            plan_lines,
+        )
     _atomic_text(readme_path, updated)
     return {
         "status": "UPDATED",
@@ -2539,6 +2905,9 @@ def update_readme_status(
         "total_pnl_cny": round(total_pnl, 2),
         "positions": len(position_lines),
         "pending_orders": len(pending),
+        "daily_strategy_updated": strategy_updated,
+        "daily_plan_updated": plan_updated,
+        **strategy_metadata,
     }
 
 

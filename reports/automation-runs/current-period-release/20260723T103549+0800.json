@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "task_id": "current-period-release",
+  "task_status": "PASS_README_DAILY_STRATEGY",
+  "run_timestamp": "2026-07-23 10:35:49 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "a0ba01843bec820bde7b87547523a6a2468c93cf",
+  "allowlist": [
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "config",
+    "data",
+    "docs",
+    "reports",
+    "scripts",
+    "tests",
+    "vibe_finance"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 14740,
+      "sha256": "58af12681c652464e72031ec3585f0904619a1d24b83a60e402045666b217cf9"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/AUTOMATION.md",
+      "bytes": 6881,
+      "sha256": "e5fefa3feea159402dfe7d0339226a1c0c2f77d0225a31cc7b6cd3fb40417b1e"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_pipeline.py",
+      "bytes": 45517,
+      "sha256": "ddd1af9b26298eb3c67efceec3124961173fcab74594440dd11a8697b2d1cfeb"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/__main__.py",
+      "bytes": 11656,
+      "sha256": "f3082e8e3922ce628ee5f0f5ad39a5b80ddab756372ab78c55a979eed23d817a"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/pipeline.py",
+      "bytes": 133176,
+      "sha256": "7e7b866611344015e6d4f3c25c79587eb15f6f2221e1d64c2296336a83f03dff"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-23T02:35:49.828310+00:00",
+  "simulation_only": true
+}

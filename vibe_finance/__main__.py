@@ -35,8 +35,10 @@ from .pipeline import (
     DEFAULT_LEDGER,
     DEFAULT_EXECUTION_REPORT_DIR,
     DEFAULT_FUND_REPORT_DIR,
+    DEFAULT_INBOX_DIR,
     DEFAULT_ORDERS_LOG,
     DEFAULT_REPORT_DIR,
+    DEFAULT_REPORT_ROOT,
     DEFAULT_README,
     DEFAULT_STRATEGY,
     initialize_ledger,
@@ -110,9 +112,12 @@ def build_parser() -> argparse.ArgumentParser:
     cost.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
     cost.add_argument("--cost-log", type=Path, default=Path("data/ledger/api_costs.jsonl"))
 
-    readme = sub.add_parser("update-readme", help="从虚拟账本刷新 README 的公开状态区块")
+    readme = sub.add_parser("update-readme", help="从账本和最新报告刷新 README 每日状态与策略")
     readme.add_argument("--readme", type=Path, default=DEFAULT_README)
     readme.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    readme.add_argument("--report-root", type=Path, default=DEFAULT_REPORT_ROOT)
+    readme.add_argument("--inbox-dir", type=Path, default=DEFAULT_INBOX_DIR)
+    readme.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
 
     evolution = sub.add_parser("evolution-gate", help="只读计算策略进化门禁，调用方不能指定结论")
     evolution.add_argument("--proposal", type=Path, required=True)
@@ -260,6 +265,9 @@ def main() -> None:
         result = update_readme_status(
             readme_path=args.readme,
             ledger_path=args.ledger,
+            report_root=args.report_root,
+            inbox_dir=args.inbox_dir,
+            strategy_path=args.strategy,
         )
     print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
     if args.command == "evaluation-readiness" and result["status"] != "READY_FOR_MECHANICAL_EVALUATION":

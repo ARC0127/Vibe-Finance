@@ -87,7 +87,7 @@ python3 -m vibe_finance settle-open \
 ## 每日 23:10：文档与日志
 
 - 更新索引、校验JSON/JSONL、检查Markdown链接、孤立文件和同日重复版本。
-- 运行 `python3 -m vibe_finance update-readme`，只替换README中带标记的公开账本区块。
+- 运行 `python3 -m vibe_finance update-readme`，同时替换 README 中带标记的公开账本、每日市场策略、执行结果和滚动五日计划；数据来自正式账本、最新不可变报告及其 SHA-256 匹配快照，不得沿用首日静态文案。
 - 不删除、移动或覆盖历史金融产物。
 
 ## GitHub 同步

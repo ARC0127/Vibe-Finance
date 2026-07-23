@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
+import hashlib
 import json
 import tempfile
 import unittest
@@ -921,6 +922,104 @@ class PipelineTests(unittest.TestCase):
             self.assertIn("累计盈亏", rendered)
             self.assertIn("持平 +0.00 元", rendered)
             self.assertEqual(rendered.count("<!-- VIBE_STATUS:START -->"), 1)
+
+    def test_readme_daily_strategy_is_generated_from_latest_report(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger = root / "portfolio.json"
+            initialize_ledger(ledger)
+            inbox = root / "data" / "inbox"
+            inbox.mkdir(parents=True)
+            input_path = inbox / "2026-07-20.json"
+            input_path.write_text(
+                json.dumps(snapshot("2026-07-20", trading=True)),
+                encoding="utf-8",
+            )
+            input_hash = hashlib.sha256(input_path.read_bytes()).hexdigest()
+            report_root = root / "reports"
+            (report_root / "daily").mkdir(parents=True)
+            (report_root / "execution").mkdir(parents=True)
+            (report_root / "daily" / "2026-07-20-short.json").write_text(
+                json.dumps(
+                    {
+                        "run_date": "2026-07-20",
+                        "as_of": "2026-07-20T16:30:00+08:00",
+                        "mode": "short",
+                        "input_sha256": input_hash,
+                        "blocks": [],
+                        "recommendations": [
+                            {
+                                "symbol": "511880",
+                                "name": "银华日利ETF",
+                                "action": "BUY",
+                                "current_weight": 0.0,
+                                "score": 0.4,
+                                "reasons": ["CASH_MANAGEMENT_ELIGIBLE"],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (report_root / "execution" / "2026-07-20-open.json").write_text(
+                json.dumps(
+                    {
+                        "run_date": "2026-07-20",
+                        "as_of": "2026-07-20T09:35:00+08:00",
+                        "mode": "open_settlement",
+                        "events": [
+                            {
+                                "status": "CANCELLED_DATA_GATE",
+                                "side": "BUY",
+                                "symbol": "511880",
+                                "quantity": 100,
+                                "cancellation_reason": "OPEN_PRICE_NOT_CROSSCHECKED",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            readme = root / "README.md"
+            readme.write_text(
+                "# Demo\n\n"
+                "<!-- VIBE_STATUS:START -->\nold ledger\n<!-- VIBE_STATUS:END -->\n\n"
+                "<!-- VIBE_DAILY_STRATEGY:START -->\nold first-day strategy\n"
+                "<!-- VIBE_DAILY_STRATEGY:END -->\n\n"
+                "<!-- VIBE_DAILY_PLAN:START -->\nold five-day plan\n"
+                "<!-- VIBE_DAILY_PLAN:END -->\n",
+                encoding="utf-8",
+            )
+
+            result = update_readme_status(
+                readme_path=readme,
+                ledger_path=ledger,
+                report_root=report_root,
+                inbox_dir=inbox,
+                strategy_path=STRATEGY_PATH,
+            )
+            rendered = readme.read_text(encoding="utf-8")
+
+            self.assertTrue(result["daily_strategy_updated"])
+            self.assertTrue(result["daily_plan_updated"])
+            self.assertEqual(result["daily_strategy_run_date"], "2026-07-20")
+            self.assertIn("每日策略日期：**2026-07-20**", rendered)
+            self.assertIn("银华日利ETF", rendered)
+            self.assertIn("现金管理条件通过", rendered)
+            self.assertIn("OPEN_PRICE_NOT_CROSSCHECKED", rendered)
+            self.assertIn("本交易日后续", rendered)
+            self.assertNotIn("old first-day strategy", rendered)
+            self.assertEqual(rendered.count("<!-- VIBE_DAILY_STRATEGY:START -->"), 1)
+
+            first_render = rendered
+            update_readme_status(
+                readme_path=readme,
+                ledger_path=ledger,
+                report_root=report_root,
+                inbox_dir=inbox,
+                strategy_path=STRATEGY_PATH,
+            )
+            self.assertEqual(first_render, readme.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
