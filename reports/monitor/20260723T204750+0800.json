@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "checked_at": "2026-07-23T20:47:50+08:00",
+  "status": "ACTIVE",
+  "last_success_at": "2026-07-23T08:39:33.640620+00:00",
+  "heartbeat_age_hours": 4.138,
+  "heartbeat_threshold_hours": 36,
+  "last_run": {
+    "run_id": "571dfde1a0dd41aab64a94533dd5604f",
+    "run_date": "2026-07-23",
+    "mode": "short"
+  },
+  "checks": {
+    "status_command": "PASS",
+    "heartbeat": "PASS",
+    "latest_required_workday_short_report": {
+      "status": "PASS",
+      "path": "reports/daily/2026-07-23-short.json",
+      "markdown_path": "reports/daily/2026-07-23-short.md",
+      "as_of": "2026-07-23T16:39:16+08:00",
+      "is_trading_day": true,
+      "daily_execution_status": "ORDER_SCHEDULED"
+    },
+    "latest_long_report": {
+      "status": "PASS",
+      "path": "reports/daily/2026-07-19-long.json",
+      "markdown_path": "reports/daily/2026-07-19-long.md",
+      "age_days": 4,
+      "threshold_days": 8
+    },
+    "ledger_parseability": "PASS",
+    "decision_report_parseability": "PASS",
+    "transaction_journal": "PASS",
+    "order_event_chain": "PASS",
+    "portfolio_projection": "PASS",
+    "pending_order_consistency": "PASS",
+    "report_input_hash_consistency": "PASS",
+    "deepseek_budget_consistency": "PASS"
+  },
+  "parse_counts": {
+    "json": 32,
+    "jsonl_files": 2,
+    "jsonl_rows": 13,
+    "report_hash_pairs": 16
+  },
+  "portfolio": {
+    "positions": 2,
+    "pending_orders": 2,
+    "filled_trade_count": 2,
+    "project_equity_cny": 30194.0,
+    "total_pnl_cny": 194.0,
+    "total_return_pct": 0.006466666666666667
+  },
+  "deepseek": {
+    "actual_calls": 0,
+    "cost_log_actual_calls": 0,
+    "spent_cny": 0,
+    "cost_log_spent_cny": 0,
+    "reserved_cny": 100,
+    "remaining_cny": 100,
+    "called_by_monitor": false
+  },
+  "simulation_only": true,
+  "disclaimer": "本项目不连接真实交易，不构成任何投资建议。",
+  "alerts": []
+}
