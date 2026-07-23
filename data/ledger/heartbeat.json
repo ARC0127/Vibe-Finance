@@ -1,8 +1,8 @@
 {
-  "input_sha256": "78d48475cfc8b8e9a8d5e1c096ada58dee327d454fb30b3ed1b6a95f793ff55f",
-  "last_success_at": "2026-07-23T08:39:33.640620+00:00",
-  "mode": "short",
+  "input_sha256": "fe850830eee1d9b5fafb627c22af5b6e87ea11d2edc6bd5438dbd57eb636c52e",
+  "last_success_at": "2026-07-23T14:40:52.711356+00:00",
+  "mode": "fund_nav",
   "run_date": "2026-07-23",
-  "run_id": "571dfde1a0dd41aab64a94533dd5604f",
+  "run_id": "2219d7b8d28a4f23bfeab0facf240696",
   "status": "ACTIVE"
 }
