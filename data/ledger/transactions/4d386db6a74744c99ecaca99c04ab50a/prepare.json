@@ -1,0 +1,286 @@
+{
+  "auxiliary_files": [],
+  "base_event_count": 9,
+  "base_event_head_sha256": "5699284a0d3a3ba5525d321d98276fe700febe3670324eb50085bcd820797409",
+  "base_portfolio_sha256": "353178ddf62a76ba2c488b3935039271fdc55de14998aa57e3ff456e705a1e01",
+  "decision": {
+    "as_of": "2026-07-23T09:35:00+08:00",
+    "blocks": [
+      "DAILY_TRADE_REQUIREMENT_MISSED"
+    ],
+    "daily_execution_status": "FAILED_NO_FILL",
+    "events": [
+      {
+        "cancellation_reason": "UNVERIFIED_TIMELY_OPEN_SNAPSHOT",
+        "exposure_group": "csi300",
+        "limit_price": 0.0,
+        "lot_size": 100,
+        "name": "华泰柏瑞沪深300ETF",
+        "order_id": "9bbf2cd8d6374b4b938d023ce9538b44",
+        "quantity": 100,
+        "reasons": [
+          "COLD_START_LIMITED_HISTORY",
+          "EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK",
+          "DAILY_REBALANCE_TRIM"
+        ],
+        "risk_bucket": "core_equity",
+        "side": "SELL",
+        "signal_as_of": "2026-07-22T20:23:22+08:00",
+        "signal_close": 4.765,
+        "signal_date": "2026-07-22",
+        "signal_score": 0.1,
+        "signal_type": "DAILY_REBALANCE_TRIM",
+        "simulation_only": true,
+        "status": "CANCELLED_DATA_GATE",
+        "symbol": "510300"
+      }
+    ],
+    "input_sha256": "d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df",
+    "mode": "open_settlement",
+    "pending_after": 0,
+    "pending_before": 1,
+    "run_date": "2026-07-23",
+    "run_id": "4d386db6a74744c99ecaca99c04ab50a",
+    "schema_version": 1,
+    "strategy_sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d",
+    "valuation": {
+      "blocks": [],
+      "cash_cny": 22018.4,
+      "infrastructure_remaining_cny": 100.0,
+      "investable_value_cny": 30049.2,
+      "mark_status": "COMPLETE",
+      "position_marks": {
+        "510300": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 5718.0,
+          "price": "4.765",
+          "price_as_of": "2026-07-22T15:34:59+08:00",
+          "quantity": "1200"
+        },
+        "512100": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 2312.8,
+          "price": "2.891",
+          "price_as_of": "2026-07-22T15:34:59+08:00",
+          "quantity": "800"
+        }
+      },
+      "positions_cny": 8030.8,
+      "project_equity_cny": 30149.2,
+      "stale_symbols": []
+    }
+  },
+  "decision_path": "/mnt/f/Git/Vibe Finance/reports/execution/2026-07-23-open.json",
+  "events": [
+    {
+      "event_id": "23c51181030b0b6a21ce56eab843d549554e72983cc4161495f9319dfaf0a25f",
+      "payload": {
+        "cancellation_reason": "UNVERIFIED_TIMELY_OPEN_SNAPSHOT",
+        "evolution_provenance": {
+          "decision_manifest_path": "reports/execution/2026-07-23-open.json",
+          "decision_manifest_sha256": "cebe84aed4a06762a77009f82bbc41d662f3beedd23cef3d6a0df8be435f1e21",
+          "event_payload_sha256": "65dc5ba6607d961d9bf4230eb916106c428fd50d737a217005a49101aade5662",
+          "input_path": "data/inbox/2026-07-23-open.json",
+          "input_sha256": "d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df",
+          "pipeline_mode": "open_settlement",
+          "producer": "vibe_finance.pipeline",
+          "schema_version": 2,
+          "strategy_path": "config/strategy.json",
+          "strategy_sha256": "8bd96245c81534623618660b99708009e95f400f2368a9a646b54f7155b8a59d"
+        },
+        "exposure_group": "csi300",
+        "limit_price": 0.0,
+        "lot_size": 100,
+        "name": "华泰柏瑞沪深300ETF",
+        "order_id": "9bbf2cd8d6374b4b938d023ce9538b44",
+        "quantity": 100,
+        "reasons": [
+          "COLD_START_LIMITED_HISTORY",
+          "EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK",
+          "DAILY_REBALANCE_TRIM"
+        ],
+        "risk_bucket": "core_equity",
+        "run_id": "4d386db6a74744c99ecaca99c04ab50a",
+        "side": "SELL",
+        "signal_as_of": "2026-07-22T20:23:22+08:00",
+        "signal_close": 4.765,
+        "signal_date": "2026-07-22",
+        "signal_score": 0.1,
+        "signal_type": "DAILY_REBALANCE_TRIM",
+        "simulation_only": true,
+        "status": "CANCELLED_DATA_GATE",
+        "symbol": "510300"
+      }
+    }
+  ],
+  "heartbeat": {
+    "input_sha256": "d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df",
+    "last_success_at": "2026-07-23T01:40:10.345146+00:00",
+    "mode": "open_settlement",
+    "run_date": "2026-07-23",
+    "run_id": "4d386db6a74744c99ecaca99c04ab50a",
+    "status": "ACTIVE"
+  },
+  "heartbeat_path": "/mnt/f/Git/Vibe Finance/data/ledger/heartbeat.json",
+  "ledger_path": "/mnt/f/Git/Vibe Finance/data/ledger/portfolio.json",
+  "orders_log": "/mnt/f/Git/Vibe Finance/data/ledger/orders.jsonl",
+  "portfolio": {
+    "cash_cny": 22018.4,
+    "initial_project_capital_cny": 30000.0,
+    "initialized_at": "2026-07-19T00:00:00+08:00",
+    "last_run_id": "4d386db6a74744c99ecaca99c04ab50a",
+    "pending_orders": [],
+    "performance": {
+      "cumulative_buy_notional_cny": 7871.6,
+      "cumulative_fees_cny": 10.0,
+      "cumulative_sell_notional_cny": 0.0,
+      "filled_trade_count": 2,
+      "investable_value_cny": 30049.2,
+      "last_filled_trade_date": "2026-07-21",
+      "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
+      "last_valuation_as_of": "2026-07-23T09:35:00+08:00",
+      "project_equity_cny": 30149.2,
+      "realized_pnl_cny": 0.0,
+      "total_pnl_cny": 149.2,
+      "total_return_pct": 0.004973333333333357,
+      "valuation_complete": true,
+      "valuation_stale_symbols": []
+    },
+    "positions": {
+      "510300": {
+        "acquired_date": "2026-07-21",
+        "asset_type": "equity_etf",
+        "average_cost": 4.681166666666667,
+        "exposure_group": "csi300",
+        "last_buy_date": "2026-07-21",
+        "last_price": 4.765,
+        "last_price_as_of": "2026-07-22T15:34:59+08:00",
+        "market_value_cny": 5718.0,
+        "name": "华泰柏瑞沪深300ETF",
+        "quantity": 1200,
+        "risk_bucket": "core_equity",
+        "unrealized_pnl_cny": 100.6
+      },
+      "512100": {
+        "acquired_date": "2026-07-21",
+        "asset_type": "equity_etf",
+        "average_cost": 2.83025,
+        "exposure_group": "csi1000",
+        "last_buy_date": "2026-07-21",
+        "last_price": 2.891,
+        "last_price_as_of": "2026-07-22T15:34:59+08:00",
+        "market_value_cny": 2312.8,
+        "name": "南方中证1000ETF",
+        "quantity": 800,
+        "risk_bucket": "small_growth_equity",
+        "unrealized_pnl_cny": 48.6
+      }
+    },
+    "research_infrastructure": {
+      "actual_calls": 0,
+      "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+      "provider": "DeepSeek",
+      "reserved_cny": 100.0,
+      "spent_cny": 0.0
+    },
+    "run_history": [
+      {
+        "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+        "mode": "short",
+        "run_date": "2026-07-19",
+        "run_id": "aa926b6e72824a3ba169f51c7dbbbcee"
+      },
+      {
+        "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+        "mode": "long",
+        "run_date": "2026-07-19",
+        "run_id": "dca782ee7cf14c4cbc81a2754866d464"
+      },
+      {
+        "input_sha256": "3c00253ec9002068f90f435e9400bab13cf524fd7bd14ddfbd8f0f837b04bc21",
+        "mode": "short",
+        "run_date": "2026-07-20",
+        "run_id": "296f6ec61ce84147bcb4287b55123291"
+      },
+      {
+        "input_sha256": "93accaecd21491245810e7ecd8b4e5b2a2ef1330b30f5bd2165613c42eb83220",
+        "mode": "fund_nav",
+        "run_date": "2026-07-20",
+        "run_id": "f509baa49afa48f79660553ebd1c4706"
+      },
+      {
+        "input_sha256": "6e547a7a927695039d310ec3c5abd690f25c8ce3a0821cd0b81a28e3f5a6bbff",
+        "mode": "preopen",
+        "run_date": "2026-07-21",
+        "run_id": "66abf97bac94497a940eee06946f2c5c"
+      },
+      {
+        "input_sha256": "6e547a7a927695039d310ec3c5abd690f25c8ce3a0821cd0b81a28e3f5a6bbff",
+        "mode": "preopen",
+        "run_date": "2026-07-21",
+        "run_id": "be4f642a51ee4cbabeb663ced76c90ca"
+      },
+      {
+        "input_sha256": "20c709a22d767c2460953b8c4f1cf664f7210b3575f760b4c367be8700228bd2",
+        "mode": "open_settlement",
+        "run_date": "2026-07-21",
+        "run_id": "a953ee89d0ac4875a2118e552baebfa1"
+      },
+      {
+        "input_sha256": "b5840e769fc97a9e24a4579668b2d0b9e99e9b41f275dec09f16148ef895ebc2",
+        "mode": "short",
+        "run_date": "2026-07-21",
+        "run_id": "89b12f8760674924bb471c96b9a4a244"
+      },
+      {
+        "input_sha256": "4f21d4b89267730c06835c8d30bf87692de11dfc0c37b58280767cd8ec4847a5",
+        "mode": "short",
+        "run_date": "2026-07-21",
+        "run_id": "37d77226e9344b82b2d78949c01b8515"
+      },
+      {
+        "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+        "mode": "preopen",
+        "run_date": "2026-07-22",
+        "run_id": "8f2ec4afc526467a857df39734b6087a"
+      },
+      {
+        "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+        "mode": "preopen",
+        "run_date": "2026-07-22",
+        "run_id": "aaf11168887f4b6c98400e883caf69f7"
+      },
+      {
+        "input_sha256": "8e3e6294384d625cb796229505a3e454c30bbf21b3665f892a5011354907da9e",
+        "mode": "short",
+        "run_date": "2026-07-22",
+        "run_id": "88bbd1b60ca149ae9d5b30d9cce624cb"
+      },
+      {
+        "input_sha256": "6e204780e06057693a27e77fefae97f94ccdb13b91f97b678c3159753b116cba",
+        "mode": "fund_nav",
+        "run_date": "2026-07-22",
+        "run_id": "ae513076971243beb24579e0af68b855"
+      },
+      {
+        "input_sha256": "534c8219a38e22794507771d188b7e7d340013dc6688301bb5cb8a7a17aa3f46",
+        "mode": "preopen",
+        "run_date": "2026-07-23",
+        "run_id": "70c604cbc886475fba2a797c359bae7f"
+      },
+      {
+        "input_sha256": "d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df",
+        "mode": "open_settlement",
+        "run_date": "2026-07-23",
+        "run_id": "4d386db6a74744c99ecaca99c04ab50a"
+      }
+    ],
+    "schema_version": 1
+  },
+  "prepared_at": "2026-07-23T01:40:10.796448+00:00",
+  "recorded_at": "2026-07-23T09:35:00+08:00",
+  "report_path": "/mnt/f/Git/Vibe Finance/reports/execution/2026-07-23-open.md",
+  "report_text": "# Vibe Finance 2026-07-23 开盘虚拟成交结算\n\n- 状态：`BLOCKED`\n- 证据截点：2026-07-23T09:35:00+08:00\n- 输入 SHA-256：`d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df`\n- 结算前待执行：1\n- 成交：0；取消：1；结算后待执行：0\n- 估值后项目总权益：¥30149.20\n\n## 结算门禁\n\n- `DAILY_TRADE_REQUIREMENT_MISSED`\n\n## 虚拟成交事件\n\n- CANCELLED_DATA_GATE SELL 510300 100；UNVERIFIED_TIMELY_OPEN_SNAPSHOT。\n\n## 费用模型\n\n- 模拟佣金：成交额的 0.030%，单笔最低 ¥5.00。\n- A股卖出印花税：成交额的 0.050%。\n- 股票ETF不计证券交易印花税；所有费用仍按虚拟账本记录。\n\n本报告仅用于虚拟实验，不连接券商，不构成任何投资建议；项目不分析或发布政治议题。\n",
+  "run_id": "4d386db6a74744c99ecaca99c04ab50a",
+  "schema_version": 1
+}

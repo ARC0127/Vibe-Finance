@@ -2,32 +2,8 @@
   "cash_cny": 22018.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "70c604cbc886475fba2a797c359bae7f",
-  "pending_orders": [
-    {
-      "exposure_group": "csi300",
-      "limit_price": 0.0,
-      "lot_size": 100,
-      "name": "华泰柏瑞沪深300ETF",
-      "order_id": "9bbf2cd8d6374b4b938d023ce9538b44",
-      "quantity": 100,
-      "reasons": [
-        "COLD_START_LIMITED_HISTORY",
-        "EQUITY_BUY_BLOCKED_BY_MARKET_SHOCK",
-        "DAILY_REBALANCE_TRIM"
-      ],
-      "risk_bucket": "core_equity",
-      "side": "SELL",
-      "signal_as_of": "2026-07-22T20:23:22+08:00",
-      "signal_close": 4.765,
-      "signal_date": "2026-07-22",
-      "signal_score": 0.1,
-      "signal_type": "DAILY_REBALANCE_TRIM",
-      "simulation_only": true,
-      "status": "PENDING_NEXT_OPEN",
-      "symbol": "510300"
-    }
-  ],
+  "last_run_id": "4d386db6a74744c99ecaca99c04ab50a",
+  "pending_orders": [],
   "performance": {
     "cumulative_buy_notional_cny": 7871.6,
     "cumulative_fees_cny": 10.0,
@@ -36,7 +12,7 @@
     "investable_value_cny": 30049.2,
     "last_filled_trade_date": "2026-07-21",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-07-23T08:00:00+08:00",
+    "last_valuation_as_of": "2026-07-23T09:35:00+08:00",
     "project_equity_cny": 30149.2,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": 149.2,
@@ -165,6 +141,12 @@
       "mode": "preopen",
       "run_date": "2026-07-23",
       "run_id": "70c604cbc886475fba2a797c359bae7f"
+    },
+    {
+      "input_sha256": "d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df",
+      "mode": "open_settlement",
+      "run_date": "2026-07-23",
+      "run_id": "4d386db6a74744c99ecaca99c04ab50a"
     }
   ],
   "schema_version": 1
