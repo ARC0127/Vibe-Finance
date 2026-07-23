@@ -1,0 +1,308 @@
+{
+  "schema_version": 2,
+  "run_date": "2026-07-23",
+  "as_of": "2026-07-23T08:00:00+08:00",
+  "is_trading_day": true,
+  "market_state": "preopen",
+  "simulation_only": true,
+  "collection_note": "08:00盘前不可变快照。沪深交易所2026年休市安排确认2026-07-23为正常交易日。价格和指数严格沿用2026-07-22封存收盘快照，不使用2026-07-23开盘后信息。现有PENDING_NEXT_OPEN为SELL 510300 x100；截至08:00新增核验到上交所关于2026-07-23 ETF期权行权交收的公告，510300是标的之一，该事项仅列为波动观察，不等同于ETF停牌。公开检索不能证明公告全集不存在，510300与512100均保持UNVERIFIED_PREOPEN，09:35必须重新证明TRADING、双源开盘价、公司行为闭环和T+1资格后才可虚拟成交。场外基金仅复核2026-07-22晚间不可变净值研究结果；无PENDING_NEXT_NAV，不新建场外基金开盘订单。",
+  "indices": [
+    {
+      "symbol": "000001",
+      "name": "上证指数",
+      "close": 3867.0336,
+      "daily_return": 0.00069,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "value_as_of": "2026-07-22T15:30:36+08:00"
+    },
+    {
+      "symbol": "399001",
+      "name": "深证成指",
+      "close": 14061.436,
+      "daily_return": -0.014221,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "value_as_of": "2026-07-22T15:00:03+08:00"
+    },
+    {
+      "symbol": "399006",
+      "name": "创业板指",
+      "close": 3566.732,
+      "daily_return": -0.032349,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "value_as_of": "2026-07-22T15:00:03+08:00"
+    },
+    {
+      "symbol": "000300",
+      "name": "沪深300",
+      "close": 4717.2442,
+      "daily_return": -0.004639,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "value_as_of": "2026-07-22T15:35:34+08:00"
+    },
+    {
+      "symbol": "000905",
+      "name": "中证500",
+      "close": 7751.6618,
+      "daily_return": -0.006275,
+      "broad": true,
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "value_as_of": "2026-07-22T15:35:40+08:00"
+    }
+  ],
+  "assets": [
+    {
+      "symbol": "510050",
+      "name": "华夏上证50ETF",
+      "asset_type": "equity_etf",
+      "close": 3.086,
+      "daily_return": 0.002273,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "primary_source_ids": ["sse_etf", "chinaamc"],
+      "risk_bucket": "core_equity",
+      "exposure_group": "large_cap_value",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_PREOPEN",
+      "volume_units": 949096724,
+      "quality": "DUAL_SOURCE_SEALED_CLOSE_CONDITIONAL_PREOPEN",
+      "fund_metadata": {
+        "latest_published_nav": 3.0168,
+        "nav_date": "2026-07-20",
+        "aum_cny": 19698000000,
+        "aum_as_of": "2026-06-30",
+        "manager_names": ["徐猛"],
+        "annual_tracking_error": 0.0068,
+        "tracking_index": "上证50指数",
+        "tiantian_trade_label": "场内交易",
+        "holdings_as_of": "2026-06-30",
+        "option_exercise_settlement_event": "2026-07-23_50ETF_OPTION_VOLATILITY_WATCH_NOT_HALT"
+      }
+    },
+    {
+      "symbol": "510300",
+      "name": "华泰柏瑞沪深300ETF",
+      "asset_type": "equity_etf",
+      "close": 4.765,
+      "daily_return": -0.004596,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "primary_source_ids": ["sse_etf", "huatai_pinebridge"],
+      "risk_bucket": "core_equity",
+      "exposure_group": "csi300",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_PREOPEN",
+      "volume_units": 1265037941,
+      "quality": "DUAL_SOURCE_SEALED_CLOSE_CURRENT_POSITION_CONDITIONAL_PREOPEN",
+      "fund_metadata": {
+        "tiantian_trade_label": "场内交易",
+        "option_exercise_settlement_event": "2026-07-23_300ETF_OPTION_VOLATILITY_WATCH_NOT_HALT"
+      }
+    },
+    {
+      "symbol": "512100",
+      "name": "南方中证1000ETF",
+      "asset_type": "equity_etf",
+      "close": 2.891,
+      "daily_return": -0.01432,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "primary_source_ids": ["sse_etf", "china_southern"],
+      "risk_bucket": "small_growth_equity",
+      "exposure_group": "csi1000",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_PREOPEN",
+      "volume_units": 2798478266,
+      "quality": "DUAL_SOURCE_SEALED_CLOSE_CURRENT_POSITION_CONDITIONAL_PREOPEN"
+    },
+    {
+      "symbol": "512170",
+      "name": "华宝中证医疗ETF",
+      "asset_type": "equity_etf",
+      "close": 0.327,
+      "daily_return": -0.003049,
+      "lot_size": 100,
+      "history": [],
+      "source_ids": ["tencent_finance", "sina_finance", "eastmoney"],
+      "price_source_ids": ["tencent_finance", "sina_finance"],
+      "primary_source_ids": ["sse_etf", "fsfund"],
+      "risk_bucket": "industry_equity",
+      "exposure_group": "healthcare",
+      "order_engine": "next_open",
+      "price_as_of": "2026-07-22T15:34:59+08:00",
+      "trading_status": "UNVERIFIED_PREOPEN",
+      "volume_units": 1743954800,
+      "quality": "DUAL_SOURCE_SEALED_CLOSE_CONDITIONAL_PREOPEN",
+      "fund_metadata": {
+        "latest_published_nav": 0.3257,
+        "nav_date": "2026-07-20",
+        "aum_cny": 25624000000,
+        "aum_as_of": "2026-06-30",
+        "manager_names": ["张放"],
+        "annual_tracking_error": 0.0047,
+        "tracking_index": "中证医疗指数",
+        "tiantian_trade_label": "场内交易",
+        "holdings_as_of": "2026-06-30"
+      }
+    }
+  ],
+  "research_scope": {
+    "stock_source_universe": ["CSI300", "CSI500"],
+    "stock_target_shortlist": 30,
+    "stock_shortlist_status": "PROVISIONAL_DISCOVERY_ONLY_NOT_ORDER_ELIGIBLE",
+    "stock_candidate_basis": "沿用中证指数2026-06-15生效的沪深300与中证500调入证券动态发现入口；截至本截点无更新样本调整证据。",
+    "stock_candidates": [
+      {"symbol": "000657", "name": "中钨高新"},
+      {"symbol": "000988", "name": "华工科技"},
+      {"symbol": "001280", "name": "中国铀业"},
+      {"symbol": "002202", "name": "金风科技"},
+      {"symbol": "002353", "name": "杰瑞股份"},
+      {"symbol": "002532", "name": "天山铝业"},
+      {"symbol": "002558", "name": "巨人网络"},
+      {"symbol": "002602", "name": "世纪华通"},
+      {"symbol": "002837", "name": "英维克"},
+      {"symbol": "300450", "name": "先导智能"},
+      {"symbol": "301165", "name": "锐捷网络"},
+      {"symbol": "301308", "name": "江波龙"},
+      {"symbol": "600118", "name": "中国卫星"},
+      {"symbol": "600221", "name": "海航控股"},
+      {"symbol": "600549", "name": "厦门钨业"},
+      {"symbol": "601727", "name": "上海电气"},
+      {"symbol": "688072", "name": "拓荆科技"},
+      {"symbol": "688183", "name": "生益电子"},
+      {"symbol": "688521", "name": "芯原股份"},
+      {"symbol": "000661", "name": "长春高新"},
+      {"symbol": "000737", "name": "北方铜业"},
+      {"symbol": "000786", "name": "北新建材"},
+      {"symbol": "000800", "name": "一汽解放"},
+      {"symbol": "000983", "name": "山西焦煤"},
+      {"symbol": "001203", "name": "大中矿业"},
+      {"symbol": "001309", "name": "德明利"},
+      {"symbol": "001386", "name": "马可波罗"},
+      {"symbol": "002252", "name": "上海莱士"},
+      {"symbol": "002407", "name": "多氟多"},
+      {"symbol": "002487", "name": "大金重工"}
+    ],
+    "stock_screen_failures": [
+      "POINT_IN_TIME_FINANCIAL_STATEMENTS_NOT_FULLY_VERIFIED",
+      "ST_DELISTING_AND_SUSPENSION_STATUS_NOT_FULLY_VERIFIED",
+      "TWENTY_DAY_MEDIAN_TURNOVER_NOT_FULLY_VERIFIED",
+      "TWO_SOURCE_ADJUSTED_HISTORY_MISSING",
+      "CORPORATE_ACTIONS_NOT_FULLY_PROCESSED",
+      "OVERNIGHT_PRIMARY_DISCLOSURE_CLOSURE_NOT_PROVABLE"
+    ],
+    "stock_order_eligible_count": 0,
+    "fund_universe_count": 20,
+    "listed_fund_count": 13,
+    "open_end_fund_count": 7,
+    "fund_buckets_reviewed": {
+      "core_equity": ["510050", "510300", "000051", "110020"],
+      "small_growth_equity": ["510500", "512100", "159915", "001052"],
+      "industry_equity": ["588000", "512480", "512170", "159928"],
+      "dividend_equity": ["510880", "012644"],
+      "gold": ["518880", "002610"],
+      "fixed_income": ["511010", "110037"],
+      "cash_management": ["511880", "000198"]
+    },
+    "open_end_fund_review": "2026-07-22晚间7只场外基金全部WATCH；截至08:00已有资料仍存在20点历史、一级来源净值发布时间、费率/经理变更或申购状态缺口。000198销售状态冲突未解除。",
+    "pending_next_nav_before_run": 0,
+    "pending_next_nav_action": "NONE"
+  },
+  "evidence": [
+    {
+      "title": "2026-07-22不可变收盘恢复快照",
+      "url": "data/inbox/2026-07-22-close-recovery-2024.json",
+      "published_at": "2026-07-22T20:23:22+08:00",
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "tier": "LOCAL_IMMUTABLE",
+      "source_id": "local",
+      "sha256": "8e3e6294384d625cb796229505a3e454c30bbf21b3665f892a5011354907da9e"
+    },
+    {
+      "title": "2026-07-22场外基金净值研究快照",
+      "url": "data/inbox/2026-07-22-funds.json",
+      "published_at": "2026-07-22T22:37:15+08:00",
+      "as_of": "2026-07-22T22:37:15+08:00",
+      "tier": "LOCAL_IMMUTABLE",
+      "source_id": "local",
+      "sha256": "6e204780e06057693a27e77fefae97f94ccdb13b91f97b678c3159753b116cba"
+    },
+    {
+      "title": "上交所2026年部分节假日休市安排",
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/",
+      "published_at": "2025-12-22",
+      "as_of": "2026-07-23T08:00:00+08:00",
+      "tier": "A",
+      "source_id": "sse"
+    },
+    {
+      "title": "深交所2026年部分节假日休市安排",
+      "url": "https://www.szse.cn/disclosure/notice/t20251222_618087.html",
+      "published_at": "2025-12-22",
+      "as_of": "2026-07-23T08:00:00+08:00",
+      "tier": "A",
+      "source_id": "szse"
+    },
+    {
+      "title": "上交所关于2026-07-23 ETF期权合约行权交收日的公告",
+      "url": "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20260715_10825550.shtml",
+      "published_at": "2026-07-22",
+      "as_of": "2026-07-23T08:00:00+08:00",
+      "tier": "A",
+      "source_id": "sse",
+      "impact": "510300_VOLATILITY_WATCH_NOT_A_TRADING_HALT"
+    },
+    {
+      "title": "中证指数2026年6月样本调整名单",
+      "url": "https://oss-ch.csindex.com.cn/notice/20260529155822-%E9%99%84%E4%BB%B6%EF%BC%9A%E9%83%A8%E5%88%86%E6%8C%87%E6%95%B0%E6%A0%B7%E6%9C%AC%E8%B0%83%E6%95%B4%E5%90%8D%E5%8D%95.pdf",
+      "published_at": "2026-05-29",
+      "as_of": "2026-06-15",
+      "tier": "A",
+      "source_id": "csindex"
+    },
+    {
+      "title": "腾讯财经2026-07-22收盘行情封存来源",
+      "url": "https://qt.gtimg.cn/q=sh510050,sh510300,sh512100,sh512170,sh000001,sz399001,sz399006,sh000300,sh000905",
+      "published_at": "2026-07-22",
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "tier": "C",
+      "source_id": "tencent_finance"
+    },
+    {
+      "title": "新浪财经2026-07-22收盘行情封存来源",
+      "url": "https://hq.sinajs.cn/list=sh510050,sh510300,sh512100,sh512170,sh000001,sz399001,sz399006,sh000300,sh000905",
+      "published_at": "2026-07-22",
+      "as_of": "2026-07-22T20:23:22+08:00",
+      "tier": "C",
+      "source_id": "sina_finance"
+    },
+    {
+      "title": "Vibe Finance 20只基金研究池定义",
+      "url": "config/universe.json",
+      "published_at": "2026-07-20",
+      "as_of": "2026-07-23T08:00:00+08:00",
+      "tier": "LOCAL_CONFIG",
+      "source_id": "local",
+      "sha256": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7"
+    }
+  ],
+  "deepseek_usage": {
+    "actual_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_cny": 0.0,
+    "budget_remaining_cny": 100.0
+  }
+}
