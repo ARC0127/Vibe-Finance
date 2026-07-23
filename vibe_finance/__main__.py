@@ -26,6 +26,10 @@ from .frozen_baseline import (
     verify_frozen_b0_artifact,
     verify_frozen_b0_sources,
 )
+from .open_capture import (
+    DEFAULT_UNIVERSE as DEFAULT_CAPTURE_UNIVERSE,
+    capture_open_snapshot,
+)
 
 from .pipeline import (
     DEFAULT_LEDGER,
@@ -74,6 +78,16 @@ def build_parser() -> argparse.ArgumentParser:
     settle.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
     settle.add_argument("--report-dir", type=Path, default=DEFAULT_EXECUTION_REPORT_DIR)
     settle.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
+
+    capture = sub.add_parser(
+        "capture-open",
+        help="仅在09:30-09:35窗口内自动封存双源开盘快照",
+    )
+    capture.add_argument("--base-snapshot", type=Path, required=True)
+    capture.add_argument("--output", type=Path, required=True)
+    capture.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    capture.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
+    capture.add_argument("--universe", type=Path, default=DEFAULT_CAPTURE_UNIVERSE)
 
     funds = sub.add_parser("run-funds", help="按下一开放日确认净值处理场外基金")
     funds.add_argument("--input", type=Path, required=True)
@@ -168,6 +182,14 @@ def main() -> None:
             strategy_path=args.strategy,
             report_dir=args.report_dir,
             orders_log=args.orders_log,
+        )
+    elif args.command == "capture-open":
+        result = capture_open_snapshot(
+            base_snapshot_path=args.base_snapshot,
+            output_path=args.output,
+            ledger_path=args.ledger,
+            strategy_path=args.strategy,
+            universe_path=args.universe,
         )
     elif args.command == "run-funds":
         result = run_fund_nav_pipeline(

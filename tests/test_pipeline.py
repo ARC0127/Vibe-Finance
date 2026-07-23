@@ -824,6 +824,61 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(order["signal_type"], "DAILY_EXPLORATION_FALLBACK")
             self.assertGreaterEqual(order["quantity"] * order["signal_close"], 800)
 
+    def test_cash_and_bond_etfs_reach_candidate_and_order_execution(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            value = snapshot("2026-07-20", trading=True)
+            cash = value["assets"][0]
+            cash.update(
+                {
+                    "risk_bucket": "cash_management",
+                    "exposure_group": "cash_management",
+                    "primary_source_ids": ["sse_etf", "yinhua"],
+                    "trading_status": "TRADING",
+                    "corporate_actions": [],
+                    "history_adjusted_for_corporate_actions": True,
+                }
+            )
+            bond_history = [10.0 + index * 0.001 for index in range(20)]
+            bond = {
+                "symbol": "511010",
+                "name": "国债ETF国泰",
+                "asset_type": "bond_etf",
+                "close": bond_history[-1],
+                "daily_return": 0.0001,
+                "lot_size": 100,
+                "history": bond_history,
+                "source_ids": ["eastmoney", "sse_etf", "guotai_fund"],
+                "price_source_ids": ["eastmoney", "sse_etf"],
+                "price_as_of": "2026-07-20T15:00:00+08:00",
+                "primary_source_ids": ["sse_etf", "guotai_fund"],
+                "risk_bucket": "fixed_income",
+                "exposure_group": "government_bond_5y",
+                "order_engine": "next_open",
+                "trading_status": "TRADING",
+                "corporate_actions": [],
+                "history_adjusted_for_corporate_actions": True,
+            }
+            value["assets"] = [cash, bond]
+            input_path = root / "close.json"
+            input_path.write_text(json.dumps(value), encoding="utf-8")
+            result = run_pipeline(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "reports",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(result["new_orders"], 2)
+            ledger = json.loads((root / "portfolio.json").read_text(encoding="utf-8"))
+            orders = {order["symbol"]: order for order in ledger["pending_orders"]}
+            self.assertEqual(set(orders), {"511010", "511880"})
+            self.assertTrue(all(order["status"] == "PENDING_NEXT_OPEN" for order in orders.values()))
+            decision = json.loads((root / "reports" / "2026-07-20-short.json").read_text(encoding="utf-8"))
+            signals = {item["symbol"]: item["signal_type"] for item in decision["recommendations"]}
+            self.assertEqual(signals["511880"], "CASH_MANAGEMENT")
+            self.assertEqual(signals["511010"], "FIXED_INCOME_TREND")
+
     def test_open_settlement_fails_daily_requirement_without_pending_order(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

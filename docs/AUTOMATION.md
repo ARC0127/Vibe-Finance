@@ -28,13 +28,20 @@ python3 -m vibe_finance run \
 - 已有合规订单时只报告 `READY`，禁止重复下单。
 - 09:10之后仍无订单时返回失败，触发通知。
 
-## 工作日 09:35：开盘虚拟成交
+## 工作日 09:30–09:35：双源封存与开盘虚拟成交
 
-- 只结算此前形成的虚拟订单，不在09:35使用开盘结果反向制造信号。
-- 输入使用09:30至09:35可见的数据，`market_state` 为 `open` 或 `opening_auction_complete`。
-- 每个待结算标的必须提供至少两个 `open_source_ids`。
+- 任务在09:29启动只读预备；09:30后先运行封存命令，再做文档审计或结算，防止自动化准备工作耗尽价格窗口。
+- 只结算此前形成的虚拟订单，不使用开盘结果反向制造信号。
+- `capture-open` 只接受09:30:00至09:35:00源内时间戳，并独占创建输出；窗口外、文件已存在、任一标的缺源、价格冲突、时间偏移或零成交量均失败且不写文件。
+- 场内快照覆盖 `config/strategy.json:data_collection.daily_snapshot_asset_types` 指定的全部研究池标的，当前包括权益、黄金、国债与现金ETF；持仓和 `PENDING_NEXT_OPEN` 标的无条件并入。
+- 自 `daily_snapshot_coverage_effective_date` 起，正常交易日快照缺少上述任一资产类型时，`validate` 直接失败；不能以“无信号”为由省略防御资产。
+- 聚合行情只证明双源价格与实际成交活动。代码身份、基金属性和公司行为状态必须从更早的不可变盘前快照继承；未标记为 `CLEARED` 或 `NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF` 的待单不得成交。
 
 ```bash
+python3 -m vibe_finance capture-open \
+  --base-snapshot data/inbox/YYYY-MM-DD-preopen.json \
+  --output data/inbox/YYYY-MM-DD-open.json
+python3 -m vibe_finance validate --input data/inbox/YYYY-MM-DD-open.json
 python3 -m vibe_finance settle-open \
   --input data/inbox/YYYY-MM-DD-open.json
 ```
@@ -54,7 +61,7 @@ python3 -m vibe_finance settle-open \
 
 - 优先检查基金公司或法定披露，并强制用天天基金交叉核验净值日期、申赎状态、费率、规模、经理、持仓与公告。
 - 新申购登记为 `PENDING_NEXT_NAV`。只有信号日之后公开并完成双源核验的确认净值才能结算。
-- 场外基金订单不进入09:35开盘任务。
+- 场外基金订单不进入09:30–09:35开盘任务。
 
 ## 每6小时：活动监测
 

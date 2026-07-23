@@ -1,5 +1,17 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
+  "data_collection": {
+    "daily_snapshot_asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"],
+    "daily_snapshot_coverage_effective_date": "2026-07-24",
+    "open_capture": {
+      "window_start": "09:30:00",
+      "window_end": "09:35:00",
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "request_timeout_seconds": 5.0,
+      "maximum_source_skew_seconds": 30,
+      "maximum_relative_price_difference": 0.0
+    }
+  },
   "data_gates": {
     "minimum_price_sources": 2,
     "minimum_history_points": 20,
@@ -60,7 +72,7 @@
     },
     "cold_start": {
       "enabled": true,
-      "eligible_asset_types": ["equity_etf", "gold_etf"],
+      "eligible_asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"],
       "dip_exposure_groups": ["csi300", "csi500", "csi1000", "chinext"]
     }
   },
@@ -71,8 +83,8 @@
     "fallback_increment_weight": 0.04,
     "fallback_maximum_open_gap": 0.03,
     "minimum_notional_cny": 800.0,
-    "eligible_asset_types": ["equity_etf", "gold_etf"],
-    "fallback_preference": ["510300", "518880", "510880", "159915", "512100"]
+    "eligible_asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"],
+    "fallback_preference": ["510300", "511880", "511010", "518880", "510880", "159915", "512100"]
   },
   "diversification": {
     "maximum_positions": 6,

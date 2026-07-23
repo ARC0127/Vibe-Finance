@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "task_id": "current-period-release",
+  "task_status": "PASS_STRATEGY_REPAIR",
+  "run_timestamp": "2026-07-23 10:13:45 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "d5827b4a4c61c264b8ffb8a24b2a03f38e832997",
+  "allowlist": [
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "config",
+    "data",
+    "docs",
+    "reports",
+    "scripts",
+    "tests",
+    "vibe_finance"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "MASTER_PROMPT.md",
+      "bytes": 9640,
+      "sha256": "7fd63c57ff31b4954e154d5977943795947db6f2329e2ea917683a25b6bcba40"
+    },
+    {
+      "git_status": " M",
+      "path": "MODE_LOCK.md",
+      "bytes": 10120,
+      "sha256": "099364c3196e85d5e7997d7402a700ee18b40f67ae393dd78e51be7ebe37c8da"
+    },
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 13723,
+      "sha256": "0009a62d7e845d06cdb0e7c9340aaf7f20d809a4fa59572e6ca772edc0927e22"
+    },
+    {
+      "git_status": " M",
+      "path": "config/strategy.json",
+      "bytes": 4661,
+      "sha256": "d73a5e87c7d209be4ae75dc04f48485bb242fc0428b8d70b0581a597d4838b36"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/AUTOMATION.md",
+      "bytes": 6714,
+      "sha256": "6c14131d421713c09098db317f87e47dcd894843f2ddba4cccc48a2d864d23b6"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/SOURCES.md",
+      "bytes": 5375,
+      "sha256": "8954a7a7f814a209b35c69a70d80d89bac751050df7e72ed8018225360b02d5b"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/STOCK_FUND_STRATEGY.md",
+      "bytes": 6152,
+      "sha256": "d4507db9f02d333b8028cdad0924935fabd38f7bcb778ac423a7fbfb3fa79202"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_pipeline.py",
+      "bytes": 41183,
+      "sha256": "e32e235d5885bab2ad540105630693c9644124696cf9365b4fb7eff0b0a72138"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/__main__.py",
+      "bytes": 11245,
+      "sha256": "e65c7c389009104552c2981b4d7fe6b3408f9d00b172c2557c90fc45443dc061"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/pipeline.py",
+      "bytes": 117310,
+      "sha256": "dcfd1bd73279cd9b66608baee5bffaaf0c44d6bd1a14935c4ff727baf7d3c4a0"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_open_capture.py",
+      "bytes": 12046,
+      "sha256": "012fe0e1340624ee617d2d88d367cfca9673c73753921a0f9aa07c9ab7f0dbab"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/open_capture.py",
+      "bytes": 16323,
+      "sha256": "5dc8a2bf8340040851191b3be7b69bea914d06e17a811650e334f5ab08ca5bd6"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-23T02:13:45.802355+00:00",
+  "simulation_only": true
+}

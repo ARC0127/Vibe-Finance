@@ -4,7 +4,7 @@
 
 <p align="center">
   <img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" />
-  <img alt="Strategy 0.3.0" src="https://img.shields.io/badge/Strategy-v0.3.0-7C3AED?style=flat-square" />
+  <img alt="Strategy 0.3.1" src="https://img.shields.io/badge/Strategy-v0.3.1-7C3AED?style=flat-square" />
   <img alt="Virtual capital CNY 30000" src="https://img.shields.io/badge/Virtual%20Capital-%C2%A530%2C000-16A34A?style=flat-square" />
   <img alt="China A-shares and funds" src="https://img.shields.io/badge/Market-China%20A--shares%20%2B%20Funds-E53935?style=flat-square" />
   <img alt="No broker connection" src="https://img.shields.io/badge/Broker-Not%20Connected-334155?style=flat-square" />
@@ -146,7 +146,7 @@ flowchart LR
     A[16:30 收盘研究] --> B[下一交易日订单]
     B --> C[08:00 盘前复核或补单]
     C --> D[09:10 订单就绪检查]
-    D --> E[09:35 双源价格结算]
+    D --> E[09:30 双源封存与09:35前结算]
     E --> F[账本与盈亏]
     F --> G[22:30 场外基金净值]
     G --> H[复盘与策略候选]
@@ -157,7 +157,7 @@ flowchart LR
 |---|---|
 | 工作日 08:00 | 检查隔夜公告，生成或修正当日盘前虚拟订单 |
 | 工作日 09:10 | 确认至少存在一笔可结算订单；缺失时执行小额探索补单 |
-| 工作日 09:35 | 用双源价格结算已有订单，并验证当日成交要求 |
+| 工作日 09:30–09:35 | 自动封存腾讯/新浪双源开盘行情，再结算已有订单并验证当日成交要求 |
 | 工作日 16:30 | 保存收盘快照，运行趋势、回撤、防御和退出逻辑 |
 | 工作日 22:30 | 核验场外基金净值与天天基金交叉信息 |
 | 每6小时 | 检查任务、心跳、账本和报告是否仍在更新 |
@@ -192,10 +192,13 @@ python -m vibe_finance status
 ```bash
 python -m vibe_finance validate --input data/inbox/YYYY-MM-DD.json
 python -m vibe_finance run --input data/inbox/YYYY-MM-DD-preopen.json --mode preopen --report-dir reports/preopen
+python -m vibe_finance capture-open --base-snapshot data/inbox/YYYY-MM-DD-preopen.json --output data/inbox/YYYY-MM-DD-open.json
 python -m vibe_finance settle-open --input data/inbox/YYYY-MM-DD-open.json
 python -m vibe_finance run-funds --input data/inbox/YYYY-MM-DD-funds.json
 python -m vibe_finance update-readme
 ```
+
+`capture-open` 只能在北京时间 09:30:00–09:35:00 运行，逐只要求腾讯与新浪的代码、开盘价、上一收盘价、源内时间戳和非零成交量一致，并使用独占创建拒绝覆盖历史文件。每日场内快照资产类型由 `config/strategy.json` 控制；从 2026-07-24 起，交易日快照缺少权益、黄金、国债或现金 ETF 任一类型会直接验证失败。代码身份与公司行为仍须由盘前交易所/基金管理人证据闭环，不能由聚合行情替代。
 
 ## 仓库导航
 

@@ -309,6 +309,30 @@ def validate_snapshot(
     if as_of > current.astimezone(as_of.tzinfo):
         raise DataGateError("as_of 位于未来，触发前视偏差门禁")
 
+    collection_rules = strategy.get("data_collection", {})
+    coverage_effective_raw = collection_rules.get(
+        "daily_snapshot_coverage_effective_date"
+    )
+    required_daily_types = {
+        str(value)
+        for value in collection_rules.get("daily_snapshot_asset_types", [])
+        if str(value)
+    }
+    if (
+        snapshot["is_trading_day"]
+        and coverage_effective_raw
+        and run_date >= _parse_run_date(str(coverage_effective_raw))
+        and required_daily_types
+    ):
+        present_daily_types = {
+            str(asset.get("asset_type")) for asset in snapshot["assets"]
+        }
+        missing_daily_types = sorted(required_daily_types - present_daily_types)
+        if missing_daily_types:
+            raise DataGateError(
+                "交易日快照缺少必需资产类型: " + ", ".join(missing_daily_types)
+            )
+
     warnings: list[str] = []
     max_age_hours = float(strategy["data_gates"]["max_snapshot_age_hours"])
     age_hours = (current.astimezone(as_of.tzinfo) - as_of).total_seconds() / 3600
@@ -1102,7 +1126,18 @@ def _recommendations(
             if item["current_weight"] >= max_weight - 1e-9:
                 continue
             increment = float(daily_rules.get("fallback_increment_weight", 0.04))
-            item["target_weight"] = min(max_weight, item["current_weight"] + increment)
+            fallback_target = min(max_weight, item["current_weight"] + increment)
+            lot = int(asset.get("lot_size", 100))
+            current_quantity = int(
+                ledger["positions"].get(str(symbol), {}).get("quantity", 0)
+            )
+            desired_quantity = (
+                math.floor(portfolio_value * fallback_target / float(asset["close"]) / lot)
+                * lot
+            )
+            if desired_quantity <= current_quantity:
+                continue
+            item["target_weight"] = fallback_target
             item["action"] = "ADD" if item["current_weight"] > 0 else "BUY"
             item["signal_type"] = "DAILY_EXPLORATION_FALLBACK"
             item["score"] = 0.1
