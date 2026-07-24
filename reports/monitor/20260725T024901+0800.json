@@ -1,0 +1,123 @@
+{
+  "alerts": [
+    {
+      "code": "MISSING_DUE_WORKDAY_SHORT_REPORT",
+      "expected": "reports/daily/2026-07-24-short.json",
+      "minimal_repair": "Run the 16:30 close-analysis automation for 2026-07-24; activity monitor must not backfill, trade, or call DeepSeek.",
+      "run_date": "2026-07-24"
+    }
+  ],
+  "created_at": "2026-07-25T02:49:01+08:00",
+  "deepseek_budget": {
+    "actual_calls_from_cost_log": 0,
+    "cost_log_rows": 1,
+    "ledger": {
+      "actual_calls": 0,
+      "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+      "provider": "DeepSeek",
+      "reserved_cny": 100.0,
+      "spent_cny": 0.0
+    },
+    "reserved_cny_from_cost_log": 100.0,
+    "spent_cny_from_cost_log": 0.0,
+    "status_actual_calls": 0,
+    "status_remaining_cny": 100.0,
+    "status_spent_cny": 0.0
+  },
+  "heartbeat": {
+    "age_hours": 18.739,
+    "last_success_at": "2026-07-24T00:04:40.650766+00:00",
+    "path": "data/ledger/heartbeat.json",
+    "sha256": "a303a55f31cf90dbb638605495b0611e170df3787246d8e2cc39813914bd2f17",
+    "stale_threshold_hours": 36.0
+  },
+  "ledger": {
+    "orders_jsonl_sha256": "31cd8deb2e891fcb01df30137289d4a8da812f4516d4ea5c57784be22b81921b",
+    "pending_orders": 4,
+    "portfolio_sha256": "96222a372abf20fcd5c9b156a37c4f4e248eb9c5d4b489b0388840db22b23210",
+    "positions": 2,
+    "verification": {
+      "anchor": {
+        "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+        "chain_head_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+        "line_count": 4,
+        "source_blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29",
+        "source_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+        "status": "VERIFIED_LEGACY_GIT_ANCHORED"
+      },
+      "event_count": 14,
+      "git_head_prefix": {
+        "blob_oid": "eb97cb874492518d0d7724532e70facb24d9f89a",
+        "canonical_payload_sha256": "046ba81b2bcbc7639008e4cd13b777a8a397f11b4b739e2ae3c3c096468bd1cf",
+        "commit": "42961963ca4b404108deb7a3f7f449c1a0f0bf47",
+        "committed_event_count": 14,
+        "ledger_path": "data/ledger/orders.jsonl",
+        "status": "VERIFIED_GIT_HEAD_PREFIX"
+      },
+      "head_event_sha256": "d05777bdcd334bb35834105de199090cd52b1aa5fc25bfb9fce44325e9901b37",
+      "ledger_path": "data/ledger/orders.jsonl",
+      "legacy_event_count": 4,
+      "next_sequence": 15,
+      "portfolio_projection_status": "PASS",
+      "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+      "v2_event_count": 10
+    }
+  },
+  "minimal_repair": "Run the 16:30 close-analysis automation for 2026-07-24; activity monitor must not backfill, trade, or call DeepSeek.",
+  "parseability": {
+    "errors": [],
+    "json_files_checked": 36,
+    "jsonl_files_checked": 2,
+    "jsonl_rows_checked": 15
+  },
+  "protected_artifacts_baseline": {
+    "aggregate_sha256": "f5d2e25f133b086418fd74cdd377202282d241425aaf6e43bbe393607c0b16e0",
+    "file_count": 79
+  },
+  "read_only_boundaries": {
+    "deepseek_called": false,
+    "financial_heartbeat_refreshed": false,
+    "market_snapshot_created": false,
+    "orders_or_positions_modified": false,
+    "strategy_or_historical_reports_modified": false
+  },
+  "recent_reports": {
+    "due_workday_short_present": false,
+    "due_workday_short_run_date": "2026-07-24",
+    "latest_long": {
+      "age_days": 6,
+      "path": "reports/daily/2026-07-19-long.json",
+      "run_date": "2026-07-19",
+      "sha256": "3361359842216f46085cdd8ac4fb890957fcbec35fa6793bcf4314bd7096590c"
+    },
+    "latest_short": {
+      "path": "reports/daily/2026-07-23-short.json",
+      "run_date": "2026-07-23",
+      "sha256": "729d5764106e8c45d27f1bddf09fb0869c8b56185c167912967b8c40a0083522"
+    },
+    "long_stale_threshold_days": 8
+  },
+  "schema_version": 1,
+  "status": "FAILED",
+  "task": "activity-monitor",
+  "vibe_finance_status": {
+    "decision_report_count": 7,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 2,
+    "heartbeat_age_hours": 18.739,
+    "last_filled_trade_date": "2026-07-21",
+    "last_mode": "preopen",
+    "last_run_date": "2026-07-24",
+    "last_run_id": "c17f8a5a43e44490b2f425fcebef61d9",
+    "last_success_at": "2026-07-24T00:04:40.650766+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 4,
+    "positions": 2,
+    "project_equity_cny": 30194.0,
+    "status": "ACTIVE",
+    "total_pnl_cny": 194.0,
+    "total_return_pct": 0.006466666666666667
+  }
+}
