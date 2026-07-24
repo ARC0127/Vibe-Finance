@@ -2,7 +2,7 @@
   "cash_cny": 22018.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "2219d7b8d28a4f23bfeab0facf240696",
+  "last_run_id": "c17f8a5a43e44490b2f425fcebef61d9",
   "pending_orders": [
     {
       "exposure_group": "dividend",
@@ -47,6 +47,52 @@
       "simulation_only": true,
       "status": "PENDING_NEXT_OPEN",
       "symbol": "512100"
+    },
+    {
+      "exposure_group": "chinext",
+      "limit_price": 3.650955,
+      "lot_size": 100,
+      "name": "易方达创业板ETF",
+      "order_id": "ea3d457bde2f426a9537ee23716584f9",
+      "quantity": 700,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-24T08:00:00+08:00",
+      "signal_close": 3.597,
+      "signal_date": "2026-07-24",
+      "signal_score": 1.00306748,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "159915"
+    },
+    {
+      "exposure_group": "gold",
+      "limit_price": 8.6884,
+      "lot_size": 100,
+      "name": "华安黄金易ETF",
+      "order_id": "47b30500ed38448c88a4ae2ce239d7bd",
+      "quantity": 200,
+      "reasons": [
+        "COLD_START_GOLD_DIVERSIFIER",
+        "COLD_START_LIMITED_HISTORY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "gold",
+      "side": "BUY",
+      "signal_as_of": "2026-07-24T08:00:00+08:00",
+      "signal_close": 8.56,
+      "signal_date": "2026-07-24",
+      "signal_score": 0.7,
+      "signal_type": "COLD_START_DEFENSIVE",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "518880"
     }
   ],
   "performance": {
@@ -57,7 +103,7 @@
     "investable_value_cny": 30094.0,
     "last_filled_trade_date": "2026-07-21",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-07-23T22:36:54+08:00",
+    "last_valuation_as_of": "2026-07-24T08:00:00+08:00",
     "project_equity_cny": 30194.0,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": 194.0,
@@ -204,6 +250,12 @@
       "mode": "fund_nav",
       "run_date": "2026-07-23",
       "run_id": "2219d7b8d28a4f23bfeab0facf240696"
+    },
+    {
+      "input_sha256": "881568cf9c79a5814886af1be93b9e6dc7ed9087e656a3414c975b394eac876e",
+      "mode": "preopen",
+      "run_date": "2026-07-24",
+      "run_id": "c17f8a5a43e44490b2f425fcebef61d9"
     }
   ],
   "schema_version": 1
