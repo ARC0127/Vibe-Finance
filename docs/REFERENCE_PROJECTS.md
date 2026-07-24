@@ -12,6 +12,7 @@
 | [vectorbt](https://github.com/polakowo/vectorbt) | 快速大规模回测、参数扫描和走前研究 | 等不可变历史积累后再用于离线研究，避免先调参后补数据 |
 | [AkShare](https://akshare.akfamily.xyz/introduction.html) | 丰富的中国公开数据适配器和研究便利性 | 接口可能随网页变化；须逐接口核验许可、字段和时间点语义 |
 | [FinRobot](https://github.com/AI4Finance-Foundation/FinRobot) | 多代理金融研究、文本与市场信息编排 | 语言模型结论不能替代价格数据、成交规则和样本外证据 |
+| [DojoAgents](https://github.com/Alpha-Dojo/DojoAgents) | Task/Pipeline 契约、结构化工具结果、事件关联、证据包与循环护栏；会话记忆采用隔离候选与每周人工核对变体 | 不引入未充分验证的 sandbox、直接激活的会话记忆、force 绕过、多代理自治或券商能力；详见 [2026-07-24 调研](../reports/research/2026-07-24-dojoagents-benchmark.md) |
 
 ## 本项目当前架构
 

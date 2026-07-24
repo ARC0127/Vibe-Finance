@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "registry_id": "vibe-finance-task-contracts-v1",
+  "timezone": "Asia/Shanghai",
+  "simulation_only": true,
+  "real_broker_integration": "forbid",
+  "caller_force_bypass": "forbid",
+  "tasks": [
+    {
+      "task_id": "activity-monitor",
+      "purpose": "Read project health and write monitoring evidence without refreshing financial state.",
+      "side_effect_class": "read_only_report",
+      "runtime_write_roots": ["reports/monitor"],
+      "sync_allowlist": ["reports/monitor", "README.md"],
+      "acceptance_checks": [
+        "status command completed",
+        "transaction state was inspected",
+        "budget state was inspected",
+        "monitor report records the inspected input hashes"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "must not refresh the project heartbeat",
+        "must not modify orders, portfolio, market evidence, or strategy",
+        "README.md may be synchronized only when already changed by an authorized producer"
+      ]
+    },
+    {
+      "task_id": "preopen-review",
+      "purpose": "Prepare a fail-closed pre-open virtual-portfolio review from time-valid evidence.",
+      "side_effect_class": "financial_state_transaction",
+      "runtime_write_roots": ["reports/preopen", "reports/research", "data/inbox", "data/research", "data/ledger", "README.md"],
+      "sync_allowlist": ["reports/preopen", "reports/research", "data/inbox", "data/research", "data/ledger", "README.md"],
+      "acceptance_checks": [
+        "point-in-time inputs validate",
+        "source independence and timestamps are explicit",
+        "ledger transaction commits atomically",
+        "report input hashes match committed artifacts"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation only",
+        "missing or stale evidence fails closed",
+        "recommendation is not a fill"
+      ]
+    },
+    {
+      "task_id": "daily-order-guard",
+      "purpose": "Gate the daily virtual-order lifecycle before any simulated settlement.",
+      "side_effect_class": "financial_state_transaction",
+      "runtime_write_roots": ["reports/preopen", "reports/research", "data/inbox", "data/research", "data/ledger", "README.md"],
+      "sync_allowlist": ["reports/preopen", "reports/research", "data/inbox", "data/research", "data/ledger", "README.md"],
+      "acceptance_checks": [
+        "trading-day applicability is explicit",
+        "timely evidence gate is explicit",
+        "order state and ledger hashes reconcile",
+        "terminal state is recorded without fabricated fills"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation only",
+        "READY is not a fill",
+        "missing timely dual-source evidence fails closed"
+      ]
+    },
+    {
+      "task_id": "open-settlement",
+      "purpose": "Settle previously authorized virtual orders using a timely opening snapshot.",
+      "side_effect_class": "financial_state_transaction",
+      "runtime_write_roots": ["reports/execution", "data/inbox", "data/ledger", "README.md"],
+      "sync_allowlist": ["reports/execution", "data/inbox", "data/ledger", "README.md"],
+      "acceptance_checks": [
+        "opening capture window is verified",
+        "snapshot sources and hashes validate",
+        "order state transition is legal",
+        "ledger transaction commits atomically"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation only",
+        "post-window quotes cannot be fill evidence",
+        "a successful write is not market-evidence validity"
+      ]
+    },
+    {
+      "task_id": "close-analysis",
+      "purpose": "Run close-of-day virtual-portfolio analysis and produce the next decision artifact.",
+      "side_effect_class": "financial_state_transaction",
+      "runtime_write_roots": ["reports/daily", "reports/research", "data/inbox", "data/research", "data/ledger", "README.md"],
+      "sync_allowlist": ["reports/daily", "reports/research", "data/inbox", "data/research", "data/ledger", "README.md"],
+      "acceptance_checks": [
+        "point-in-time close inputs validate",
+        "decision inputs are hash-bound",
+        "portfolio and orders reconcile",
+        "ledger transaction commits atomically"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation only",
+        "after-close information cannot be backdated",
+        "language-model output cannot replace market evidence"
+      ]
+    },
+    {
+      "task_id": "fund-nav",
+      "purpose": "Apply open-end-fund NAV confirmation rules to the virtual portfolio.",
+      "side_effect_class": "financial_state_transaction",
+      "runtime_write_roots": ["reports/funds", "data/inbox", "data/ledger", "README.md"],
+      "sync_allowlist": ["reports/funds", "data/inbox", "data/ledger", "README.md"],
+      "acceptance_checks": [
+        "next-open-day applicability is verified",
+        "NAV evidence and timestamps validate",
+        "pending orders remain pending when evidence is insufficient",
+        "ledger transaction commits atomically"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation only",
+        "estimated NAV cannot be settlement evidence",
+        "unknown confirmation state remains explicit"
+      ]
+    },
+    {
+      "task_id": "reflection-evolution",
+      "purpose": "Produce and verify evidence-only strategy-evolution proposals.",
+      "side_effect_class": "evidence_only_proposal",
+      "runtime_write_roots": ["reports/evolution"],
+      "sync_allowlist": ["reports/evolution"],
+      "acceptance_checks": [
+        "proposal is bound to the baseline commit",
+        "referenced artifacts are hash-verified",
+        "gate output is independently reverified",
+        "protected paths remain unchanged"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "caller cannot supply the evaluation decision",
+        "proposal cannot directly modify protected strategy or code",
+        "local structural pass is not scientific or financial performance evidence"
+      ]
+    },
+    {
+      "task_id": "weekly-review",
+      "purpose": "Aggregate immutable weekly evidence into a virtual-portfolio review.",
+      "side_effect_class": "derived_document",
+      "runtime_write_roots": ["reports/weekly", "reports/daily", "data/research", "data/ledger", "artifacts/weekly-dashboard", "README.md"],
+      "sync_allowlist": ["reports/weekly", "reports/daily", "data/research", "data/ledger", "artifacts/weekly-dashboard", "README.md"],
+      "acceptance_checks": [
+        "weekly inputs are hash-bound",
+        "ledger and projection agree",
+        "unknown or pending states remain explicit",
+        "dashboard is derived from the sealed report inputs"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation only",
+        "dashboard rendering is not financial evidence",
+        "summary text cannot overwrite authoritative ledger state"
+      ]
+    },
+    {
+      "task_id": "document-log",
+      "purpose": "Audit and index project documents without changing financial state.",
+      "side_effect_class": "derived_document",
+      "runtime_write_roots": ["reports/document-log", "docs/DOCUMENT_LOG_INDEX.md"],
+      "sync_allowlist": ["reports/document-log", "docs/DOCUMENT_LOG_INDEX.md", "docs/GITHUB_AUTOMATION.md", "README.md", "MODE_LOCK.md", "MODE_LOCK.json", "docs/SOURCES.md"],
+      "acceptance_checks": [
+        "document inventory is complete",
+        "indexed paths and hashes are reproducible",
+        "financial artifacts remain unchanged",
+        "generated index is clearly marked as derived"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "must not modify orders, portfolio, or market evidence",
+        "sync allowlist is not runtime write authority",
+        "unknown document status remains explicit"
+      ]
+    },
+    {
+      "task_id": "skill-memory-review",
+      "purpose": "Review isolated session-derived Skill candidates without activating or synchronizing candidate content.",
+      "side_effect_class": "derived_document",
+      "runtime_write_roots": ["reports/skill-memory/reviews"],
+      "sync_allowlist": ["reports/skill-memory/reviews"],
+      "acceptance_checks": [
+        "candidate provenance and pinned file hashes validate",
+        "credential and prompt-injection scans pass",
+        "duplicate and conflicting Skill names are reported",
+        "skill-creator semantic review remains explicit"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "candidate Skill packages remain under local artifacts and are not synchronized",
+        "weekly review cannot install or activate a Skill",
+        "approval, revision, or rejection requires an explicit reviewed decision"
+      ]
+    },
+    {
+      "task_id": "current-period-release",
+      "purpose": "Synchronize a separately reviewed current-period release within the repository boundary.",
+      "side_effect_class": "governed_release",
+      "runtime_write_roots": [".gitignore", "MASTER_PROMPT.md", "MODE_LOCK.md", "MODE_LOCK.json", "README.md", "config", "data", "docs", "reports", "scripts", "tests", "vibe_finance"],
+      "sync_allowlist": [".gitignore", "MASTER_PROMPT.md", "MODE_LOCK.md", "MODE_LOCK.json", "README.md", "config", "data", "docs", "reports", "scripts", "tests", "vibe_finance"],
+      "acceptance_checks": [
+        "release inputs were separately reviewed",
+        "branch and remote head match",
+        "staged paths stay within the declared allowlist",
+        "post-stage validation and manifest hashes pass"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "release synchronization is not task execution authority",
+        "simulation-only mode remains locked",
+        "push requires the governed sync workflow"
+      ]
+    }
+  ]
+}

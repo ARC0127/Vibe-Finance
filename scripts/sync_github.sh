@@ -44,8 +44,11 @@ case "$task_id" in
   document-log)
     allowlist=(reports/document-log docs/DOCUMENT_LOG_INDEX.md docs/GITHUB_AUTOMATION.md README.md MODE_LOCK.md MODE_LOCK.json docs/SOURCES.md)
     ;;
+  skill-memory-review)
+    allowlist=(reports/skill-memory/reviews)
+    ;;
   current-period-release)
-    allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config data docs reports scripts tests vibe_finance)
+    allowlist=(.gitignore MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config data docs reports scripts tests vibe_finance)
     ;;
   *)
     echo "unknown task-id: $task_id" >&2

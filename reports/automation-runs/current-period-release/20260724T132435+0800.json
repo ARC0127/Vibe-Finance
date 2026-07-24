@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "task_id": "current-period-release",
+  "task_status": "PASS",
+  "run_timestamp": "2026-07-24 13:24:35 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "33045c323dc250c5667f377a07356b9f3b8100fd",
+  "allowlist": [
+    ".gitignore",
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "config",
+    "data",
+    "docs",
+    "reports",
+    "scripts",
+    "tests",
+    "vibe_finance"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": ".gitignore",
+      "bytes": 116,
+      "sha256": "51bc9919e14d28de775182534180e9276d0a5538d31fc4c653724eb7301d8f07"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/REFERENCE_PROJECTS.md",
+      "bytes": 3110,
+      "sha256": "4f9ab978fe2992561533a021b8d33dbebbe694f37d34a81a456ba856ac216203"
+    },
+    {
+      "git_status": " M",
+      "path": "scripts/sync_github.sh",
+      "bytes": 20964,
+      "sha256": "20a99f33dd45e61100db360f2521b3c4121ee233c6209e2ece11d3aeb5c0a34d"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/__main__.py",
+      "bytes": 13774,
+      "sha256": "94f93166b276f9ee4601e283db318bb093e4ecf2f0d48a045c9d5316ee47094d"
+    },
+    {
+      "git_status": "??",
+      "path": "config/task_contracts.json",
+      "bytes": 9923,
+      "sha256": "057b5f3047cad2ed1fa4f16673a98cf1de9949c9314dfa2b82dcafeae9c450a5"
+    },
+    {
+      "git_status": "??",
+      "path": "docs/SKILL_MEMORY.md",
+      "bytes": 3901,
+      "sha256": "3524b7b1bfc387148fa785f06c553777a4c0c0ca996ae4941cd5e4ca5003c5bc"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-07-24-dojoagents-benchmark.md",
+      "bytes": 11855,
+      "sha256": "22066b57e4530cf350bf5be7ffe9b6ba71363b381c85982e22824f67332059f8"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json",
+      "bytes": 983,
+      "sha256": "bb9751109dd7586ad118c1ac696a0dd834163494046f7d52995b773a4cbd2f2e"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md",
+      "bytes": 762,
+      "sha256": "889bf4323b596ef97ba69a645635c4b666c5bde6856a348ea789140c87a38e26"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md",
+      "bytes": 1341,
+      "sha256": "08c4b254daf35575d5b36dc2e07522f07c459ff50ca7d76790e0215d76b9fdcf"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_skill_memory.py",
+      "bytes": 9079,
+      "sha256": "c4254646acd3d63d14229ffb70e9be2ba4d28e7e33f9ad89b8a81b189b7d1389"
+    },
+    {
+      "git_status": "??",
+      "path": "tests/test_task_contracts.py",
+      "bytes": 4773,
+      "sha256": "0670c9e63266b2720703732e8b815672a77b9cea0fdbbce867db0f9e2bf3953d"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/skill_memory.py",
+      "bytes": 32266,
+      "sha256": "d3c63c50ba93ab195e0159e26b430e287f50ef97082df30a9029fe186be2e033"
+    },
+    {
+      "git_status": "??",
+      "path": "vibe_finance/task_contracts.py",
+      "bytes": 10054,
+      "sha256": "535e135658bf729975a9217c21fb19dd0af5dca876c167f7d27af7e05f77a1bd"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-24T05:24:36.512880+00:00",
+  "simulation_only": true
+}

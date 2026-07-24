@@ -30,6 +30,17 @@ from .open_capture import (
     DEFAULT_UNIVERSE as DEFAULT_CAPTURE_UNIVERSE,
     capture_open_snapshot,
 )
+from .skill_memory import (
+    DEFAULT_CANDIDATE_ROOT,
+    DEFAULT_REVIEW_ROOT,
+    generate_skill_memory_from_file,
+    review_skill_memory_candidates,
+)
+from .task_contracts import (
+    DEFAULT_SYNC_SCRIPT,
+    DEFAULT_TASK_CONTRACTS,
+    audit_task_contracts,
+)
 
 from .pipeline import (
     DEFAULT_LEDGER,
@@ -162,6 +173,40 @@ def build_parser() -> argparse.ArgumentParser:
         help="重载冻结 B0 历史 fixture 烟测工件并重新执行核验",
     )
     b0_verify.add_argument("--artifact", type=Path, required=True)
+
+    contracts = sub.add_parser(
+        "task-contracts",
+        help="只读核验任务契约与受治理同步白名单是否一致",
+    )
+    contracts.add_argument(
+        "--contracts", type=Path, default=DEFAULT_TASK_CONTRACTS
+    )
+    contracts.add_argument(
+        "--sync-script", type=Path, default=DEFAULT_SYNC_SCRIPT
+    )
+    contracts.add_argument("--task-id")
+
+    skill_memory = sub.add_parser(
+        "skill-memory-session-end",
+        help="从已结束会话生成隔离且必须审核的候选 Skill",
+    )
+    skill_memory.add_argument("--session", type=Path, required=True)
+    skill_memory.add_argument(
+        "--output-root", type=Path, default=DEFAULT_CANDIDATE_ROOT
+    )
+    skill_memory.add_argument("--name")
+
+    skill_review = sub.add_parser(
+        "skill-memory-review",
+        help="每周只读核验候选 Skill 并生成不可变审核报告",
+    )
+    skill_review.add_argument(
+        "--candidate-root", type=Path, default=DEFAULT_CANDIDATE_ROOT
+    )
+    skill_review.add_argument(
+        "--review-root", type=Path, default=DEFAULT_REVIEW_ROOT
+    )
+    skill_review.add_argument("--date")
     return parser
 
 
@@ -260,6 +305,26 @@ def main() -> None:
             Path(__file__).resolve().parents[1],
             DEFAULT_EVALUATION_MANIFEST,
             args.artifact,
+        )
+    elif args.command == "task-contracts":
+        result = audit_task_contracts(
+            args.contracts,
+            args.sync_script,
+            task_id=args.task_id,
+        )
+    elif args.command == "skill-memory-session-end":
+        result = generate_skill_memory_from_file(
+            args.session,
+            repo_root=Path.cwd(),
+            output_root=args.output_root,
+            name_override=args.name,
+        )
+    elif args.command == "skill-memory-review":
+        result = review_skill_memory_candidates(
+            repo_root=Path.cwd(),
+            candidate_root=args.candidate_root,
+            review_root=args.review_root,
+            review_date=args.date,
         )
     else:
         result = update_readme_status(

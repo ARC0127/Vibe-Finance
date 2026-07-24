@@ -1,0 +1,26 @@
+{
+  "activation_performed": false,
+  "blocked_count": 0,
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "candidate_id": "review-skill-memory-candidates--eb7f1dc8fabf",
+      "findings": [
+        "MANUAL_SEMANTIC_REVIEW_REQUIRED"
+      ],
+      "skill_name": "review-skill-memory-candidates",
+      "source_payload_sha256": "eb7f1dc8fabfa8321544979b0ec20d8217dec02be8d7a3fa9ac9fdda5daeab04",
+      "status": "STRUCTURAL_PRECHECK_PASS"
+    }
+  ],
+  "claim_boundary": "WEEKLY_SKILL_MEMORY_REVIEW_NOT_ACTIVATION",
+  "json_report_path": "reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json",
+  "markdown_report_path": "reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md",
+  "merge_review_count": 0,
+  "review_date": "2026-07-24",
+  "review_input_sha256": "5b216919d8414c93a5a71f6747023df027570067b38ccbcfb0c3b7f31aad814e",
+  "schema_version": 1,
+  "skill_creator_semantic_review": "PENDING",
+  "status": "REVIEW_REQUIRED",
+  "timezone": "Asia/Shanghai"
+}
