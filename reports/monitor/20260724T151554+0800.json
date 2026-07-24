@@ -1,0 +1,122 @@
+{
+  "alerts": [],
+  "checks": [
+    {
+      "name": "status_command",
+      "status": "PASS",
+      "summary": {
+        "heartbeat_age_hours": 7.187,
+        "last_success_at": "2026-07-24T00:04:40.650766+00:00",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "name": "recent_reports",
+      "status": "PASS",
+      "summary": {
+        "due_short_workday": "2026-07-23",
+        "latest_long": "reports/daily/2026-07-19-long.json",
+        "latest_long_age_days": 5,
+        "latest_short": "reports/daily/2026-07-23-short.json"
+      }
+    },
+    {
+      "name": "ledger_parse_and_state",
+      "status": "PASS",
+      "summary": {
+        "event_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+        "json_files": 38,
+        "jsonl_files": 2,
+        "jsonl_rows": 15,
+        "ledger_events": 10,
+        "pending_orders": 4,
+        "positions": 2
+      }
+    },
+    {
+      "name": "report_input_hashes",
+      "status": "PASS",
+      "summary": {
+        "checked": [
+          {
+            "input": "data/inbox/2026-07-23.json",
+            "report": "reports/daily/2026-07-23-short.json",
+            "status": "PASS"
+          },
+          {
+            "input": "data/inbox/2026-07-19.json",
+            "report": "reports/daily/2026-07-19-long.json",
+            "status": "PASS"
+          },
+          {
+            "input": "data/inbox/2026-07-24-preopen.json",
+            "report": "reports/preopen/2026-07-24-preopen.json",
+            "status": "PASS"
+          }
+        ],
+        "heartbeat_input": "data/inbox/2026-07-24-preopen.json"
+      }
+    },
+    {
+      "name": "deepseek_budget",
+      "status": "PASS",
+      "summary": {
+        "actual_calls": 0,
+        "called_deepseek": false,
+        "remaining_cny": 100.0,
+        "reserved_cny": 100.0,
+        "spent_cny": 0
+      }
+    }
+  ],
+  "created_at_utc": "2026-07-24T07:15:54.816756+00:00",
+  "heartbeat": {
+    "input_sha256": "881568cf9c79a5814886af1be93b9e6dc7ed9087e656a3414c975b394eac876e",
+    "last_success_at": "2026-07-24T00:04:40.650766+00:00",
+    "mode": "preopen",
+    "run_date": "2026-07-24",
+    "run_id": "c17f8a5a43e44490b2f425fcebef61d9",
+    "status": "ACTIVE"
+  },
+  "latest_success_at_shanghai": "2026-07-24T08:04:40.650766+08:00",
+  "protected_tracked_content": {
+    "aggregate_sha256": "d43e36b1a1119d867008e8985e02dd1e5bd079b7751c2ea26d95f09d18d61039",
+    "excluded_prefixes": [
+      "reports/monitor/",
+      "reports/automation-runs/activity-monitor/"
+    ],
+    "file_count": 188
+  },
+  "readonly_scope": {
+    "deepseek_called": false,
+    "no_heartbeat_refresh": true,
+    "no_market_snapshot": true,
+    "no_order_or_position_write": true,
+    "no_strategy_or_historical_report_write": true
+  },
+  "run_timestamp": "2026-07-24 15:15:54 CST",
+  "schema_version": 1,
+  "simulation_only": true,
+  "status_command": {
+    "decision_report_count": 7,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 2,
+    "heartbeat_age_hours": 7.187,
+    "last_filled_trade_date": "2026-07-21",
+    "last_mode": "preopen",
+    "last_run_date": "2026-07-24",
+    "last_run_id": "c17f8a5a43e44490b2f425fcebef61d9",
+    "last_success_at": "2026-07-24T00:04:40.650766+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 4,
+    "positions": 2,
+    "project_equity_cny": 30194.0,
+    "status": "ACTIVE",
+    "total_pnl_cny": 194.0,
+    "total_return_pct": 0.006466666666666667
+  },
+  "task_id": "activity-monitor",
+  "task_status": "PASS"
+}
