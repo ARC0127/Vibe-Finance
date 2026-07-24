@@ -1,6 +1,6 @@
 # Vibe Finance 本地文档与日志索引
 
-最近整理截点：2026-07-23 23:13:57 CST。
+最近整理截点：2026-07-24 23:16:07 CST。
 
 本索引只提供当前入口和历史定位，不替代原始文件。历史报告、输入、订单与账本遵循不可覆盖原则；需要更正时新增带时间戳的记录。Excel 仅为周度派生展示，不是权威账本。
 
@@ -14,6 +14,7 @@
 - [docs/GITHUB_AUTOMATION.md](GITHUB_AUTOMATION.md)
 - [docs/PLUGIN_POLICY.md](PLUGIN_POLICY.md)
 - [docs/REFERENCE_PROJECTS.md](REFERENCE_PROJECTS.md)
+- [docs/SKILL_MEMORY.md](SKILL_MEMORY.md)
 - [docs/SOURCES.md](SOURCES.md)
 - [docs/STOCK_FUND_STRATEGY.md](STOCK_FUND_STRATEGY.md)
 - [docs/TIANTIAN_FUND.md](TIANTIAN_FUND.md)
@@ -26,6 +27,7 @@
 - [config/ledger_legacy_anchor.json](../config/ledger_legacy_anchor.json)
 - [config/sources.json](../config/sources.json)
 - [config/strategy.json](../config/strategy.json)
+- [config/task_contracts.json](../config/task_contracts.json)
 - [config/universe.json](../config/universe.json)
 
 ## 原始研究数据
@@ -56,6 +58,8 @@
 - [reports/preopen/2026-07-22-preopen.md](../reports/preopen/2026-07-22-preopen.md)
 - [reports/preopen/2026-07-23-preopen.json](../reports/preopen/2026-07-23-preopen.json)
 - [reports/preopen/2026-07-23-preopen.md](../reports/preopen/2026-07-23-preopen.md)
+- [reports/preopen/2026-07-24-preopen.json](../reports/preopen/2026-07-24-preopen.json)
+- [reports/preopen/2026-07-24-preopen.md](../reports/preopen/2026-07-24-preopen.md)
 - [reports/preopen/recovery/2026-07-21-preopen.json](../reports/preopen/recovery/2026-07-21-preopen.json)
 - [reports/preopen/recovery/2026-07-21-preopen.md](../reports/preopen/recovery/2026-07-21-preopen.md)
 - [reports/research/2026-07-19-analysis.md](../reports/research/2026-07-19-analysis.md)
@@ -67,6 +71,8 @@
 - [reports/research/2026-07-21-frozen-b0-adapter-audit.md](../reports/research/2026-07-21-frozen-b0-adapter-audit.md)
 - [reports/research/2026-07-21-preopen-review.md](../reports/research/2026-07-21-preopen-review.md)
 - [reports/research/2026-07-23-preopen-review.md](../reports/research/2026-07-23-preopen-review.md)
+- [reports/research/2026-07-24-dojoagents-benchmark.md](../reports/research/2026-07-24-dojoagents-benchmark.md)
+- [reports/research/2026-07-24-preopen-review.md](../reports/research/2026-07-24-preopen-review.md)
 
 ## 成交/基金结算报告
 
@@ -92,7 +98,7 @@
 
 ## 周度派生仪表盘
 
-- 尚无此类产物。
+- 暂无此类产物。
 
 ## 运行日志
 
@@ -116,6 +122,8 @@
 - [data/ledger/transactions/aaf11168887f4b6c98400e883caf69f7/prepare.json](../data/ledger/transactions/aaf11168887f4b6c98400e883caf69f7/prepare.json)
 - [data/ledger/transactions/ae513076971243beb24579e0af68b855/commit.json](../data/ledger/transactions/ae513076971243beb24579e0af68b855/commit.json)
 - [data/ledger/transactions/ae513076971243beb24579e0af68b855/prepare.json](../data/ledger/transactions/ae513076971243beb24579e0af68b855/prepare.json)
+- [data/ledger/transactions/c17f8a5a43e44490b2f425fcebef61d9/commit.json](../data/ledger/transactions/c17f8a5a43e44490b2f425fcebef61d9/commit.json)
+- [data/ledger/transactions/c17f8a5a43e44490b2f425fcebef61d9/prepare.json](../data/ledger/transactions/c17f8a5a43e44490b2f425fcebef61d9/prepare.json)
 - [reports/automation-runs/2026-07-22-current-period-review.json](../reports/automation-runs/2026-07-22-current-period-review.json)
 - [reports/automation-runs/2026-07-22-current-period-review.md](../reports/automation-runs/2026-07-22-current-period-review.md)
 - [reports/automation-runs/2026-07-22-git-deferred.json](../reports/automation-runs/2026-07-22-git-deferred.json)
@@ -133,16 +141,22 @@
 - [reports/automation-runs/activity-monitor/20260723T084843+0800.json](../reports/automation-runs/activity-monitor/20260723T084843%2B0800.json)
 - [reports/automation-runs/activity-monitor/20260723T144954+0800.json](../reports/automation-runs/activity-monitor/20260723T144954%2B0800.json)
 - [reports/automation-runs/activity-monitor/20260723T205003+0800.json](../reports/automation-runs/activity-monitor/20260723T205003%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260724T025111+0800.json](../reports/automation-runs/activity-monitor/20260724T025111%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260724T085051+0800.json](../reports/automation-runs/activity-monitor/20260724T085051%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260724T151730+0800.json](../reports/automation-runs/activity-monitor/20260724T151730%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260724T205110+0800.json](../reports/automation-runs/activity-monitor/20260724T205110%2B0800.json)
 - [reports/automation-runs/close-analysis/20260723T164318+0800.json](../reports/automation-runs/close-analysis/20260723T164318%2B0800.json)
 - [reports/automation-runs/current-period-release/20260722T203615+0800.json](../reports/automation-runs/current-period-release/20260722T203615%2B0800.json)
 - [reports/automation-runs/current-period-release/20260723T101345+0800.json](../reports/automation-runs/current-period-release/20260723T101345%2B0800.json)
 - [reports/automation-runs/current-period-release/20260723T103549+0800.json](../reports/automation-runs/current-period-release/20260723T103549%2B0800.json)
+- [reports/automation-runs/current-period-release/20260724T132435+0800.json](../reports/automation-runs/current-period-release/20260724T132435%2B0800.json)
 - [reports/automation-runs/daily-order-guard/20260722T091802+0800.json](../reports/automation-runs/daily-order-guard/20260722T091802%2B0800.json)
 - [reports/automation-runs/document-log/20260720T165536+0800.json](../reports/automation-runs/document-log/20260720T165536%2B0800.json)
 - [reports/automation-runs/document-log/20260720T165610+0800.json](../reports/automation-runs/document-log/20260720T165610%2B0800.json)
 - [reports/automation-runs/document-log/20260720T170015+0800.json](../reports/automation-runs/document-log/20260720T170015%2B0800.json)
 - [reports/automation-runs/document-log/20260721T092214+0800.json](../reports/automation-runs/document-log/20260721T092214%2B0800.json)
 - [reports/automation-runs/document-log/20260722T231926+0800.json](../reports/automation-runs/document-log/20260722T231926%2B0800.json)
+- [reports/automation-runs/document-log/20260723T231605+0800.json](../reports/automation-runs/document-log/20260723T231605%2B0800.json)
 - [reports/automation-runs/fund-nav/20260721T092153+0800.json](../reports/automation-runs/fund-nav/20260721T092153%2B0800.json)
 - [reports/automation-runs/fund-nav/20260722T224205+0800.json](../reports/automation-runs/fund-nav/20260722T224205%2B0800.json)
 - [reports/automation-runs/fund-nav/20260723T224542+0800.json](../reports/automation-runs/fund-nav/20260723T224542%2B0800.json)
@@ -151,6 +165,7 @@
 - [reports/automation-runs/preopen-review/20260721T092122+0800.json](../reports/automation-runs/preopen-review/20260721T092122%2B0800.json)
 - [reports/automation-runs/preopen-review/20260722T090521+0800.json](../reports/automation-runs/preopen-review/20260722T090521%2B0800.json)
 - [reports/automation-runs/preopen-review/20260723T080815+0800.json](../reports/automation-runs/preopen-review/20260723T080815%2B0800.json)
+- [reports/automation-runs/preopen-review/20260724T080744+0800.json](../reports/automation-runs/preopen-review/20260724T080744%2B0800.json)
 - [reports/automation-runs/reflection-evolution/20260721T092059+0800.json](../reports/automation-runs/reflection-evolution/20260721T092059%2B0800.json)
 - [reports/automation-runs/reflection-evolution/20260721T105013+0800.json](../reports/automation-runs/reflection-evolution/20260721T105013%2B0800.json)
 - [reports/document-log/2026-07-20-1635.json](../reports/document-log/2026-07-20-1635.json)
@@ -171,3 +186,10 @@
 - [reports/monitor/20260723T084702+0800.json](../reports/monitor/20260723T084702%2B0800.json)
 - [reports/monitor/20260723T144643+0800.json](../reports/monitor/20260723T144643%2B0800.json)
 - [reports/monitor/20260723T204750+0800.json](../reports/monitor/20260723T204750%2B0800.json)
+- [reports/monitor/20260724T024842+0800.json](../reports/monitor/20260724T024842%2B0800.json)
+- [reports/monitor/20260724T084852+0800.json](../reports/monitor/20260724T084852%2B0800.json)
+- [reports/monitor/20260724T151554+0800.json](../reports/monitor/20260724T151554%2B0800.json)
+- [reports/monitor/20260724T204926+0800.json](../reports/monitor/20260724T204926%2B0800.json)
+- [reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json](../reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json)
+- [reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md](../reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md)
+- [reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md](../reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md)
