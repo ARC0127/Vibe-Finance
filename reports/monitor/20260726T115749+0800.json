@@ -1,0 +1,134 @@
+{
+  "alerts": [],
+  "checks": [
+    {
+      "name": "status_command",
+      "status": "PASS",
+      "summary": {
+        "heartbeat_age_hours": 15.846,
+        "last_success_at": "2026-07-25T12:07:09.151296+00:00",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "name": "recent_reports",
+      "status": "PASS",
+      "summary": {
+        "due_short_workday": "2026-07-24",
+        "latest_long": "reports/daily/2026-07-19-long.json",
+        "latest_long_age_days": 7,
+        "latest_short": "reports/daily/2026-07-24-short.json"
+      }
+    },
+    {
+      "name": "ledger_parse_and_state",
+      "status": "PASS",
+      "summary": {
+        "event_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+        "json_files": 158,
+        "jsonl_files": 2,
+        "jsonl_rows": 21,
+        "ledger_events": 20,
+        "pending_orders": 2,
+        "portfolio_projection": "PASS",
+        "positions": 2
+      }
+    },
+    {
+      "name": "report_input_hashes",
+      "status": "PASS",
+      "summary": {
+        "checked": [
+          {
+            "actual_input_sha256": "53f3a39815197ff1fe494df891c1564f08c940d924738f6b17441cbf6be31e6d",
+            "expected_input_sha256": "53f3a39815197ff1fe494df891c1564f08c940d924738f6b17441cbf6be31e6d",
+            "input": "data/inbox/2026-07-24.json",
+            "report": "reports/daily/2026-07-24-short.json",
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "expected_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "input": "data/inbox/2026-07-19.json",
+            "report": "reports/daily/2026-07-19-long.json",
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "681123dd6ca95f01ec21415be142bb78aac7b3c70d4a1b6a261d91cfcd2b2ee5",
+            "expected_input_sha256": "681123dd6ca95f01ec21415be142bb78aac7b3c70d4a1b6a261d91cfcd2b2ee5",
+            "input": "data/inbox/2026-07-24-funds.json",
+            "report": "reports/funds/2026-07-24-funds.json",
+            "status": "PASS"
+          }
+        ],
+        "heartbeat_input": "data/inbox/2026-07-24.json"
+      }
+    },
+    {
+      "name": "deepseek_budget",
+      "status": "PASS",
+      "summary": {
+        "actual_calls": 0,
+        "called_deepseek": false,
+        "remaining_cny": 100.0,
+        "reserved_cny": 100.0,
+        "spent_cny": 0
+      }
+    }
+  ],
+  "created_at_utc": "2026-07-26T03:57:49.274473+00:00",
+  "heartbeat": {
+    "input_sha256": "53f3a39815197ff1fe494df891c1564f08c940d924738f6b17441cbf6be31e6d",
+    "last_success_at": "2026-07-25T12:07:09.151296+00:00",
+    "mode": "short",
+    "run_date": "2026-07-24",
+    "run_id": "2883d6ba6bf64204921491033ec21ed4",
+    "status": "ACTIVE"
+  },
+  "heartbeat_sha256": "21dc374849e19878ca4194f2a533feaa9a8a831687c0ffe78095a3de1891ffd3",
+  "latest_success_at_shanghai": "2026-07-25T20:07:09.151296+08:00",
+  "parse_errors": [],
+  "preexisting_worktree_changes": [
+    "?? reports/skill-memory/reviews/2026-07-26/"
+  ],
+  "protected_tracked_content": {
+    "aggregate_sha256": "7c6d3d11eb2c853c2364faeb615e76cc223f70594154eb5f21e9ae0307f73780",
+    "excluded_prefixes": [
+      "reports/monitor/",
+      "reports/automation-runs/activity-monitor/"
+    ],
+    "file_count": 206
+  },
+  "readonly_scope": {
+    "deepseek_called": false,
+    "no_heartbeat_refresh": true,
+    "no_market_snapshot": true,
+    "no_order_or_position_write": true,
+    "no_strategy_or_historical_report_write": true
+  },
+  "run_timestamp": "2026-07-26 11:57:49 CST",
+  "schema_version": 1,
+  "simulation_only": true,
+  "status_command": {
+    "decision_report_count": 8,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 2,
+    "heartbeat_age_hours": 15.846,
+    "last_filled_trade_date": "2026-07-21",
+    "last_mode": "short",
+    "last_run_date": "2026-07-24",
+    "last_run_id": "2883d6ba6bf64204921491033ec21ed4",
+    "last_success_at": "2026-07-25T12:07:09.151296+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 2,
+    "positions": 2,
+    "project_equity_cny": 30025.2,
+    "status": "ACTIVE",
+    "total_pnl_cny": 25.2,
+    "total_return_pct": 0.0008400000000000242
+  },
+  "task_id": "activity-monitor",
+  "task_status": "PASS"
+}
