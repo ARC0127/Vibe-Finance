@@ -2,7 +2,7 @@
   "cash_cny": 22018.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "2883d6ba6bf64204921491033ec21ed4",
+  "last_run_id": "2373db02679f47efa5dbb8a40df0c29c",
   "pending_orders": [
     {
       "exposure_group": "csi500",
@@ -47,6 +47,29 @@
       "simulation_only": true,
       "status": "PENDING_NEXT_OPEN",
       "symbol": "159915"
+    },
+    {
+      "exposure_group": "semiconductor",
+      "limit_price": 1.129695,
+      "lot_size": 100,
+      "name": "国联安半导体ETF",
+      "order_id": "fa31cdbd70c6424e84f290940b9f26af",
+      "quantity": 2100,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-27T08:00:00+08:00",
+      "signal_close": 1.113,
+      "signal_date": "2026-07-27",
+      "signal_score": 1.00632911,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "512480"
     }
   ],
   "performance": {
@@ -57,7 +80,7 @@
     "investable_value_cny": 29925.2,
     "last_filled_trade_date": "2026-07-21",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-07-24T22:30:00+08:00",
+    "last_valuation_as_of": "2026-07-27T08:00:00+08:00",
     "project_equity_cny": 30025.2,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": 25.2,
@@ -222,6 +245,12 @@
       "mode": "short",
       "run_date": "2026-07-24",
       "run_id": "2883d6ba6bf64204921491033ec21ed4"
+    },
+    {
+      "input_sha256": "6493a163b6164eb8fe79f4b080413dbebbf1d5b17313d7f416b0f56b87e401e6",
+      "mode": "preopen",
+      "run_date": "2026-07-27",
+      "run_id": "2373db02679f47efa5dbb8a40df0c29c"
     }
   ],
   "schema_version": 1
