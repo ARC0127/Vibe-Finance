@@ -32,27 +32,28 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_STATUS:START -->
 ### 公开实验账本
 
-> 数据截点：`2026-07-27T08:00:00+08:00`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。
+> 数据截点：`2026-07-27T13:01:17.276172+08:00`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。
 
 | 指标 | 当前值 |
 |---|---:|
 | 初始项目资本 | ¥30,000.00 |
-| 累计买入金额 | ¥7,871.60 |
-| 当前持仓市值 | ¥7,906.80 |
-| 可投资现金 | ¥22,018.40 |
-| 累计交易费用 | ¥10.00 |
+| 累计买入金额 | ¥10,166.90 |
+| 当前持仓市值 | ¥10,281.70 |
+| 可投资现金 | ¥19,718.10 |
+| 累计交易费用 | ¥15.00 |
 | DeepSeek 已用预算 | ¥0.000000 |
-| 项目总权益 | ¥30,025.20 |
-| 累计盈亏 | **盈利 +25.20 元（+0.08%）** |
-| 已成交笔数 | 2 |
-| 待执行订单 | 3 |
+| 项目总权益 | ¥30,099.80 |
+| 累计盈亏 | **盈利 +99.80 元（+0.33%）** |
+| 已成交笔数 | 3 |
+| 待执行订单 | 0 |
 
 #### 当前持仓
 
 | 代码 | 标的 | 数量 | 平均成本 | 最近估值 | 市值 | 未实现盈亏（元） |
 |---|---|---:|---:|---:|---:|---:|
-| 510300 | 华泰柏瑞沪深300ETF | 1200 | ¥4.6812 | ¥4.7010 | ¥5,641.20 | +23.80 |
-| 512100 | 南方中证1000ETF | 800 | ¥2.8302 | ¥2.8320 | ¥2,265.60 | +1.40 |
+| 510300 | 华泰柏瑞沪深300ETF | 1200 | ¥4.6812 | ¥4.7220 | ¥5,666.40 | +49.00 |
+| 510500 | 南方中证500ETF | 300 | ¥7.6677 | ¥7.6510 | ¥2,295.30 | -5.00 |
+| 512100 | 南方中证1000ETF | 800 | ¥2.8302 | ¥2.9000 | ¥2,320.00 | +55.80 |
 
 <!-- VIBE_STATUS:END -->
 
@@ -61,7 +62,7 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_DAILY_STRATEGY:START -->
 ## 当前市场判断
 
-> 每日策略日期：**2026-07-27**；决策截点：`2026-07-27T08:00:00+08:00`；策略版本：`v0.3.1`。本区块由最新不可变报告自动生成，不再保留首日静态策略。
+> 每日策略日期：**2026-07-27**；决策截点：`2026-07-27T08:00:00+08:00`；报告策略 SHA `d73a5e87c7d2`；当前配置为 `v0.3.1`，已在该决策截点后变化。本区块由最新不可变报告自动生成，不再保留首日静态策略。
 
 ### 市场温度
 
@@ -100,8 +101,12 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 
 ### 今日执行与订单
 
-- 当日开盘结算报告尚未生成；当前只展示最新策略信号。
-- 当前账本待执行订单：**3** 笔。
+- 开盘结算截点：`2026-07-27T13:01:17.276172+08:00`；实际虚拟成交 **1** 笔，取消 **2** 笔。
+- `FILLED` 买入 `510500` 300 份；原因：`CONTROLLED_DIP`。
+- `CANCELLED_LIMIT_OR_CASH` 买入 `159915` 400 份；原因：`INTRADAY_ABOVE_LIMIT`。
+- `CANCELLED_DATA_GATE` 买入 `512480` 2100 份；原因：`UNVERIFIED_SECURITY_IDENTITY_AND_ST_DELISTING`。
+- 执行报告：[`2026-07-27-intraday.json`](reports/execution/2026-07-27-intraday.json)。
+- 当前账本待执行订单：**0** 笔。
 
 ### 场外基金周期
 
@@ -182,6 +187,7 @@ flowchart LR
     B --> C[08:00 盘前复核或补单]
     C --> D[09:10 订单就绪检查]
     D --> E[09:30 双源封存与09:35前结算]
+    E -->|采集故障且仍有待单| R[13:00 双源盘中恢复]
     E --> F[账本与盈亏]
     F --> G[22:30 场外基金净值]
     G --> H[复盘与策略候选]
@@ -193,6 +199,7 @@ flowchart LR
 | 工作日 08:00 | 检查隔夜公告，生成或修正当日盘前虚拟订单 |
 | 工作日 09:10 | 确认至少存在一笔可结算订单；缺失时执行小额探索补单 |
 | 工作日 09:30–09:35 | 自动封存腾讯/新浪双源开盘行情，再结算已有订单并验证当日成交要求 |
+| 工作日 13:00 | 仅在开盘采集失败时，用双源连续竞价价恢复结算更早已存在的条件单 |
 | 工作日 16:30 | 保存收盘快照，运行趋势、回撤、防御和退出逻辑 |
 | 工作日 22:30 | 核验场外基金净值与天天基金交叉信息 |
 | 每6小时 | 检查任务、心跳、账本和报告是否仍在更新 |
@@ -229,6 +236,8 @@ python -m vibe_finance validate --input data/inbox/YYYY-MM-DD.json
 python -m vibe_finance run --input data/inbox/YYYY-MM-DD-preopen.json --mode preopen --report-dir reports/preopen
 python -m vibe_finance capture-open --base-snapshot data/inbox/YYYY-MM-DD-preopen.json --output data/inbox/YYYY-MM-DD-open.json
 python -m vibe_finance settle-open --input data/inbox/YYYY-MM-DD-open.json
+python -m vibe_finance capture-intraday --base-snapshot data/inbox/YYYY-MM-DD-preopen.json --output data/inbox/YYYY-MM-DD-intraday.json
+python -m vibe_finance settle-intraday --input data/inbox/YYYY-MM-DD-intraday.json
 python -m vibe_finance run-funds --input data/inbox/YYYY-MM-DD-funds.json
 python -m vibe_finance update-readme
 ```

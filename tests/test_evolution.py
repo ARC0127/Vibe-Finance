@@ -289,9 +289,12 @@ class EvolutionLedgerTests(unittest.TestCase):
             ledger["event_count"],
             ledger["legacy_event_count"] + ledger["v2_event_count"],
         )
-        self.assertEqual(replay["filled_event_count"], 2)
+        self.assertEqual(replay["filled_event_count"], 3)
         self.assertEqual(replay["completed_round_trip_count"], 0)
-        self.assertEqual(replay["positions"], {"510300": "1200", "512100": "800"})
+        self.assertEqual(
+            replay["positions"],
+            {"510300": "1200", "510500": "300", "512100": "800"},
+        )
 
     def test_legacy_prefix_mutation_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -27,7 +27,7 @@ class TaskContractTests(unittest.TestCase):
         self.assertEqual(result["real_broker_integration"], "forbid")
         self.assertEqual(result["caller_force_bypass"], "forbid")
         self.assertEqual(result["sync_allowlist_status"], "PASS")
-        self.assertEqual(result["task_count"], 11)
+        self.assertEqual(result["task_count"], 12)
 
     def test_activity_monitor_has_no_financial_runtime_write_authority(self) -> None:
         result = audit_task_contracts(

@@ -214,6 +214,26 @@
         "simulation-only mode remains locked",
         "push requires the governed sync workflow"
       ]
+    },
+    {
+      "task_id": "intraday-recovery-release",
+      "purpose": "Release the governed failed-open intraday recovery engine and its first immutable virtual settlement.",
+      "side_effect_class": "governed_release",
+      "runtime_write_roots": ["MASTER_PROMPT.md", "MODE_LOCK.md", "MODE_LOCK.json", "README.md", "config/strategy.json", "config/task_contracts.json", "data/inbox", "data/ledger", "docs/AUTOMATION.md", "docs/STOCK_FUND_STRATEGY.md", "reports/execution", "scripts/sync_github.sh", "tests", "vibe_finance"],
+      "sync_allowlist": ["MASTER_PROMPT.md", "MODE_LOCK.md", "MODE_LOCK.json", "README.md", "config/strategy.json", "config/task_contracts.json", "data/inbox", "data/ledger", "docs/AUTOMATION.md", "docs/STOCK_FUND_STRATEGY.md", "reports/execution", "scripts/sync_github.sh", "tests", "vibe_finance"],
+      "acceptance_checks": [
+        "intraday capture remains dual-source and point-in-time",
+        "only pre-existing pending orders can be settled",
+        "original limits and primary evidence gates remain enforced",
+        "ledger identity and full test suite pass",
+        "unrelated skill-memory review artifacts remain outside the staged set"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation-only mode remains locked",
+        "intraday recovery is not high-frequency trading",
+        "push requires the governed sync workflow"
+      ]
     }
   ]
 }

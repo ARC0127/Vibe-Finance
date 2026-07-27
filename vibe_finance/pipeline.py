@@ -649,6 +649,9 @@ def _settle_pending(
     *,
     allowed_market_states: set[str] | None = None,
     require_open_source_ids: bool = False,
+    execution_price_field: str = "open",
+    execution_source_ids_field: str = "open_source_ids",
+    execution_price_label: str = "OPEN",
 ) -> list[dict[str, Any]]:
     allowed_states = allowed_market_states or {"closed"}
     if not snapshot["is_trading_day"] or snapshot.get("market_state") not in allowed_states:
@@ -693,15 +696,15 @@ def _settle_pending(
             )
             events.append(order)
             continue
-        open_sources = asset.get("open_source_ids")
-        if open_sources is None and not require_open_source_ids:
-            open_sources = asset.get("source_ids", [])
-        if asset.get("open") is None or len(set(open_sources or [])) < 2:
+        execution_sources = asset.get(execution_source_ids_field)
+        if execution_sources is None and not require_open_source_ids:
+            execution_sources = asset.get("source_ids", [])
+        if asset.get(execution_price_field) is None or len(set(execution_sources or [])) < 2:
             order["status"] = "CANCELLED_DATA_GATE"
-            order["cancellation_reason"] = "OPEN_PRICE_NOT_CROSSCHECKED"
+            order["cancellation_reason"] = f"{execution_price_label}_PRICE_NOT_CROSSCHECKED"
             events.append(order)
             continue
-        price = float(asset["open"])
+        price = float(asset[execution_price_field])
         quantity = int(order["quantity"])
         notional = _money(price * quantity)
         fees = _trade_fees(notional, str(asset["asset_type"]), str(order["side"]), strategy)
@@ -710,7 +713,7 @@ def _settle_pending(
             if price > float(order["limit_price"]) or total > _money(ledger["cash_cny"]):
                 order["status"] = "CANCELLED_LIMIT_OR_CASH"
                 order["cancellation_reason"] = (
-                    "OPEN_ABOVE_LIMIT"
+                    f"{execution_price_label}_ABOVE_LIMIT"
                     if price > float(order["limit_price"])
                     else "INSUFFICIENT_CASH"
                 )
@@ -2235,13 +2238,15 @@ def _render_execution_report(
     pending_before: int,
     pending_after: int,
     strategy: dict[str, Any],
+    *,
+    session_label: str = "开盘",
 ) -> str:
     filled = sum(event.get("status") == "FILLED" for event in events)
     cancelled = sum(str(event.get("status", "")).startswith("CANCELLED") for event in events)
     status = "BLOCKED" if blocks else ("FILLED" if filled else "NO_PENDING_OR_FILL")
     costs = strategy["costs"]
     lines = [
-        f"# Vibe Finance {snapshot['run_date']} 开盘虚拟成交结算",
+        f"# Vibe Finance {snapshot['run_date']} {session_label}虚拟成交结算",
         "",
         f"- 状态：`{status}`",
         f"- 证据截点：{snapshot['as_of']}",
@@ -2442,6 +2447,166 @@ def _settle_open_orders_locked(
         "pending_after": sum(
             order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
         ),
+        "daily_execution_status": daily_execution_status,
+        "project_equity_cny": values["project_equity_cny"],
+    }
+
+
+def _settle_intraday_orders_locked(
+    input_path: Path,
+    ledger_path: Path = DEFAULT_LEDGER,
+    strategy_path: Path = DEFAULT_STRATEGY,
+    report_dir: Path = DEFAULT_EXECUTION_REPORT_DIR,
+    orders_log: Path = DEFAULT_ORDERS_LOG,
+) -> dict[str, Any]:
+    """Recover failed open execution using a timely dual-source intraday quote."""
+    snapshot = _read_json(input_path)
+    strategy = _read_json(strategy_path)
+    warnings = validate_snapshot(snapshot, strategy)
+    report_path = report_dir / f"{snapshot['run_date']}-intraday.md"
+    decision_path = report_dir / f"{snapshot['run_date']}-intraday.json"
+    if report_path.exists() or decision_path.exists():
+        raise FileExistsError(f"不可覆盖既有盘中结算产物: {report_path}")
+
+    initialize_ledger(ledger_path)
+    ledger = _read_json(ledger_path)
+    _ensure_ledger_schema(ledger)
+    pending_before = sum(
+        order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
+    )
+    rules = strategy.get("data_collection", {}).get("intraday_recovery", {})
+    blocks = list(warnings)
+    if not bool(rules.get("enabled", False)):
+        blocks.append("INTRADAY_RECOVERY_DISABLED")
+    if not snapshot["is_trading_day"]:
+        blocks.append("NON_TRADING_DAY")
+    if snapshot.get("market_state") != "continuous_trading":
+        blocks.append("MARKET_NOT_IN_CONTINUOUS_TRADING")
+    daily_rules = strategy.get("daily_execution", {})
+    daily_required = bool(daily_rules.get("enabled", False))
+    if snapshot["is_trading_day"] and daily_required and pending_before == 0:
+        blocks.append("NO_PENDING_DAILY_ORDER")
+
+    events: list[dict[str, Any]] = []
+    if not blocks:
+        events = _settle_pending(
+            ledger,
+            snapshot,
+            strategy,
+            allowed_market_states={"continuous_trading"},
+            require_open_source_ids=True,
+            execution_price_field="execution_price",
+            execution_source_ids_field="execution_source_ids",
+            execution_price_label="INTRADAY",
+        )
+
+    valuation_assets: dict[str, dict[str, Any]] = {}
+    for item in snapshot["assets"]:
+        valued = dict(item)
+        if valued.get("execution_price") is not None:
+            valued["close"] = valued["execution_price"]
+            valued["price_as_of"] = valued.get("execution_price_as_of", snapshot["as_of"])
+            valued["price_source_ids"] = list(valued.get("execution_source_ids", []))
+        valuation_assets[str(valued["symbol"])] = valued
+    values = _project_value(ledger, valuation_assets, str(snapshot["as_of"]))
+    blocks.extend(values["blocks"])
+    _update_ledger_valuation(ledger, valuation_assets, values, str(snapshot["as_of"]))
+    filled_count = sum(event.get("status") == "FILLED" for event in events)
+    required_count = int(daily_rules.get("minimum_filled_trades_per_trading_day", 1))
+    if not snapshot["is_trading_day"]:
+        daily_execution_status = "NOT_APPLICABLE"
+    elif filled_count >= required_count:
+        daily_execution_status = "PASS_INTRADAY_RECOVERY"
+    else:
+        daily_execution_status = "FAILED_NO_FILL"
+        if daily_required:
+            blocks.append("DAILY_TRADE_REQUIREMENT_MISSED")
+    blocks = sorted(set(blocks))
+    input_hash = _sha256(input_path)
+    strategy_hash = _sha256(strategy_path)
+    run_id = uuid.uuid4().hex
+    pending_after = sum(
+        order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
+    )
+    decision = {
+        "schema_version": 1,
+        "run_id": run_id,
+        "run_date": snapshot["run_date"],
+        "mode": "intraday_settlement",
+        "input_sha256": input_hash,
+        "strategy_sha256": strategy_hash,
+        "as_of": snapshot["as_of"],
+        "blocks": blocks,
+        "events": events,
+        "pending_before": pending_before,
+        "pending_after": pending_after,
+        "daily_execution_status": daily_execution_status,
+        "valuation": values,
+    }
+    ledger["last_run_id"] = run_id
+    ledger["run_history"].append(
+        {
+            "run_id": run_id,
+            "run_date": snapshot["run_date"],
+            "mode": "intraday_settlement",
+            "input_sha256": input_hash,
+        }
+    )
+    report_text = _render_execution_report(
+        snapshot,
+        values,
+        events,
+        blocks,
+        input_hash,
+        pending_before,
+        pending_after,
+        strategy,
+        session_label="盘中恢复",
+    )
+    event_payloads = _prepare_pipeline_events(
+        events=events,
+        run_id=run_id,
+        mode="intraday_settlement",
+        input_path=input_path,
+        strategy_path=strategy_path,
+        decision_path=decision_path,
+        decision=decision,
+    )
+    prepare_run_transaction(
+        run_id=run_id,
+        ledger_path=ledger_path,
+        orders_log=orders_log,
+        recorded_at=str(snapshot["as_of"]),
+        portfolio=ledger,
+        decision_path=decision_path,
+        decision=decision,
+        report_path=report_path,
+        report_text=report_text,
+        heartbeat={
+            "status": "ACTIVE",
+            "last_success_at": datetime.now(timezone.utc).isoformat(),
+            "run_id": run_id,
+            "run_date": snapshot["run_date"],
+            "mode": "intraday_settlement",
+            "input_sha256": input_hash,
+        },
+        events=event_payloads,
+    )
+    return {
+        "status": (
+            "FAILED_DAILY_TRADE"
+            if daily_required and daily_execution_status == "FAILED_NO_FILL"
+            else "PASS"
+        ),
+        "run_id": run_id,
+        "report": str(report_path),
+        "decision": str(decision_path),
+        "blocks": blocks,
+        "filled": filled_count,
+        "cancelled": sum(
+            str(event.get("status", "")).startswith("CANCELLED") for event in events
+        ),
+        "pending_after": pending_after,
         "daily_execution_status": daily_execution_status,
         "project_equity_cny": values["project_equity_cny"],
     }
@@ -3134,6 +3299,22 @@ def settle_open_orders(
         if recovered:
             return _recovered_result(recovered)
         return _settle_open_orders_locked(
+            input_path, ledger_path, strategy_path, report_dir, orders_log
+        )
+
+
+def settle_intraday_orders(
+    input_path: Path,
+    ledger_path: Path = DEFAULT_LEDGER,
+    strategy_path: Path = DEFAULT_STRATEGY,
+    report_dir: Path = DEFAULT_EXECUTION_REPORT_DIR,
+    orders_log: Path = DEFAULT_ORDERS_LOG,
+) -> dict[str, Any]:
+    with locked_state(ledger_path, exclusive=True):
+        recovered = recover_incomplete_transactions(ledger_path)
+        if recovered:
+            return _recovered_result(recovered)
+        return _settle_intraday_orders_locked(
             input_path, ledger_path, strategy_path, report_dir, orders_log
         )
 

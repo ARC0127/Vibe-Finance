@@ -50,6 +50,9 @@ case "$task_id" in
   current-period-release)
     allowlist=(.gitignore MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config data docs reports scripts tests vibe_finance)
     ;;
+  intraday-recovery-release)
+    allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config/strategy.json config/task_contracts.json data/inbox data/ledger docs/AUTOMATION.md docs/STOCK_FUND_STRATEGY.md reports/execution scripts/sync_github.sh tests vibe_finance)
+    ;;
   *)
     echo "unknown task-id: $task_id" >&2
     exit 2

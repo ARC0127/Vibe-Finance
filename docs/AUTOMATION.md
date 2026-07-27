@@ -46,6 +46,21 @@ python3 -m vibe_finance settle-open \
   --input data/inbox/YYYY-MM-DD-open.json
 ```
 
+## 工作日 13:00：开盘失败后的盘中恢复
+
+- 仅当当日开盘结算因采集或系统故障失败、账本仍有更早形成的 `PENDING_NEXT_OPEN`，且当日尚未达到最低成交要求时运行。
+- `capture-intraday` 只接受连续竞价恢复窗口内的源内时间戳，逐只核对腾讯与新浪的当前价、昨收、时间偏移和成交量；待单与持仓还必须满足报价新鲜度。
+- 买入结算采用双源中较高的价格，仍必须不高于原订单限价；不生成盘中新信号，不修改策略，不把盘中价写成开盘价。
+- 该恢复任务是每天最多一次的故障补偿，不属于高频交易。
+
+```bash
+python3 -m vibe_finance capture-intraday \
+  --base-snapshot data/inbox/YYYY-MM-DD-preopen.json \
+  --output data/inbox/YYYY-MM-DD-intraday.json
+python3 -m vibe_finance settle-intraday \
+  --input data/inbox/YYYY-MM-DD-intraday.json
+```
+
 - 正常交易日成交少于一笔时，流水线返回 `FAILED_DAILY_TRADE` 并记录 `DAILY_TRADE_REQUIREMENT_MISSED`。
 - 价格缺失或冲突、超过限价、资金不足、持仓不足、停牌或未处理公司行为会取消订单。系统不伪造成交。
 - 股票ETF按T+1处理；同日买入份额不能同日卖出。

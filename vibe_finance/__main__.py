@@ -30,6 +30,7 @@ from .open_capture import (
     DEFAULT_UNIVERSE as DEFAULT_CAPTURE_UNIVERSE,
     capture_open_snapshot,
 )
+from .intraday_capture import capture_intraday_snapshot
 from .skill_memory import (
     DEFAULT_CANDIDATE_ROOT,
     DEFAULT_REVIEW_ROOT,
@@ -58,6 +59,7 @@ from .pipeline import (
     run_fund_nav_pipeline,
     run_pipeline,
     settle_open_orders,
+    settle_intraday_orders,
     update_readme_status,
     validate_snapshot_file,
 )
@@ -101,6 +103,26 @@ def build_parser() -> argparse.ArgumentParser:
     capture.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
     capture.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
     capture.add_argument("--universe", type=Path, default=DEFAULT_CAPTURE_UNIVERSE)
+
+    capture_intraday = sub.add_parser(
+        "capture-intraday",
+        help="在连续竞价窗口封存双源盘中快照，用于开盘抓取失败恢复",
+    )
+    capture_intraday.add_argument("--base-snapshot", type=Path, required=True)
+    capture_intraday.add_argument("--output", type=Path, required=True)
+    capture_intraday.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    capture_intraday.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
+    capture_intraday.add_argument("--universe", type=Path, default=DEFAULT_CAPTURE_UNIVERSE)
+
+    settle_intraday = sub.add_parser(
+        "settle-intraday",
+        help="用及时双源盘中价结算更早已存在的虚拟条件单",
+    )
+    settle_intraday.add_argument("--input", type=Path, required=True)
+    settle_intraday.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    settle_intraday.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY)
+    settle_intraday.add_argument("--report-dir", type=Path, default=DEFAULT_EXECUTION_REPORT_DIR)
+    settle_intraday.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
 
     funds = sub.add_parser("run-funds", help="按下一开放日确认净值处理场外基金")
     funds.add_argument("--input", type=Path, required=True)
@@ -240,6 +262,22 @@ def main() -> None:
             ledger_path=args.ledger,
             strategy_path=args.strategy,
             universe_path=args.universe,
+        )
+    elif args.command == "capture-intraday":
+        result = capture_intraday_snapshot(
+            base_snapshot_path=args.base_snapshot,
+            output_path=args.output,
+            ledger_path=args.ledger,
+            strategy_path=args.strategy,
+            universe_path=args.universe,
+        )
+    elif args.command == "settle-intraday":
+        result = settle_intraday_orders(
+            input_path=args.input,
+            ledger_path=args.ledger,
+            strategy_path=args.strategy,
+            report_dir=args.report_dir,
+            orders_log=args.orders_log,
         )
     elif args.command == "run-funds":
         result = run_fund_nav_pipeline(

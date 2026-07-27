@@ -1,0 +1,126 @@
+{
+  "as_of": "2026-07-27T13:01:17.276172+08:00",
+  "blocks": [],
+  "daily_execution_status": "PASS_INTRADAY_RECOVERY",
+  "events": [
+    {
+      "commission_cny": 5.0,
+      "exposure_group": "csi500",
+      "fee_model_version": "0.3.1",
+      "fill_as_of": "2026-07-27T13:01:17.276172+08:00",
+      "fill_date": "2026-07-27",
+      "fill_price": 7.651,
+      "limit_price": 7.658175,
+      "lot_size": 100,
+      "name": "南方中证500ETF",
+      "order_id": "5ac5ca3db71a467eaeb190a1bd045e37",
+      "quantity": 300,
+      "realized_pnl_cny": 0.0,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "CONTROLLED_DIP_ENTRY"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-24T22:30:00+08:00",
+      "signal_close": 7.545,
+      "signal_date": "2026-07-24",
+      "signal_score": 1.25481582,
+      "signal_type": "CONTROLLED_DIP",
+      "simulation_only": true,
+      "stamp_tax_cny": 0.0,
+      "status": "FILLED",
+      "symbol": "510500",
+      "total_fees_cny": 5.0,
+      "transfer_fee_cny": 0.0
+    },
+    {
+      "cancellation_reason": "INTRADAY_ABOVE_LIMIT",
+      "exposure_group": "chinext",
+      "limit_price": 3.56062,
+      "lot_size": 100,
+      "name": "易方达创业板ETF",
+      "order_id": "bbbfdebebeb742778ea4fd12c02f0e02",
+      "quantity": 400,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "CONTROLLED_DIP_ENTRY"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-24T22:30:00+08:00",
+      "signal_close": 3.508,
+      "signal_date": "2026-07-24",
+      "signal_score": 1.25474284,
+      "signal_type": "CONTROLLED_DIP",
+      "simulation_only": true,
+      "status": "CANCELLED_LIMIT_OR_CASH",
+      "symbol": "159915"
+    },
+    {
+      "cancellation_reason": "UNVERIFIED_SECURITY_IDENTITY_AND_ST_DELISTING",
+      "exposure_group": "semiconductor",
+      "limit_price": 1.129695,
+      "lot_size": 100,
+      "name": "国联安半导体ETF",
+      "order_id": "fa31cdbd70c6424e84f290940b9f26af",
+      "quantity": 2100,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-27T08:00:00+08:00",
+      "signal_close": 1.113,
+      "signal_date": "2026-07-27",
+      "signal_score": 1.00632911,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "CANCELLED_DATA_GATE",
+      "symbol": "512480"
+    }
+  ],
+  "input_sha256": "e927a7b36ed270af3cf879a383304e3db2b71a0df7df1bf2a39bf3982503440b",
+  "mode": "intraday_settlement",
+  "pending_after": 0,
+  "pending_before": 3,
+  "run_date": "2026-07-27",
+  "run_id": "f3efcca3b01249b6bd1271fc5469602e",
+  "schema_version": 1,
+  "strategy_sha256": "ad733aed1f19c1a479e824cf3f43593959ef6976fc9f021accb59ed83a14cb13",
+  "valuation": {
+    "blocks": [],
+    "cash_cny": 19718.1,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 29999.8,
+    "mark_status": "COMPLETE",
+    "position_marks": {
+      "510300": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 5666.4,
+        "price": "4.722",
+        "price_as_of": "2026-07-27T13:01:15+08:00",
+        "quantity": "1200"
+      },
+      "510500": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2295.3,
+        "price": "7.651",
+        "price_as_of": "2026-07-27T13:01:14+08:00",
+        "quantity": "300"
+      },
+      "512100": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2320.0,
+        "price": "2.9",
+        "price_as_of": "2026-07-27T13:01:14+08:00",
+        "quantity": "800"
+      }
+    },
+    "positions_cny": 10281.7,
+    "project_equity_cny": 30099.8,
+    "stale_symbols": []
+  }
+}

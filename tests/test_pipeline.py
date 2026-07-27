@@ -18,6 +18,7 @@ from vibe_finance.pipeline import (
     project_status,
     run_fund_nav_pipeline,
     run_pipeline,
+    settle_intraday_orders,
     settle_open_orders,
     update_readme_status,
     validate_snapshot,
@@ -744,6 +745,53 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(value["performance"]["filled_trade_count"], 2)
             self.assertEqual(value["performance"]["last_filled_trade_date"], "2026-07-20")
             self.assertGreater(value["performance"]["cumulative_fees_cny"], 0)
+
+    def test_preopen_signal_can_recover_at_dual_source_intraday_price(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            preopen_path = root / "preopen.json"
+            intraday_path = root / "intraday.json"
+            preopen_path.write_text(
+                json.dumps(
+                    cold_start_snapshot(
+                        "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+                    )
+                ),
+                encoding="utf-8",
+            )
+            intraday = cold_start_snapshot(
+                "2026-07-20", market_state="continuous_trading", as_of_time="13:05:00"
+            )
+            for asset in intraday["assets"]:
+                asset["execution_price"] = asset["close"]
+                asset["execution_source_ids"] = ["tencent_finance", "sina_finance"]
+                asset["execution_price_as_of"] = intraday["as_of"]
+                asset["price_source_ids"] = ["tencent_finance", "sina_finance"]
+                asset["source_ids"] = ["tencent_finance", "sina_finance"]
+                asset["price_as_of"] = intraday["as_of"]
+                asset["trading_status"] = "TRADING"
+            intraday_path.write_text(json.dumps(intraday), encoding="utf-8")
+            ledger = root / "portfolio.json"
+            run_pipeline(
+                input_path=preopen_path,
+                ledger_path=ledger,
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "preopen",
+                orders_log=root / "orders.jsonl",
+                mode="preopen",
+            )
+            result = settle_intraday_orders(
+                input_path=intraday_path,
+                ledger_path=ledger,
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "execution",
+                orders_log=root / "orders.jsonl",
+            )
+            self.assertEqual(result["filled"], 2)
+            self.assertEqual(result["daily_execution_status"], "PASS_INTRADAY_RECOVERY")
+            value = json.loads(ledger.read_text(encoding="utf-8"))
+            self.assertEqual(value["performance"]["filled_trade_count"], 2)
+            self.assertEqual(value["performance"]["last_filled_trade_date"], "2026-07-20")
 
     def test_unverified_preopen_status_creates_conditional_order_but_open_stays_strict(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

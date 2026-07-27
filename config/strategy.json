@@ -10,6 +10,20 @@
       "request_timeout_seconds": 5.0,
       "maximum_source_skew_seconds": 30,
       "maximum_relative_price_difference": 0.0
+    },
+    "intraday_recovery": {
+      "enabled": true,
+      "window_start": "13:00:00",
+      "window_end": "14:50:00",
+      "source_ids": ["tencent_finance", "sina_finance"],
+      "request_timeout_seconds": 5.0,
+      "request_attempts": 3,
+      "retry_delay_seconds": 0.25,
+      "consistency_attempts": 5,
+      "consistency_retry_delay_seconds": 0.5,
+      "maximum_source_skew_seconds": 30,
+      "maximum_quote_age_seconds": 45,
+      "maximum_relative_price_difference": 0.0005
     }
   },
   "data_gates": {
@@ -125,6 +139,7 @@
   "schedules": {
     "pre_open_review": "weekdays_08:00_Asia/Shanghai",
     "open_settlement": "weekdays_09:35_Asia/Shanghai",
+    "intraday_failed_open_recovery": "weekdays_13:00_Asia/Shanghai",
     "short_cycle": "weekdays_after_close",
     "fund_nav_cycle": "weekdays_22:30_Asia/Shanghai",
     "long_cycle": "weekly",
