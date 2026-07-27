@@ -1,0 +1,152 @@
+{
+  "alerts": [
+    {
+      "code": "MISSING_DUE_WORKDAY_SHORT_REPORT",
+      "detail": "due_workday=2026-07-27",
+      "minimal_repair": "Run the governed 16:30 close-analysis automation for 2026-07-27; this monitor must not backfill, trade, or call DeepSeek."
+    }
+  ],
+  "checks": [
+    {
+      "name": "status_command",
+      "status": "PASS",
+      "summary": {
+        "heartbeat_age_hours": 4.978,
+        "last_success_at": "2026-07-27T05:01:40.216440+00:00",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "name": "recent_reports",
+      "status": "FAIL",
+      "summary": {
+        "due_short_workday": "2026-07-27",
+        "latest_long": "reports/daily/2026-07-19-long.json",
+        "latest_long_age_days": 8,
+        "latest_short": "reports/daily/2026-07-24-short.json"
+      }
+    },
+    {
+      "name": "ledger_parse_and_state",
+      "status": "PASS",
+      "summary": {
+        "event_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+        "json_files": 178,
+        "jsonl_files": 2,
+        "jsonl_rows": 25,
+        "ledger_events": 24,
+        "pending_orders": 0,
+        "portfolio_projection": "PASS",
+        "positions": 3
+      }
+    },
+    {
+      "name": "report_input_hashes",
+      "status": "PASS",
+      "summary": {
+        "checked": [
+          {
+            "actual_input_sha256": "53f3a39815197ff1fe494df891c1564f08c940d924738f6b17441cbf6be31e6d",
+            "expected_input_sha256": "53f3a39815197ff1fe494df891c1564f08c940d924738f6b17441cbf6be31e6d",
+            "input": "data/inbox/2026-07-24.json",
+            "report": "reports/daily/2026-07-24-short.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "expected_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "input": "data/inbox/2026-07-19.json",
+            "report": "reports/daily/2026-07-19-long.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "681123dd6ca95f01ec21415be142bb78aac7b3c70d4a1b6a261d91cfcd2b2ee5",
+            "expected_input_sha256": "681123dd6ca95f01ec21415be142bb78aac7b3c70d4a1b6a261d91cfcd2b2ee5",
+            "input": "data/inbox/2026-07-24-funds.json",
+            "report": "reports/funds/2026-07-24-funds.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "e927a7b36ed270af3cf879a383304e3db2b71a0df7df1bf2a39bf3982503440b",
+            "expected_input_sha256": "e927a7b36ed270af3cf879a383304e3db2b71a0df7df1bf2a39bf3982503440b",
+            "input": "data/inbox/2026-07-27-intraday.json",
+            "report": "reports/execution/2026-07-27-intraday.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          }
+        ],
+        "heartbeat_input": "data/inbox/2026-07-27-intraday.json",
+        "heartbeat_report": "reports/execution/2026-07-27-intraday.json"
+      }
+    },
+    {
+      "name": "deepseek_budget",
+      "status": "PASS",
+      "summary": {
+        "actual_calls": 0,
+        "called_deepseek": false,
+        "remaining_cny": 100.0,
+        "reserved_cny": 100.0,
+        "spent_cny": 0
+      }
+    }
+  ],
+  "created_at_utc": "2026-07-27T10:00:14.830210+00:00",
+  "heartbeat": {
+    "input_sha256": "e927a7b36ed270af3cf879a383304e3db2b71a0df7df1bf2a39bf3982503440b",
+    "last_success_at": "2026-07-27T05:01:40.216440+00:00",
+    "mode": "intraday_settlement",
+    "run_date": "2026-07-27",
+    "run_id": "f3efcca3b01249b6bd1271fc5469602e",
+    "status": "ACTIVE"
+  },
+  "heartbeat_sha256": "8672d178e5cd9baf91cc547299a808bad645c2937875cffcba69611f873ced6b",
+  "latest_success_at_shanghai": "2026-07-27T13:01:40.216440+08:00",
+  "parse_errors": [],
+  "preexisting_worktree_changes": [
+    "?? reports/skill-memory/reviews/2026-07-26/"
+  ],
+  "protected_tracked_content": {
+    "aggregate_sha256": "39a16ad678d59d38867deb145eae51ae25fc44fc0baa75b0615561b7f8b94da4",
+    "excluded_prefixes": [
+      "reports/monitor/",
+      "reports/automation-runs/activity-monitor/"
+    ],
+    "file_count": 224
+  },
+  "readonly_scope": {
+    "deepseek_called": false,
+    "no_heartbeat_refresh": true,
+    "no_market_snapshot": true,
+    "no_order_or_position_write": true,
+    "no_strategy_or_historical_report_write": true
+  },
+  "run_timestamp": "2026-07-27 18:00:14 CST",
+  "schema_version": 1,
+  "simulation_only": true,
+  "status_command": {
+    "decision_report_count": 8,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 3,
+    "heartbeat_age_hours": 4.978,
+    "last_filled_trade_date": "2026-07-27",
+    "last_mode": "intraday_settlement",
+    "last_run_date": "2026-07-27",
+    "last_run_id": "f3efcca3b01249b6bd1271fc5469602e",
+    "last_success_at": "2026-07-27T05:01:40.216440+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 0,
+    "positions": 3,
+    "project_equity_cny": 30099.8,
+    "status": "ACTIVE",
+    "total_pnl_cny": 99.8,
+    "total_return_pct": 0.0033266666666666423
+  },
+  "task_id": "activity-monitor",
+  "task_status": "FAILED"
+}
