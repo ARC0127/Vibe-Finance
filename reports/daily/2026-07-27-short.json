@@ -1,0 +1,409 @@
+{
+  "as_of": "2026-07-27T16:30:00+08:00",
+  "blocks": [],
+  "daily_execution_status": "ORDER_SCHEDULED",
+  "fills": [],
+  "input_sha256": "306cb5e8b66bf7299a59b3965fd243b83d30c4d39c4e375d6d3647c7ed35c46c",
+  "mode": "short",
+  "new_orders": [
+    {
+      "exposure_group": "csi500",
+      "limit_price": 7.84189,
+      "lot_size": 100,
+      "name": "南方中证500ETF",
+      "order_id": "66a6b66b9bc24c66a189582afe4496e9",
+      "quantity": 100,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-27T16:30:00+08:00",
+      "signal_close": 7.726,
+      "signal_date": "2026-07-27",
+      "signal_score": 1.0239894,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "510500"
+    },
+    {
+      "exposure_group": "star50",
+      "limit_price": 1.939665,
+      "lot_size": 100,
+      "name": "华夏上证科创板50成份ETF",
+      "order_id": "1ef95d5dc72b4896a5db32ed5d19ffd8",
+      "quantity": 1200,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-27T16:30:00+08:00",
+      "signal_close": 1.911,
+      "signal_date": "2026-07-27",
+      "signal_score": 1.0137931,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "588000"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "large_cap_value",
+      "metrics": {
+        "ma20": 3.06,
+        "ma5": 3.0705999999999998,
+        "max_drawdown20": -0.01166558651976668,
+        "return20": 0.01563019620884587,
+        "volatility20": 0.18125992011252123
+      },
+      "name": "华夏上证50ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "core_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "510050",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.18959230142769293,
+      "exposure_group": "csi300",
+      "metrics": {
+        "ma20": 4.7405,
+        "ma5": 4.7585999999999995,
+        "max_drawdown20": -0.017965322749112222,
+        "return20": 0.02215053763440844,
+        "volatility20": 0.2513600903716371
+      },
+      "name": "华泰柏瑞沪深300ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION"
+      ],
+      "risk_bucket": "core_equity",
+      "score": 1.26106148,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 2,
+      "symbol": "510300",
+      "target_weight": 0.0
+    },
+    {
+      "action": "ADD",
+      "asset_type": "equity_etf",
+      "current_weight": 0.07704555653431283,
+      "exposure_group": "csi500",
+      "metrics": {
+        "ma20": 7.6610000000000005,
+        "ma5": 7.708,
+        "max_drawdown20": -0.03169917864476379,
+        "return20": 0.04039859951521674,
+        "volatility20": 0.4092033775239045
+      },
+      "name": "南方中证500ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "score": 1.0239894,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 2,
+      "symbol": "510500",
+      "target_weight": 0.1027274087124171
+    },
+    {
+      "action": "HOLD",
+      "asset_type": "equity_etf",
+      "current_weight": 0.07791646583675436,
+      "exposure_group": "csi1000",
+      "metrics": {
+        "ma20": 2.886333333333333,
+        "ma5": 2.9,
+        "max_drawdown20": -0.03443573133310607,
+        "return20": 0.039744499645138376,
+        "volatility20": 0.4252678135181877
+      },
+      "name": "南方中证1000ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "512100",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "chinext",
+      "metrics": {
+        "ma20": 3.5814999999999997,
+        "ma5": 3.6024000000000003,
+        "max_drawdown20": -0.054192504718252876,
+        "return20": 0.038826574633304745,
+        "volatility20": 0.5814237998284199
+      },
+      "name": "易方达创业板ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "159915",
+      "target_weight": 0.0
+    },
+    {
+      "action": "BUY",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "star50",
+      "metrics": {
+        "ma20": 1.9116666666666664,
+        "ma5": 1.9309999999999998,
+        "max_drawdown20": -0.06498015873015872,
+        "return20": 0.05289256198347103,
+        "volatility20": 0.8359239686020158
+      },
+      "name": "华夏上证科创板50成份ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY"
+      ],
+      "risk_bucket": "industry_equity",
+      "score": 1.0137931,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 2,
+      "symbol": "588000",
+      "target_weight": 0.07622783253278374
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "dividend",
+      "metrics": {
+        "ma20": 3.2391666666666663,
+        "ma5": 3.2385999999999995,
+        "max_drawdown20": -0.017378048780487765,
+        "return20": -0.0030845157310301907,
+        "volatility20": 0.19204239965522515
+      },
+      "name": "华泰柏瑞上证红利ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "MAXIMUM_NEW_BUYS_REACHED"
+      ],
+      "risk_bucket": "dividend_equity",
+      "score": 1.00279243,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 2,
+      "symbol": "510880",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "semiconductor",
+      "metrics": {
+        "ma20": 1.1131666666666666,
+        "ma5": 1.1278000000000001,
+        "max_drawdown20": -0.03993055555555536,
+        "return20": 0.08076923076923093,
+        "volatility20": 0.7237852804853394
+      },
+      "name": "国联安半导体ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "MAXIMUM_NEW_BUYS_REACHED"
+      ],
+      "risk_bucket": "industry_equity",
+      "score": 1.0098832,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 2,
+      "symbol": "512480",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "healthcare",
+      "metrics": {
+        "ma20": 0.324,
+        "ma5": 0.3236,
+        "max_drawdown20": -0.03963414634146345,
+        "return20": -0.00920245398773012,
+        "volatility20": 0.2894184501917381
+      },
+      "name": "华宝中证医疗ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "industry_equity",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "512170",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "equity_etf",
+      "current_weight": 0.0,
+      "exposure_group": "consumer",
+      "metrics": {
+        "ma20": 0.6678333333333334,
+        "ma5": 0.6662000000000001,
+        "max_drawdown20": -0.029585798816568087,
+        "return20": -0.019230769230769273,
+        "volatility20": 0.17969626992208795
+      },
+      "name": "汇添富中证主要消费ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "MAXIMUM_NEW_BUYS_REACHED"
+      ],
+      "risk_bucket": "industry_equity",
+      "score": 1.01067073,
+      "signal_type": "COLD_START_TREND",
+      "source_count": 2,
+      "symbol": "159928",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "gold_etf",
+      "current_weight": 0.0,
+      "exposure_group": "gold",
+      "metrics": {
+        "ma20": 8.4655,
+        "ma5": 8.495000000000001,
+        "max_drawdown20": -0.02044392523364491,
+        "return20": 0.02212070209184902,
+        "volatility20": 0.21944393893675612
+      },
+      "name": "华安黄金易ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "gold",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "518880",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "bond_etf",
+      "current_weight": 0.0,
+      "exposure_group": "government_bond_5y",
+      "metrics": {
+        "ma20": 140.85333333333332,
+        "ma5": 140.86100000000002,
+        "max_drawdown20": -0.00041164238213187154,
+        "return20": 0.0001846394205162749,
+        "volatility20": 0.004432473745172141
+      },
+      "name": "国泰上证5年期国债ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "fixed_income",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "511010",
+      "target_weight": 0.0
+    },
+    {
+      "action": "WATCH",
+      "asset_type": "cash_etf",
+      "current_weight": 0.0,
+      "exposure_group": "cash_management",
+      "metrics": {
+        "ma20": 100.63833333333334,
+        "ma5": 100.6404,
+        "max_drawdown20": -0.00018876547380120012,
+        "return20": 6.956314345907266e-05,
+        "volatility20": 0.0018247326128358284
+      },
+      "name": "银华日利ETF",
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "TREND_NOT_CONFIRMED"
+      ],
+      "risk_bucket": "cash_management",
+      "score": 0.0,
+      "signal_type": "NONE",
+      "source_count": 2,
+      "symbol": "511880",
+      "target_weight": 0.0
+    }
+  ],
+  "run_date": "2026-07-27",
+  "run_id": "6739d16399484cf78de7359c649a0893",
+  "schema_version": 1,
+  "strategy_sha256": "5442872f760cb3ad535caee4341f34c16957beda8520203981171dd4d35e3346",
+  "valuation": {
+    "blocks": [],
+    "cash_cny": 19718.1,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 30083.5,
+    "mark_status": "COMPLETE",
+    "position_marks": {
+      "510300": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 5703.6,
+        "price": "4.753",
+        "price_as_of": "2026-07-27T16:14:42+08:00",
+        "quantity": "1200"
+      },
+      "510500": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2317.8,
+        "price": "7.726",
+        "price_as_of": "2026-07-27T16:14:59+08:00",
+        "quantity": "300"
+      },
+      "512100": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2344.0,
+        "price": "2.93",
+        "price_as_of": "2026-07-27T16:14:47+08:00",
+        "quantity": "800"
+      }
+    },
+    "positions_cny": 10365.4,
+    "project_equity_cny": 30183.5,
+    "stale_symbols": []
+  }
+}
