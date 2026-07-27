@@ -16,6 +16,7 @@ from .evolution import (
     REPO_ROOT as EVOLUTION_REPO_ROOT,
     pipeline_event_payload_sha256,
 )
+from .file_lock import fsync_directory
 from .transaction import (
     inspect_transaction_state,
     locked_state,
@@ -83,11 +84,7 @@ def _atomic_json(path: Path, value: dict[str, Any]) -> None:
         os.fsync(handle.fileno())
         temp_name = handle.name
     os.replace(temp_name, path)
-    descriptor = os.open(path.parent, os.O_RDONLY)
-    try:
-        os.fsync(descriptor)
-    finally:
-        os.close(descriptor)
+    fsync_directory(path.parent)
 
 
 def _atomic_text(path: Path, value: str) -> None:
@@ -100,11 +97,7 @@ def _atomic_text(path: Path, value: str) -> None:
         os.fsync(handle.fileno())
         temp_name = handle.name
     os.replace(temp_name, path)
-    descriptor = os.open(path.parent, os.O_RDONLY)
-    try:
-        os.fsync(descriptor)
-    finally:
-        os.close(descriptor)
+    fsync_directory(path.parent)
 
 
 def _append_jsonl(path: Path, value: dict[str, Any]) -> None:

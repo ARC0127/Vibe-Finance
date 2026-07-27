@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import fcntl
 import hashlib
 import json
 import os
+import re
 import tempfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -17,6 +17,7 @@ from .evolution import (
     verify_event_ledger,
     verify_portfolio_projection,
 )
+from .file_lock import advisory_file_lock, fsync_directory
 
 
 class TransactionError(RuntimeError):
@@ -24,6 +25,22 @@ class TransactionError(RuntimeError):
 
 
 FaultHook = Callable[[str], None]
+
+
+def _runtime_path(value: Any) -> Path:
+    raw = str(value)
+    normalized = raw.replace("\\", "/")
+    if os.name == "nt":
+        match = re.fullmatch(r"/mnt/([A-Za-z])(?:/(.*))?", normalized)
+        if match:
+            drive, tail = match.groups()
+            return Path(f"{drive.upper()}:/" + (tail or ""))
+    else:
+        match = re.fullmatch(r"(?://\?/)?([A-Za-z]):(?:/(.*))?", normalized)
+        if match:
+            drive, tail = match.groups()
+            return Path("/mnt") / drive.lower() / (tail or "")
+    return Path(raw)
 
 
 def _json_bytes(value: dict[str, Any]) -> bytes:
@@ -45,14 +62,6 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _fsync_directory(path: Path) -> None:
-    descriptor = os.open(path, os.O_RDONLY)
-    try:
-        os.fsync(descriptor)
-    finally:
-        os.close(descriptor)
-
-
 def _durable_replace(path: Path, payload: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temp_name = tempfile.mkstemp(dir=path.parent)
@@ -62,7 +71,7 @@ def _durable_replace(path: Path, payload: bytes) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temp_name, path)
-        _fsync_directory(path.parent)
+        fsync_directory(path.parent)
     except BaseException:
         try:
             os.unlink(temp_name)
@@ -86,7 +95,7 @@ def _publish_immutable(path: Path, payload: bytes) -> None:
         os.fsync(descriptor)
     finally:
         os.close(descriptor)
-    _fsync_directory(path.parent)
+    fsync_directory(path.parent)
 
 
 def state_lock_path(ledger_path: Path) -> Path:
@@ -101,9 +110,7 @@ def state_lock_path(ledger_path: Path) -> Path:
 @contextmanager
 def locked_state(ledger_path: Path, *, exclusive: bool) -> Iterator[None]:
     path = state_lock_path(ledger_path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a+b") as handle:
-        fcntl.flock(handle.fileno(), fcntl.LOCK_EX if exclusive else fcntl.LOCK_SH)
+    with advisory_file_lock(path, exclusive=exclusive):
         yield
 
 
@@ -208,8 +215,8 @@ def recover_run_transaction(
     if commit_path.exists():
         return _load_object(commit_path)
 
-    ledger_path = Path(str(prepare["ledger_path"]))
-    orders_log = Path(str(prepare["orders_log"]))
+    ledger_path = _runtime_path(prepare["ledger_path"])
+    orders_log = _runtime_path(prepare["orders_log"])
     verified = verify_event_ledger(orders_log)
     base_count = int(prepare["base_event_count"])
     planned = prepare.get("events", [])
@@ -252,18 +259,18 @@ def recover_run_transaction(
         raise TransactionError("portfolio differs from both prepared before and after images")
     _fault(fault_hook, "after_portfolio")
 
-    decision_path = Path(str(prepare["decision_path"]))
+    decision_path = _runtime_path(prepare["decision_path"])
     decision_payload = _json_bytes(prepare["decision"])
     _publish_immutable(decision_path, decision_payload)
     _fault(fault_hook, "after_decision")
-    report_path = Path(str(prepare["report_path"]))
+    report_path = _runtime_path(prepare["report_path"])
     report_payload = str(prepare["report_text"]).encode("utf-8")
     _publish_immutable(report_path, report_payload)
     _fault(fault_hook, "after_report")
 
     committed_auxiliary: list[dict[str, Any]] = []
     for item in prepare.get("auxiliary_files", []):
-        path = Path(str(item["path"]))
+        path = _runtime_path(item["path"])
         payload = str(item["after_text"]).encode("utf-8")
         after_sha = str(item["after_sha256"])
         if _sha256_bytes(payload) != after_sha:
@@ -283,7 +290,7 @@ def recover_run_transaction(
 
     post_events = verify_event_ledger(orders_log)
     projection = verify_portfolio_projection(post_events["_events"], ledger_path)
-    heartbeat_path = Path(str(prepare["heartbeat_path"]))
+    heartbeat_path = _runtime_path(prepare["heartbeat_path"])
     heartbeat_payload = _json_bytes(prepare["heartbeat"])
     _durable_replace(heartbeat_path, heartbeat_payload)
     _fault(fault_hook, "after_heartbeat")
@@ -364,9 +371,9 @@ def inspect_transaction_state(ledger_path: Path) -> dict[str, Any]:
     _, _, latest = max(committed, key=lambda item: item[0])
     checks = (
         (ledger_path, latest.get("portfolio_sha256")),
-        (Path(str(latest.get("decision_path"))), latest.get("decision_sha256")),
-        (Path(str(latest.get("report_path"))), latest.get("report_sha256")),
-        (Path(str(latest.get("heartbeat_path"))), latest.get("heartbeat_sha256")),
+        (_runtime_path(latest.get("decision_path")), latest.get("decision_sha256")),
+        (_runtime_path(latest.get("report_path")), latest.get("report_sha256")),
+        (_runtime_path(latest.get("heartbeat_path")), latest.get("heartbeat_sha256")),
     )
     for path, expected in checks:
         if not path.exists() or _sha256_file(path) != expected:
@@ -377,7 +384,7 @@ def inspect_transaction_state(ledger_path: Path) -> dict[str, Any]:
                 "recoverable": False,
             }
     for item in latest.get("auxiliary_files", []):
-        path = Path(str(item.get("path")))
+        path = _runtime_path(item.get("path"))
         if not path.exists() or _sha256_file(path) != item.get("sha256"):
             return {
                 "status": "INCOMPLETE",

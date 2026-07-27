@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import copy
-import fcntl
 import hashlib
 import json
 import os
@@ -12,6 +11,8 @@ from datetime import datetime, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
+
+from .file_lock import advisory_file_lock
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -149,7 +150,15 @@ def _verify_git_bound_file(repo_root: Path, relative: Any, expected_sha: Any) ->
     _require_git_metadata(repo_root)
     try:
         committed = subprocess.check_output(
-            ["git", "-C", str(repo_root), "show", f"HEAD:{git_relative}"],
+            [
+                "git",
+                "-C",
+                str(repo_root),
+                "cat-file",
+                "--filters",
+                f"--path={git_relative}",
+                f"HEAD:{git_relative}",
+            ],
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as error:
@@ -453,8 +462,7 @@ def append_order_event(
         lock_path.parent.mkdir(parents=True, exist_ok=True)
     else:
         lock_path = ledger_path.with_suffix(ledger_path.suffix + ".lock")
-    with lock_path.open("a+b") as lock_handle:
-        fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX)
+    with advisory_file_lock(lock_path, exclusive=True):
         verified = verify_event_ledger(ledger_path, anchor_path=anchor_path, repo_root=repo_root)
         if event_id is not None:
             if not isinstance(event_id, str) or not event_id:

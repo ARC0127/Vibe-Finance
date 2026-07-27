@@ -10,6 +10,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
 
+from .file_lock import fsync_directory
 from .candidate_strategies import (
     CANDIDATE_SYMBOLS,
     DEFAULT_CANDIDATE_MANIFEST,
@@ -538,11 +539,7 @@ def write_synthetic_evaluation_artifact(
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary_name, path)
-        directory_fd = os.open(path.parent, os.O_RDONLY)
-        try:
-            os.fsync(directory_fd)
-        finally:
-            os.close(directory_fd)
+        fsync_directory(path.parent)
     except Exception:
         try:
             os.unlink(temporary_name)

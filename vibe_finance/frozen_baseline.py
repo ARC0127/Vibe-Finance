@@ -12,6 +12,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from .file_lock import fsync_directory
+
 
 class FrozenBaselineError(ValueError):
     """The immutable B0 source contract cannot be proven from repository history."""
@@ -340,11 +342,7 @@ def _write_immutable_json(path: Path, value: dict[str, Any]) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary_name, path)
-        directory_fd = os.open(path.parent, os.O_RDONLY)
-        try:
-            os.fsync(directory_fd)
-        finally:
-            os.close(directory_fd)
+        fsync_directory(path.parent)
     except Exception:
         try:
             os.unlink(temporary_name)

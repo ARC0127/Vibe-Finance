@@ -9,6 +9,8 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+from .file_lock import fsync_directory
+
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_EVALUATION_MANIFEST = REPOSITORY_ROOT / "config/evaluation/b0-b1-b2-v1.json"
@@ -130,11 +132,7 @@ def write_readiness_artifact(path: Path, result: dict[str, Any]) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary_name, path)
-        directory_fd = os.open(path.parent, os.O_RDONLY)
-        try:
-            os.fsync(directory_fd)
-        finally:
-            os.close(directory_fd)
+        fsync_directory(path.parent)
     except Exception:
         try:
             os.unlink(temporary_name)

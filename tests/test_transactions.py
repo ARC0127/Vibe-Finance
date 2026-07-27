@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -20,6 +21,7 @@ from vibe_finance.pipeline import (
 )
 from vibe_finance.transaction import (
     TransactionError,
+    _runtime_path,
     inspect_transaction_state,
     locked_state,
     prepare_run_transaction,
@@ -28,6 +30,18 @@ from vibe_finance.transaction import (
 
 
 class TransactionTests(unittest.TestCase):
+    def test_runtime_path_maps_windows_and_wsl_mounts(self) -> None:
+        if os.name == "nt":
+            self.assertEqual(
+                _runtime_path("/mnt/f/Git/Vibe Finance/report.json"),
+                Path("F:/Git/Vibe Finance/report.json"),
+            )
+        else:
+            self.assertEqual(
+                _runtime_path(r"\\?\F:\Git\Vibe Finance\report.json"),
+                Path("/mnt/f/Git/Vibe Finance/report.json"),
+            )
+
     def test_failed_verification_does_not_leave_orphan_transaction_directory(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

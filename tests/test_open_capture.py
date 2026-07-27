@@ -243,6 +243,61 @@ class OpenCaptureTests(unittest.TestCase):
                 )
             self.assertFalse(output.exists())
 
+    def test_capture_retries_transient_fetch_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            strategy_path, universe_path, base_path, ledger_path = self._fixture(root)
+            output = root / "open.json"
+            attempts: dict[str, int] = {}
+            delays: list[float] = []
+
+            def flaky_fetch(source_id: str, url: str, timeout: float) -> bytes:
+                attempts[source_id] = attempts.get(source_id, 0) + 1
+                if source_id == "tencent_finance" and attempts[source_id] == 1:
+                    raise TimeoutError("transient TLS timeout")
+                return self._fetch(source_id, url, timeout)
+
+            capture_open_snapshot(
+                base_snapshot_path=base_path,
+                output_path=output,
+                strategy_path=strategy_path,
+                universe_path=universe_path,
+                ledger_path=ledger_path,
+                now=datetime(2026, 7, 23, 9, 30, 10, tzinfo=SHANGHAI),
+                fetch=flaky_fetch,
+                sleeper=delays.append,
+            )
+
+            self.assertEqual(attempts, {"tencent_finance": 2, "sina_finance": 1})
+            self.assertEqual(delays, [0.25])
+            self.assertTrue(output.exists())
+
+    def test_capture_refuses_fetch_that_finishes_after_window(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            strategy_path, universe_path, base_path, ledger_path = self._fixture(root)
+            output = root / "open.json"
+            times = iter(
+                [
+                    datetime(2026, 7, 23, 9, 34, 59, tzinfo=SHANGHAI),
+                    datetime(2026, 7, 23, 9, 34, 59, tzinfo=SHANGHAI),
+                    datetime(2026, 7, 23, 9, 35, 1, tzinfo=SHANGHAI),
+                ]
+            )
+
+            with self.assertRaisesRegex(OpenCaptureError, "outside"):
+                capture_open_snapshot(
+                    base_snapshot_path=base_path,
+                    output_path=output,
+                    strategy_path=strategy_path,
+                    universe_path=universe_path,
+                    ledger_path=ledger_path,
+                    clock=lambda: next(times),
+                    fetch=self._fetch,
+                )
+
+            self.assertFalse(output.exists())
+
     def test_pending_order_requires_primary_identity_and_action_gates(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

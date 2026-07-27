@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import time as time_module
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, time
@@ -11,6 +12,8 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any, Callable
 from zoneinfo import ZoneInfo
+
+from .file_lock import fsync_directory
 
 
 DEFAULT_STRATEGY = Path("config/strategy.json")
@@ -44,6 +47,8 @@ class Quote:
 
 
 Fetch = Callable[[str, str, float], bytes]
+Clock = Callable[[], datetime]
+Sleeper = Callable[[float], None]
 
 
 def _read_object(path: Path) -> dict[str, Any]:
@@ -200,6 +205,71 @@ def _write_json_exclusive(path: Path, value: dict[str, Any]) -> None:
             os.fsync(handle.fileno())
     except FileExistsError as exc:
         raise OpenCaptureError(f"refusing to overwrite immutable snapshot: {path}") from exc
+    fsync_directory(path.parent)
+
+
+def _capture_clock_in_window(
+    clock: Clock,
+    *,
+    run_date: str,
+    window_start: time,
+    window_end: time,
+) -> datetime:
+    observed = clock().astimezone(SHANGHAI)
+    observed_clock = observed.time().replace(tzinfo=None)
+    if observed.date().isoformat() != run_date or not (
+        window_start <= observed_clock <= window_end
+    ):
+        raise OpenCaptureError("capture attempted outside the 09:30-09:35 Asia/Shanghai window")
+    return observed
+
+
+def _fetch_with_retry(
+    source_id: str,
+    url: str,
+    timeout: float,
+    *,
+    attempts: int,
+    retry_delay: float,
+    fetch: Fetch,
+    clock: Clock,
+    sleeper: Sleeper,
+    run_date: str,
+    window_start: time,
+    window_end: time,
+) -> tuple[bytes, datetime]:
+    last_error: OSError | None = None
+    for attempt in range(1, attempts + 1):
+        _capture_clock_in_window(
+            clock,
+            run_date=run_date,
+            window_start=window_start,
+            window_end=window_end,
+        )
+        try:
+            payload = fetch(source_id, url, timeout)
+        except OSError as exc:
+            last_error = exc
+            if attempt == attempts:
+                break
+            _capture_clock_in_window(
+                clock,
+                run_date=run_date,
+                window_start=window_start,
+                window_end=window_end,
+            )
+            sleeper(retry_delay * attempt)
+            continue
+        accessed_at = _capture_clock_in_window(
+            clock,
+            run_date=run_date,
+            window_start=window_start,
+            window_end=window_end,
+        )
+        return payload, accessed_at
+    raise OpenCaptureError(
+        f"{source_id} fetch failed after {attempts} attempts: {last_error}"
+    ) from last_error
 
 
 def capture_open_snapshot(
@@ -211,6 +281,8 @@ def capture_open_snapshot(
     ledger_path: Path = DEFAULT_LEDGER,
     now: datetime | None = None,
     fetch: Fetch = _default_fetch,
+    clock: Clock | None = None,
+    sleeper: Sleeper = time_module.sleep,
 ) -> dict[str, Any]:
     """Capture and immutably seal two-source opens inside the configured window."""
     if output_path.exists():
@@ -224,25 +296,49 @@ def capture_open_snapshot(
     if source_ids != ["tencent_finance", "sina_finance"]:
         raise OpenCaptureError("open_capture.source_ids must pin Tencent then Sina")
 
-    captured_at = (now or datetime.now(SHANGHAI)).astimezone(SHANGHAI)
+    capture_clock: Clock
+    if clock is not None:
+        capture_clock = clock
+    elif now is not None:
+        capture_clock = lambda: now
+    else:
+        capture_clock = lambda: datetime.now(SHANGHAI)
     run_date = str(base.get("run_date", ""))
-    if captured_at.date().isoformat() != run_date:
-        raise OpenCaptureError("capture date does not match base snapshot run_date")
     window_start = _parse_clock(str(rules.get("window_start", "09:30:00")), "window_start")
     window_end = _parse_clock(str(rules.get("window_end", "09:35:00")), "window_end")
-    if not window_start <= captured_at.time().replace(tzinfo=None) <= window_end:
-        raise OpenCaptureError("capture attempted outside the 09:30-09:35 Asia/Shanghai window")
+    _capture_clock_in_window(
+        capture_clock,
+        run_date=run_date,
+        window_start=window_start,
+        window_end=window_end,
+    )
 
     symbols, metadata = _required_assets(base, universe, ledger, strategy)
     timeout = min(max(float(rules.get("request_timeout_seconds", 5.0)), 0.1), 10.0)
+    attempts = min(max(int(rules.get("request_attempts", 3)), 1), 5)
+    retry_delay = min(max(float(rules.get("retry_delay_seconds", 0.25)), 0.0), 2.0)
     raw_payloads: dict[str, bytes] = {}
     quote_sets: dict[str, dict[str, Quote]] = {}
     urls: dict[str, str] = {}
+    access_times: dict[str, datetime] = {}
     for source_id in source_ids:
         url = _quote_url(source_id, symbols)
-        raw = fetch(source_id, url, timeout)
+        raw, accessed_at = _fetch_with_retry(
+            source_id,
+            url,
+            timeout,
+            attempts=attempts,
+            retry_delay=retry_delay,
+            fetch=fetch,
+            clock=capture_clock,
+            sleeper=sleeper,
+            run_date=run_date,
+            window_start=window_start,
+            window_end=window_end,
+        )
         raw_payloads[source_id] = raw
         urls[source_id] = url
+        access_times[source_id] = accessed_at
         quote_sets[source_id] = (
             _parse_tencent(raw) if source_id == "tencent_finance" else _parse_sina(raw)
         )
@@ -269,7 +365,7 @@ def capture_open_snapshot(
                 window_start <= quote_clock <= window_end
             ):
                 raise OpenCaptureError(f"source timestamp is outside the open window: {symbol}")
-            if quote.observed_at > captured_at:
+            if quote.observed_at > access_times[quote.source_id]:
                 raise OpenCaptureError(f"source timestamp is in the future: {symbol}")
             if quote.volume <= 0:
                 raise OpenCaptureError(f"non-positive opening volume: {symbol}")
@@ -345,7 +441,7 @@ def capture_open_snapshot(
         {
             "id": source_id,
             "url": urls[source_id],
-            "accessed_at": captured_at.isoformat(),
+            "accessed_at": access_times[source_id].isoformat(),
             "response_sha256": hashlib.sha256(raw_payloads[source_id]).hexdigest(),
             "tier": "C",
         }
