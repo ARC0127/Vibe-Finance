@@ -138,6 +138,10 @@ class OpenCaptureTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             strategy_path, universe_path, base_path, ledger_path = self._fixture(root)
+            base = json.loads(base_path.read_text(encoding="utf-8"))
+            base["assets"][0]["close"] = 8.500
+            base["assets"][0]["history"] = [8.500]
+            base_path.write_text(json.dumps(base), encoding="utf-8")
             output = root / "open.json"
             result = capture_open_snapshot(
                 base_snapshot_path=base_path,
@@ -151,6 +155,9 @@ class OpenCaptureTests(unittest.TestCase):
             self.assertEqual(result["status"], "SEALED")
             self.assertEqual(result["symbols"], ["511010", "511880", "518880"])
             snapshot = json.loads(output.read_text(encoding="utf-8"))
+            gold = next(asset for asset in snapshot["assets"] if asset["symbol"] == "518880")
+            self.assertEqual(gold["history"], [8.500])
+            self.assertEqual(gold["close"], 8.560)
             self.assertEqual(
                 {asset["asset_type"] for asset in snapshot["assets"]},
                 {"gold_etf", "bond_etf", "cash_etf"},

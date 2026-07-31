@@ -381,7 +381,15 @@ def validate_snapshot(
             ):
                 raise DataGateError(f"{symbol} open_source_ids 未达到双源门禁")
         history = asset.get("history", [])
-        if history and abs(float(history[-1]) - float(asset["close"])) > 1e-8:
+        opening_execution_snapshot = (
+            snapshot.get("market_state") in {"open", "opening_auction_complete"}
+            and asset.get("open") is not None
+        )
+        if (
+            history
+            and not opening_execution_snapshot
+            and abs(float(history[-1]) - float(asset["close"])) > 1e-8
+        ):
             raise DataGateError(f"{symbol} history 末值与 close 不一致")
         corporate_actions = asset.get("corporate_actions", [])
         if not isinstance(corporate_actions, list):

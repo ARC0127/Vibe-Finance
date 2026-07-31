@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "task_id": "intraday-recovery-release",
+  "task_status": "PASS_OPEN_VALIDATION_REPAIR",
+  "run_timestamp": "2026-07-31 09:40:10 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "dcfef4dc76bd34a6c532b90acd5b5a44e01b501b",
+  "allowlist": [
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "config/strategy.json",
+    "config/task_contracts.json",
+    "data/inbox",
+    "data/ledger",
+    "docs/AUTOMATION.md",
+    "docs/STOCK_FUND_STRATEGY.md",
+    "reports/execution",
+    "scripts/sync_github.sh",
+    "tests",
+    "vibe_finance"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "tests/test_open_capture.py",
+      "bytes": 14863,
+      "sha256": "05a984751f4395ad13e21a481f45367f22dc450216e088b6f27d74a056f42232"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_pipeline.py",
+      "bytes": 48103,
+      "sha256": "8cc386302b2c3d002da36c6c310d578e347810dda4c7532eed9e36d0bec86c6a"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/pipeline.py",
+      "bytes": 140144,
+      "sha256": "2cb585d8c4f065402e77d96eed1058844caf6b3088ec5bf3c5dc87f4f8f5ed68"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-07-31T01:40:10.920671+00:00",
+  "simulation_only": true
+}

@@ -175,6 +175,11 @@ class PipelineTests(unittest.TestCase):
         with self.assertRaisesRegex(DataGateError, "evidence"):
             validate_snapshot(future_evidence, strategy)
 
+        mismatched_history = snapshot("2026-07-17", trading=True)
+        mismatched_history["assets"][0]["history"][-1] -= 1
+        with self.assertRaisesRegex(DataGateError, "history 末值与 close 不一致"):
+            validate_snapshot(mismatched_history, strategy)
+
     def test_schema_v1_remains_readable_but_unscoped_prices_are_blocked(self) -> None:
         strategy = json.loads(STRATEGY_PATH.read_text(encoding="utf-8"))
         value = snapshot("2026-07-17", trading=True)
