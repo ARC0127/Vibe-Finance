@@ -1,0 +1,88 @@
+{
+  "as_of": "2026-07-31T09:32:41+08:00",
+  "blocks": [
+    "DAILY_TRADE_REQUIREMENT_MISSED"
+  ],
+  "daily_execution_status": "FAILED_NO_FILL",
+  "events": [
+    {
+      "cancellation_reason": "OPEN_ABOVE_LIMIT",
+      "exposure_group": "consumer",
+      "limit_price": 0.672945,
+      "lot_size": 100,
+      "name": "汇添富中证主要消费ETF",
+      "order_id": "6f82a915f2ae48a18b1151d579c700ea",
+      "quantity": 3300,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-07-29T08:00:00+08:00",
+      "signal_close": 0.663,
+      "signal_date": "2026-07-29",
+      "signal_score": 1.01067073,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "CANCELLED_LIMIT_OR_CASH",
+      "symbol": "159928"
+    }
+  ],
+  "input_sha256": "4659586293a8ed4432dff7ec982bfccaeb63465befd3d06835b9b61d7bc4e595",
+  "mode": "open_settlement",
+  "pending_after": 0,
+  "pending_before": 1,
+  "run_date": "2026-07-31",
+  "run_id": "1d79f247235a4b238cda712c78cf1d6a",
+  "schema_version": 1,
+  "strategy_sha256": "5442872f760cb3ad535caee4341f34c16957beda8520203981171dd4d35e3346",
+  "valuation": {
+    "blocks": [],
+    "cash_cny": 13169.4,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 29882.9,
+    "mark_status": "COMPLETE",
+    "position_marks": {
+      "510300": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 5616.0,
+        "price": "4.68",
+        "price_as_of": "2026-07-31T09:32:38+08:00",
+        "quantity": "1200"
+      },
+      "510500": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 3040.0,
+        "price": "7.6",
+        "price_as_of": "2026-07-31T09:32:40+08:00",
+        "quantity": "400"
+      },
+      "510880": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 3609.1,
+        "price": "3.281",
+        "price_as_of": "2026-07-31T09:32:40+08:00",
+        "quantity": "1100"
+      },
+      "512100": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2301.6,
+        "price": "2.877",
+        "price_as_of": "2026-07-31T09:32:40+08:00",
+        "quantity": "800"
+      },
+      "588000": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2146.8,
+        "price": "1.789",
+        "price_as_of": "2026-07-31T09:32:40+08:00",
+        "quantity": "1200"
+      }
+    },
+    "positions_cny": 16713.5,
+    "project_equity_cny": 29982.9,
+    "stale_symbols": []
+  }
+}
