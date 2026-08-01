@@ -1,0 +1,161 @@
+{
+  "alerts": [
+    {
+      "code": "LONG_REPORT_STALE",
+      "detail": "reports/daily/2026-07-19-long.json age_days=13",
+      "minimal_repair": "The weekly-review automation is ACTIVE; next automatic run is 2026-08-02T20:00:00+08:00. This monitor must not generate or rewrite the report."
+    }
+  ],
+  "automation_status": {
+    "close_analysis": {
+      "automation_id": "vibe-finance",
+      "next_automatic_run": "2026-08-03T16:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    "weekly_review": {
+      "automation_id": "vibe-finance-2",
+      "next_automatic_run": "2026-08-02T20:00:00+08:00",
+      "status": "ACTIVE"
+    }
+  },
+  "checks": [
+    {
+      "name": "status_command",
+      "status": "PASS",
+      "summary": {
+        "heartbeat_age_hours": 19.707,
+        "last_success_at": "2026-07-31T14:34:05.413413+00:00",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "name": "recent_reports",
+      "status": "FAIL",
+      "summary": {
+        "due_short_input_exists": true,
+        "due_short_report_exists": true,
+        "due_short_workday": "2026-07-31",
+        "latest_long": "reports/daily/2026-07-19-long.json",
+        "latest_long_age_days": 13,
+        "latest_short": "reports/daily/2026-07-31-short.json",
+        "weekend_no_new_short_due": true
+      }
+    },
+    {
+      "name": "ledger_parse_and_state",
+      "status": "PASS",
+      "summary": {
+        "event_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+        "json_files": 286,
+        "jsonl_files": 2,
+        "jsonl_rows": 37,
+        "ledger_events": 36,
+        "pending_orders": 2,
+        "portfolio_projection": "PASS",
+        "positions": 5
+      }
+    },
+    {
+      "name": "report_input_hashes",
+      "status": "PASS",
+      "summary": {
+        "checked": [
+          {
+            "actual_input_sha256": "13e59b80340f0c9efae8b1967262294fff4ba5f4f3acef0e1ae233310bff624f",
+            "expected_input_sha256": "13e59b80340f0c9efae8b1967262294fff4ba5f4f3acef0e1ae233310bff624f",
+            "input": "data/inbox/2026-07-31.json",
+            "report": "reports/daily/2026-07-31-short.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "expected_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "input": "data/inbox/2026-07-19.json",
+            "report": "reports/daily/2026-07-19-long.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "069a35c28f494c78b4d17e66fd600efaaebbc361d99450e0055141556d52d8e8",
+            "expected_input_sha256": "069a35c28f494c78b4d17e66fd600efaaebbc361d99450e0055141556d52d8e8",
+            "input": "data/inbox/2026-07-31-funds.json",
+            "report": "reports/funds/2026-07-31-funds.json",
+            "run_id_matches": true,
+            "status": "PASS"
+          }
+        ],
+        "heartbeat_input": "data/inbox/2026-07-31-funds.json",
+        "heartbeat_report": "reports/funds/2026-07-31-funds.json"
+      }
+    },
+    {
+      "name": "deepseek_budget",
+      "status": "PASS",
+      "summary": {
+        "actual_calls": 0,
+        "called_deepseek": false,
+        "remaining_cny": 100.0,
+        "reserved_cny": 100.0,
+        "spent_cny": 0.0
+      }
+    }
+  ],
+  "created_at_utc": "2026-08-01T10:16:34.229506+00:00",
+  "heartbeat": {
+    "input_sha256": "069a35c28f494c78b4d17e66fd600efaaebbc361d99450e0055141556d52d8e8",
+    "last_success_at": "2026-07-31T14:34:05.413413+00:00",
+    "mode": "fund_nav",
+    "run_date": "2026-07-31",
+    "run_id": "5a6126c5f8a94795a2ddcbff3cece2b8",
+    "status": "ACTIVE"
+  },
+  "heartbeat_sha256": "451a2f9264a78c4fd60f3eb7123f39b4513358042dedd639ff2485a6640291a8",
+  "latest_success_at_shanghai": "2026-07-31T22:34:05.413413+08:00",
+  "parse_errors": [],
+  "preexisting_worktree_changes": [
+    "?? reports/skill-memory/reviews/2026-07-26/"
+  ],
+  "protected_tracked_content": {
+    "aggregate_sha256": "1c4a504dc472506c252c49daee9f673c8084ed07dd311c9af804db7d45cb55d6",
+    "algorithm": "sha256(path_nul_blob_oid_lf)",
+    "excluded_prefixes": [
+      "reports/monitor/",
+      "reports/automation-runs/activity-monitor/"
+    ],
+    "file_count": 320
+  },
+  "readonly_scope": {
+    "automation_configuration_changed": false,
+    "deepseek_called": false,
+    "no_heartbeat_refresh": true,
+    "no_market_snapshot": true,
+    "no_order_or_position_write": true,
+    "no_strategy_or_historical_report_write": true
+  },
+  "run_timestamp": "2026-08-01 18:16:34 CST",
+  "schema_version": 1,
+  "simulation_only": true,
+  "status_command": {
+    "decision_report_count": 10,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 6,
+    "heartbeat_age_hours": 19.707,
+    "last_filled_trade_date": "2026-07-28",
+    "last_mode": "fund_nav",
+    "last_run_date": "2026-07-31",
+    "last_run_id": "5a6126c5f8a94795a2ddcbff3cece2b8",
+    "last_success_at": "2026-07-31T14:34:05.413413+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 2,
+    "positions": 5,
+    "project_equity_cny": 29852.2,
+    "status": "ACTIVE",
+    "total_pnl_cny": -147.8,
+    "total_return_pct": -0.004926666666666643
+  },
+  "task_id": "activity-monitor",
+  "task_status": "FAILED"
+}
