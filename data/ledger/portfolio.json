@@ -2,7 +2,7 @@
   "cash_cny": 12879.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "ff9d8b5cb9fd4511880997070d2affae",
+  "last_run_id": "69c1b79d0d4f4ec6ac6eb219c3910d12",
   "pending_orders": [
     {
       "exposure_group": "healthcare",
@@ -35,7 +35,7 @@
     "investable_value_cny": 29757.6,
     "last_filled_trade_date": "2026-08-03",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-04T16:30:00+08:00",
+    "last_valuation_as_of": "2026-08-04T22:30:00+08:00",
     "project_equity_cny": 29857.6,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": -142.4,
@@ -362,6 +362,12 @@
       "mode": "short",
       "run_date": "2026-08-04",
       "run_id": "ff9d8b5cb9fd4511880997070d2affae"
+    },
+    {
+      "input_sha256": "4b7c8e22d3082da70d9d770c8ca2163854a962bd1dae8f7e9f9ab8ae03ca5c60",
+      "mode": "fund_nav",
+      "run_date": "2026-08-04",
+      "run_id": "69c1b79d0d4f4ec6ac6eb219c3910d12"
     }
   ],
   "schema_version": 1
