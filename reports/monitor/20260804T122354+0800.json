@@ -1,0 +1,168 @@
+{
+  "alerts": [
+    {
+      "code": "LONG_REPORT_STALE",
+      "detail": "reports/daily/2026-07-19-long.json age_days=16; the scheduled 2026-08-02T20:00:00+08:00 weekly-review cycle produced no newer long report and no automation memory file",
+      "minimal_repair": "Run the existing vibe-finance-2 weekly-review automation in its own governed task. If it is not retriggered manually, its next scheduled retry point is 2026-08-09T20:00:00+08:00. This monitor must not generate or rewrite the report."
+    }
+  ],
+  "automation_status": {
+    "close_analysis": {
+      "automation_id": "vibe-finance",
+      "next_automatic_run": "2026-08-04T16:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    "weekly_review": {
+      "automation_id": "vibe-finance-2",
+      "last_scheduled_run_artifact": "MISSING",
+      "memory_file": "MISSING",
+      "next_automatic_run": "2026-08-09T20:00:00+08:00",
+      "status": "ACTIVE"
+    }
+  },
+  "checks": [
+    {
+      "name": "status_command",
+      "status": "PASS",
+      "summary": {
+        "heartbeat_age_hours": 2.892,
+        "last_success_at": "2026-08-04T01:30:23.111413+00:00",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "name": "recent_reports",
+      "status": "FAIL",
+      "summary": {
+        "current_date_before_close_analysis": true,
+        "due_short_input_exists": true,
+        "due_short_report_exists": true,
+        "due_short_workday": "2026-08-03",
+        "latest_long": "reports/daily/2026-07-19-long.json",
+        "latest_long_age_days": 16,
+        "latest_short": "reports/daily/2026-08-03-short.json",
+        "licensed_trading_calendar_status": "NOT_ACQUIRED",
+        "weekly_review_last_scheduled_artifact": "MISSING"
+      }
+    },
+    {
+      "name": "ledger_parse_and_state",
+      "status": "PASS",
+      "summary": {
+        "event_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+        "filled_event_count": 7,
+        "json_files": 329,
+        "jsonl_files": 2,
+        "jsonl_rows": 41,
+        "ledger_events": 40,
+        "pending_orders": 0,
+        "portfolio_filled_trade_count": 7,
+        "portfolio_projection": "PASS",
+        "positions": 5
+      }
+    },
+    {
+      "name": "report_input_hashes",
+      "status": "PASS",
+      "summary": {
+        "checked": [
+          {
+            "actual_input_sha256": "8047e5d67a03e7d349ea8ff316c81e81225f851c256929d0f2864a5d1d246613",
+            "expected_input_sha256": "8047e5d67a03e7d349ea8ff316c81e81225f851c256929d0f2864a5d1d246613",
+            "input": "data/inbox/2026-08-03.json",
+            "report": "reports/daily/2026-08-03-short.json",
+            "run_id_matches_portfolio_history": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "expected_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "input": "data/inbox/2026-07-19.json",
+            "report": "reports/daily/2026-07-19-long.json",
+            "run_id_matches_portfolio_history": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "d85e325fcba36109ca30693cc21e22414948e2126de44a8618de996c555420be",
+            "expected_input_sha256": "d85e325fcba36109ca30693cc21e22414948e2126de44a8618de996c555420be",
+            "input": "data/inbox/2026-08-04-open.json",
+            "report": "reports/execution/2026-08-04-open.json",
+            "run_id_matches_portfolio_history": true,
+            "status": "PASS"
+          }
+        ],
+        "heartbeat_input": "data/inbox/2026-08-04-open.json",
+        "heartbeat_report": "reports/execution/2026-08-04-open.json"
+      }
+    },
+    {
+      "name": "deepseek_budget",
+      "status": "PASS",
+      "summary": {
+        "actual_calls": 0,
+        "called_deepseek": false,
+        "remaining_cny": 100.0,
+        "reserved_cny": 100.0,
+        "spent_cny": 0.0
+      }
+    }
+  ],
+  "created_at_utc": "2026-08-04T04:23:54.210775+00:00",
+  "heartbeat": {
+    "input_sha256": "d85e325fcba36109ca30693cc21e22414948e2126de44a8618de996c555420be",
+    "last_success_at": "2026-08-04T01:30:23.111413+00:00",
+    "mode": "open_settlement",
+    "run_date": "2026-08-04",
+    "run_id": "5b608574e4524997bb0f80b2d0020676",
+    "status": "ACTIVE"
+  },
+  "heartbeat_sha256": "ebfdfb68ecad3dcb81168c4fd06e72e302bdb9b3a2b10d321975d2b2047c65fc",
+  "latest_success_at_shanghai": "2026-08-04T09:30:23.111413+08:00",
+  "parse_errors": [],
+  "preexisting_worktree_changes": [
+    "?? reports/skill-memory/reviews/2026-07-26/",
+    "?? reports/skill-memory/reviews/2026-08-02/"
+  ],
+  "protected_tracked_content": {
+    "aggregate_sha256": "b27a282452986e96ccc65bcf5f7925a20c60f561b1616faaade41c91b8f30931",
+    "algorithm": "sha256(path_nul_blob_oid_lf)",
+    "excluded_prefixes": [
+      "reports/monitor/",
+      "reports/automation-runs/activity-monitor/"
+    ],
+    "file_count": 356
+  },
+  "readonly_scope": {
+    "automation_configuration_changed": false,
+    "deepseek_called": false,
+    "no_heartbeat_refresh": true,
+    "no_market_snapshot": true,
+    "no_order_or_position_write": true,
+    "no_strategy_or_historical_report_write": true
+  },
+  "run_timestamp": "2026-08-04 12:23:54 CST",
+  "schema_version": 1,
+  "simulation_only": true,
+  "status_command": {
+    "decision_report_count": 11,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 7,
+    "heartbeat_age_hours": 2.892,
+    "last_filled_trade_date": "2026-08-03",
+    "last_mode": "open_settlement",
+    "last_run_date": "2026-08-04",
+    "last_run_id": "5b608574e4524997bb0f80b2d0020676",
+    "last_success_at": "2026-08-04T01:30:23.111413+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 0,
+    "positions": 5,
+    "project_equity_cny": 29692.3,
+    "status": "ACTIVE",
+    "total_pnl_cny": -307.7,
+    "total_return_pct": -0.010256666666666692
+  },
+  "task_id": "activity-monitor",
+  "task_status": "FAILED"
+}
