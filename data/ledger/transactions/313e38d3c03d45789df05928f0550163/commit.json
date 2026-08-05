@@ -1,0 +1,17 @@
+{
+  "auxiliary_files": [],
+  "committed_at": "2026-08-05T14:36:32.526313+00:00",
+  "decision_path": "/mnt/f/Git/Vibe Finance/reports/funds/2026-08-05-funds.json",
+  "decision_sha256": "d48bd7562087ed08f813e7377aae4273d3032d9fdf62af3c0127ad011b4b7859",
+  "event_count": 43,
+  "event_head_sha256": "da07ed89d806d2bcb1d971f9983506f86ba4b38ecfe997634de51062d91aa0eb",
+  "heartbeat_path": "/mnt/f/Git/Vibe Finance/data/ledger/heartbeat.json",
+  "heartbeat_sha256": "f488e98b961c21912e384db23b6900f1ae385d86c18ae8381da75060d84b15da",
+  "portfolio_sha256": "cf1549a1a0747d2b242b3a133526bceabb69fc7681b4c936c42b5d6e3abca231",
+  "prepare_sha256": "d9b38ea8c93feba1353346260c5cf8539e9c0d3d16ef4f1574235cf3cb839d1a",
+  "projection_status": "PASS",
+  "report_path": "/mnt/f/Git/Vibe Finance/reports/funds/2026-08-05-funds.md",
+  "report_sha256": "f0f3ca51ac0fda02877185b25d1cb03c3549af9b5b042be563924655607b035e",
+  "run_id": "313e38d3c03d45789df05928f0550163",
+  "schema_version": 1
+}
