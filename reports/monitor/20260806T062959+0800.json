@@ -1,0 +1,171 @@
+{
+  "alerts": [
+    {
+      "code": "LONG_REPORT_STALE",
+      "detail": "reports/daily/2026-07-19-long.json age_days=18; the scheduled 2026-08-02T20:00:00+08:00 weekly-review cycle produced no newer long report, reports/weekly is missing, and the weekly-review automation has no memory file",
+      "minimal_repair": "Run the existing vibe-finance-2 weekly-review automation in its own governed task. If it is not retriggered manually, its next scheduled retry point is 2026-08-09T20:00:00+08:00. This monitor must not generate or rewrite the report."
+    }
+  ],
+  "automation_status": {
+    "close_analysis": {
+      "automation_id": "vibe-finance",
+      "next_automatic_run": "2026-08-06T16:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    "weekly_review": {
+      "automation_id": "vibe-finance-2",
+      "last_scheduled_run_artifact": "MISSING",
+      "memory_file": "MISSING",
+      "next_automatic_run": "2026-08-09T20:00:00+08:00",
+      "reports_weekly_directory": "MISSING",
+      "status": "ACTIVE"
+    }
+  },
+  "checks": [
+    {
+      "name": "status_command",
+      "status": "PASS",
+      "summary": {
+        "heartbeat_age_hours": 7.883,
+        "last_success_at": "2026-08-05T14:36:29.470006+00:00",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "name": "recent_reports",
+      "status": "FAIL",
+      "summary": {
+        "current_date_before_close_analysis": true,
+        "due_short_input_exists": true,
+        "due_short_report_exists": true,
+        "due_short_workday": "2026-08-05",
+        "latest_long": "reports/daily/2026-07-19-long.json",
+        "latest_long_age_days": 18,
+        "latest_short": "reports/daily/2026-08-05-short.json",
+        "licensed_trading_calendar_status": "NOT_ACQUIRED",
+        "weekly_review_last_scheduled_artifact": "MISSING"
+      }
+    },
+    {
+      "name": "ledger_parse_and_state",
+      "status": "PASS",
+      "summary": {
+        "event_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+        "filled_event_count": 7,
+        "json_files": 378,
+        "jsonl_files": 2,
+        "jsonl_rows": 44,
+        "ledger_events": 43,
+        "pending_orders": 1,
+        "portfolio_filled_trade_count": 7,
+        "portfolio_projection": "PASS",
+        "positions": 5
+      }
+    },
+    {
+      "name": "report_input_hashes",
+      "status": "PASS",
+      "summary": {
+        "checked": [
+          {
+            "actual_input_sha256": "936b764195229beb816132937e1d6127dec03145ae5941c63d07392e315c8e47",
+            "expected_input_sha256": "936b764195229beb816132937e1d6127dec03145ae5941c63d07392e315c8e47",
+            "input": "data/inbox/2026-08-05.json",
+            "report": "reports/daily/2026-08-05-short.json",
+            "run_id_matches_portfolio_history": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "expected_input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+            "input": "data/inbox/2026-07-19.json",
+            "report": "reports/daily/2026-07-19-long.json",
+            "run_id_matches_portfolio_history": true,
+            "status": "PASS"
+          },
+          {
+            "actual_input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+            "expected_input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+            "input": "data/inbox/2026-08-05-funds.json",
+            "report": "reports/funds/2026-08-05-funds.json",
+            "run_id_matches_heartbeat": true,
+            "run_id_matches_portfolio_history": true,
+            "status": "PASS"
+          }
+        ],
+        "heartbeat_input": "data/inbox/2026-08-05-funds.json",
+        "heartbeat_report": "reports/funds/2026-08-05-funds.json"
+      }
+    },
+    {
+      "name": "deepseek_budget",
+      "status": "PASS",
+      "summary": {
+        "actual_calls": 0,
+        "called_deepseek": false,
+        "remaining_cny": 100.0,
+        "reserved_cny": 100.0,
+        "spent_cny": 0.0
+      }
+    }
+  ],
+  "created_at_utc": "2026-08-05T22:29:59.962991+00:00",
+  "heartbeat": {
+    "input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+    "last_success_at": "2026-08-05T14:36:29.470006+00:00",
+    "mode": "fund_nav",
+    "run_date": "2026-08-05",
+    "run_id": "313e38d3c03d45789df05928f0550163",
+    "status": "ACTIVE"
+  },
+  "heartbeat_sha256": "f488e98b961c21912e384db23b6900f1ae385d86c18ae8381da75060d84b15da",
+  "latest_success_at_shanghai": "2026-08-05T22:36:29.470006+08:00",
+  "parse_errors": [],
+  "preexisting_worktree_changes": [
+    "?? reports/skill-memory/reviews/2026-07-26/",
+    "?? reports/skill-memory/reviews/2026-08-02/"
+  ],
+  "protected_tracked_content": {
+    "aggregate_sha256": "2923de6b6f2ebdc82e4bc48ef803ced2e8983d922187ac05800813b8ccc7680e",
+    "algorithm": "sha256(path_nul_blob_oid_lf)",
+    "excluded_prefixes": [
+      "reports/monitor/",
+      "reports/automation-runs/activity-monitor/"
+    ],
+    "file_count": 402
+  },
+  "readonly_scope": {
+    "automation_configuration_changed": false,
+    "deepseek_called": false,
+    "no_heartbeat_refresh": true,
+    "no_market_snapshot": true,
+    "no_order_or_position_write": true,
+    "no_strategy_or_historical_report_write": true
+  },
+  "run_timestamp": "2026-08-06 06:29:59 CST",
+  "schema_version": 1,
+  "simulation_only": true,
+  "status_command": {
+    "decision_report_count": 13,
+    "deepseek_actual_calls": 0,
+    "deepseek_remaining_cny": 100.0,
+    "deepseek_spent_cny": 0.0,
+    "filled_trade_count": 7,
+    "heartbeat_age_hours": 7.883,
+    "last_filled_trade_date": "2026-08-03",
+    "last_mode": "fund_nav",
+    "last_run_date": "2026-08-05",
+    "last_run_id": "313e38d3c03d45789df05928f0550163",
+    "last_success_at": "2026-08-05T14:36:29.470006+00:00",
+    "max_age_hours": 36.0,
+    "pending_orders": 1,
+    "positions": 5,
+    "project_equity_cny": 30187.7,
+    "status": "ACTIVE",
+    "total_pnl_cny": 187.7,
+    "total_return_pct": 0.006256666666666691
+  },
+  "task_id": "activity-monitor",
+  "task_owned_sync_carryover": [],
+  "task_status": "FAILED"
+}
