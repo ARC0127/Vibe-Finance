@@ -2,44 +2,21 @@
   "cash_cny": 12879.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "e882f94487934452b7727edc7c79dedc",
-  "pending_orders": [
-    {
-      "exposure_group": "large_cap_value",
-      "limit_price": 3.074435,
-      "lot_size": 100,
-      "name": "华夏上证50ETF",
-      "order_id": "3c8a83ee1913419baafe894a03b07298",
-      "quantity": 1200,
-      "reasons": [
-        "COLD_START_LIMITED_HISTORY",
-        "COLD_START_TREND_ENTRY"
-      ],
-      "risk_bucket": "core_equity",
-      "side": "BUY",
-      "signal_as_of": "2026-08-05T16:30:00+08:00",
-      "signal_close": 3.029,
-      "signal_date": "2026-08-05",
-      "signal_score": 1.26542072,
-      "signal_type": "COLD_START_TREND",
-      "simulation_only": true,
-      "status": "PENDING_NEXT_OPEN",
-      "symbol": "510050"
-    }
-  ],
+  "last_run_id": "79b56a256ba0423ab7838e1e3df9b608",
+  "pending_orders": [],
   "performance": {
     "cumulative_buy_notional_cny": 16985.6,
     "cumulative_fees_cny": 35.0,
     "cumulative_sell_notional_cny": 0.0,
     "filled_trade_count": 7,
-    "investable_value_cny": 30087.7,
+    "investable_value_cny": 29954.7,
     "last_filled_trade_date": "2026-08-03",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-06T08:00:00+08:00",
-    "project_equity_cny": 30187.7,
+    "last_valuation_as_of": "2026-08-06T09:30:31+08:00",
+    "project_equity_cny": 30054.7,
     "realized_pnl_cny": 0.0,
-    "total_pnl_cny": 187.7,
-    "total_return_pct": 0.006256666666666691,
+    "total_pnl_cny": 54.7,
+    "total_return_pct": 0.0018233333333333576,
     "valuation_complete": true,
     "valuation_stale_symbols": []
   },
@@ -50,13 +27,13 @@
       "average_cost": 4.681166666666667,
       "exposure_group": "csi300",
       "last_buy_date": "2026-07-21",
-      "last_price": 4.714,
-      "last_price_as_of": "2026-08-05T16:14:36+08:00",
-      "market_value_cny": 5656.8,
+      "last_price": 4.688,
+      "last_price_as_of": "2026-08-06T09:30:31+08:00",
+      "market_value_cny": 5625.6,
       "name": "华泰柏瑞沪深300ETF",
       "quantity": 1200,
       "risk_bucket": "core_equity",
-      "unrealized_pnl_cny": 39.4
+      "unrealized_pnl_cny": 8.2
     },
     "510500": {
       "acquired_date": "2026-07-27",
@@ -64,13 +41,13 @@
       "average_cost": 7.66525,
       "exposure_group": "csi500",
       "last_buy_date": "2026-07-28",
-      "last_price": 7.815,
-      "last_price_as_of": "2026-08-05T16:14:52+08:00",
-      "market_value_cny": 3126.0,
+      "last_price": 7.75,
+      "last_price_as_of": "2026-08-06T09:30:29+08:00",
+      "market_value_cny": 3100.0,
       "name": "南方中证500ETF",
       "quantity": 400,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 59.9
+      "unrealized_pnl_cny": 33.9
     },
     "510880": {
       "acquired_date": "2026-07-28",
@@ -78,13 +55,13 @@
       "average_cost": 3.2235454545454547,
       "exposure_group": "dividend",
       "last_buy_date": "2026-07-28",
-      "last_price": 3.228,
-      "last_price_as_of": "2026-08-05T16:14:58+08:00",
-      "market_value_cny": 3550.8,
+      "last_price": 3.227,
+      "last_price_as_of": "2026-08-06T09:30:31+08:00",
+      "market_value_cny": 3549.7,
       "name": "华泰柏瑞上证红利ETF",
       "quantity": 1100,
       "risk_bucket": "dividend_equity",
-      "unrealized_pnl_cny": 4.9
+      "unrealized_pnl_cny": 3.8
     },
     "512100": {
       "acquired_date": "2026-07-21",
@@ -92,13 +69,13 @@
       "average_cost": 2.838,
       "exposure_group": "csi1000",
       "last_buy_date": "2026-08-03",
-      "last_price": 3.035,
-      "last_price_as_of": "2026-08-05T16:14:41+08:00",
-      "market_value_cny": 2731.5,
+      "last_price": 3.0,
+      "last_price_as_of": "2026-08-06T09:30:30+08:00",
+      "market_value_cny": 2700.0,
       "name": "南方中证1000ETF",
       "quantity": 900,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 177.3
+      "unrealized_pnl_cny": 145.8
     },
     "588000": {
       "acquired_date": "2026-07-28",
@@ -106,13 +83,13 @@
       "average_cost": 1.8641666666666667,
       "exposure_group": "star50",
       "last_buy_date": "2026-07-28",
-      "last_price": 1.786,
-      "last_price_as_of": "2026-08-05T16:14:59+08:00",
-      "market_value_cny": 2143.2,
+      "last_price": 1.75,
+      "last_price_as_of": "2026-08-06T09:30:30+08:00",
+      "market_value_cny": 2100.0,
       "name": "华夏上证科创板50成份ETF",
       "quantity": 1200,
       "risk_bucket": "industry_equity",
-      "unrealized_pnl_cny": -93.8
+      "unrealized_pnl_cny": -137.0
     }
   },
   "research_infrastructure": {
@@ -398,6 +375,12 @@
       "mode": "preopen",
       "run_date": "2026-08-06",
       "run_id": "e882f94487934452b7727edc7c79dedc"
+    },
+    {
+      "input_sha256": "b611464304f10912452cdbbb2bc53f16b20b2cd9beeecfabc1e7403c6b7f425c",
+      "mode": "open_settlement",
+      "run_date": "2026-08-06",
+      "run_id": "79b56a256ba0423ab7838e1e3df9b608"
     }
   ],
   "schema_version": 1
