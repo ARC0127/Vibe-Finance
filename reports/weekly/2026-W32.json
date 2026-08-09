@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "report_type": "weekly_review",
+  "week": "2026-W32",
+  "period": {
+    "start": "2026-08-03",
+    "end": "2026-08-09",
+    "market_data_end": "2026-08-07",
+    "timezone": "Asia/Shanghai",
+    "trading_days": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07"
+    ]
+  },
+  "generated_at": "2026-08-09T20:09:12+08:00",
+  "status": "PASS_WITH_FINDINGS",
+  "simulation_only": true,
+  "market_scope": "CHINA_MAINLAND_STOCKS_AND_FUNDS_ONLY",
+  "strategy_version": "0.3.1",
+  "high_frequency_trading": "DISABLED",
+  "summary": {
+    "start_project_equity_cny": 29852.2,
+    "end_project_equity_cny": 30493.5,
+    "weekly_pnl_cny": 641.3,
+    "weekly_return": 0.021482503802064734,
+    "cumulative_pnl_cny": 493.5,
+    "cumulative_return": 0.01645,
+    "cash_cny": 12879.4,
+    "positions_market_value_cny": 17514.1,
+    "infrastructure_reserved_cny": 100.0,
+    "investable_value_cny": 30393.5,
+    "valuation_as_of": "2026-08-07T16:30:00+08:00",
+    "valuation_status": "COMPLETE_AT_LAST_AVAILABLE_CLOSE",
+    "pending_orders": 0
+  },
+  "performance": {
+    "equity_series": [
+      {"date": "2026-07-31", "project_equity_cny": 29852.2, "role": "PRE_WEEK_BASELINE"},
+      {"date": "2026-08-03", "project_equity_cny": 29623.2, "role": "WEEKLY_CLOSE"},
+      {"date": "2026-08-04", "project_equity_cny": 29857.6, "role": "WEEKLY_CLOSE"},
+      {"date": "2026-08-05", "project_equity_cny": 30187.7, "role": "WEEKLY_CLOSE"},
+      {"date": "2026-08-07", "project_equity_cny": 30493.5, "role": "WEEKLY_CLOSE"}
+    ],
+    "observed_max_drawdown": -0.007671126416143537,
+    "max_drawdown_status": "PARTIAL_2026_08_06_CLOSE_MISSING",
+    "volatility": null,
+    "volatility_status": "NOT_COMPUTED_INSUFFICIENT_COMPLETE_DAILY_OBSERVATIONS_AND_2026_08_06_GAP",
+    "realized_pnl_cny": 0.0,
+    "unrealized_pnl_cny": 493.5,
+    "weekly_fees_cny": 5.0,
+    "cumulative_fees_cny": 35.0,
+    "calculation_note": "Weekly project return uses the immutable 2026-07-31 and 2026-08-07 project-equity endpoints. Intrawweek drawdown is only an observed lower bound because the 2026-08-06 close is missing."
+  },
+  "asset_classes": {
+    "stocks": {
+      "end_market_value_cny": 0.0,
+      "weekly_net_flow_cny": 0.0,
+      "weekly_pnl_cny": 0.0,
+      "return": null,
+      "max_drawdown": null,
+      "volatility": null,
+      "fees_cny": 0.0,
+      "trades": 0,
+      "status": "NO_POSITION_NO_TRADE"
+    },
+    "listed_etfs": {
+      "start_market_value_cny": 16582.8,
+      "end_market_value_cny": 17514.1,
+      "weekly_buy_notional_cny": 285.0,
+      "weekly_sell_notional_cny": 0.0,
+      "gross_market_pnl_cny": 646.3,
+      "fees_cny": 5.0,
+      "net_pnl_cny": 641.3,
+      "approximate_net_return": 0.03801918448167514,
+      "return_method": "FLOW_ADJUSTED_WITH_THE_2026_08_03_OPEN_BUY_TREATED_AS_WEEK_START_CAPITAL",
+      "observed_max_drawdown": -0.013507972115686107,
+      "max_drawdown_status": "PARTIAL_2026_08_06_CLOSE_MISSING",
+      "volatility": null,
+      "volatility_status": "NOT_COMPUTED_INSUFFICIENT_COMPLETE_DAILY_OBSERVATIONS",
+      "filled_trades": 1,
+      "timing_issue": "The only fill occurred at 2026-08-03 open. Three later pending orders were cancelled by price or evidence gates; 2026-08-07 had no preopen/open artifact."
+    },
+    "open_end_funds": {
+      "end_market_value_cny": 0.0,
+      "weekly_net_flow_cny": 0.0,
+      "weekly_pnl_cny": 0.0,
+      "return": null,
+      "max_drawdown": null,
+      "volatility": null,
+      "fees_cny": 0.0,
+      "pending_next_nav_orders": 0,
+      "confirmed_nav_fills": 0,
+      "status": "NO_POSITION_NAV_NOT_PUBLISHED",
+      "timing_issue": "Only the 2026-08-04 and 2026-08-05 22:30 fund cycles produced artifacts; neither had a current primary-plus-Tiantian NAV pair."
+    },
+    "bond_gold_cash": {
+      "bond_market_value_cny": 0.0,
+      "gold_market_value_cny": 0.0,
+      "cash_cny": 12879.4,
+      "cash_return": 0.0,
+      "cash_max_drawdown": 0.0,
+      "cash_volatility": 0.0,
+      "fees_cny": 0.0,
+      "trades": 0,
+      "status": "CASH_ONLY_NO_BOND_OR_GOLD_POSITION",
+      "note": "Cash fell by CNY 290 because of one CNY 285 virtual ETF purchase plus a CNY 5 fee; the reduction is a capital flow, not a cash investment loss."
+    }
+  },
+  "holdings": [
+    {
+      "symbol": "510300",
+      "name": "华泰柏瑞沪深300ETF",
+      "quantity": 1200,
+      "average_cost": 4.681166666666667,
+      "last_price": 4.751,
+      "end_market_value_cny": 5701.2,
+      "weekly_buy_notional_cny": 0.0,
+      "weekly_price_pnl_cny": 117.6,
+      "cumulative_unrealized_pnl_cny": 83.8,
+      "investable_weight": 0.18757958116044549,
+      "risk_bucket": "core_equity",
+      "exposure_group": "csi300"
+    },
+    {
+      "symbol": "510500",
+      "name": "南方中证500ETF",
+      "quantity": 400,
+      "average_cost": 7.66525,
+      "last_price": 7.987,
+      "end_market_value_cny": 3194.8,
+      "weekly_buy_notional_cny": 0.0,
+      "weekly_price_pnl_cny": 194.8,
+      "cumulative_unrealized_pnl_cny": 128.7,
+      "investable_weight": 0.10511458042015563,
+      "risk_bucket": "small_growth_equity",
+      "exposure_group": "csi500"
+    },
+    {
+      "symbol": "510880",
+      "name": "华泰柏瑞上证红利ETF",
+      "quantity": 1100,
+      "average_cost": 3.2235454545454547,
+      "last_price": 3.282,
+      "end_market_value_cny": 3610.2,
+      "weekly_buy_notional_cny": 0.0,
+      "weekly_price_pnl_cny": -24.2,
+      "cumulative_unrealized_pnl_cny": 64.3,
+      "investable_weight": 0.11878197640942964,
+      "risk_bucket": "dividend_equity",
+      "exposure_group": "dividend"
+    },
+    {
+      "symbol": "512100",
+      "name": "南方中证1000ETF",
+      "quantity": 900,
+      "average_cost": 2.838,
+      "last_price": 3.111,
+      "end_market_value_cny": 2799.9,
+      "weekly_buy_notional_cny": 285.0,
+      "weekly_price_pnl_cny": 223.7,
+      "cumulative_unrealized_pnl_cny": 245.7,
+      "investable_weight": 0.09212167075197,
+      "risk_bucket": "small_growth_equity",
+      "exposure_group": "csi1000"
+    },
+    {
+      "symbol": "588000",
+      "name": "华夏上证科创板50成份ETF",
+      "quantity": 1200,
+      "average_cost": 1.8641666666666667,
+      "last_price": 1.84,
+      "end_market_value_cny": 2208.0,
+      "weekly_buy_notional_cny": 0.0,
+      "weekly_price_pnl_cny": 134.4,
+      "cumulative_unrealized_pnl_cny": -29.0,
+      "investable_weight": 0.07264711204698374,
+      "risk_bucket": "industry_equity",
+      "exposure_group": "star50"
+    }
+  ],
+  "execution": {
+    "ledger_event_count": 8,
+    "pending_created_count": 3,
+    "filled_count": 1,
+    "cancelled_count": 4,
+    "ending_pending_count": 0,
+    "filled_notional_cny": 285.0,
+    "fees_cny": 5.0,
+    "filled_trading_days": 1,
+    "expected_trading_days": 5,
+    "daily_trade_requirement_result": "FAILED_4_OF_5_TRADING_DAYS_WITHOUT_A_FILL",
+    "events_by_day": {
+      "2026-08-03": [
+        "510050 BUY cancelled: UNVERIFIED_SECURITY_IDENTITY_AND_ST_DELISTING",
+        "512100 BUY 100 shares filled at 2.850; fee CNY 5",
+        "159915 BUY order created for next open"
+      ],
+      "2026-08-04": [
+        "159915 BUY cancelled: OPEN_ABOVE_LIMIT",
+        "512170 BUY order created for next open"
+      ],
+      "2026-08-05": [
+        "512170 BUY cancelled: UNVERIFIED_SECURITY_IDENTITY_AND_ST_DELISTING",
+        "510050 BUY order created for next open"
+      ],
+      "2026-08-06": [
+        "510050 BUY cancelled: UNVERIFIED_SECURITY_IDENTITY_AND_ST_DELISTING; close analysis missing"
+      ],
+      "2026-08-07": [
+        "No preopen/open artifact and no order; close report FAILED_NO_OPEN_ORDER"
+      ]
+    }
+  },
+  "risk": {
+    "position_count": 5,
+    "maximum_positions": 6,
+    "investable_equity_weight": 0.5762449207889845,
+    "maximum_total_equity_weight": 0.7,
+    "investable_cash_weight": 0.4237550792110155,
+    "minimum_cash_weight": 0.1,
+    "maximum_single_position": {
+      "symbol": "510300",
+      "weight": 0.18757958116044549,
+      "cap": 0.2
+    },
+    "risk_buckets": {
+      "core_equity": {"market_value_cny": 5701.2, "weight": 0.18757958116044549, "cap": 0.4},
+      "small_growth_equity": {"market_value_cny": 5994.7, "weight": 0.19723625117212565, "cap": 0.2},
+      "dividend_equity": {"market_value_cny": 3610.2, "weight": 0.11878197640942964, "cap": 0.15},
+      "industry_equity": {"market_value_cny": 2208.0, "weight": 0.07264711204698374, "cap": 0.15},
+      "fixed_income": {"market_value_cny": 0.0, "weight": 0.0, "cap": 0.2},
+      "gold": {"market_value_cny": 0.0, "weight": 0.0, "cap": 0.1},
+      "cash_management": {"market_value_cny": 0.0, "weight": 0.0, "cap": 0.35}
+    },
+    "duplicate_exposure_groups": [],
+    "correlation_diagnostic": {
+      "status": "DIAGNOSTIC_ONLY_INSUFFICIENT_SAMPLE",
+      "observations_per_pair": 10,
+      "highest_pairs": [
+        {"a": "510300", "b": "510500", "correlation": 0.9817193981789603},
+        {"a": "510500", "b": "512100", "correlation": 0.9605485241875432},
+        {"a": "510300", "b": "512100", "correlation": 0.933153879086134}
+      ],
+      "diversifying_pair": {"a": "510880", "b": "588000", "correlation": -0.5469429846702042},
+      "interpretation": "Five labels do not imply five independent bets. Growth and broad-equity ETFs share high short-window co-movement; no strategy change is authorized from this sample."
+    },
+    "gate_result": "PASS_WITH_CONCENTRATION_FINDING"
+  },
+  "benchmarks": [
+    {"symbol": "000001", "name": "上证指数", "start_close": 3832.26, "end_close": 3940.04, "return": 0.028124396570170074, "relative_portfolio_return": -0.00664189276810534, "intraweek_coverage": "4/5"},
+    {"symbol": "399001", "name": "深证成指", "start_close": 13578.93, "end_close": 14311.01, "return": 0.053912937175462305, "relative_portfolio_return": -0.03243043337339757, "intraweek_coverage": "4/5"},
+    {"symbol": "399006", "name": "创业板指", "start_close": 3343.96, "end_close": 3563.12, "return": 0.06553906147202704, "relative_portfolio_return": -0.04405655766996231, "intraweek_coverage": "4/5"},
+    {"symbol": "000688", "name": "科创50", "start_close": 1635.96, "end_close": 1744.02, "return": 0.06605295973006675, "relative_portfolio_return": -0.04457045592800202, "intraweek_coverage": "4/5"},
+    {"symbol": "000016", "name": "上证50", "start_close": 2922.97, "end_close": 2960.42, "return": 0.012812310766104451, "relative_portfolio_return": 0.008670193035960283, "intraweek_coverage": "4/5"}
+  ],
+  "source_quality": {
+    "close_price_days": 4,
+    "expected_close_price_days": 5,
+    "dual_source_close_days": 4,
+    "identity_preopen_days": 4,
+    "open_settlement_days": 4,
+    "fund_nav_days": 2,
+    "tiantian_attempt_days": 2,
+    "tiantian_success_days": 0,
+    "fund_primary_success_days": 0,
+    "tiantian_primary_consistent_days": 0,
+    "tiantian_primary_conflict_days": 0,
+    "tiantian_consistency_status": "NOT_COMPUTABLE_NO_SUCCESSFUL_PAIRED_CURRENT_NAV",
+    "tiantian_delay_status": "LATEST_MACHINE_RETAINED_NAV_2026_07_23_WAS_9_TRADING_SESSIONS_STALE_AT_2026_08_05_CUTOFF",
+    "ranking_used_as_signal": false,
+    "source_failures": [
+      {"date": "2026-08-04", "source": "Tiantian Fund public endpoints", "failure": "Temporary failure in name resolution", "result": "NAV_NOT_PUBLISHED_NO_TRADE"},
+      {"date": "2026-08-05", "source": "Tiantian Fund public endpoints", "failure": "Temporary failure in name resolution", "result": "NAV_NOT_PUBLISHED_NO_TRADE"}
+    ],
+    "metadata_note": "Benchmark returns were recomputed from immutable endpoint closes. Snapshot daily_return fields were not used because the 2026-08-06 close is absent."
+  },
+  "completeness": {
+    "expected_stage_artifacts": 40,
+    "present_stage_artifacts": 28,
+    "close_cycles": "4/5",
+    "preopen_cycles": "4/5",
+    "open_cycles": "4/5",
+    "fund_cycles": "2/5",
+    "missing": [
+      "data/inbox/2026-08-03-funds.json",
+      "reports/funds/2026-08-03-funds.json",
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-preopen.json",
+      "reports/preopen/2026-08-07-preopen.json",
+      "data/inbox/2026-08-07-open.json",
+      "reports/execution/2026-08-07-open.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json"
+    ],
+    "handling": "NO_BACKFILL_NO_FABRICATION"
+  },
+  "strategy_evolution": {
+    "independent_gate_path": "reports/evolution/20260721-legacy-v0.3-remediation/gate.json",
+    "decision": "PROPOSED_ONLY",
+    "eligible_round_trips": 0,
+    "required_round_trips": 20,
+    "completed_round_trips": 0,
+    "missing_evidence": [
+      "INDEPENDENT_OOS_ARTIFACT_MISSING",
+      "PREREGISTRATION_MISSING",
+      "ROLLBACK_REPLAY_MISSING",
+      "TRUSTED_EVALUATOR_UNAVAILABLE",
+      "WALK_FORWARD_ARTIFACT_MISSING"
+    ],
+    "strategy_modified": false,
+    "conclusion": "NO_STRATEGY_CHANGE_INSUFFICIENT_ELIGIBLE_EVIDENCE"
+  },
+  "api_cost": {
+    "provider": "DeepSeek",
+    "actual_calls": 0,
+    "weekly_spent_cny": 0.0,
+    "cumulative_spent_cny": 0.0,
+    "reserved_cny": 100.0,
+    "key_accessed": false
+  },
+  "plugins": {
+    "default_templates_available": false,
+    "analytics_dashboard_available": false,
+    "spreadsheets_capability_available": true,
+    "weekly_dashboard_status": "TEMPLATE_EXPORT_SKIPPED",
+    "weekly_dashboard_path": null,
+    "investment_banking_used": false,
+    "investment_banking_status": "EXCLUDED_BY_POLICY"
+  },
+  "input_manifest": {
+    "config/strategy.json": "5442872f760cb3ad535caee4341f34c16957beda8520203981171dd4d35e3346",
+    "config/universe.json": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7",
+    "data/ledger/portfolio.json": "6f72aa703293e5f3b325ab77157cb4785d539c9c9cf287649fb6a2b89777b588",
+    "data/ledger/orders.jsonl": "4ed36dee15d37cded98d965e4cf6fdb1f4dea8fc9e2879e7c9558da26a5503c6",
+    "reports/evolution/20260721-legacy-v0.3-remediation/gate.json": "434fb27b49ad3d471f8c405e1bbda9380da6313ff8f104d7cbdacd1ce3fd7a5c",
+    "data/inbox/2026-07-31.json": "13e59b80340f0c9efae8b1967262294fff4ba5f4f3acef0e1ae233310bff624f",
+    "reports/daily/2026-07-31-short.json": "d34c6f364d699e6e193728940dd48362809cb9f9a974f106b83e3bbe62b32840",
+    "data/inbox/2026-08-03.json": "8047e5d67a03e7d349ea8ff316c81e81225f851c256929d0f2864a5d1d246613",
+    "reports/daily/2026-08-03-short.json": "adeade3a5755cea7440296b07fd62d8d553707287d8f78517366dcf47782f644",
+    "data/inbox/2026-08-03-preopen.json": "4b3f85c50bc960ff65eacfd9b93e192adcd23bdf87cb538075c5bff1ce41b3bf",
+    "reports/preopen/2026-08-03-preopen.json": "bf3cb2dbc01dacf830dbdffc620083295b9f23ff880548300dca5ca352ccdbd9",
+    "data/inbox/2026-08-03-open.json": "9f1a1ae6fcdc254474960ffc78d9f1ef2f34bdf4004d7275e6e844f689bffe04",
+    "reports/execution/2026-08-03-open.json": "48f24e2502cf97e96b4001ec4152a28b7e0e9a481326a84b341cb2bd14c9fe4b",
+    "data/inbox/2026-08-04.json": "a1cd73d71563895005e7ec4eb5fb2100465adf66fc95490d9ca1a33755036ffb",
+    "reports/daily/2026-08-04-short.json": "9f3614f41b739af02acfd4b2f590bf3c7ee6a32dfe51276be2f4181b19d6ad68",
+    "data/inbox/2026-08-04-preopen.json": "c1e0d782c49a53ea5d4f480bc87fec73a4a3b398f217aa627bc2423c708fbb98",
+    "reports/preopen/2026-08-04-preopen.json": "5c059fe98497d57023be0ee122c2485848a4ca4a7978681332a06ea667909185",
+    "data/inbox/2026-08-04-open.json": "d85e325fcba36109ca30693cc21e22414948e2126de44a8618de996c555420be",
+    "reports/execution/2026-08-04-open.json": "57099a946a2687e527b21d7277dc7ad8fc2da7f7b4745d419023be2dcf7bc8c5",
+    "data/inbox/2026-08-04-funds.json": "4b7c8e22d3082da70d9d770c8ca2163854a962bd1dae8f7e9f9ab8ae03ca5c60",
+    "reports/funds/2026-08-04-funds.json": "e117876157f279049c8eaea97a30fc050be091ba0402da170d8151f361c9e0fe",
+    "data/inbox/2026-08-05.json": "936b764195229beb816132937e1d6127dec03145ae5941c63d07392e315c8e47",
+    "reports/daily/2026-08-05-short.json": "e201a1cca6efd72307a081a1392d0ba716b401ec70016ce410cc53b51d256753",
+    "data/inbox/2026-08-05-preopen.json": "1ef3f72b7fc5b15b03f4e796f133856a0d81b9ed9ad7cbea1a3afa59fd8136d4",
+    "reports/preopen/2026-08-05-preopen.json": "628784251bba7b8e64a4380ed1a24d577edd5bc30318bc5579274f9fece0af67",
+    "data/inbox/2026-08-05-open.json": "9004c4f8d9cdd5d312954f6c53dd26bb9299b6223ad9c564751228320899ac18",
+    "reports/execution/2026-08-05-open.json": "c3f0cdbfcd62ddbc0da0ab4a0b09f9d2e41e4318878b8802f0c9cef39f64b212",
+    "data/inbox/2026-08-05-funds.json": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+    "reports/funds/2026-08-05-funds.json": "d48bd7562087ed08f813e7377aae4273d3032d9fdf62af3c0127ad011b4b7859",
+    "data/inbox/2026-08-06-preopen.json": "fbb4de6fa54adc4dbc1b4619bc1c7c479a7ef4e6af565fe35aef048886aece16",
+    "reports/preopen/2026-08-06-preopen.json": "b0bcf36208c237055e42f41f8c29bfa89e20eea3536f9761ae06b6e908c172b1",
+    "data/inbox/2026-08-06-open.json": "b611464304f10912452cdbbb2bc53f16b20b2cd9beeecfabc1e7403c6b7f425c",
+    "reports/execution/2026-08-06-open.json": "8e4b5dab3f839769dec9f8c3131bf66bf99d52fa1130f6421a7cf22fa03b7b49",
+    "data/inbox/2026-08-07.json": "51a1b24242ca864d5f42a681bf678b528b61428e7c65315359ae7dfbdb1607c6",
+    "reports/daily/2026-08-07-short.json": "59f89c1ce335118a867702473c5ac38fe2393d8bd92597a1c13fd79a20ab2908"
+  },
+  "validation": {
+    "ledger_identity": "PASS",
+    "holding_sum": "PASS",
+    "weekly_pnl_identity": "PASS",
+    "fee_identity": "PASS",
+    "input_hashes": "PASS_35_OF_35",
+    "json_syntax": "PASS",
+    "readme_refresh": "PASS",
+    "governed_sync": "RECORDED_SEPARATELY_BY_AUTOMATION_RUN_MANIFEST"
+  },
+  "disclaimer": "This is a virtual portfolio experiment for research and agent evaluation only. It is not investment advice and is not connected to any real trading account."
+}
