@@ -27,7 +27,7 @@ class TaskContractTests(unittest.TestCase):
         self.assertEqual(result["real_broker_integration"], "forbid")
         self.assertEqual(result["caller_force_bypass"], "forbid")
         self.assertEqual(result["sync_allowlist_status"], "PASS")
-        self.assertEqual(result["task_count"], 12)
+        self.assertEqual(result["task_count"], 13)
 
     def test_activity_monitor_has_no_financial_runtime_write_authority(self) -> None:
         result = audit_task_contracts(
@@ -57,6 +57,23 @@ class TaskContractTests(unittest.TestCase):
         )
         gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn("artifacts/skill-memory/candidates/", gitignore)
+
+    def test_governance_code_release_excludes_reports_and_financial_state(self) -> None:
+        result = audit_task_contracts(
+            REGISTRY, SYNC_SCRIPT, task_id="governance-code-release"
+        )
+        contract = result["task"]
+        expected = [
+            "config/task_contracts.json",
+            "scripts/sync_github.sh",
+            "tests",
+            "vibe_finance/pipeline.py",
+        ]
+        self.assertEqual(contract["side_effect_class"], "governed_release")
+        self.assertEqual(contract["runtime_write_roots"], expected)
+        self.assertEqual(contract["sync_allowlist"], expected)
+        self.assertFalse(any(path.startswith("reports") for path in expected))
+        self.assertFalse(any(path.startswith("data/ledger") for path in expected))
 
     def test_force_bypass_and_broker_integration_fail_closed(self) -> None:
         payload = json.loads(REGISTRY.read_text(encoding="utf-8"))

@@ -1183,7 +1183,7 @@ def _create_orders(
     if (
         hard_blocks
         or not snapshot["is_trading_day"]
-        or snapshot.get("market_state") not in {"closed", "preopen"}
+        or snapshot.get("market_state") not in {"closed", "close", "preopen"}
     ):
         return []
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
@@ -1440,7 +1440,14 @@ def _render_report(
     input_hash: str,
     mode: str,
 ) -> str:
-    status = "ORDERS_PENDING" if orders else ("FILLED" if fills else "NO_TRADE")
+    if orders:
+        status = "ORDERS_PENDING"
+    elif fills:
+        status = "FILLED"
+    elif snapshot["is_trading_day"] and mode == "short":
+        status = "FAILED_NO_OPEN_ORDER"
+    else:
+        status = "NO_TRADE"
     mode_name = {"short": "收盘决策", "long": "长期复盘", "preopen": "盘前决策"}.get(mode, mode)
     total_pnl = values["project_equity_cny"] - float(ledger["initial_project_capital_cny"])
     lines = [
@@ -1492,8 +1499,14 @@ def _render_report(
         )
     lines.extend(["", "## 证据", ""])
     for evidence in snapshot["evidence"]:
+        evidence_title = (
+            evidence.get("title")
+            or evidence.get("source_id")
+            or evidence.get("url")
+            or "UNTITLED_EVIDENCE"
+        )
         lines.append(
-            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}级"
+            f"- [{evidence_title}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}级"
         )
     infra = ledger["research_infrastructure"]
     lines.extend(

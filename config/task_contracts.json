@@ -234,6 +234,26 @@
         "intraday recovery is not high-frequency trading",
         "push requires the governed sync workflow"
       ]
+    },
+    {
+      "task_id": "governance-code-release",
+      "purpose": "Release narrowly reviewed pipeline and GitHub synchronization repairs without collecting unrelated reports or financial artifacts.",
+      "side_effect_class": "governed_release",
+      "runtime_write_roots": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py"],
+      "sync_allowlist": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py"],
+      "acceptance_checks": [
+        "pipeline close-state and report-rendering regressions pass",
+        "pending sync resume remains bound to one manifest-verified commit",
+        "remote retries and post-push SHA verification remain enabled",
+        "full test suite and task-contract audit pass",
+        "unrelated reports and financial artifacts remain outside the staged set"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "release synchronization is not authority to rerun or rewrite financial history",
+        "simulation-only and fail-closed controls remain unchanged",
+        "push requires the governed sync workflow"
+      ]
     }
   ]
 }

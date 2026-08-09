@@ -704,6 +704,63 @@ class PipelineTests(unittest.TestCase):
                 {"COLD_START_TREND", "CONTROLLED_DIP"},
             )
 
+    def test_close_market_state_alias_creates_orders_and_renders_pending_status(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            input_path = root / "close.json"
+            input_path.write_text(
+                json.dumps(cold_start_snapshot("2026-07-20", market_state="close")),
+                encoding="utf-8",
+            )
+
+            result = run_pipeline(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "reports",
+                orders_log=root / "orders.jsonl",
+            )
+
+            self.assertEqual(result["new_orders"], 2)
+            self.assertEqual(result["daily_execution_status"], "ORDER_SCHEDULED")
+            rendered = (root / "reports" / "2026-07-20-short.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("- 状态：`ORDERS_PENDING`", rendered)
+
+    def test_failed_short_report_uses_source_id_when_evidence_title_is_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            value = cold_start_snapshot("2026-07-20", market_state="close")
+            for asset in value["assets"]:
+                asset["trading_status"] = "SUSPENDED"
+            value["evidence"] = [
+                {
+                    "source_id": "source_without_title",
+                    "url": "https://example.invalid/source",
+                    "as_of": "2026-07-20",
+                    "tier": "TEST",
+                }
+            ]
+            input_path = root / "close.json"
+            input_path.write_text(json.dumps(value), encoding="utf-8")
+
+            result = run_pipeline(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "reports",
+                orders_log=root / "orders.jsonl",
+            )
+
+            self.assertEqual(result["new_orders"], 0)
+            self.assertEqual(result["daily_execution_status"], "FAILED_NO_OPEN_ORDER")
+            rendered = (root / "reports" / "2026-07-20-short.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("- 状态：`FAILED_NO_OPEN_ORDER`", rendered)
+            self.assertIn("[source_without_title](https://example.invalid/source)", rendered)
+
     def test_preopen_signal_can_fill_later_the_same_day(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

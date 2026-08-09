@@ -11,6 +11,10 @@ run_status=${2:-}
 mode=${3:-}
 [[ -n "$task_id" && -n "$run_status" ]] || usage
 [[ -z "$mode" || "$mode" == "--dry-run" ]] || usage
+if [[ ! "$run_status" =~ ^[A-Z][A-Z0-9_]*$ ]]; then
+  echo "status must use uppercase letters, digits, and underscores" >&2
+  exit 2
+fi
 
 expected_branch=${VIBE_FINANCE_SYNC_BRANCH:-main}
 repo_root=$(git rev-parse --show-toplevel)
@@ -53,6 +57,9 @@ case "$task_id" in
   intraday-recovery-release)
     allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config/strategy.json config/task_contracts.json data/inbox data/ledger docs/AUTOMATION.md docs/STOCK_FUND_STRATEGY.md reports/execution scripts/sync_github.sh tests vibe_finance)
     ;;
+  governance-code-release)
+    allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/pipeline.py)
+    ;;
   *)
     echo "unknown task-id: $task_id" >&2
     exit 2
@@ -85,28 +92,155 @@ remote_git() {
   fi
 }
 
+remote_fetch() {
+  local attempt
+  for attempt in 1 2 3; do
+    if remote_git fetch "$@"; then
+      return 0
+    fi
+    if [[ "$attempt" -lt 3 ]]; then
+      echo "remote fetch attempt $attempt failed; retrying" >&2
+      sleep $((attempt * 2))
+    fi
+  done
+  return 1
+}
+
+remote_push() {
+  local attempt
+  for attempt in 1 2 3; do
+    if remote_git push "$@"; then
+      return 0
+    fi
+    if [[ "$attempt" -lt 3 ]]; then
+      echo "remote push attempt $attempt failed; retrying" >&2
+      sleep $((attempt * 2))
+    fi
+  done
+  return 1
+}
+
 branch=$(git branch --show-current)
 if [[ "$branch" != "$expected_branch" ]]; then
   echo "refusing sync from branch '$branch'; expected '$expected_branch'" >&2
   exit 4
 fi
 
-remote_git fetch --quiet origin "$expected_branch"
+remote_fetch --quiet origin "$expected_branch"
 local_head=$(git rev-parse HEAD)
 remote_head=$(git rev-parse "origin/$expected_branch")
+resume_pending_commit=false
+resume_manifest=""
 if [[ "$local_head" != "$remote_head" ]]; then
-  echo "refusing sync because local $expected_branch ($local_head) differs from origin/$expected_branch ($remote_head)" >&2
-  echo "resolve with an explicit fast-forward or conflict review before retrying" >&2
-  exit 4
+  if git merge-base --is-ancestor "$remote_head" "$local_head" \
+    && [[ "$(git rev-list --count "$remote_head..$local_head")" == "1" ]]; then
+    pending_subject=$(git log -1 --format=%s "$local_head")
+    expected_subject_prefix="automation($task_id): "
+    mapfile -t pending_paths < <(git diff-tree --no-commit-id --name-only -r "$local_head")
+    pending_manifests=()
+    pending_paths_allowed=true
+    for path in "${pending_paths[@]}"; do
+      if [[ "$path" == reports/automation-runs/"$task_id"/*.json \
+        && "${path#reports/automation-runs/$task_id/}" != */* ]]; then
+        pending_manifests+=("$path")
+        continue
+      fi
+      path_allowed=false
+      for prefix in "${allowlist[@]}"; do
+        if [[ "$path" == "$prefix" || "$path" == "$prefix/"* ]]; then
+          path_allowed=true
+          break
+        fi
+      done
+      if [[ "$path_allowed" != true ]]; then
+        pending_paths_allowed=false
+        break
+      fi
+    done
+    if [[ "$pending_subject" == "$expected_subject_prefix"* \
+      && "$pending_subject" == *" $run_status" \
+      && "$pending_paths_allowed" == true \
+      && ${#pending_manifests[@]} -eq 1 ]]; then
+      resume_manifest=${pending_manifests[0]}
+      PENDING_HEAD="$local_head" \
+      PENDING_BASE="$remote_head" \
+      PENDING_MANIFEST="$resume_manifest" \
+      RUN_TASK_ID="$task_id" \
+      RUN_STATUS="$run_status" \
+      RUN_BRANCH="$branch" \
+      RUN_ALLOWLIST="${allowlist[*]}" \
+      python3 - <<'PY'
+import hashlib
+import json
+import os
+import subprocess
+
+head = os.environ["PENDING_HEAD"]
+base = os.environ["PENDING_BASE"]
+manifest_path = os.environ["PENDING_MANIFEST"]
+
+def committed(path: str) -> bytes:
+    return subprocess.check_output(["git", "show", f"{head}:{path}"])
+
+manifest = json.loads(committed(manifest_path))
+if manifest.get("task_id") != os.environ["RUN_TASK_ID"]:
+    raise SystemExit("pending manifest task does not match retry task")
+if manifest.get("task_status") != os.environ["RUN_STATUS"]:
+    raise SystemExit("pending manifest status does not match retry status")
+if manifest.get("branch") != os.environ["RUN_BRANCH"]:
+    raise SystemExit("pending manifest branch does not match retry branch")
+if manifest.get("base_commit") != base:
+    raise SystemExit("pending manifest base does not match origin")
+if manifest.get("allowlist") != os.environ["RUN_ALLOWLIST"].split():
+    raise SystemExit("pending manifest allowlist does not match current task contract")
+if manifest.get("simulation_only") is not True:
+    raise SystemExit("pending manifest is not simulation-only")
+validation = manifest.get("validation", {})
+required = {"secret_scan", "json_jsonl_parse", "git_diff_check", "unit_tests"}
+if set(validation) != required or any(validation[key] != "PASS" for key in required):
+    raise SystemExit("pending manifest validations are incomplete")
+
+files = manifest.get("changed_files_before_manifest", [])
+expected_paths = {manifest_path}
+for item in files:
+    path = item["path"]
+    raw = committed(path)
+    if len(raw) != item.get("bytes"):
+        raise SystemExit(f"pending file size differs from manifest: {path}")
+    if hashlib.sha256(raw).hexdigest() != item.get("sha256"):
+        raise SystemExit(f"pending file hash differs from manifest: {path}")
+    expected_paths.add(path)
+
+changed_paths = set(
+    subprocess.check_output(
+        ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", head],
+        text=True,
+    ).splitlines()
+)
+if changed_paths != expected_paths:
+    raise SystemExit("pending commit paths differ from its immutable manifest")
+if subprocess.check_output(["git", "rev-parse", f"{head}^"], text=True).strip() != base:
+    raise SystemExit("pending commit parent does not match origin")
+PY
+      resume_pending_commit=true
+      echo "resuming verified pending governed commit $local_head" >&2
+    fi
+  fi
+  if [[ "$resume_pending_commit" != true ]]; then
+    echo "refusing sync because local $expected_branch ($local_head) differs from origin/$expected_branch ($remote_head)" >&2
+    echo "only one fully verified script-created commit may be resumed after a failed push" >&2
+    exit 4
+  fi
 fi
 
 if [[ "$use_windows_transport" == true ]]; then
   repo_json=$(
     env HTTP_PROXY="$windows_proxy" HTTPS_PROXY="$windows_proxy" ALL_PROXY= \
-      curl.exe -fsS --max-time 30 https://api.github.com/repos/ARC0127/Vibe-Finance
+      curl.exe --ssl-revoke-best-effort -fsS --max-time 30 \
+        https://api.github.com/repos/ARC0127/Vibe-Finance
   )
   visibility=$(printf '%s' "$repo_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["visibility"].upper())')
-  remote_git push --dry-run origin "$expected_branch" >/dev/null
+  remote_push --dry-run origin "$expected_branch" >/dev/null
   permission="WRITE_VERIFIED_BY_DRY_RUN"
 else
   command -v gh >/dev/null
@@ -332,7 +466,9 @@ fi
 
 # Keep the public status block ledger-derived for operational tasks. Reflection
 # owns proposal evidence only and must not touch README or any live projection.
-if [[ "$task_id" != "reflection-evolution" ]]; then
+if [[ "$task_id" != "reflection-evolution" \
+  && "$task_id" != "governance-code-release" \
+  && "$resume_pending_commit" != true ]]; then
   python3 -m vibe_finance update-readme >/dev/null
 fi
 
@@ -377,6 +513,26 @@ fi
 if [[ "$mode" == "--dry-run" ]]; then
   printf 'dry_run=PASS\ntask_id=%s\nbranch=%s\nvisibility=%s\npermission=%s\n' \
     "$task_id" "$branch" "$visibility" "$permission"
+  exit 0
+fi
+
+if [[ "$resume_pending_commit" == true ]]; then
+  pending_allowlist_dirty=$(git status --porcelain=v1 --untracked-files=all -- "${allowlist[@]}")
+  if [[ -n "$pending_allowlist_dirty" ]]; then
+    echo "refusing pending-commit resume because current task paths are dirty:" >&2
+    echo "$pending_allowlist_dirty" >&2
+    exit 10
+  fi
+  remote_push -u origin "$branch"
+  remote_fetch --quiet origin "$branch"
+  pushed_head=$(git rev-parse HEAD)
+  pushed_remote_head=$(git rev-parse "origin/$branch")
+  if [[ "$pushed_head" != "$pushed_remote_head" ]]; then
+    echo "push verification failed: local $pushed_head differs from origin/$branch $pushed_remote_head" >&2
+    exit 11
+  fi
+  printf 'sync=PASS\ntask_id=%s\nmanifest=%s\ncommit=%s\nbranch=%s\nresumed=true\n' \
+    "$task_id" "$resume_manifest" "$pushed_head" "$branch"
   exit 0
 fi
 
@@ -593,7 +749,14 @@ fi
 
 commit_message="automation($task_id): $timestamp_human $run_status"
 git commit -m "$commit_message"
-remote_git push -u origin "$branch"
+remote_push -u origin "$branch"
+remote_fetch --quiet origin "$branch"
+pushed_head=$(git rev-parse HEAD)
+pushed_remote_head=$(git rev-parse "origin/$branch")
+if [[ "$pushed_head" != "$pushed_remote_head" ]]; then
+  echo "push verification failed: local $pushed_head differs from origin/$branch $pushed_remote_head" >&2
+  exit 11
+fi
 
 printf 'sync=PASS\ntask_id=%s\nmanifest=%s\ncommit=%s\nbranch=%s\n' \
-  "$task_id" "$manifest" "$(git rev-parse HEAD)" "$branch"
+  "$task_id" "$manifest" "$pushed_head" "$branch"
