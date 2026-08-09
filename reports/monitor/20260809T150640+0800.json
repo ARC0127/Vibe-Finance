@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-09 15:06:40 CST",
+  "created_at_utc": "2026-08-09T07:06:40.7933444Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "STALE",
+    "heartbeat_age_hours": 46.424,
+    "max_age_hours": 36.0,
+    "heartbeat_stale_by_hours": 10.424,
+    "heartbeat_stale_at": "2026-08-09T04:38:12.604313+08:00",
+    "last_success_at": "2026-08-07T08:38:12.604313+00:00",
+    "last_success_at_shanghai": "2026-08-07T16:38:12.604313+08:00",
+    "last_run_id": "b4eefc389f504ab6883e5912af6d3af7",
+    "last_run_date": "2026-08-07",
+    "last_mode": "short",
+    "decision_report_count": 14,
+    "pending_orders": 0,
+    "positions": 5,
+    "filled_trade_count": 7,
+    "last_filled_trade_date": "2026-08-03",
+    "project_equity_cny": 30493.5,
+    "total_pnl_cny": 493.5,
+    "total_return_pct": 0.01645
+  },
+  "calendar_context": {
+    "current_day": "SUNDAY",
+    "new_short_report_due_today": false,
+    "latest_due_workday_short_date": "2026-08-07",
+    "weekly_review_automation": "vibe-finance-2",
+    "weekly_review_status": "ACTIVE",
+    "weekly_review_due_at": "2026-08-09T20:00:00+08:00",
+    "weekly_review_overdue_at_check": false,
+    "weekly_review_memory_exists": false
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-07-short.json",
+      "input": "data/inbox/2026-08-07.json",
+      "run_id": "b4eefc389f504ab6883e5912af6d3af7",
+      "input_sha256": "51a1b24242ca864d5f42a681bf678b528b61428e7c65315359ae7dfbdb1607c6",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "heartbeat_match": true,
+      "business_status": "FAILED_NO_OPEN_ORDER",
+      "blocks": [
+        "DAILY_ORDER_REQUIREMENT_MISSED"
+      ],
+      "recommendation_count": 13,
+      "new_order_count": 0
+    },
+    "latest_long": {
+      "report": "reports/daily/2026-07-19-long.json",
+      "input": "data/inbox/2026-07-19.json",
+      "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "age_calendar_days": 21,
+      "max_age_days": 8
+    },
+    "latest_fund": {
+      "report": "reports/funds/2026-08-05-funds.json",
+      "input": "data/inbox/2026-08-05-funds.json",
+      "input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true
+    },
+    "missing": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json",
+      "data/inbox/2026-08-07-preopen.json",
+      "reports/weekly"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 417,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 45,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 44,
+    "legacy_event_count": 4,
+    "v2_event_count": 40,
+    "next_sequence": 45,
+    "head_event_sha256": "81dafd6a59a3b145c0597a6cad3dbbccf63bbcf41ecfdf6ba3f7c5febfa40c10",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 7,
+    "portfolio_filled_trade_count": 7,
+    "pending_orders": 0,
+    "positions": 5,
+    "run_history_count": 48
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "alerts": [
+    {
+      "code": "HEARTBEAT_STALE",
+      "minimal_repair": "Allow the active weekly-review owner to run at 2026-08-09T20:00:00+08:00; if it cannot safely refresh liveness, retry with the Monday preopen owner at 08:00."
+    },
+    {
+      "code": "SHORT_REPORT_FAILED_DAILY_ORDER",
+      "minimal_repair": "Release the tested pipeline close-state repair through a governed code owner before the next close cycle; do not overwrite the immutable failed report."
+    },
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery."
+    },
+    {
+      "code": "FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Do not backfill date-shifted NAVs; the next automatic owner retry is 2026-08-10T22:30:00+08:00."
+    },
+    {
+      "code": "OPEN_SETTLEMENT_FAILED_NO_PREOPEN_BASE",
+      "minimal_repair": "Keep the expired Friday window fail-closed and retry the Monday sequence at 08:00, 09:10, and 09:29."
+    },
+    {
+      "code": "LONG_REPORT_STALE",
+      "minimal_repair": "The active long-cycle owner is due at 2026-08-09T20:00:00+08:00; alert again if no governed long report exists after that run."
+    },
+    {
+      "code": "UNRELEASED_GOVERNANCE_REPAIRS",
+      "minimal_repair": "Publish the two tested repairs only through a governed code-release task; activity-monitor must preserve them unstaged."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "b37d161ac61d70dd67891a299aba150388de3aa3",
+    "origin_main_before_sync": "b37d161ac61d70dd67891a299aba150388de3aa3",
+    "live_remote_main_before_sync": "b37d161ac61d70dd67891a299aba150388de3aa3",
+    "heartbeat_sha256": "c2be6725606758289208b6f4a3850ba3edf537cea8f413dde9da5fe05fa7c06a",
+    "preserved_repairs": {
+      "vibe_finance/pipeline.py": "e2d3d4c8ffb8be70d7c348d48a4c7992cd988cbba5e04bc75eb4e92482a8a331",
+      "scripts/sync_github.sh": "f17b6418526700f1de3183fdebdc8bbec34c0c6b8c8fd70a2b620a7ae8029319"
+    },
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "11594b6e961ec36d408de53cda3b9caea3bc1d80ad3c891c05cd0b99ff295fc2",
+      "file_count": 430,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
