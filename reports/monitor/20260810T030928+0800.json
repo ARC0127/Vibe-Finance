@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-10 03:09:28 CST",
+  "created_at_utc": "2026-08-09T19:09:28.2259766Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "STALE",
+    "heartbeat_age_hours": 58.521,
+    "max_age_hours": 36.0,
+    "heartbeat_stale_by_hours": 22.521,
+    "heartbeat_stale_at": "2026-08-09T04:38:12.604313+08:00",
+    "last_success_at": "2026-08-07T08:38:12.604313+00:00",
+    "last_success_at_shanghai": "2026-08-07T16:38:12.604313+08:00",
+    "last_run_id": "b4eefc389f504ab6883e5912af6d3af7",
+    "last_run_date": "2026-08-07",
+    "last_mode": "short",
+    "decision_report_count": 14,
+    "pending_orders": 0,
+    "positions": 5,
+    "filled_trade_count": 7,
+    "last_filled_trade_date": "2026-08-03",
+    "project_equity_cny": 30493.5,
+    "total_pnl_cny": 493.5,
+    "total_return_pct": 0.01645
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_session": "BEFORE_PREOPEN_OWNER_WINDOW",
+    "new_short_report_due_today": false,
+    "latest_due_workday_short_date": "2026-08-07",
+    "weekend_considered": true,
+    "legal_closure_gate": "MUST_BE_REVALIDATED_BY_THE_08_00_OWNER_BEFORE_ANY_FINANCIAL_RUN",
+    "next_financial_owner_retry": "2026-08-10T08:00:00+08:00",
+    "next_owner_sequence": [
+      "2026-08-10T08:00:00+08:00 preopen",
+      "2026-08-10T09:10:00+08:00 order guard",
+      "2026-08-10T09:29:00+08:00 open settlement",
+      "2026-08-10T16:30:00+08:00 close analysis",
+      "2026-08-10T22:30:00+08:00 fund NAV"
+    ]
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-07-short.json",
+      "input": "data/inbox/2026-08-07.json",
+      "input_sha256": "51a1b24242ca864d5f42a681bf678b528b61428e7c65315359ae7dfbdb1607c6",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "heartbeat_match": true,
+      "business_status": "FAILED_NO_OPEN_ORDER",
+      "blocks": [
+        "DAILY_ORDER_REQUIREMENT_MISSED"
+      ],
+      "recommendation_count": 13,
+      "new_order_count": 0
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W32.json",
+      "report_markdown": "reports/weekly/2026-W32.md",
+      "week": "2026-W32",
+      "generated_at": "2026-08-09T20:09:12+08:00",
+      "age_hours": 7.004,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_manifest_count": 35,
+      "input_hashes": "PASS_35_OF_35",
+      "input_hash_errors": [],
+      "ledger_identity": "PASS",
+      "holding_sum": "PASS",
+      "weekly_pnl_identity": "PASS",
+      "fee_identity": "PASS",
+      "manifest": "reports/automation-runs/weekly-review/20260809T202028+0800.json",
+      "manifest_status": "PASS_WITH_FINDINGS",
+      "manifest_validations": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "weekly_review_commit": "5626b7d09a234ae1a4aba6ce3baccd6c4bf8f32c"
+    },
+    "latest_fund": {
+      "report": "reports/funds/2026-08-05-funds.json",
+      "input": "data/inbox/2026-08-05-funds.json",
+      "input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true
+    },
+    "open_settlement": {
+      "manifest": "reports/automation-runs/open-settlement/20260807T130756+0800.json",
+      "status": "FAILED_NO_PREOPEN_BASE",
+      "missing_preopen_input": "data/inbox/2026-08-07-preopen.json"
+    },
+    "missing_latest_due": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json",
+      "data/inbox/2026-08-07-preopen.json"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 426,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 45,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 44,
+    "legacy_event_count": 4,
+    "v2_event_count": 40,
+    "next_sequence": 45,
+    "head_event_sha256": "81dafd6a59a3b145c0597a6cad3dbbccf63bbcf41ecfdf6ba3f7c5febfa40c10",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 7,
+    "portfolio_filled_trade_count": 7,
+    "pending_orders": 0,
+    "positions": 5
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "resolved_since_previous_monitor": [
+    {
+      "code": "LONG_REPORT_STALE",
+      "resolution": "The governed 2026-W32 weekly review is current and all 35 pinned input hashes reconcile."
+    },
+    {
+      "code": "UNRELEASED_GOVERNANCE_REPAIRS",
+      "resolution": "The tested pipeline and sync repairs were released through governance-code-release commit 0e6f4e068737619e68e40eca546223feae2f68d4."
+    }
+  ],
+  "alerts": [
+    {
+      "code": "HEARTBEAT_STALE",
+      "minimal_repair": "Allow the active preopen owner to retry at 08:00 after its authoritative trading-calendar gate; do not refresh liveness from this monitor."
+    },
+    {
+      "code": "SHORT_REPORT_FAILED_DAILY_ORDER",
+      "minimal_repair": "Keep the immutable 2026-08-07 failed report; the released close-state repair will apply only to the next governed close cycle."
+    },
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery."
+    },
+    {
+      "code": "FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Do not backfill date-shifted NAVs; retry through the fund owner at 22:30 if the trading-calendar and source gates permit."
+    },
+    {
+      "code": "OPEN_SETTLEMENT_FAILED_NO_PREOPEN_BASE",
+      "minimal_repair": "Keep the expired Friday window fail-closed and retry the Monday owner sequence at 08:00, 09:10, and 09:29."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "a16b79c69d508d911783027d8f662b41e6f89cdb",
+    "origin_main_before_sync": "a16b79c69d508d911783027d8f662b41e6f89cdb",
+    "live_remote_main_before_sync": "a16b79c69d508d911783027d8f662b41e6f89cdb",
+    "heartbeat_sha256": "c2be6725606758289208b6f4a3850ba3edf537cea8f413dde9da5fe05fa7c06a",
+    "released_repairs": {
+      "commit": "0e6f4e068737619e68e40eca546223feae2f68d4",
+      "manifest": "reports/automation-runs/governance-code-release/20260809T220416+0800.json",
+      "manifest_status": "PASS",
+      "vibe_finance/pipeline.py": "e2d3d4c8ffb8be70d7c348d48a4c7992cd988cbba5e04bc75eb4e92482a8a331",
+      "scripts/sync_github.sh": "f99035dfb59c8e8636ce642ed004a7f82f0b6b913aacbb6c9edf61e3b57b7ef0"
+    },
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "7d8e8be34c0348940230f652707efa2ae93f97e7481eaf31a27db8f30fea6875",
+      "file_count": 438,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
