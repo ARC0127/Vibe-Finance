@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "record_type": "activity_monitor_sync_recovery_addendum",
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-09 09:16:02 CST",
+  "created_at_utc": "2026-08-09T01:16:10.0026600Z",
+  "simulation_only": true,
+  "supersedes_for_closeout": "reports/monitor/20260809T090437+0800.json",
+  "monitor_status": {
+    "status": "STALE",
+    "heartbeat_age_hours_at_post_sync_check": 40.612,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-07T08:38:12.604313+00:00",
+    "last_success_at_shanghai": "2026-08-07T16:38:12.604313+08:00"
+  },
+  "alerts": [
+    "HEARTBEAT_STALE",
+    "SHORT_REPORT_FAILED_DAILY_ORDER",
+    "HISTORICAL_SHORT_REPORT_MISSING",
+    "FUND_NAV_REPORT_MISSING",
+    "OPEN_SETTLEMENT_FAILED_NO_PREOPEN_BASE",
+    "LONG_REPORT_STALE",
+    "UNRELEASED_GOVERNANCE_REPAIRS"
+  ],
+  "first_sync_attempt": {
+    "status": "FAILED_AFTER_COMMIT",
+    "commit": "b5a7e000f8b26b58e429d3d25b4c8e9c9a005b57",
+    "error": "schannel: failed to receive handshake, SSL/TLS connection failed",
+    "remote_before_recovery": "4da71c3667e34c99107710abd21a4d347fe2cb59"
+  },
+  "sync_recovery": {
+    "status": "PASS",
+    "command": "scripts/sync_github.sh activity-monitor FAILED",
+    "manifest": "reports/automation-runs/activity-monitor/20260809T090911+0800.json",
+    "commit": "b5a7e000f8b26b58e429d3d25b4c8e9c9a005b57",
+    "local_head": "b5a7e000f8b26b58e429d3d25b4c8e9c9a005b57",
+    "origin_main": "b5a7e000f8b26b58e429d3d25b4c8e9c9a005b57",
+    "live_remote_main": "b5a7e000f8b26b58e429d3d25b4c8e9c9a005b57",
+    "unit_tests": {
+      "status": "PASS",
+      "count": 117
+    },
+    "manifest_validation": {
+      "secret_scan": "PASS",
+      "json_jsonl_parse": "PASS",
+      "git_diff_check": "PASS",
+      "unit_tests": "PASS"
+    },
+    "resume_guards": [
+      "single local commit ahead of origin",
+      "commit parent equals origin/main",
+      "task, status, branch, base commit, and allowlist match immutable manifest",
+      "commit paths and hashes match immutable manifest",
+      "all original manifest validations are PASS",
+      "current task allowlist paths are clean before resumed push",
+      "post-push fetch confirms local HEAD equals origin/main"
+    ]
+  },
+  "read_only_proof": {
+    "financial_state_modified": false,
+    "deepseek_called": false,
+    "heartbeat_sha256": "c2be6725606758289208b6f4a3850ba3edf537cea8f413dde9da5fe05fa7c06a",
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "11594b6e961ec36d408de53cda3b9caea3bc1d80ad3c891c05cd0b99ff295fc2",
+      "file_count": 430,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ],
+      "change_from_initial_snapshot": "scripts/sync_github.sh recovery repair only"
+    }
+  },
+  "preserved_unreleased_repairs": {
+    "vibe_finance/pipeline.py": "e2d3d4c8ffb8be70d7c348d48a4c7992cd988cbba5e04bc75eb4e92482a8a331",
+    "scripts/sync_github.sh": "f17b6418526700f1de3183fdebdc8bbec34c0c6b8c8fd70a2b620a7ae8029319"
+  }
+}
