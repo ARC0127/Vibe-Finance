@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-10 21:16:39 CST",
+  "created_at_utc": "2026-08-10T13:16:39.6151497Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 4.682,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-10T08:35:46.064622+00:00",
+    "last_success_at_shanghai": "2026-08-10T16:35:46.064622+08:00",
+    "last_run_id": "bf6445ec740544e5873dbbfb61e41f34",
+    "last_run_date": "2026-08-10",
+    "last_mode": "short",
+    "decision_report_count": 15,
+    "pending_orders": 0,
+    "positions": 5,
+    "filled_trade_count": 7,
+    "last_filled_trade_date": "2026-08-03",
+    "project_equity_cny": 30574.0,
+    "total_pnl_cny": 574.0,
+    "total_return_pct": 0.019133333333333332
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_session": "AFTER_CLOSE_ANALYSIS_BEFORE_FUND_NAV",
+    "is_trading_day": true,
+    "legal_closure_gate": "PASS_BY_2026_08_10_PREOPEN_OWNER",
+    "latest_due_workday_short_date": "2026-08-10",
+    "fund_nav_due_at": "2026-08-10T22:30:00+08:00",
+    "fund_nav_due_now": false,
+    "next_trading_day_sequence": "2026-08-11 preopen/order-guard/open, subject to authoritative calendar gates"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-10-short.json",
+      "input": "data/inbox/2026-08-10.json",
+      "input_sha256": "472b78e17120103c6de6fee3fd3419210150f20020f3215abc57853459b4179e",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "heartbeat_match": true,
+      "business_status": "FAILED_NO_OPEN_ORDER",
+      "blocks": [
+        "DAILY_ORDER_REQUIREMENT_MISSED"
+      ],
+      "recommendation_count": 13,
+      "new_order_count": 0,
+      "manifest": "reports/automation-runs/close-analysis/20260810T163809+0800.json",
+      "manifest_status": "FAILED_DAILY_ORDER",
+      "manifest_changed_file_hashes": "PASS_8_OF_8",
+      "manifest_validations": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "failure_boundary": "The released close-state path executed correctly. The strict identity, termination-risk, and corporate-action gates blocked unverified assets; verified candidates did not pass trend or allocation constraints."
+    },
+    "current_open_settlement": {
+      "report": "reports/execution/2026-08-10-open.json",
+      "input": "data/inbox/2026-08-10-open.json",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "FAILED_NO_FILL",
+      "blocks": [
+        "DAILY_TRADE_REQUIREMENT_MISSED"
+      ],
+      "pending_after": 0
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W32.json",
+      "report_markdown": "reports/weekly/2026-W32.md",
+      "week": "2026-W32",
+      "generated_at": "2026-08-09T20:09:12+08:00",
+      "age_hours": 25.124,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_manifest_count": 35,
+      "historical_input_replay": "PASS_35_OF_35",
+      "ledger_identity": "PASS",
+      "holding_sum": "PASS",
+      "weekly_pnl_identity": "PASS",
+      "fee_identity": "PASS",
+      "manifest": "reports/automation-runs/weekly-review/20260809T202028+0800.json",
+      "weekly_review_commit": "5626b7d09a234ae1a4aba6ce3baccd6c4bf8f32c"
+    },
+    "latest_fund": {
+      "report": "reports/funds/2026-08-05-funds.json",
+      "input": "data/inbox/2026-08-05-funds.json",
+      "input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "current_cycle_due": false
+    },
+    "missing_latest_due": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 451,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 47,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 46,
+    "legacy_event_count": 4,
+    "v2_event_count": 42,
+    "next_sequence": 47,
+    "head_event_sha256": "583401cc4b65862a30483c46fc1754cd144a2b7e1d1165590f71979e48014f25",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 7,
+    "portfolio_filled_trade_count": 7,
+    "pending_orders": 0,
+    "positions": 5
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "repair_validation": {
+    "close_state_fix": "PASS_IN_CURRENT_RUN",
+    "primary_identity_gate_fix": "PASS_FAIL_CLOSED_IN_CURRENT_RUN",
+    "remaining_repairable_code_failure": false,
+    "strategy_or_risk_gate_relaxed": false
+  },
+  "alerts": [
+    {
+      "code": "OPEN_SETTLEMENT_FAILED_DAILY_TRADE",
+      "minimal_repair": "Keep the immutable cancellation and zero pending state. Allow the next trading-day preopen owner to form a new signal only under the repaired primary-evidence gates."
+    },
+    {
+      "code": "SHORT_REPORT_FAILED_DAILY_ORDER",
+      "minimal_repair": "Keep the immutable 2026-08-10 failed short report. Retry through the next trading-day preopen owner; do not rerun or overwrite the close report and do not relax identity or allocation gates."
+    },
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery."
+    },
+    {
+      "code": "FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Do not backfill date-shifted NAVs; allow the current 22:30 fund owner to run under source gates while preserving the 2026-08-06 and 2026-08-07 gaps."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "7b9b5765a03bf758c68e35814c4dc8a14cba7091",
+    "origin_main_before_sync": "7b9b5765a03bf758c68e35814c4dc8a14cba7091",
+    "live_remote_main_before_sync": "7b9b5765a03bf758c68e35814c4dc8a14cba7091",
+    "heartbeat_sha256": "1c05510ebea9e67e1247b56831b2b3dd680a853d994d5fd47b5a35d7412fae7f",
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "e2b186ffd3c0379fff89399d4c0fef7a53220eb4efce2f1a4ff132805ea7b8b1",
+      "file_count": 461,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
