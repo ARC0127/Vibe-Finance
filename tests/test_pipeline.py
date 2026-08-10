@@ -42,6 +42,11 @@ def snapshot(run_date: str, *, trading: bool, shock: bool = False, with_open: bo
         "source_ids": ["source_a", "eastmoney"],
         "price_source_ids": ["source_a", "eastmoney"],
         "price_as_of": f"{run_date}T15:00:00+08:00",
+        "security_identity_status": "VERIFIED_ETF_511880",
+        "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+        "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+        "corporate_actions": [],
+        "history_adjusted_for_corporate_actions": True,
     }
     if with_open:
         asset["price_as_of"] = f"{run_date}T09:30:00+08:00"
@@ -137,6 +142,11 @@ def cold_start_snapshot(
             "risk_bucket": bucket,
             "exposure_group": group,
             "order_engine": "next_open",
+            "security_identity_status": f"VERIFIED_ETF_{symbol}",
+            "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+            "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+            "corporate_actions": [],
+            "history_adjusted_for_corporate_actions": True,
         }
         if with_open:
             asset["open"] = close
@@ -911,6 +921,44 @@ class PipelineTests(unittest.TestCase):
                 )
             )
 
+    def test_preopen_primary_gate_skips_unverified_candidate_for_verified_alternative(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            value = cold_start_snapshot(
+                "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+            )
+            for asset in value["assets"]:
+                asset["trading_status"] = "UNVERIFIED_PREOPEN"
+            blocked = next(asset for asset in value["assets"] if asset["symbol"] == "510300")
+            blocked["security_identity_status"] = "UNVERIFIED_PRIMARY_IDENTITY"
+            blocked["st_delisting_status"] = "UNVERIFIED_TERMINATION_STATUS"
+            input_path = root / "preopen.json"
+            input_path.write_text(json.dumps(value), encoding="utf-8")
+
+            result = run_pipeline(
+                input_path=input_path,
+                ledger_path=root / "portfolio.json",
+                strategy_path=STRATEGY_PATH,
+                report_dir=root / "preopen",
+                orders_log=root / "orders.jsonl",
+                mode="preopen",
+            )
+
+            ledger = json.loads((root / "portfolio.json").read_text(encoding="utf-8"))
+            symbols = {order["symbol"] for order in ledger["pending_orders"]}
+            self.assertNotIn("510300", symbols)
+            self.assertEqual(symbols, {"159915", "512100"})
+            decision = json.loads(
+                (root / "preopen" / "2026-07-20-preopen.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            recommendation = next(
+                item for item in decision["recommendations"] if item["symbol"] == "510300"
+            )
+            self.assertIn("SECURITY_IDENTITY_NOT_CLEARED", recommendation["reasons"])
+            self.assertIn("TERMINATION_RISK_NOT_CLEARED", recommendation["reasons"])
+
     def test_daily_fallback_creates_small_core_order_when_no_signal_exists(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -967,6 +1015,9 @@ class PipelineTests(unittest.TestCase):
                 "exposure_group": "government_bond_5y",
                 "order_engine": "next_open",
                 "trading_status": "TRADING",
+                "security_identity_status": "VERIFIED_ETF_511010",
+                "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+                "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
                 "corporate_actions": [],
                 "history_adjusted_for_corporate_actions": True,
             }

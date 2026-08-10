@@ -48,6 +48,14 @@ AGGREGATOR_SOURCE_IDS = {"eastmoney", "sina_finance", "tencent_finance", "invest
 ACTIONABLE_BUY_ACTIONS = {"BUY", "ADD"}
 ACTIONABLE_SELL_ACTIONS = {"SELL", "REDUCE"}
 LISTED_ASSET_TYPES = {"stock", "equity_etf", "cash_etf", "bond_etf", "gold_etf"}
+SAFE_CORPORATE_ACTION_STATUSES = {
+    "CLEARED",
+    "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+}
+SAFE_ST_DELISTING_STATUSES = {
+    "CLEARED",
+    "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+}
 
 
 class DataGateError(ValueError):
@@ -871,6 +879,23 @@ def _signal_target_weight(
     return float(signal.get("target_weights", {}).get(risk_bucket, default))
 
 
+def _listed_primary_gate_reasons(asset: dict[str, Any]) -> list[str]:
+    asset_type = str(asset.get("asset_type", ""))
+    if asset_type not in LISTED_ASSET_TYPES:
+        return []
+
+    identity_status = str(asset.get("security_identity_status", ""))
+    identity_prefix = "VERIFIED_STOCK_" if asset_type == "stock" else "VERIFIED_ETF_"
+    reasons: list[str] = []
+    if not identity_status.startswith(identity_prefix):
+        reasons.append("SECURITY_IDENTITY_NOT_CLEARED")
+    if str(asset.get("st_delisting_status", "")) not in SAFE_ST_DELISTING_STATUSES:
+        reasons.append("TERMINATION_RISK_NOT_CLEARED")
+    if str(asset.get("corporate_action_status", "")) not in SAFE_CORPORATE_ACTION_STATUSES:
+        reasons.append("CORPORATE_ACTION_STATUS_NOT_CLEARED")
+    return reasons
+
+
 def _recommendations(
     ledger: dict[str, Any], snapshot: dict[str, Any], strategy: dict[str, Any], warnings: list[str]
 ) -> tuple[list[dict[str, Any]], list[str]]:
@@ -904,6 +929,9 @@ def _recommendations(
         "DAILY_RETURN_MISSING",
         "NOT_TRADING",
         "UNADJUSTED_CORPORATE_ACTION",
+        "SECURITY_IDENTITY_NOT_CLEARED",
+        "TERMINATION_RISK_NOT_CLEARED",
+        "CORPORATE_ACTION_STATUS_NOT_CLEARED",
         "TIANTIAN_CROSSCHECK_MISSING",
         "FUND_PRIMARY_SOURCE_MISSING",
         "FUND_NAV_DATE_MISSING",
@@ -939,6 +967,7 @@ def _recommendations(
             and asset.get("daily_return") is not None
         )
         reasons: list[str] = _fund_gate_reasons(asset, strategy)
+        reasons.extend(_listed_primary_gate_reasons(asset))
         action = "HOLD" if symbol in ledger["positions"] else "WATCH"
         target_weight = 0.0
         score = 0.0
