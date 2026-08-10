@@ -2,8 +2,32 @@
   "cash_cny": 12879.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "b4eefc389f504ab6883e5912af6d3af7",
-  "pending_orders": [],
+  "last_run_id": "c61df30ad56241418c302317c4af59e4",
+  "pending_orders": [
+    {
+      "exposure_group": "large_cap_value",
+      "limit_price": 3.11199,
+      "lot_size": 100,
+      "name": "华夏上证50ETF",
+      "order_id": "6204a9c2bff04d73b15fe15151b74552",
+      "quantity": 1200,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING"
+      ],
+      "risk_bucket": "core_equity",
+      "side": "BUY",
+      "signal_as_of": "2026-08-10T08:00:00+08:00",
+      "signal_close": 3.066,
+      "signal_date": "2026-08-10",
+      "signal_score": 1.26221525,
+      "signal_type": "COLD_START_TREND",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "510050"
+    }
+  ],
   "performance": {
     "cumulative_buy_notional_cny": 16985.6,
     "cumulative_fees_cny": 35.0,
@@ -12,7 +36,7 @@
     "investable_value_cny": 30393.5,
     "last_filled_trade_date": "2026-08-03",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-07T16:30:00+08:00",
+    "last_valuation_as_of": "2026-08-10T08:00:00+08:00",
     "project_equity_cny": 30493.5,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": 493.5,
@@ -387,6 +411,12 @@
       "mode": "short",
       "run_date": "2026-08-07",
       "run_id": "b4eefc389f504ab6883e5912af6d3af7"
+    },
+    {
+      "input_sha256": "f00e0ece005bdbcf8968280de60a8e6cbefda8228293968ba26bfe4f7453a94e",
+      "mode": "preopen",
+      "run_date": "2026-08-10",
+      "run_id": "c61df30ad56241418c302317c4af59e4"
     }
   ],
   "schema_version": 1

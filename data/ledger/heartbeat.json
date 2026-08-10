@@ -1,8 +1,8 @@
 {
-  "input_sha256": "51a1b24242ca864d5f42a681bf678b528b61428e7c65315359ae7dfbdb1607c6",
-  "last_success_at": "2026-08-07T08:38:12.604313+00:00",
-  "mode": "short",
-  "run_date": "2026-08-07",
-  "run_id": "b4eefc389f504ab6883e5912af6d3af7",
+  "input_sha256": "f00e0ece005bdbcf8968280de60a8e6cbefda8228293968ba26bfe4f7453a94e",
+  "last_success_at": "2026-08-10T00:12:47.522487+00:00",
+  "mode": "preopen",
+  "run_date": "2026-08-10",
+  "run_id": "c61df30ad56241418c302317c4af59e4",
   "status": "ACTIVE"
 }
