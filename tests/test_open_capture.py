@@ -2,11 +2,19 @@ from __future__ import annotations
 
 from datetime import datetime
 import json
+import os
+import socket
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
-from vibe_finance.open_capture import OpenCaptureError, SHANGHAI, capture_open_snapshot
+from vibe_finance.open_capture import (
+    OpenCaptureError,
+    SHANGHAI,
+    _default_fetch,
+    capture_open_snapshot,
+)
 from vibe_finance.pipeline import DataGateError, validate_snapshot
 
 
@@ -51,6 +59,28 @@ class OpenCaptureTests(unittest.TestCase):
             "511010": ("国债ETF国泰", "140.899", "140.900"),
             "511880": ("银华日利ETF", "100.642", "100.638"),
         }
+
+    def test_sina_fetch_supports_explicit_dns_override_and_restores_resolver(self) -> None:
+        response = mock.MagicMock()
+        response.__enter__.return_value.read.return_value = b"payload"
+        system_resolver = mock.Mock(return_value=[])
+
+        def urlopen(*args: object, **kwargs: object) -> object:
+            socket.getaddrinfo("hq.sinajs.cn", 443)
+            return response
+
+        with (
+            mock.patch.dict(os.environ, {"VIBE_FINANCE_SINA_IP": "36.51.224.96"}),
+            mock.patch("vibe_finance.open_capture.socket.getaddrinfo", system_resolver),
+            mock.patch("vibe_finance.open_capture.urllib.request.urlopen", side_effect=urlopen),
+        ):
+            self.assertEqual(
+                _default_fetch("sina_finance", "https://hq.sinajs.cn/list=sh510050", 5),
+                b"payload",
+            )
+            self.assertIs(socket.getaddrinfo, system_resolver)
+
+        system_resolver.assert_called_once_with("36.51.224.96", 443)
 
     def _fixture(self, root: Path) -> tuple[Path, Path, Path, Path]:
         strategy = json.loads((ROOT / "config/strategy.json").read_text(encoding="utf-8"))

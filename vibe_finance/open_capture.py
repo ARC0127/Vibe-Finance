@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import socket
 import time as time_module
 import urllib.request
 from dataclasses import dataclass
@@ -78,8 +79,19 @@ def _default_fetch(source_id: str, url: str, timeout: float) -> bytes:
     if source_id == "sina_finance":
         headers["Referer"] = "https://finance.sina.com.cn/"
     request = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        payload = response.read(1_000_001)
+    override_ip = os.environ.get("VIBE_FINANCE_SINA_IP") if source_id == "sina_finance" else None
+    original_getaddrinfo = socket.getaddrinfo
+
+    def resolve(host: str, *args: Any, **kwargs: Any) -> Any:
+        return original_getaddrinfo(override_ip if host == "hq.sinajs.cn" and override_ip else host, *args, **kwargs)
+
+    try:
+        if override_ip:
+            socket.getaddrinfo = resolve
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            payload = response.read(1_000_001)
+    finally:
+        socket.getaddrinfo = original_getaddrinfo
     if len(payload) > 1_000_000:
         raise OpenCaptureError(f"{source_id} response exceeds 1 MB")
     if not payload:

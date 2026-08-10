@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "task_id": "intraday-recovery-release",
+  "task_status": "PASS_SINA_DNS_OVERRIDE_REPAIR",
+  "run_timestamp": "2026-08-10 09:38:46 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "a4aa7a9aa6e0a91ce52e9ce139afdea49de05362",
+  "allowlist": [
+    "MASTER_PROMPT.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "README.md",
+    "config/strategy.json",
+    "config/task_contracts.json",
+    "data/inbox",
+    "data/ledger",
+    "docs/AUTOMATION.md",
+    "docs/STOCK_FUND_STRATEGY.md",
+    "reports/execution",
+    "scripts/sync_github.sh",
+    "tests",
+    "vibe_finance"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "tests/test_open_capture.py",
+      "bytes": 15938,
+      "sha256": "576e09f21598e53f385ce96d27a3e8633e531278efaf5c59dfbc206f2805ea6f"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/open_capture.py",
+      "bytes": 19411,
+      "sha256": "3f97aab645aec19ab476186062aa3df0d7c10bd95fc9403aedc0bce43832070e"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-10T01:38:46.681274+00:00",
+  "simulation_only": true
+}
