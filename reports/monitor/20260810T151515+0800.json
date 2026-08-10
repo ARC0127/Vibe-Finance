@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-10 15:15:15 CST",
+  "created_at_utc": "2026-08-10T07:15:15.7896008Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 5.675,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-10T01:34:46.957071+00:00",
+    "last_success_at_shanghai": "2026-08-10T09:34:46.957071+08:00",
+    "last_run_id": "1e5297cda9b14599ad00ddc1ce5e004a",
+    "last_run_date": "2026-08-10",
+    "last_mode": "open_settlement",
+    "decision_report_count": 14,
+    "pending_orders": 0,
+    "positions": 5,
+    "filled_trade_count": 7,
+    "last_filled_trade_date": "2026-08-03",
+    "project_equity_cny": 30504.0,
+    "total_pnl_cny": 504.0,
+    "total_return_pct": 0.0168
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_session": "AFTER_INTRADAY_RECOVERY_WINDOW_BEFORE_CLOSE_ANALYSIS",
+    "is_trading_day": true,
+    "legal_closure_gate": "PASS_BY_2026_08_10_PREOPEN_OWNER",
+    "latest_due_workday_short_date": "2026-08-07",
+    "new_close_short_due_today": false,
+    "close_analysis_due_at": "2026-08-10T16:30:00+08:00",
+    "fund_nav_due_at": "2026-08-10T22:30:00+08:00",
+    "next_open_sequence": "2026-08-11 preopen/order-guard/open, subject to authoritative calendar gates"
+  },
+  "report_checks": {
+    "current_open_settlement": {
+      "report": "reports/execution/2026-08-10-open.json",
+      "input": "data/inbox/2026-08-10-open.json",
+      "input_sha256": "c9b14caf98640fd355b551d6ca5d643bb3d9b52db78bb98097740400c51fe310",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "heartbeat_match": true,
+      "business_status": "FAILED_NO_FILL",
+      "blocks": [
+        "DAILY_TRADE_REQUIREMENT_MISSED"
+      ],
+      "pending_before": 1,
+      "pending_after": 0,
+      "filled_count": 0,
+      "cancelled_count": 1,
+      "cancellation_reason": "UNVERIFIED_SECURITY_IDENTITY_AND_ST_DELISTING",
+      "initial_manifest": "reports/automation-runs/open-settlement/20260810T093720+0800.json",
+      "initial_manifest_status": "FAILED_DAILY_TRADE",
+      "initial_manifest_hashes": "PASS_9_OF_9",
+      "recovery_manifest": "reports/automation-runs/open-settlement/20260810T130516+0800.json",
+      "recovery_manifest_status": "FAILED_DAILY_TRADE",
+      "recovery_changed_files": 0,
+      "recovery_boundary": "No pending order remained after the fail-closed cancellation, so intraday recovery could not safely fabricate or recreate an order."
+    },
+    "governed_repairs": [
+      {
+        "commit": "fa6f07d35c7171c2684a2ab04ff9250729ef8243",
+        "manifest": "reports/automation-runs/intraday-recovery-release/20260810T093846+0800.json",
+        "status": "PASS_SINA_DNS_OVERRIDE_REPAIR",
+        "changed_file_hashes": "PASS_2_OF_2"
+      },
+      {
+        "commit": "71441ca15cf50f9b3fa475cfe0c3830b81d4dc56",
+        "manifest": "reports/automation-runs/intraday-recovery-release/20260810T094853+0800.json",
+        "status": "PASS_PREOPEN_PRIMARY_GATE_REPAIR",
+        "changed_file_hashes": "PASS_2_OF_2"
+      }
+    ],
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-07-short.json",
+      "input": "data/inbox/2026-08-07.json",
+      "input_sha256": "51a1b24242ca864d5f42a681bf678b528b61428e7c65315359ae7dfbdb1607c6",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "FAILED_NO_OPEN_ORDER",
+      "blocks": [
+        "DAILY_ORDER_REQUIREMENT_MISSED"
+      ]
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W32.json",
+      "report_markdown": "reports/weekly/2026-W32.md",
+      "week": "2026-W32",
+      "generated_at": "2026-08-09T20:09:12+08:00",
+      "age_hours": 19.1,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_manifest_count": 35,
+      "historical_input_replay": "PASS_35_OF_35",
+      "ledger_identity": "PASS",
+      "holding_sum": "PASS",
+      "weekly_pnl_identity": "PASS",
+      "fee_identity": "PASS",
+      "manifest": "reports/automation-runs/weekly-review/20260809T202028+0800.json",
+      "weekly_review_commit": "5626b7d09a234ae1a4aba6ce3baccd6c4bf8f32c"
+    },
+    "latest_fund": {
+      "report": "reports/funds/2026-08-05-funds.json",
+      "input": "data/inbox/2026-08-05-funds.json",
+      "input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true
+    },
+    "missing_latest_due": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 444,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 47,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 46,
+    "legacy_event_count": 4,
+    "v2_event_count": 42,
+    "next_sequence": 47,
+    "head_event_sha256": "583401cc4b65862a30483c46fc1754cd144a2b7e1d1165590f71979e48014f25",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 7,
+    "portfolio_filled_trade_count": 7,
+    "pending_orders": 0,
+    "positions": 5
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "resolved_since_previous_monitor": [
+    {
+      "code": "OPEN_SETTLEMENT_FAILED_NO_PREOPEN_BASE",
+      "resolution": "The 2026-08-10 preopen base, order guard, and open snapshot all completed; the current failure is a different fail-closed identity/data gate."
+    },
+    {
+      "code": "REPAIRABLE_OPEN_PIPELINE_DEFECTS",
+      "resolution": "The Sina DNS override and preopen primary-evidence gate defects were released through two governed repair commits with passing manifests and tests."
+    }
+  ],
+  "alerts": [
+    {
+      "code": "OPEN_SETTLEMENT_FAILED_DAILY_TRADE",
+      "minimal_repair": "Keep the cancelled order and immutable open report. With no pending order after the gate cancellation, wait for the governed 16:30 close owner to form any next-day signal under the released repairs."
+    },
+    {
+      "code": "SHORT_REPORT_FAILED_DAILY_ORDER",
+      "minimal_repair": "Keep the immutable 2026-08-07 failed report; allow the released close-state repair to apply to the 2026-08-10 16:30 governed close cycle."
+    },
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery."
+    },
+    {
+      "code": "FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Do not backfill date-shifted NAVs; retry through the fund owner at 22:30 under current source and calendar gates."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "e6734dc090467b97af210f015d3bd5980ab74b86",
+    "origin_main_before_sync": "e6734dc090467b97af210f015d3bd5980ab74b86",
+    "live_remote_main_before_sync": "e6734dc090467b97af210f015d3bd5980ab74b86",
+    "heartbeat_sha256": "125eec4ac4222e4b331981ee4abaeed6ed6dc7483964d0e33e040dbb848721fe",
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "793ea70f09e82e9d4e2c517f2c2b85264be3abba74e0b47fe3c97db991d60f66",
+      "file_count": 455,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
