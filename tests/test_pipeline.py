@@ -11,7 +11,11 @@ from unittest.mock import patch
 
 from vibe_finance.pipeline import (
     DataGateError,
+    _create_orders,
+    _latest_strategy_report,
     _project_value,
+    _read_json,
+    _recommendations,
     _trade_fees,
     _update_ledger_valuation,
     initialize_ledger,
@@ -983,6 +987,73 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(order["signal_type"], "DAILY_EXPLORATION_FALLBACK")
             self.assertGreaterEqual(order["quantity"] * order["signal_close"], 800)
 
+    def test_daily_fallback_retries_after_signals_fail_execution_sizing(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger_path = root / "portfolio.json"
+            initialize_ledger(ledger_path)
+            ledger = _read_json(ledger_path)
+            ledger["cash_cny"] = 18000.0
+            ledger["positions"] = {
+                "510050": {
+                    "name": "core bucket filler",
+                    "quantity": 4000,
+                    "average_cost": 3.0,
+                    "risk_bucket": "core_equity",
+                    "exposure_group": "large_cap_value",
+                    "last_buy_date": "2026-07-17",
+                }
+            }
+
+            value = cold_start_snapshot(
+                "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+            )
+            signal = next(
+                asset for asset in value["assets"] if asset["symbol"] == "510300"
+            )
+            filler = dict(signal)
+            filler.update(
+                {
+                    "symbol": "510050",
+                    "name": "core bucket filler",
+                    "close": 3.0,
+                    "daily_return": 0.0,
+                    "history": [3.0] * 12,
+                    "security_identity_status": "VERIFIED_ETF_510050",
+                    "risk_bucket": "core_equity",
+                    "exposure_group": "large_cap_value",
+                }
+            )
+            gold = next(
+                asset for asset in value["assets"] if asset["symbol"] == "518880"
+            )
+            gold["history"] = [8.20 + index * 0.01 for index in range(12)]
+            gold["close"] = gold["history"][-1]
+            gold["daily_return"] = 0.03
+            value["assets"] = [filler, signal, gold]
+
+            strategy = _read_json(STRATEGY_PATH)
+            warnings = validate_snapshot(value, strategy)
+            recommendations, blocks = _recommendations(
+                ledger, value, strategy, warnings
+            )
+            orders = _create_orders(
+                ledger, value, strategy, recommendations, blocks
+            )
+
+            self.assertEqual(len(orders), 1)
+            self.assertEqual(orders[0]["symbol"], "518880")
+            self.assertEqual(
+                orders[0]["signal_type"], "DAILY_EXPLORATION_FALLBACK"
+            )
+            blocked_signal = next(
+                item for item in recommendations if item["symbol"] == "510300"
+            )
+            self.assertIn(
+                "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
+                blocked_signal["reasons"],
+            )
+
     def test_cash_and_bond_etfs_reach_candidate_and_order_execution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1066,6 +1137,37 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(result["status"], "FAILED_DAILY_TRADE")
             self.assertIn("NO_PENDING_DAILY_ORDER", result["blocks"])
             self.assertIn("DAILY_TRADE_REQUIREMENT_MISSED", result["blocks"])
+
+    def test_latest_strategy_report_includes_nested_recovery_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            preopen = root / "preopen"
+            recovery = preopen / "recovery-0816"
+            recovery.mkdir(parents=True)
+            original = {
+                "run_date": "2026-08-11",
+                "as_of": "2026-08-11T08:00:00+08:00",
+                "recommendations": [],
+                "daily_execution_status": "FAILED_NO_OPEN_ORDER",
+            }
+            recovered = {
+                **original,
+                "daily_execution_status": "ORDER_SCHEDULED",
+            }
+            (preopen / "2026-08-11-preopen.json").write_text(
+                json.dumps(original), encoding="utf-8"
+            )
+            recovery_path = recovery / "2026-08-11-preopen.json"
+            recovery_path.write_text(json.dumps(recovered), encoding="utf-8")
+
+            selected = _latest_strategy_report(root, ("preopen",))
+
+            self.assertIsNotNone(selected)
+            assert selected is not None
+            self.assertEqual(selected[0], recovery_path)
+            self.assertEqual(
+                selected[1]["daily_execution_status"], "ORDER_SCHEDULED"
+            )
 
     def test_readme_status_is_generated_from_ledger(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

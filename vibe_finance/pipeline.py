@@ -1206,7 +1206,13 @@ def _recommendations(
 
 
 def _create_orders(
-    ledger: dict[str, Any], snapshot: dict[str, Any], strategy: dict[str, Any], recommendations: list[dict[str, Any]], blocks: list[str]
+    ledger: dict[str, Any],
+    snapshot: dict[str, Any],
+    strategy: dict[str, Any],
+    recommendations: list[dict[str, Any]],
+    blocks: list[str],
+    *,
+    _allow_post_execution_fallback: bool = True,
 ) -> list[dict[str, Any]]:
     hard_blocks = [block for block in blocks if block != "BROAD_MARKET_SHOCK"]
     if (
@@ -1395,6 +1401,88 @@ def _create_orders(
         }
         ledger["pending_orders"].append(order)
         orders.append(order)
+
+    # A valid signal can still become non-executable only after lot sizing,
+    # bucket caps, or diversification checks.  In that case the signal-level
+    # fallback in _recommendations was intentionally not selected because a
+    # signal existed, but the daily execution contract still requires the
+    # smallest governed exploration order that is actually executable.
+    if (
+        not orders
+        and _allow_post_execution_fallback
+        and bool(strategy.get("daily_execution", {}).get("enabled", False))
+        and snapshot["is_trading_day"]
+        and snapshot.get("market_state") in {"closed", "close", "preopen"}
+        and not any(
+            order.get("status") == "PENDING_NEXT_OPEN"
+            for order in ledger["pending_orders"]
+        )
+    ):
+        daily_rules = strategy.get("daily_execution", {})
+        eligible_types = set(daily_rules.get("eligible_asset_types", []))
+        by_symbol = {item["symbol"]: item for item in recommendations}
+        unsafe_reasons = {
+            "PRICE_NOT_CROSSCHECKED",
+            "INSUFFICIENT_HISTORY",
+            "DAILY_RETURN_MISSING",
+            "NOT_TRADING",
+            "UNADJUSTED_CORPORATE_ACTION",
+        }
+        shock = _market_shock(snapshot, strategy)
+        for symbol in daily_rules.get("fallback_preference", []):
+            symbol = str(symbol)
+            recommendation = by_symbol.get(symbol)
+            asset = assets.get(symbol)
+            if (
+                not recommendation
+                or not asset
+                or str(asset.get("asset_type")) not in eligible_types
+            ):
+                continue
+            if shock and _is_equity_exposure(asset):
+                continue
+            if any(reason in unsafe_reasons for reason in recommendation["reasons"]):
+                continue
+            if _listed_primary_gate_reasons(asset):
+                continue
+            max_weight = _maximum_asset_weight(str(asset["asset_type"]), strategy)
+            if float(recommendation.get("current_weight", 0.0)) >= max_weight - 1e-9:
+                continue
+            increment = float(daily_rules.get("fallback_increment_weight", 0.04))
+            fallback_target = min(
+                max_weight,
+                float(recommendation.get("current_weight", 0.0)) + increment,
+            )
+            lot = int(asset.get("lot_size", 100))
+            current_quantity = int(
+                ledger["positions"].get(symbol, {}).get("quantity", 0)
+            )
+            desired_quantity = (
+                math.floor(
+                    portfolio_value * fallback_target / float(asset["close"]) / lot
+                )
+                * lot
+            )
+            if desired_quantity <= current_quantity:
+                continue
+            recommendation["target_weight"] = fallback_target
+            recommendation["action"] = (
+                "ADD" if float(recommendation.get("current_weight", 0.0)) > 0 else "BUY"
+            )
+            recommendation["signal_type"] = "DAILY_EXPLORATION_FALLBACK"
+            recommendation["score"] = 0.1
+            if "DAILY_EXPLORATION_FALLBACK" not in recommendation["reasons"]:
+                recommendation["reasons"].append("DAILY_EXPLORATION_FALLBACK")
+            fallback_orders = _create_orders(
+                ledger,
+                snapshot,
+                strategy,
+                recommendations,
+                blocks,
+                _allow_post_execution_fallback=False,
+            )
+            if fallback_orders:
+                return fallback_orders
     return orders
 
 
@@ -2671,7 +2759,7 @@ def _latest_strategy_report(
         report_dir = report_root / directory
         if not report_dir.exists():
             continue
-        for path in sorted(report_dir.glob("*.json")):
+        for path in sorted(report_dir.rglob("*.json")):
             value = _read_json(path)
             if not value.get("as_of") or not value.get("run_date"):
                 continue
