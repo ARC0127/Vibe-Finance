@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-11 22:48:41 CST",
+  "created_at_utc": "2026-08-11T14:48:41.7784900Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 0.171,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-11T14:38:35.358650+00:00",
+    "last_success_at_shanghai": "2026-08-11T22:38:35.358650+08:00",
+    "last_run_id": "400cb4f9e79f427587c02a3475a0d18c",
+    "last_run_date": "2026-08-11",
+    "last_mode": "fund_nav",
+    "decision_report_count": 16,
+    "pending_orders": 1,
+    "positions": 5,
+    "filled_trade_count": 7,
+    "last_filled_trade_date": "2026-08-03",
+    "project_equity_cny": 30463.7,
+    "total_pnl_cny": 463.7,
+    "total_return_pct": 0.015456666666666691
+  },
+  "calendar_context": {
+    "current_day": "TUESDAY",
+    "current_session": "AFTER_FUND_NAV",
+    "is_trading_day": true,
+    "latest_due_workday_short_date": "2026-08-11",
+    "latest_due_fund_nav_date": "2026-08-11",
+    "next_trading_day_sequence": "2026-08-12 preopen, order guard, and open settlement, subject to authoritative calendar gates"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-11-short.json",
+      "input": "data/inbox/2026-08-11.json",
+      "input_sha256": "a114718e5c5fe449460c9aa820d98713ff9ecde6cdcb5629f177460c397f9b1e",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "ORDER_SCHEDULED",
+      "blocks": [],
+      "recommendation_count": 13,
+      "new_order_count": 1,
+      "manifest": "reports/automation-runs/close-analysis/20260811T164020+0800.json",
+      "manifest_status": "ORDER_SCHEDULED",
+      "manifest_validations": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "current_open_settlement": {
+      "report": "reports/execution/2026-08-11-intraday.json",
+      "input": "data/inbox/2026-08-11-intraday.json",
+      "input_hash_match": true,
+      "business_status": "FAILED_NO_FILL",
+      "blocks": [
+        "DAILY_TRADE_REQUIREMENT_MISSED"
+      ],
+      "pending_after": 0,
+      "failure_boundary": "The 2026-08-11 virtual order was cancelled fail-closed because security identity and termination-risk evidence were not cleared. The close owner later created one new next-open virtual order without rewriting the failed settlement."
+    },
+    "latest_due_fund_nav": {
+      "report": "reports/funds/2026-08-11-funds.json",
+      "input": "data/inbox/2026-08-11-funds.json",
+      "input_sha256": "034bad39afc6147c83cf3bb9bbeac245a80ce9de2f76dcf6bd6e62c97adc71ee",
+      "input_hash_match": true,
+      "heartbeat_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "NO_TRADE",
+      "blocks": [
+        "NAV_NOT_PUBLISHED"
+      ],
+      "new_order_count": 0,
+      "event_count": 0,
+      "manifest": "reports/automation-runs/fund-nav/20260811T224435+0800.json",
+      "manifest_status": "NO_TRADE",
+      "manifest_changed_file_count": 8,
+      "manifest_validations": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W32.json",
+      "report_markdown": "reports/weekly/2026-W32.md",
+      "week": "2026-W32",
+      "generated_at": "2026-08-09T20:09:12+08:00",
+      "age_days": 2.11,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_manifest_count": 35,
+      "historical_input_replay": "PASS_35_OF_35",
+      "ledger_identity": "PASS",
+      "holding_sum": "PASS",
+      "weekly_pnl_identity": "PASS",
+      "fee_identity": "PASS",
+      "manifest": "reports/automation-runs/weekly-review/20260809T202028+0800.json",
+      "weekly_review_commit": "5626b7d09a234ae1a4aba6ce3baccd6c4bf8f32c"
+    },
+    "missing_historical": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 483,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 50,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 49,
+    "committed_event_count": 49,
+    "legacy_event_count": 4,
+    "v2_event_count": 45,
+    "next_sequence": 50,
+    "head_event_sha256": "05d2f010ed76b6e2beb61a0e0f06d1bc7745144dee9553edc0808e0d224d255d",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 7,
+    "portfolio_filled_trade_count": 7,
+    "pending_orders": 1,
+    "positions": 5
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "repair_validation": {
+    "expected_behavior_difference": "A pending governed commit may resume after a push-only failure when the manifest matches the original worktree bytes and Git confirms that their normalized content equals the pending commit.",
+    "verified_failure": "Existing 2026-08-11 manifests contain CRLF worktree hashes while Git stores normalized LF blobs; the previous committed-byte comparison rejects those valid artifacts.",
+    "implementation": [
+      "scripts/sync_github.sh",
+      "tests/test_sync_recovery.py"
+    ],
+    "script_sha256": "816cfac94360269218a81f91f60a8f93cc85161b01b635a8ee666ef8f2ee21a0",
+    "test_sha256": "d51d9a83ba06a579579c87dd09442c9e2211c31d482b35cd0c2382e0a941f368",
+    "bash_syntax": "PASS",
+    "targeted_tests": "PASS_6",
+    "isolated_crlf_reproduction": "OLD_COMMITTED_BYTE_CHECK_FAIL_NEW_WORKTREE_PLUS_GIT_EQUIVALENCE_PASS",
+    "full_suite_observed_in_concurrent_fund_nav_sync": "PASS_130",
+    "released": false,
+    "release_boundary": "The activity-monitor allowlist cannot stage governance code. Preserve the tested patch for a separate governed governance-code-release run."
+  },
+  "alerts": [
+    {
+      "code": "OPEN_SETTLEMENT_FAILED_DAILY_TRADE",
+      "minimal_repair": "Keep the immutable 2026-08-11 cancellation. Let the 2026-08-12 preopen and open owners evaluate the newly scheduled virtual order under the existing identity and termination-risk gates."
+    },
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery; do not overwrite history."
+    },
+    {
+      "code": "HISTORICAL_FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Preserve the 2026-08-06 and 2026-08-07 gaps. Do not backfill date-shifted NAV evidence."
+    },
+    {
+      "code": "GOVERNANCE_SYNC_RESUME_FIX_PENDING_RELEASE",
+      "minimal_repair": "Run the existing governance-code-release owner on the tested script and regression test; do not widen the activity-monitor allowlist."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "758ced5a91c73d0bc6ee16c41abe6b5fc6a3b67f",
+    "origin_main_before_sync": "758ced5a91c73d0bc6ee16c41abe6b5fc6a3b67f",
+    "live_remote_main_before_sync": "758ced5a91c73d0bc6ee16c41abe6b5fc6a3b67f",
+    "concurrent_owner_commit": {
+      "task_id": "fund-nav",
+      "status": "NO_TRADE",
+      "commit": "758ced5a91c73d0bc6ee16c41abe6b5fc6a3b67f"
+    },
+    "heartbeat_sha256": "ca5b09750589ad12c371cf0a8ce6157fdb932cb562943c93f3fe2365c3ad69c2",
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "4a5c8eef29c16cff80a5c9d79c49c023300dc5b10eb7d2b270188c45dfd4c738",
+      "file_count": 502,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
