@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "task_status": "PASS",
+  "run_timestamp": "2026-08-11 08:23:41 CST",
+  "run_id": "4c77eb8ee46040629daa15080123716c",
+  "branch": "main",
+  "base_commit": "a90d1e477d962ce013b5d3f765db221512d0601f",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 16927,
+      "sha256": "08edf57c1bd37ffd3c3b02d442b3db17758477dd110b897a83027571131cad9d"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 265,
+      "sha256": "b36a6a08c3f9796c422b828182791c235b50f862659bb400e221ff6bdbe1c4a3"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/orders.jsonl",
+      "bytes": 67999,
+      "sha256": "5990336c2da892c3918fdbbc538621e55f15031991701601a4c8c740314f6621"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 15506,
+      "sha256": "ffcacf6d7b6abad8989408f8fec439eac879e5d83a27c231142aa5e51a7bdfe3"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-11-preopen-recovery-0806.json",
+      "bytes": 46752,
+      "sha256": "113a36197c8b80b1cf02178e68b6314326d959bb66b7d8ca5c14bfc23d6b7635"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-11-preopen-recovery-0816.json",
+      "bytes": 49376,
+      "sha256": "a7639e9e07a4777e10c4792d07c2f858bd68979d0f15eaaad87fa55035ace0d5"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-11-preopen.json",
+      "bytes": 43558,
+      "sha256": "8f07a3e47129bdd7738a160b46a0032c574690857ccde5778cfc74a6384b5ab9"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/4c77eb8ee46040629daa15080123716c/commit.json",
+      "bytes": 1010,
+      "sha256": "6859b5cbbd039d06914d0f98f002bead0e0414336d13d2be03ec455ee1221d15"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/4c77eb8ee46040629daa15080123716c/prepare.json",
+      "bytes": 37539,
+      "sha256": "ce37291492077c3b04b930c434f53fff85e584d9e42ff519b37e582cabde763f"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/c62b7a113bee4e4cb892bd92f09d3949/commit.json",
+      "bytes": 982,
+      "sha256": "978b391c027dd0029ddebd3ddc664409b0c90a1c28db18036a95e9a9c80bd1f9"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/c62b7a113bee4e4cb892bd92f09d3949/prepare.json",
+      "bytes": 32837,
+      "sha256": "3d1cd917739fbcf8e82da2d74aeaa6c30057eefd0186180ad89870f1cd7fdb6b"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-08-11-preopen.json",
+      "bytes": 11636,
+      "sha256": "2238624eb53f239a0109d325e51ecc910d8934e7d32dab7b35109dc3bab1b20c"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-08-11-preopen.md",
+      "bytes": 3782,
+      "sha256": "ea4956cefd8806fd98c1a509b76d2d423d1fe6ed00ce7e387da9b4439a1b304c"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/recovery-0816/2026-08-11-preopen.json",
+      "bytes": 12291,
+      "sha256": "012b4ed1885b3cbfc49f95aa51e416f4dd00430453fbe9ea8310128d20f5380d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/recovery-0816/2026-08-11-preopen.md",
+      "bytes": 5033,
+      "sha256": "6fd3f1a7bd4ce0a5382d07e065fcab1a2cdd61b8375928fe799e3eb864d7c018"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-11T00:23:42.040685+00:00",
+  "simulation_only": true
+}
