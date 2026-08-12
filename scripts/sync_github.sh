@@ -240,11 +240,25 @@ PY
 fi
 
 if [[ "$use_windows_transport" == true ]]; then
+  github_credential=$(
+    printf 'protocol=https\nhost=github.com\n\n' \
+      | env HTTP_PROXY="$windows_proxy" HTTPS_PROXY="$windows_proxy" ALL_PROXY= \
+          git.exe credential fill
+  )
+  github_token=$(printf '%s\n' "$github_credential" | sed -n 's/\r$//; s/^password=//p')
+  unset github_credential
+  if [[ -z "$github_token" ]]; then
+    echo "refusing sync because Git Credential Manager returned no GitHub token" >&2
+    exit 5
+  fi
   repo_json=$(
-    env HTTP_PROXY="$windows_proxy" HTTPS_PROXY="$windows_proxy" ALL_PROXY= \
+    printf 'header = "Authorization: Bearer %s"\n' "$github_token" \
+      | env HTTP_PROXY="$windows_proxy" HTTPS_PROXY="$windows_proxy" ALL_PROXY= \
       curl.exe --ssl-revoke-best-effort -fsS --max-time 30 \
+        --config - \
         https://api.github.com/repos/ARC0127/Vibe-Finance
   )
+  unset github_token
   visibility=$(printf '%s' "$repo_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["visibility"].upper())')
   remote_push --dry-run origin "$expected_branch" >/dev/null
   permission="WRITE_VERIFIED_BY_DRY_RUN"

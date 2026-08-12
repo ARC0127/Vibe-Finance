@@ -62,6 +62,15 @@ class SyncRecoveryBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(self.source.count("push verification failed:"), 2)
 
+    def test_windows_api_probe_uses_credential_manager_without_cli_secret(self) -> None:
+        windows_probe = self.source.split("github_credential=$(", 1)[1].split(
+            "else\n  command -v gh", 1
+        )[0]
+        self.assertIn("git.exe credential fill", windows_probe)
+        self.assertIn("--config -", windows_probe)
+        self.assertIn('unset github_token', windows_probe)
+        self.assertNotIn('curl.exe -H "Authorization:', windows_probe)
+
     def test_governance_code_release_is_narrow_and_skips_readme_refresh(self) -> None:
         block = self.source.split("governance-code-release)", 1)[1].split(";;", 1)[0]
         self.assertIn(
