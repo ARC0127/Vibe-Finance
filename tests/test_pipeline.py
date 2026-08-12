@@ -16,6 +16,7 @@ from vibe_finance.pipeline import (
     _project_value,
     _read_json,
     _recommendations,
+    _render_report,
     _trade_fees,
     _update_ledger_valuation,
     initialize_ledger,
@@ -741,6 +742,44 @@ class PipelineTests(unittest.TestCase):
                 encoding="utf-8"
             )
             self.assertIn("- 状态：`ORDERS_PENDING`", rendered)
+
+    def test_report_renders_existing_pending_order_when_cycle_adds_no_order(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger_path = root / "portfolio.json"
+            initialize_ledger(ledger_path)
+            ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+            ledger["pending_orders"] = [
+                {
+                    "order_id": "existing-order",
+                    "status": "PENDING_NEXT_OPEN",
+                    "side": "BUY",
+                    "symbol": "511880",
+                    "quantity": 100,
+                    "signal_type": "DAILY_EXPLORATION_FALLBACK",
+                    "limit_price": 100.10,
+                }
+            ]
+            rendered = _render_report(
+                snapshot("2026-07-20", trading=True),
+                ledger,
+                {
+                    "project_equity_cny": 30000.0,
+                    "cash_cny": 29900.0,
+                    "positions_cny": 0.0,
+                    "infrastructure_remaining_cny": 100.0,
+                },
+                recommendations=[],
+                blocks=[],
+                fills=[],
+                orders=[],
+                input_hash="fixture",
+                mode="preopen",
+            )
+
+            self.assertIn("- 状态：`ORDERS_PENDING`", rendered)
+            self.assertIn("以下已有待执行订单继续保留", rendered)
+            self.assertIn("PENDING_NEXT_OPEN BUY 511880 100", rendered)
 
     def test_failed_short_report_uses_source_id_when_evidence_title_is_missing(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

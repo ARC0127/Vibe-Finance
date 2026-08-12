@@ -42,6 +42,17 @@ class SyncRecoveryBoundaryTests(unittest.TestCase):
         for guard in required_guards:
             self.assertIn(guard, self.source)
 
+    def test_resume_handles_git_line_ending_normalization(self) -> None:
+        resume_block = self.source.split(
+            'RUN_ALLOWLIST="${allowlist[*]}"', 1
+        )[1].split("resume_pending_commit=true", 1)[0]
+        self.assertIn("raw = Path(path).read_bytes()", resume_block)
+        self.assertIn(
+            '["git", "diff", "--quiet", head, "--", path]',
+            resume_block,
+        )
+        self.assertNotIn("raw = committed(path)", resume_block)
+
     def test_every_real_push_is_followed_by_remote_sha_verification(self) -> None:
         self.assertEqual(self.source.count('remote_push -u origin "$branch"'), 2)
         self.assertEqual(self.source.count('remote_fetch --quiet origin "$branch"'), 2)

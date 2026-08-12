@@ -1557,7 +1557,12 @@ def _render_report(
     input_hash: str,
     mode: str,
 ) -> str:
-    if orders:
+    pending_orders = [
+        order
+        for order in ledger.get("pending_orders", [])
+        if order.get("status") in {"PENDING_NEXT_OPEN", "PENDING_NEXT_NAV"}
+    ]
+    if orders or pending_orders:
         status = "ORDERS_PENDING"
     elif fills:
         status = "FILLED"
@@ -1603,7 +1608,10 @@ def _render_report(
         )
     lines.extend(["", "## 虚拟成交与待执行订单", ""])
     if not fills and not orders:
-        lines.append("- 本轮没有成交或新订单；具体原因见门禁与候选表。")
+        if pending_orders:
+            lines.append("- 本轮没有成交或新订单；以下已有待执行订单继续保留。")
+        else:
+            lines.append("- 本轮没有成交或新订单；具体原因见门禁与候选表。")
     for fill in fills:
         lines.append(
             f"- {fill['status']} {fill['side']} {fill['symbol']} {fill['quantity']} "
@@ -1614,6 +1622,20 @@ def _render_report(
             f"- PENDING {order['side']} {order['symbol']} {order['quantity']}；"
             f"信号 {order.get('signal_type', 'UNKNOWN')}；开盘价格上限 {order['limit_price']}。"
         )
+    new_order_ids = {order.get("order_id") for order in orders}
+    for order in pending_orders:
+        if order.get("order_id") in new_order_ids:
+            continue
+        if order["status"] == "PENDING_NEXT_NAV":
+            lines.append(
+                f"- PENDING_NEXT_NAV {order['side']} {order['symbol']}；"
+                f"申请金额 ¥{float(order['amount_cny']):.2f}。"
+            )
+        else:
+            lines.append(
+                f"- PENDING_NEXT_OPEN {order['side']} {order['symbol']} {order['quantity']}；"
+                f"信号 {order.get('signal_type', 'UNKNOWN')}；价格上限 {order['limit_price']}。"
+            )
     lines.extend(["", "## 证据", ""])
     for evidence in snapshot["evidence"]:
         evidence_title = (

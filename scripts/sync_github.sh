@@ -174,6 +174,7 @@ import hashlib
 import json
 import os
 import subprocess
+from pathlib import Path
 
 head = os.environ["PENDING_HEAD"]
 base = os.environ["PENDING_BASE"]
@@ -204,11 +205,16 @@ files = manifest.get("changed_files_before_manifest", [])
 expected_paths = {manifest_path}
 for item in files:
     path = item["path"]
-    raw = committed(path)
+    raw = Path(path).read_bytes()
     if len(raw) != item.get("bytes"):
-        raise SystemExit(f"pending file size differs from manifest: {path}")
+        raise SystemExit(f"pending worktree file size differs from manifest: {path}")
     if hashlib.sha256(raw).hexdigest() != item.get("sha256"):
-        raise SystemExit(f"pending file hash differs from manifest: {path}")
+        raise SystemExit(f"pending worktree file hash differs from manifest: {path}")
+    if subprocess.run(
+        ["git", "diff", "--quiet", head, "--", path],
+        check=False,
+    ).returncode != 0:
+        raise SystemExit(f"pending worktree file differs from committed content: {path}")
     expected_paths.add(path)
 
 changed_paths = set(
