@@ -1,0 +1,1652 @@
+{
+  "as_of": "2026-08-13T16:30:00+08:00",
+  "assets": [
+    {
+      "asset_type": "equity_etf",
+      "close": 3.037,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.001971738416036928,
+      "exposure_group": "large_cap_value",
+      "history": [
+        3.007,
+        3.079,
+        3.086,
+        3.084,
+        3.05,
+        3.054,
+        3.033,
+        2.99,
+        2.983,
+        3.029,
+        3.066,
+        3.075,
+        3.039,
+        3.043,
+        3.037
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-23T16:39:16+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=510050"
+      },
+      "lot_size": 100,
+      "name": "华夏上证50ETF",
+      "open": 3.048,
+      "open_price_as_of": "2026-08-13T09:30:25+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 41387,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:49+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "chinaamc"
+      ],
+      "provider_names": {
+        "sina_finance": "上证50ETF华夏",
+        "tencent_finance": "上证50ETF华夏"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "core_equity",
+      "security_identity_status": "UNVERIFIED_PRIMARY_IDENTITY_AT_2026_07_24_PREOPEN",
+      "source_ids": [
+        "chinaamc",
+        "eastmoney",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "UNVERIFIED_TERMINATION_STATUS_AT_2026_07_24_PREOPEN",
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "510050",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 4173045
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 4.729,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.004001684919966331,
+      "exposure_group": "csi300",
+      "history": [
+        4.65,
+        4.787,
+        4.765,
+        4.787,
+        4.701,
+        4.753,
+        4.653,
+        4.599,
+        4.651,
+        4.714,
+        4.751,
+        4.759,
+        4.728,
+        4.748,
+        4.729
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-23T16:39:16+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=510300"
+      },
+      "lot_size": 100,
+      "name": "华泰柏瑞沪深300ETF",
+      "open": 4.77,
+      "open_price_as_of": "2026-08-13T09:30:26+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 115705,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:38+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "huatai_pinebridge"
+      ],
+      "provider_names": {
+        "sina_finance": "沪深300ETF华泰柏瑞",
+        "tencent_finance": "沪深300ETF华泰柏瑞"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "core_equity",
+      "security_identity_status": "UNVERIFIED_PRIMARY_IDENTITY_AT_2026_07_24_PREOPEN",
+      "source_ids": [
+        "eastmoney",
+        "huatai_pinebridge",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "UNVERIFIED_TERMINATION_STATUS_AT_2026_07_24_PREOPEN",
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "510300",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 9155827
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 7.98,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [
+        {
+          "date": "2026-07-15",
+          "handling": "PRE_HISTORY_WINDOW_NO_RESCALE_REQUIRED",
+          "source_ids": [
+            "sse_etf",
+            "china_southern"
+          ],
+          "source_url": "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20260714_10825473.shtml",
+          "type": "CASH_DIVIDEND_EX_DATE"
+        }
+      ],
+      "daily_return": -0.00906494474109032,
+      "exposure_group": "csi500",
+      "history": [
+        7.426,
+        7.792,
+        7.74,
+        7.737,
+        7.545,
+        7.726,
+        7.5,
+        7.42,
+        7.601,
+        7.815,
+        7.987,
+        8.037,
+        7.989,
+        8.053,
+        7.98
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-28T08:00:00+08:00",
+        "published_at": "2026-03-20",
+        "source_id": "china_southern",
+        "url": "https://www.nffund.com/main/files/2026/03/19/126105702839.pdf"
+      },
+      "lot_size": 100,
+      "name": "南方中证500ETF",
+      "open": 8.085,
+      "open_price_as_of": "2026-08-13T09:30:24+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 41899,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:54+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "china_southern"
+      ],
+      "provider_names": {
+        "sina_finance": "中证500ETF南方",
+        "tencent_finance": "中证500ETF南方"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "small_growth_equity",
+      "security_identity_status": "VERIFIED_ETF_510500",
+      "source_ids": [
+        "china_southern",
+        "eastmoney",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-07-28T08:00:00+08:00",
+          "published_at": "2026-03-20",
+          "scope": "SECURITY_IDENTITY_AND_ETF_ATTRIBUTE",
+          "source_id": "china_southern",
+          "url": "https://www.nffund.com/main/files/2026/03/19/126105702839.pdf"
+        },
+        {
+          "as_of": "2026-07-28T08:00:00+08:00",
+          "published_at": "2026-07-14",
+          "scope": "CORPORATE_ACTION_REVIEW",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20260714_10825473.shtml"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "510500",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 3508877
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 3.128,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.008871989860583018,
+      "exposure_group": "csi1000",
+      "history": [
+        2.818,
+        2.933,
+        2.891,
+        2.914,
+        2.832,
+        2.93,
+        2.864,
+        2.867,
+        2.943,
+        3.035,
+        3.111,
+        3.129,
+        3.12,
+        3.156,
+        3.128
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-24T08:00:00+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=512100"
+      },
+      "lot_size": 100,
+      "name": "南方中证1000ETF",
+      "open": 3.169,
+      "open_price_as_of": "2026-08-13T09:30:25+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 105734,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:43+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "china_southern"
+      ],
+      "provider_names": {
+        "sina_finance": "中证1000ETF南方",
+        "tencent_finance": "中证1000ETF南方"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "small_growth_equity",
+      "security_identity_status": "VERIFIED_ETF_512100",
+      "source_ids": [
+        "china_southern",
+        "eastmoney",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-07-24T08:00:00+08:00",
+          "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+          "scope": "SECURITY_IDENTITY_AND_ETF_ATTRIBUTE",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=512100"
+        },
+        {
+          "as_of": "2026-07-24T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_SUSPENSION_AND_CORPORATE_ACTION_REVIEW",
+          "source_id": "china_southern",
+          "url": "https://www.nffund.com/"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "512100",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 9293039
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 3.604,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.0046948356807511304,
+      "exposure_group": "chinext",
+      "history": [
+        3.477,
+        3.709,
+        3.586,
+        3.597,
+        3.508,
+        3.612,
+        3.368,
+        3.325,
+        3.514,
+        3.56,
+        3.586,
+        3.559,
+        3.565,
+        3.621,
+        3.604
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-27T08:00:00+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "szse",
+        "url": "https://www.szse.cn/market/product/list/etfList/index.html?code=159915"
+      },
+      "lot_size": 100,
+      "name": "易方达创业板ETF",
+      "open": 3.666,
+      "open_price_as_of": "2026-08-13T09:30:24+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 665623,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:48+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "szse",
+        "efunds"
+      ],
+      "provider_names": {
+        "sina_finance": "创业板",
+        "tencent_finance": "创业板ETF易方达"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "small_growth_equity",
+      "security_identity_status": "VERIFIED_ETF_159915",
+      "source_ids": [
+        "eastmoney",
+        "efunds",
+        "sina_finance",
+        "szse",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-07-27T08:00:00+08:00",
+          "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+          "scope": "SECURITY_IDENTITY_AND_ETF_ATTRIBUTE",
+          "source_id": "szse",
+          "url": "https://www.szse.cn/market/product/list/etfList/index.html?code=159915"
+        },
+        {
+          "as_of": "2026-07-27T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_SUSPENSION_AND_CORPORATE_ACTION_REVIEW",
+          "source_id": "efunds",
+          "url": "https://www.efunds.com.cn/"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "159915",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 15868009
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 1.812,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.011456628477905073,
+      "exposure_group": "star50",
+      "history": [
+        1.815,
+        2.016,
+        1.955,
+        1.888,
+        1.885,
+        1.911,
+        1.728,
+        1.636,
+        1.706,
+        1.786,
+        1.84,
+        1.835,
+        1.806,
+        1.833,
+        1.812
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-08-13T08:00:00+08:00",
+        "published_at": "2026-07-21",
+        "source_id": "chinaamc",
+        "url": "https://fund.chinaamc.com/product/publishGgList.do?fundcode=588000"
+      },
+      "lot_size": 100,
+      "name": "华夏上证科创板50成份ETF",
+      "open": 1.856,
+      "open_price_as_of": "2026-08-13T09:30:27+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 726255,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:48+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "chinaamc"
+      ],
+      "provider_names": {
+        "sina_finance": "科创50ETF华夏",
+        "tencent_finance": "科创50ETF华夏"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "industry_equity",
+      "security_identity_status": "VERIFIED_ETF_588000",
+      "source_ids": [
+        "chinaamc",
+        "eastmoney",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-08-13T08:00:00+08:00",
+          "published_at": "2026-07-21",
+          "scope": "SECURITY_IDENTITY_AND_ETF_ATTRIBUTE",
+          "source_id": "chinaamc",
+          "url": "https://fund.chinaamc.com/product/publishGgList.do?fundcode=588000"
+        },
+        {
+          "as_of": "2026-08-13T08:00:00+08:00",
+          "published_at": "CURRENT_PAGE_REVIEWED_AT_CUTOFF",
+          "scope": "CURRENT_SUBSCRIPTION_AND_REDEMPTION_OPEN",
+          "source_id": "chinaamc",
+          "url": "https://fund.chinaamc.com/ProductForWeb/getCalendar"
+        },
+        {
+          "as_of": "2026-08-13T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_SUSPENSION_AND_CORPORATE_ACTION_REVIEW",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/disclosure/fund/announcement/"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "588000",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 40287224
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 3.273,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.009082652134423164,
+      "exposure_group": "dividend",
+      "history": [
+        3.242,
+        3.205,
+        3.253,
+        3.28,
+        3.223,
+        3.232,
+        3.304,
+        3.285,
+        3.237,
+        3.228,
+        3.282,
+        3.319,
+        3.309,
+        3.303,
+        3.273
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-24T08:00:00+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=510880"
+      },
+      "lot_size": 100,
+      "name": "华泰柏瑞上证红利ETF",
+      "open": 3.29,
+      "open_price_as_of": "2026-08-13T09:30:25+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 34886,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:52+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "huatai_pinebridge"
+      ],
+      "provider_names": {
+        "sina_finance": "红利ETF华泰柏瑞",
+        "tencent_finance": "红利ETF华泰柏瑞"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "dividend_equity",
+      "security_identity_status": "VERIFIED_ETF_510880",
+      "source_ids": [
+        "eastmoney",
+        "huatai_pinebridge",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-07-24T08:00:00+08:00",
+          "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+          "scope": "SECURITY_IDENTITY_AND_ETF_ATTRIBUTE",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=510880"
+        },
+        {
+          "as_of": "2026-07-24T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_SUSPENSION_AND_CORPORATE_ACTION_REVIEW",
+          "source_id": "huatai_pinebridge",
+          "url": "https://www.sse.com.cn/disclosure/fund/announcement/"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "510880",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 1162749
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 1.068,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.018382352941176516,
+      "exposure_group": "semiconductor",
+      "history": [
+        1.04,
+        1.144,
+        1.152,
+        1.106,
+        1.113,
+        1.124,
+        0.992,
+        0.921,
+        0.969,
+        1.033,
+        1.083,
+        1.081,
+        1.07,
+        1.088,
+        1.068
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-23T16:39:16+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=512480"
+      },
+      "lot_size": 100,
+      "name": "国联安半导体ETF",
+      "open": 1.105,
+      "open_price_as_of": "2026-08-13T09:30:24+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 220682,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:48+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "fund_glac"
+      ],
+      "provider_names": {
+        "sina_finance": "半导体ETF国联安",
+        "tencent_finance": "半导体ETF国联安"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "industry_equity",
+      "security_identity_status": "UNVERIFIED_PRIMARY_IDENTITY_AT_2026_07_24_PREOPEN",
+      "source_ids": [
+        "eastmoney",
+        "fund_glac",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "UNVERIFIED_TERMINATION_STATUS_AT_2026_07_24_PREOPEN",
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "512480",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 14575886
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 0.355,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": 0.014285714285714235,
+      "exposure_group": "healthcare",
+      "history": [
+        0.326,
+        0.328,
+        0.327,
+        0.325,
+        0.315,
+        0.323,
+        0.33,
+        0.328,
+        0.334,
+        0.337,
+        0.346,
+        0.353,
+        0.351,
+        0.35,
+        0.355
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-23T16:39:16+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=512170"
+      },
+      "lot_size": 100,
+      "name": "华宝中证医疗ETF",
+      "open": 0.349,
+      "open_price_as_of": "2026-08-13T09:30:26+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 378519,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:35+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "chinaamc_huabo"
+      ],
+      "provider_names": {
+        "sina_finance": "医疗ETF华宝",
+        "tencent_finance": "医疗ETF华宝"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "industry_equity",
+      "security_identity_status": "UNVERIFIED_PRIMARY_IDENTITY_AT_2026_07_24_PREOPEN",
+      "source_ids": [
+        "chinaamc_huabo",
+        "eastmoney",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "UNVERIFIED_TERMINATION_STATUS_AT_2026_07_24_PREOPEN",
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "512170",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 25232671
+    },
+    {
+      "asset_type": "equity_etf",
+      "close": 0.684,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": 0.0014641288433381305,
+      "exposure_group": "consumer",
+      "history": [
+        0.676,
+        0.669,
+        0.673,
+        0.67,
+        0.656,
+        0.663,
+        0.697,
+        0.69,
+        0.679,
+        0.674,
+        0.672,
+        0.69,
+        0.681,
+        0.683,
+        0.684
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-31T08:00:00+08:00",
+        "published_at": "2026-07-21",
+        "source_id": "china_universal",
+        "url": "https://www.99fund.com/main/products/pofund/159928/fundgg.shtml"
+      },
+      "lot_size": 100,
+      "name": "汇添富中证主要消费ETF",
+      "open": 0.68,
+      "open_price_as_of": "2026-08-13T09:30:24+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 144943,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:15+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "szse",
+        "china_universal"
+      ],
+      "provider_names": {
+        "sina_finance": "消费ETF",
+        "tencent_finance": "消费ETF汇添富"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "industry_equity",
+      "security_identity_status": "VERIFIED_ETF_159928",
+      "source_ids": [
+        "china_universal",
+        "eastmoney",
+        "sina_finance",
+        "szse",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-07-31T08:00:00+08:00",
+          "published_at": "2026-07-21",
+          "scope": "SECURITY_IDENTITY_AND_ETF_ATTRIBUTE",
+          "source_id": "china_universal",
+          "url": "https://www.99fund.com/main/products/pofund/159928/fundgg.shtml"
+        },
+        {
+          "as_of": "2026-07-31T08:00:00+08:00",
+          "published_at": "2022-07-18",
+          "scope": "EXCHANGE_LISTED_ETF_IDENTITY_CROSSCHECK",
+          "source_id": "szse",
+          "url": "https://investor.szse.cn/index/update/t20220718_594830.html"
+        },
+        {
+          "as_of": "2026-07-31T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_SUSPENSION_AND_CORPORATE_ACTION_REVIEW",
+          "source_id": "china_universal",
+          "url": "https://www.99fund.com/main/products/pofund/159928/fundgg.shtml"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "159928",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 4830467
+    },
+    {
+      "asset_type": "gold_etf",
+      "close": 9.042,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -0.006701087553553808,
+      "exposure_group": "gold",
+      "history": [
+        8.318,
+        8.468,
+        8.56,
+        8.56,
+        8.385,
+        8.502,
+        8.433,
+        8.417,
+        8.408,
+        8.64,
+        8.892,
+        9.005,
+        9.009,
+        9.103,
+        9.042
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-08-12T08:00:00+08:00",
+        "published_at": "2026-04-20",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/disclosure/announcement/general/jjzssgg/c/c_20260420_10815815.shtml"
+      },
+      "lot_size": 100,
+      "name": "华安黄金易ETF",
+      "open": 9.126,
+      "open_price_as_of": "2026-08-13T09:30:25+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 69104,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:46+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "huaan"
+      ],
+      "provider_names": {
+        "sina_finance": "黄金ETF华安",
+        "tencent_finance": "黄金ETF华安"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "gold",
+      "security_identity_status": "VERIFIED_ETF_518880",
+      "source_ids": [
+        "eastmoney",
+        "huaan",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-08-12T08:00:00+08:00",
+          "published_at": "2026-04-20",
+          "scope": "SECURITY_IDENTITY_ACTIVE_LISTED_FUND_AND_MARKET_MAKER",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/disclosure/announcement/general/jjzssgg/c/c_20260420_10815815.shtml"
+        },
+        {
+          "as_of": "2026-08-12T08:00:00+08:00",
+          "published_at": "2026-04-22",
+          "scope": "FUND_IDENTITY_OPERATION_AND_CURRENT_PERIODIC_REPORT",
+          "source_id": "huaan",
+          "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-04-22/518880_20260422_U3EK.pdf"
+        },
+        {
+          "as_of": "2026-08-12T08:00:00+08:00",
+          "published_at": "2026-07-29",
+          "scope": "CURRENT_SUBSCRIPTION_REDEMPTION_ALLOWED_AND_NO_TERMINATION_CONFLICT",
+          "source_id": "huaan",
+          "url": "https://huaan.com.cn/etf/518880/sgshqd.jsp"
+        },
+        {
+          "as_of": "2026-08-12T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_LIQUIDATION_AND_UNADJUSTED_CORPORATE_ACTION_OFFICIAL_DISCLOSURE_REVIEW",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/disclosure/fund/announcement/"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "518880",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 5373857
+    },
+    {
+      "asset_type": "bond_etf",
+      "close": 141.131,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": 0.00033313487000641295,
+      "exposure_group": "government_bond_5y",
+      "history": [
+        140.815,
+        140.824,
+        140.899,
+        140.867,
+        140.874,
+        140.841,
+        140.97,
+        140.957,
+        140.991,
+        141,
+        141.086,
+        141.101,
+        141.07,
+        141.084,
+        141.131
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-07-23T16:39:16+08:00",
+        "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=511010"
+      },
+      "lot_size": 100,
+      "name": "国泰上证5年期国债ETF",
+      "open": 141.104,
+      "open_price_as_of": "2026-08-13T09:30:25+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 85,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:43+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "guotai_fund"
+      ],
+      "provider_names": {
+        "sina_finance": "国债ETF国泰",
+        "tencent_finance": "国债ETF国泰"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "fixed_income",
+      "security_identity_status": "UNVERIFIED_PRIMARY_IDENTITY_AT_2026_07_24_PREOPEN",
+      "source_ids": [
+        "eastmoney",
+        "guotai_fund",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance"
+      ],
+      "st_delisting_status": "UNVERIFIED_TERMINATION_STATUS_AT_2026_07_24_PREOPEN",
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "511010",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 192976
+    },
+    {
+      "asset_type": "cash_etf",
+      "close": 100.7,
+      "corporate_action_status": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+      "corporate_actions": [],
+      "daily_return": -1.986057873726299e-05,
+      "exposure_group": "cash_management",
+      "history": [
+        100.628,
+        100.628,
+        100.642,
+        100.643,
+        100.654,
+        100.635,
+        100.693,
+        100.687,
+        100.673,
+        100.669,
+        100.68,
+        100.687,
+        100.704,
+        100.702,
+        100.7
+      ],
+      "history_adjusted_for_corporate_actions": true,
+      "history_dates": [
+        "2026-07-20",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13"
+      ],
+      "history_gap_note": "History inherits the latest governed 2026-08-13 preopen series through 2026-08-12 and appends the 2026-08-13 dual-source close.",
+      "identity_evidence": {
+        "as_of": "2026-08-11T08:00:00+08:00",
+        "published_at": "2026-06-16",
+        "source_id": "sse_etf",
+        "url": "https://www.sse.com.cn/disclosure/announcement/general/jjzssgg/c/c_20260616_10822319.shtml"
+      },
+      "lot_size": 100,
+      "name": "银华日利ETF",
+      "open": 100.702,
+      "open_price_as_of": "2026-08-13T09:30:25+08:00",
+      "open_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "open_volume_units": 27615,
+      "order_engine": "next_open",
+      "price_as_of": "2026-08-13T16:14:37+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "primary_source_ids": [
+        "sse_etf",
+        "yinhua"
+      ],
+      "provider_names": {
+        "sina_finance": "银华日利ETF",
+        "tencent_finance": "银华日利ETF"
+      },
+      "quality": "DUAL_SOURCE_CLOSE_EXACT_MATCH_NONZERO_VOLUME_WINDOWS_HTTP_RECOVERY",
+      "risk_bucket": "cash_management",
+      "security_identity_status": "VERIFIED_ETF_511880",
+      "source_ids": [
+        "eastmoney",
+        "sina_finance",
+        "sse_etf",
+        "tencent_finance",
+        "yinhua"
+      ],
+      "st_delisting_status": "ETF_NOT_ST_AND_NO_TERMINATION_EVIDENCE_AT_CUTOFF",
+      "status_evidence": [
+        {
+          "as_of": "2026-08-11T08:00:00+08:00",
+          "published_at": "2026-06-16",
+          "scope": "SECURITY_IDENTITY_ACTIVE_LISTED_FUND_AND_MARKET_MAKER",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/disclosure/announcement/general/jjzssgg/c/c_20260616_10822319.shtml"
+        },
+        {
+          "as_of": "2026-08-11T08:00:00+08:00",
+          "published_at": "2026-04-30",
+          "scope": "FUND_IDENTITY_MANAGER_AND_CURRENT_PROSPECTUS",
+          "source_id": "yinhua",
+          "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-04-30/511880_20260430_FUO0.pdf"
+        },
+        {
+          "as_of": "2026-08-11T08:00:00+08:00",
+          "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+          "scope": "TERMINATION_LIQUIDATION_AND_UNADJUSTED_CORPORATE_ACTION_OFFICIAL_DISCLOSURE_REVIEW",
+          "source_id": "sse_etf",
+          "url": "https://www.sse.com.cn/disclosure/fund/announcement/"
+        }
+      ],
+      "suspension_status": "TRADING_NONZERO_VOLUME",
+      "symbol": "511880",
+      "termination_risk_status": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+      "trading_status": "TRADING",
+      "volume_units": 1252428
+    }
+  ],
+  "collection_note": "Close snapshot for 2026-08-13. Trading calendar verified against SSE official 2026 holiday notice/page; SZSE official schedule URL is carried from same-day governed preopen evidence because direct close-time access was unavailable. Prices are dual-sourced from Tencent and Sina; identity, termination risk, and corporate-action fields remain governed by exchange/fund-manager evidence carried in asset metadata. Same-day 09:30 open fields are preserved from the governed open settlement snapshot.",
+  "deepseek_usage": {
+    "actual_calls": 0,
+    "note": "DeepSeek not called for this close-analysis collection.",
+    "remaining_cny": 100.0,
+    "spent_cny": 0.0
+  },
+  "dynamic_research": {
+    "fund_categories_reviewed": [
+      "broad_based_equity_etf",
+      "dividend_etf",
+      "growth_etf",
+      "industry_etf",
+      "gold_etf",
+      "bond_etf",
+      "cash_etf",
+      "public_fund_linked_funds"
+    ],
+    "ranking_gate": "Rankings are not used as direct buy evidence; orders require exchange/fund-manager identity and risk gates.",
+    "scope": "China mainland A-shares and China public/listed funds only",
+    "stock_shortlist_status": "WATCH_ONLY_NO_DIRECT_STOCK_ORDER_ENTRY"
+  },
+  "evidence": [
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "2026-08-13 is Thursday and outside the disclosed SSE closure intervals.",
+      "published_at": "2025-12-22",
+      "source_id": "sse_trading_calendar_2026",
+      "tier": "A",
+      "title": "SSE 2026 holiday schedule notice",
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml"
+    },
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Official annual closure page lists 2026 closure intervals; 2026-08-13 is not listed.",
+      "published_at": "DYNAMIC_PAGE_PUBLICATION_TIME_UNKNOWN",
+      "source_id": "sse_trading_calendar_page_2026",
+      "tier": "A",
+      "title": "SSE 2026 annual closed days page",
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/"
+    },
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Official URL carried from same-day governed preopen evidence; direct close-time web access was unavailable.",
+      "published_at": "2025-12-22",
+      "source_id": "szse_trading_calendar_2026",
+      "tier": "A",
+      "title": "SZSE 2026 holiday schedule notice",
+      "url": "https://www.szse.cn/disclosure/notice/general/t20251222_618087.html"
+    },
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Dual-source price leg for ETF/index close values; not used for identity, corporate action, or termination evidence.",
+      "published_at": "REALTIME_QUOTE_DYNAMIC",
+      "raw_sha256": "5d450437f54c07d4c4bd2f5a264decab17d8dd19ec7e67ef31844adf56ed7e70",
+      "source_id": "tencent_finance",
+      "tier": "C",
+      "title": "Tencent Finance real-time close quote batch",
+      "url": "http://qt.gtimg.cn/"
+    },
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Dual-source price leg for ETF/index close values; not used for identity, corporate action, or termination evidence.",
+      "published_at": "REALTIME_QUOTE_DYNAMIC",
+      "raw_sha256": "5d450437f54c07d4c4bd2f5a264decab17d8dd19ec7e67ef31844adf56ed7e70",
+      "source_id": "sina_finance",
+      "tier": "C",
+      "title": "Sina Finance real-time close quote batch",
+      "url": "http://hq.sinajs.cn/"
+    },
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Provides carried-forward official identity, termination, corporate-action, and history metadata.",
+      "published_at": "2026-08-13T08:00:00+08:00",
+      "source_id": "same_day_preopen",
+      "tier": "LOCAL",
+      "title": "Governed 2026-08-13 preopen snapshot",
+      "url": "data/inbox/2026-08-13-preopen.json"
+    },
+    {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Earlier next-open virtual order settled successfully; close run starts with no pending order and six positions.",
+      "published_at": "2026-08-13T09:30:27+08:00",
+      "source_id": "same_day_open_settlement",
+      "tier": "LOCAL",
+      "title": "Governed 2026-08-13 open settlement report",
+      "url": "reports/execution/2026-08-13-open.json"
+    },
+    {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "note": "2026-08-13 is Thursday and outside every published 2026 closure interval.",
+      "published_at": "2025-12-22",
+      "source_id": "sse_trading_calendar_2026",
+      "tier": "A",
+      "title": "SSE 2026 holiday schedule",
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/"
+    },
+    {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "note": "The SZSE annual closure notice likewise leaves 2026-08-13 as a normal trading day.",
+      "published_at": "2025-12-22",
+      "source_id": "szse_trading_calendar_2026",
+      "tier": "A",
+      "title": "SZSE 2026 closure schedule cross-check",
+      "url": "https://www.szse.cn/disclosure/notice/general/t20251222_618087.html"
+    },
+    {
+      "as_of": "2026-08-12T16:30:00+08:00",
+      "note": "All price and history fields are inherited without modification; no 2026-08-13 open or post-open quote is used.",
+      "published_at": "2026-08-12T16:30:00+08:00",
+      "sha256": "68363292866f7963fcfd19f4d398dfc8b845afa0cc9afb5268fbf81a30e6db9b",
+      "source_id": "latest_sealed_close",
+      "tier": "LOCAL_IMMUTABLE",
+      "title": "Latest sealed dual-source close snapshot",
+      "url": "data/inbox/2026-08-12.json"
+    },
+    {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "note": "The manager identifies 588000 as the ChinaAMC SSE STAR 50 ETF.",
+      "published_at": "2026-07-21",
+      "source_id": "chinaamc",
+      "tier": "A",
+      "title": "ChinaAMC 588000 fund identity and statutory announcement page",
+      "url": "https://fund.chinaamc.com/product/publishGgList.do?fundcode=588000"
+    },
+    {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "note": "The manager endpoint lists 588000 with subscription and redemption open at the cutoff; this does not prove 09:30 exchange trading.",
+      "published_at": "CURRENT_PAGE_REVIEWED_AT_CUTOFF",
+      "source_id": "chinaamc",
+      "tier": "A",
+      "title": "ChinaAMC current subscription and redemption status",
+      "url": "https://fund.chinaamc.com/ProductForWeb/getCalendar"
+    },
+    {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "note": "No conflicting termination, liquidation, suspension, or unadjusted corporate-action notice for 588000 was identified by the cutoff.",
+      "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+      "source_id": "sse_etf",
+      "tier": "A",
+      "title": "SSE fund announcement review for 588000",
+      "url": "https://www.sse.com.cn/disclosure/fund/announcement/"
+    }
+  ],
+  "indices": [
+    {
+      "broad": true,
+      "close": 3926.96,
+      "daily_return": -0.004996604741200117,
+      "name": "上证指数",
+      "price_as_of": "2026-08-13T16:14:02+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "provider_names": {
+        "sina_finance": "上证指数",
+        "tencent_finance": "上证指数"
+      },
+      "quality": "DUAL_SOURCE_INDEX_CROSS_CHECK_TOLERANCE_0_01_WINDOWS_HTTP_RECOVERY",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "000001",
+      "volume_units": 572793677
+    },
+    {
+      "broad": true,
+      "close": 14289.44,
+      "daily_return": -0.008671171874295447,
+      "name": "深证成指",
+      "price_as_of": "2026-08-13T16:14:03+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "provider_names": {
+        "sina_finance": "深证成指",
+        "tencent_finance": "深证成指"
+      },
+      "quality": "DUAL_SOURCE_INDEX_CROSS_CHECK_TOLERANCE_0_01_WINDOWS_HTTP_RECOVERY",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "399001",
+      "volume_units": 738110176
+    },
+    {
+      "broad": true,
+      "close": 3586.04,
+      "daily_return": -0.004452982721094512,
+      "name": "创业板指",
+      "price_as_of": "2026-08-13T16:14:18+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "provider_names": {
+        "sina_finance": "创业板指",
+        "tencent_finance": "创业板指"
+      },
+      "quality": "DUAL_SOURCE_INDEX_CROSS_CHECK_TOLERANCE_0_01_WINDOWS_HTTP_RECOVERY",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "399006",
+      "volume_units": 220850675
+    },
+    {
+      "broad": false,
+      "close": 1717.75,
+      "daily_return": -0.011076632565530042,
+      "name": "科创50",
+      "price_as_of": "2026-08-13T16:14:14+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "provider_names": {
+        "sina_finance": "科创50",
+        "tencent_finance": "科创50"
+      },
+      "quality": "DUAL_SOURCE_INDEX_CROSS_CHECK_TOLERANCE_0_01_WINDOWS_HTTP_RECOVERY",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "000688",
+      "volume_units": 10577525
+    },
+    {
+      "broad": false,
+      "close": 2928.12,
+      "daily_return": -0.0034951112684157293,
+      "name": "上证50",
+      "price_as_of": "2026-08-13T16:14:02+08:00",
+      "price_source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "provider_names": {
+        "sina_finance": "上证50",
+        "tencent_finance": "上证50"
+      },
+      "quality": "DUAL_SOURCE_INDEX_CROSS_CHECK_TOLERANCE_0_01_WINDOWS_HTTP_RECOVERY",
+      "source_ids": [
+        "tencent_finance",
+        "sina_finance"
+      ],
+      "symbol": "000016",
+      "volume_units": 51964381
+    }
+  ],
+  "is_trading_day": true,
+  "market_state": "close",
+  "run_date": "2026-08-13",
+  "schema_version": 2,
+  "simulation_only": true,
+  "sources": {
+    "chinaamc_588000_identity": {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "published_at": "2026-07-21",
+      "tier": "A",
+      "url": "https://fund.chinaamc.com/product/publishGgList.do?fundcode=588000"
+    },
+    "chinaamc_588000_open_status": {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "published_at": "CURRENT_PAGE_REVIEWED_AT_CUTOFF",
+      "tier": "A",
+      "url": "https://fund.chinaamc.com/ProductForWeb/getCalendar"
+    },
+    "latest_sealed_close": {
+      "published_at": "2026-08-12T16:30:00+08:00",
+      "sha256": "68363292866f7963fcfd19f4d398dfc8b845afa0cc9afb5268fbf81a30e6db9b",
+      "tier": "LOCAL_IMMUTABLE",
+      "url": "data/inbox/2026-08-12.json"
+    },
+    "sina_finance": {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Batch quote raw response stored by SHA-256 in evidence.",
+      "published_at": "REALTIME_QUOTE_DYNAMIC",
+      "tier": "C",
+      "url": "http://hq.sinajs.cn/"
+    },
+    "sse_fund_announcement_review": {
+      "as_of": "2026-08-13T08:00:00+08:00",
+      "published_at": "NO_CONFLICTING_NOTICE_IDENTIFIED_BY_CUTOFF",
+      "tier": "A",
+      "url": "https://www.sse.com.cn/disclosure/fund/announcement/"
+    },
+    "sse_trading_calendar_2026": {
+      "published_at": "2025-12-22",
+      "tier": "A",
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml"
+    },
+    "sse_trading_calendar_page": {
+      "published_at": "2025-12-22",
+      "tier": "A",
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/"
+    },
+    "szse_trading_calendar_2026": {
+      "published_at": "2025-12-22",
+      "tier": "A",
+      "url": "https://www.szse.cn/disclosure/notice/general/t20251222_618087.html"
+    },
+    "tencent_finance": {
+      "as_of": "2026-08-13T16:30:00+08:00",
+      "note": "Batch quote raw response stored by SHA-256 in evidence.",
+      "published_at": "REALTIME_QUOTE_DYNAMIC",
+      "tier": "C",
+      "url": "http://qt.gtimg.cn/"
+    }
+  }
+}
