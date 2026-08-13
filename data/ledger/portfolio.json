@@ -2,7 +2,7 @@
   "cash_cny": 10869.8,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "92242243b3fe45ffbf0c90c3ff505a89",
+  "last_run_id": "d8d57030e8fa4b5181fdd94c27d25551",
   "pending_orders": [
     {
       "exposure_group": "gold",
@@ -37,7 +37,7 @@
     "investable_value_cny": 30316.1,
     "last_filled_trade_date": "2026-08-13",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-13T16:30:00+08:00",
+    "last_valuation_as_of": "2026-08-13T22:30:00+08:00",
     "project_equity_cny": 30416.1,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": 416.1,
@@ -528,6 +528,12 @@
       "mode": "short",
       "run_date": "2026-08-13",
       "run_id": "92242243b3fe45ffbf0c90c3ff505a89"
+    },
+    {
+      "input_sha256": "33a09bbded768475acbc40a33d67b56299b6895c3938a39b8961e3f253750ddd",
+      "mode": "fund_nav",
+      "run_date": "2026-08-13",
+      "run_id": "d8d57030e8fa4b5181fdd94c27d25551"
     }
   ],
   "schema_version": 1
