@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "daily-order-guard",
+  "task_status": "READY",
+  "run_timestamp": "2026-08-13 09:17:29 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "1d72e22048dda6fabdd537d78117a3a144d6b6a5",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-13T01:17:31.089647+00:00",
+  "simulation_only": true
+}
