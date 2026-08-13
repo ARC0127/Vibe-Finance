@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-13 22:43:20 CST",
+  "created_at_utc": "2026-08-13T14:43:20Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 0.144,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-13T14:33:10.385951+00:00",
+    "last_success_at_shanghai": "2026-08-13T22:33:10.385951+08:00",
+    "last_run_id": "d8d57030e8fa4b5181fdd94c27d25551",
+    "last_run_date": "2026-08-13",
+    "last_mode": "fund_nav",
+    "decision_report_count": 18,
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 9,
+    "last_filled_trade_date": "2026-08-13",
+    "project_equity_cny": 30416.1,
+    "total_pnl_cny": 416.1,
+    "total_return_pct": 0.013869999999999952
+  },
+  "calendar_context": {
+    "current_day": "THURSDAY",
+    "current_session": "AFTER_FUND_NAV",
+    "latest_due_workday_short_date": "2026-08-13",
+    "current_day_short_due_at": "2026-08-13T16:30:00+08:00",
+    "current_day_short_due_now": true,
+    "latest_due_fund_nav_date": "2026-08-13",
+    "current_day_fund_nav_due_at": "2026-08-13T22:30:00+08:00",
+    "current_day_fund_nav_due_now": true
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-13-short.json",
+      "input": "data/inbox/2026-08-13.json",
+      "input_hash_match": true,
+      "heartbeat_history_match": true,
+      "business_status": "ORDER_SCHEDULED",
+      "blocks": [],
+      "recommendation_count": 13,
+      "new_order_count": 1,
+      "manifest": "reports/automation-runs/close-analysis/20260813T163950+0800.json",
+      "manifest_status": "ORDER_SCHEDULED",
+      "manifest_commit": "511e1571b2fbb9ac0d0d506b1fc0bc837e36c405",
+      "manifest_validations": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "latest_due_fund_nav": {
+      "report": "reports/funds/2026-08-13-funds.json",
+      "input": "data/inbox/2026-08-13-funds.json",
+      "input_hash_match": true,
+      "heartbeat_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "NO_TRADE",
+      "blocks": [
+        "NAV_NOT_PUBLISHED"
+      ],
+      "new_order_count": 0,
+      "event_count": 0,
+      "manifest": "reports/automation-runs/fund-nav/20260813T223512+0800.json",
+      "manifest_status": "NO_TRADE",
+      "manifest_commit": "02d4ef8cd884d7f1de3da365ff0174d023716c4e",
+      "manifest_validations": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W32.json",
+      "report_markdown": "reports/weekly/2026-W32.md",
+      "generated_at": "2026-08-09T20:09:12+08:00",
+      "age_days": 4.105,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "historical_input_replay": "PASS_35_OF_35"
+    },
+    "missing_historical": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 552,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 54,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 53,
+    "committed_event_count": 53,
+    "legacy_event_count": 4,
+    "v2_event_count": 49,
+    "next_sequence": 54,
+    "head_event_sha256": "297fd937f6bfcac2cda9f708f23ffcc660aab4c06da3a5cf3d106ad7290e60b2",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 9,
+    "portfolio_filled_trade_count": 9,
+    "pending_orders": 1,
+    "positions": 6
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "governance_checks": {
+    "daily_order_guard_committed_manifest": "reports/automation-runs/daily-order-guard/20260813T091729+0800.json",
+    "daily_order_guard_commit": "11bede78c647d25f1993aa5d285afda8dcadbf74",
+    "orphan_manifest": "reports/automation-runs/daily-order-guard/20260813T091525+0800.json",
+    "orphan_manifest_sha256": "778accd8e3ad046b121ef844d26a03961dc7bfbf1045d3483cbc8421e1ac29ed",
+    "orphan_manifest_parse": "PASS",
+    "orphan_manifest_status": "READY",
+    "orphan_manifest_tracked": false,
+    "orphan_manifest_modified_by_monitor": false
+  },
+  "alerts": [
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery; do not overwrite history."
+    },
+    {
+      "code": "HISTORICAL_FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Preserve the 2026-08-06 and 2026-08-07 gaps. Do not backfill date-shifted NAV evidence."
+    },
+    {
+      "code": "UNGOVERNED_DAILY_ORDER_GUARD_MANIFEST",
+      "minimal_repair": "The daily-order-guard owner must reconcile the preserved 09:15 attempt manifest against the committed 09:17 READY manifest using its governed recovery path. Activity monitoring must not delete, stage, or rewrite it."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "02d4ef8cd884d7f1de3da365ff0174d023716c4e",
+    "origin_main_before_sync": "02d4ef8cd884d7f1de3da365ff0174d023716c4e",
+    "live_remote_main_before_sync": "02d4ef8cd884d7f1de3da365ff0174d023716c4e",
+    "remote_probe": "PASS_AUTHENTICATED_WINDOWS_GIT",
+    "heartbeat_sha256": "f807697f660b19497ab1ee9219a27961cfeb3aab00fafcba5eaca89cd9c90f7a",
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "5d14fc440b7ae040925398b246bd24a2b2de6b434f89a30bd95be0084d64b76e",
+      "file_count": 568,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
