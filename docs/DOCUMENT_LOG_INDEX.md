@@ -1,6 +1,6 @@
 # Vibe Finance 本地文档与日志索引
 
-最近整理截点：2026-08-15 10:46:51 CST。
+最近整理截点：2026-08-15 23:12:50 CST。
 
 本索引只提供当前入口和历史定位，不替代原始文件。历史报告、输入、订单与账本遵循不可覆盖原则；需要更正时新增带时间戳的记录。Excel 仅为周度派生展示，不是权威账本。
 
@@ -425,6 +425,9 @@
 - [reports/automation-runs/activity-monitor/20260814T044554+0800.json](../reports/automation-runs/activity-monitor/20260814T044554%2B0800.json)
 - [reports/automation-runs/activity-monitor/20260814T104610+0800.json](../reports/automation-runs/activity-monitor/20260814T104610%2B0800.json)
 - [reports/automation-runs/activity-monitor/20260814T170629+0800.json](../reports/automation-runs/activity-monitor/20260814T170629%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260815T105324+0800.json](../reports/automation-runs/activity-monitor/20260815T105324%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260815T164231+0800.json](../reports/automation-runs/activity-monitor/20260815T164231%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260815T224343+0800.json](../reports/automation-runs/activity-monitor/20260815T224343%2B0800.json)
 - [reports/automation-runs/close-analysis/20260723T164318+0800.json](../reports/automation-runs/close-analysis/20260723T164318%2B0800.json)
 - [reports/automation-runs/close-analysis/20260725T200931+0800.json](../reports/automation-runs/close-analysis/20260725T200931%2B0800.json)
 - [reports/automation-runs/close-analysis/20260727T190346+0800.json](../reports/automation-runs/close-analysis/20260727T190346%2B0800.json)
@@ -476,6 +479,7 @@
 - [reports/automation-runs/document-log/20260811T231437+0800.json](../reports/automation-runs/document-log/20260811T231437%2B0800.json)
 - [reports/automation-runs/document-log/20260812T231340+0800.json](../reports/automation-runs/document-log/20260812T231340%2B0800.json)
 - [reports/automation-runs/document-log/20260813T231649+0800.json](../reports/automation-runs/document-log/20260813T231649%2B0800.json)
+- [reports/automation-runs/document-log/20260815T104943+0800.json](../reports/automation-runs/document-log/20260815T104943%2B0800.json)
 - [reports/automation-runs/fund-nav/20260721T092153+0800.json](../reports/automation-runs/fund-nav/20260721T092153%2B0800.json)
 - [reports/automation-runs/fund-nav/20260722T224205+0800.json](../reports/automation-runs/fund-nav/20260722T224205%2B0800.json)
 - [reports/automation-runs/fund-nav/20260723T224542+0800.json](../reports/automation-runs/fund-nav/20260723T224542%2B0800.json)
@@ -587,6 +591,8 @@
 - [reports/document-log/2026-08-12-2311.md](../reports/document-log/2026-08-12-2311.md)
 - [reports/document-log/2026-08-13-2314.json](../reports/document-log/2026-08-13-2314.json)
 - [reports/document-log/2026-08-13-2314.md](../reports/document-log/2026-08-13-2314.md)
+- [reports/document-log/2026-08-15-1046.json](../reports/document-log/2026-08-15-1046.json)
+- [reports/document-log/2026-08-15-1046.md](../reports/document-log/2026-08-15-1046.md)
 - [reports/monitor/20260720T184102+0800.json](../reports/monitor/20260720T184102%2B0800.json)
 - [reports/monitor/20260721T004024+0800.json](../reports/monitor/20260721T004024%2B0800.json)
 - [reports/monitor/20260721T064315+0800.json](../reports/monitor/20260721T064315%2B0800.json)
@@ -667,6 +673,8 @@
 - [reports/monitor/20260814T104209+0800.json](../reports/monitor/20260814T104209%2B0800.json)
 - [reports/monitor/20260814T170237+0800.json](../reports/monitor/20260814T170237%2B0800.json)
 - [reports/monitor/20260815T104513+0800.json](../reports/monitor/20260815T104513%2B0800.json)
+- [reports/monitor/20260815T163831+0800.json](../reports/monitor/20260815T163831%2B0800.json)
+- [reports/monitor/20260815T223932+0800.json](../reports/monitor/20260815T223932%2B0800.json)
 - [reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json](../reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json)
 - [reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md](../reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md)
 - [reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md](../reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md)
