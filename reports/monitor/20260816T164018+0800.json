@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-16 16:40:18 CST",
+  "created_at_utc": "2026-08-16T08:40:18Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "STALE",
+    "heartbeat_age_hours": 47.472,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-14T09:12:01.360137+00:00",
+    "last_success_at_shanghai": "2026-08-14T17:12:01.360137+08:00",
+    "last_run_id": "cb081aa930a1487e942ce4b6d17d015e",
+    "last_run_date": "2026-08-14",
+    "last_mode": "short",
+    "decision_report_count": 19,
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 10,
+    "last_filled_trade_date": "2026-08-14",
+    "project_equity_cny": 30442.7,
+    "total_pnl_cny": 442.7,
+    "total_return_pct": 0.01475666666666669,
+    "command_exit_code": 0
+  },
+  "calendar_context": {
+    "current_day": "SUNDAY",
+    "current_session": "NON_OPEN_DAY_BEFORE_WEEKLY_REVIEW_WINDOW",
+    "weekly_review_owner": "vibe-finance-2",
+    "weekly_review_owner_status": "ACTIVE",
+    "weekly_review_due_at": "2026-08-16T20:00:00+08:00",
+    "weekly_review_due_now": false,
+    "next_financial_owner": "vibe-finance-4",
+    "next_financial_owner_status": "ACTIVE",
+    "next_financial_owner_due_at": "2026-08-17T08:00:00+08:00"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-14-short.json",
+      "input": "data/inbox/2026-08-14.json",
+      "input_hash_match": true,
+      "heartbeat_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "ORDER_SCHEDULED",
+      "recommendation_count": 13,
+      "new_order_count": 1,
+      "manifest": "reports/automation-runs/close-analysis/20260814T171415+0800.json",
+      "manifest_status": "ORDER_SCHEDULED"
+    },
+    "latest_due_fund_nav": {
+      "due_date": "2026-08-14",
+      "input_exists": false,
+      "report_json_exists": false,
+      "report_markdown_exists": false,
+      "manifest_exists": false,
+      "owner_automation": "vibe-finance-7",
+      "owner_status": "ACTIVE",
+      "next_automatic_retry": "2026-08-17T22:30:00+08:00",
+      "weekend_noop_manifest": "reports/automation-runs/fund-nav/20260815T103819+0800.json",
+      "weekend_noop_status": "NON_OPEN_DAY",
+      "prior_due_workday_cycle_resolved": false
+    },
+    "latest_available_fund_nav": {
+      "report": "reports/funds/2026-08-13-funds.json",
+      "input": "data/inbox/2026-08-13-funds.json",
+      "input_hash_match": true,
+      "run_in_portfolio_history": true,
+      "business_status": "NO_TRADE",
+      "blocks": [
+        "NAV_NOT_PUBLISHED"
+      ]
+    },
+    "due_reflection_evolution": {
+      "due_at": "2026-08-15T20:30:00+08:00",
+      "configured_owner_exists": false,
+      "configured_saturday_2030_schedule_exists": false,
+      "current_week_report_exists": false,
+      "current_week_manifest_exists": false,
+      "latest_available_report": "reports/evolution/20260721-legacy-v0.3-remediation/proposal.json",
+      "latest_available_manifest": "reports/automation-runs/reflection-evolution/20260721T105013+0800.json"
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W32.json",
+      "report_markdown": "reports/weekly/2026-W32.md",
+      "generated_at": "2026-08-09T20:09:12+08:00",
+      "age_days": 6.855,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "historical_input_replay": "PASS_35_OF_35"
+    },
+    "missing_historical": [
+      "data/inbox/2026-08-06.json",
+      "reports/daily/2026-08-06-short.json",
+      "data/inbox/2026-08-06-funds.json",
+      "reports/funds/2026-08-06-funds.json",
+      "data/inbox/2026-08-07-funds.json",
+      "reports/funds/2026-08-07-funds.json"
+    ]
+  },
+  "ledger_checks": {
+    "json_files_parsed": 594,
+    "json_errors": [],
+    "jsonl_files_parsed": 2,
+    "jsonl_rows_parsed": 56,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 55,
+    "committed_event_count": 55,
+    "legacy_event_count": 4,
+    "v2_event_count": 51,
+    "next_sequence": 56,
+    "head_event_sha256": "f49b3fade19727b7000a38597dcc8658bdd8146019ed34a414ba8bad75c753ae",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 10,
+    "portfolio_filled_trade_count": 10,
+    "pending_orders": 1,
+    "positions": 6
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "governance_checks": {
+    "orphan_manifest": "reports/automation-runs/daily-order-guard/20260813T091525+0800.json",
+    "orphan_manifest_sha256": "778accd8e3ad046b121ef844d26a03961dc7bfbf1045d3483cbc8421e1ac29ed",
+    "orphan_manifest_parse": "PASS",
+    "orphan_manifest_status": "READY",
+    "orphan_manifest_tracked": false,
+    "orphan_manifest_modified_by_monitor": false
+  },
+  "alerts": [
+    {
+      "code": "HEARTBEAT_STALE",
+      "minimal_repair": "The latest successful financial run is 47.472 hours old, above the 36-hour threshold. Sunday is a non-open day and activity monitoring must not refresh the heartbeat. Keep the system fail-closed and let the ACTIVE preopen owner vibe-finance-4 perform the next evidence-backed financial run at 2026-08-17T08:00:00+08:00. If that owner fails, repair the owner task without fabricating or backdating a heartbeat."
+    },
+    {
+      "code": "MISSING_DUE_REFLECTION_EVOLUTION",
+      "minimal_repair": "Restore a dedicated reflection-evolution owner scheduled for Saturday 20:30 Asia/Shanghai and run recovery at the actual time. Keep any unqualified change PROPOSED_ONLY and do not backdate a report or modify the online strategy from this monitor."
+    },
+    {
+      "code": "MISSING_DUE_WORKDAY_FUND_NAV_REPORT",
+      "minimal_repair": "The ACTIVE fund-nav owner did not produce the due 2026-08-14 cycle. Recover only with date-matched authoritative NAV and cutoff evidence; otherwise preserve the gap and retry automatically at 2026-08-17T22:30:00+08:00."
+    },
+    {
+      "code": "HISTORICAL_SHORT_REPORT_MISSING",
+      "minimal_repair": "Preserve the expired 2026-08-06 gap unless date-matched authoritative evidence supports a separate governed recovery; do not overwrite history."
+    },
+    {
+      "code": "HISTORICAL_FUND_NAV_REPORT_MISSING",
+      "minimal_repair": "Preserve the 2026-08-06 and 2026-08-07 gaps. Do not backfill date-shifted NAV evidence."
+    },
+    {
+      "code": "UNGOVERNED_DAILY_ORDER_GUARD_MANIFEST",
+      "minimal_repair": "The daily-order-guard owner must reconcile the preserved 2026-08-13 09:15 attempt manifest against its committed 09:17 READY manifest. Activity monitoring must not delete, stage, or rewrite it."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "6d4da796dcfbdcd4091f7a411d5f6b10724ca005",
+    "origin_main_before_sync": "6d4da796dcfbdcd4091f7a411d5f6b10724ca005",
+    "live_remote_main_before_sync": "6d4da796dcfbdcd4091f7a411d5f6b10724ca005",
+    "remote_probe": "PASS_AUTHENTICATED_WINDOWS_GIT",
+    "heartbeat_sha256": "d2e3b9f8efa12dd650f60800838e3d94b69c5f5264c5e4dee158750230fea596",
+    "protected_tracked_content": {
+      "algorithm": "sha256(path_nul_worktree_blob_oid_lf)",
+      "aggregate_sha256": "007e0629ea1e0a4460d8ac6f8ee7b9c2e1e29eeb267c62ebfbe26137a95fb988",
+      "file_count": 599,
+      "excluded_prefixes": [
+        "reports/monitor/",
+        "reports/automation-runs/activity-monitor/"
+      ]
+    },
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
