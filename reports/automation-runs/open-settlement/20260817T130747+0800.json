@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "task_id": "open-settlement",
+  "task_status": "PASS_INTRADAY_RECOVERY",
+  "run_timestamp": "2026-08-17 13:07:47 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "60210b8d4618ef13f9b8abdb01a7a9b371a9a55f",
+  "allowlist": [
+    "reports/execution",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17973,
+      "sha256": "7407719d7c187b9340adb5e4b4b14b60ae1951ee0029282e4f7485f9cf8da8ea"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 277,
+      "sha256": "a702e090ffe4b36c5f994f6363f1fdc1bbf7b1c7b5a4556dd0b3414a199a59e7"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/orders.jsonl",
+      "bytes": 82598,
+      "sha256": "f8be35caf8933398460d5e3dbac191eba9b7973bfa77e9f348fe7dbba1e02551"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 18852,
+      "sha256": "57f5fa71de3f7b9313fb686c4e0f8840c63d4d68267a8c0c0d6902d62202066c"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-17-intraday.json",
+      "bytes": 38318,
+      "sha256": "4ce76331fbdb3baf06dd08871287862452d43e51c38f4e21918a5f0813d9e995"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/2741980232134878be27cb7be28b7508/commit.json",
+      "bytes": 988,
+      "sha256": "836cc46ded051e2c0749e73567831ac5e1661b144ef183d8d8ce3b33e99a53a8"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/2741980232134878be27cb7be28b7508/prepare.json",
+      "bytes": 27324,
+      "sha256": "35a3311cad1c9ab15acd699db79423e5bd897f423a8530fc79288efa3368f3ad"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/execution/2026-08-17-intraday.json",
+      "bytes": 3048,
+      "sha256": "e4e2736dd83403d2e1ceae88d508a271d6d2920eff58dbafbc8802150c76a6c5"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/execution/2026-08-17-intraday.md",
+      "bytes": 879,
+      "sha256": "a46b0f765873de38aa656916f255cb18b8819350d987b10826c5ca046803d8a8"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-17T05:07:48.454116+00:00",
+  "simulation_only": true
+}
