@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task_id": "reflection-evolution",
+  "task_status": "NOT_APPLICABLE",
+  "run_timestamp": "2026-08-17 10:04:18 CST",
+  "run_id": "20260817-w33-no-eligible-evidence",
+  "branch": "main",
+  "base_commit": "2c072d2cf77b8aed13800971ba2769b1d4e45149",
+  "allowlist": [
+    "reports/evolution"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "reports/evolution/20260817-w33-no-eligible-evidence/gate.json",
+      "bytes": 3427,
+      "sha256": "088f7f7403e83112b382895a6681f3327eefdfb07522790904b3882979c61d53"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/evolution/20260817-w33-no-eligible-evidence/proposal.json",
+      "bytes": 824,
+      "sha256": "7781f01e8325dab1029f66abb3743661ede6c60f6e39e97238fe242cc5104d0f"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "2c072d2cf77b8aed13800971ba2769b1d4e45149",
+  "evolution_gate": {
+    "path": "reports/evolution/20260817-w33-no-eligible-evidence/gate.json",
+    "sha256": "088f7f7403e83112b382895a6681f3327eefdfb07522790904b3882979c61d53"
+  },
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-17T02:04:18.766947+00:00",
+  "simulation_only": true
+}

@@ -1,0 +1,92 @@
+{
+  "baseline": {
+    "commit": "2c072d2cf77b8aed13800971ba2769b1d4e45149",
+    "strategy_sha256": "5442872f760cb3ad535caee4341f34c16957beda8520203981171dd4d35e3346"
+  },
+  "candidate": null,
+  "claim_boundary": {
+    "accepted_path": "DISABLED_UNTIL_TRUSTED_EVALUATOR_EXISTS",
+    "closed_round_trips": "DERIVED_FROM_VALIDATED_PENDING_TO_FILLED_FSM",
+    "eligible_samples": "REQUIRE_DECLARED_HASH_BOUND_PROVENANCE_UNTRUSTED_UNTIL_EVALUATOR_EXISTS",
+    "independent_oos": "NOT_VERIFIED",
+    "ledger_integrity": "VERIFIED_GIT_HEAD_PREFIX_AND_CURRENT_CHAIN",
+    "rollback_replay": "NOT_VERIFIED",
+    "simulation_only": true,
+    "walk_forward": "NOT_VERIFIED"
+  },
+  "decision": "NOT_APPLICABLE",
+  "evidence": {
+    "out_of_sample": {
+      "status": "MISSING"
+    },
+    "preregistration": {
+      "status": "MISSING"
+    },
+    "rollback_replay": {
+      "status": "MISSING"
+    },
+    "walk_forward": {
+      "status": "MISSING"
+    }
+  },
+  "ledger": {
+    "anchor": {
+      "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+      "chain_head_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+      "line_count": 4,
+      "source_blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29",
+      "source_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+      "status": "VERIFIED_LEGACY_GIT_ANCHORED"
+    },
+    "completed_round_trip_count": 0,
+    "eligible_sample_count": 0,
+    "event_count": 55,
+    "git_head_prefix": {
+      "blob_oid": "8d64c037be65c85e159532b0605643d8704c8a01",
+      "canonical_payload_sha256": "1091ede4d8848053be6a824eec99f48204e4a64dbc6a34b4d1ff01e13aecc0c5",
+      "commit": "2c072d2cf77b8aed13800971ba2769b1d4e45149",
+      "committed_event_count": 55,
+      "ledger_path": "data/ledger/orders.jsonl",
+      "status": "VERIFIED_GIT_HEAD_PREFIX"
+    },
+    "head_event_sha256": "f49b3fade19727b7000a38597dcc8658bdd8146019ed34a414ba8bad75c753ae",
+    "ledger_path": "/mnt/f/Git/Vibe Finance/data/ledger/orders.jsonl",
+    "legacy_event_count": 4,
+    "next_sequence": 56,
+    "portfolio_projection": "PASS",
+    "positions": {
+      "510300": "1200",
+      "510500": "400",
+      "510880": "1100",
+      "512100": "900",
+      "518880": "300",
+      "588000": "1300"
+    },
+    "sha256": "a67f3707cf35b3b87ad105dd859ce3d9526d4ca4ea0e19a9d09e29fdc100ba86",
+    "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "v2_event_count": 51
+  },
+  "legacy_acceptance_status": "INVALID_LEGACY_ACCEPTANCE",
+  "reasons": [
+    "CANDIDATE_STRATEGY_MISSING",
+    "ELIGIBLE_ROUND_TRIPS_0_LT_20",
+    "INDEPENDENT_OOS_ARTIFACT_MISSING",
+    "PREREGISTRATION_MISSING",
+    "ROLLBACK_REPLAY_MISSING",
+    "TRUSTED_EVALUATOR_UNAVAILABLE",
+    "WALK_FORWARD_ARTIFACT_MISSING"
+  ],
+  "run_id": "20260817-w33-no-eligible-evidence",
+  "schema_version": 1,
+  "source_sha256": {
+    "anchor": "b8986ef7d41d79c2aefc3601bf383a8e2f5062c9889382811471a46f7e227bcd",
+    "mode_lock": "67924b159eeb2a3c3000441e89b0e6dda30cf62b7c757e5329fc4b591a9462d3",
+    "portfolio": "ccdc57ad22557d27480ede142c8b90f45b05a5f0a209b93e3612762c8c25cb59",
+    "proposal": "7781f01e8325dab1029f66abb3743661ede6c60f6e39e97238fe242cc5104d0f"
+  },
+  "verifier": {
+    "checked_at": "2026-08-17T02:02:49.939598+00:00",
+    "head_commit": "2c072d2cf77b8aed13800971ba2769b1d4e45149",
+    "source_sha256": "e85e1c678fc53fe8b14559fde9a19b68a2368a1b2050feae235cb1d4820cd9fa"
+  }
+}
