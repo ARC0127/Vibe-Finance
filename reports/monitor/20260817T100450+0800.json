@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-17 10:04:50 CST",
+  "created_at_utc": "2026-08-17T02:04:50Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 1.878,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-17T00:12:24.017971+00:00",
+    "last_success_at_shanghai": "2026-08-17T08:12:24.017971+08:00",
+    "last_run_id": "07fb9b803838467d9faeee81cf8d244e",
+    "last_run_date": "2026-08-17",
+    "last_mode": "preopen",
+    "decision_report_count": 19,
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 10,
+    "last_filled_trade_date": "2026-08-14",
+    "project_equity_cny": 30442.7,
+    "total_pnl_cny": 442.7,
+    "total_return_pct": 0.01475666666666669,
+    "command_exit_code": 0
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_session": "AFTER_OPEN_CAPTURE_WINDOW_BEFORE_INTRADAY_RECOVERY",
+    "open_capture_window": "2026-08-17T09:30:00+08:00/2026-08-17T09:35:00+08:00",
+    "next_financial_retry": "2026-08-17T13:00:00+08:00",
+    "recovery_owner": "vibe-finance-6",
+    "recovery_owner_status": "ACTIVE"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-14-short.json",
+      "input": "data/inbox/2026-08-14.json",
+      "manifest": "reports/automation-runs/close-analysis/20260814T171415+0800.json",
+      "status": "CURRENT_FOR_PRE_CLOSE_MONDAY"
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W33.json",
+      "report_markdown": "reports/weekly/2026-W33.md",
+      "generated_at": "2026-08-16T20:10:06+08:00",
+      "age_days": 0.579,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_hash_replay": "PASS_47_OF_47"
+    },
+    "historical_gap_governance": {
+      "report": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+      "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+      "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+      "listed_cycles": 8,
+      "new_historical_backfill_created": false
+    },
+    "reflection_evolution": {
+      "owner_automation": "vibe-finance-10",
+      "owner_status": "ACTIVE",
+      "schedule": "SATURDAY_2030_ASIA_SHANGHAI",
+      "recovery_report": "reports/evolution/20260817-w33-no-eligible-evidence/gate.json",
+      "recovery_report_sha256": "088f7f7403e83112b382895a6681f3327eefdfb07522790904b3882979c61d53",
+      "decision": "NOT_APPLICABLE",
+      "eligible_round_trips": 0,
+      "strategy_modified": false
+    },
+    "current_open_settlement": {
+      "input_exists": false,
+      "execution_report_exists": false,
+      "manifest": "reports/automation-runs/open-settlement/20260817T094036+0800.json",
+      "manifest_sha256": "1807af391a47ef2e6cdb018e3115276a797d39e669371a1a10451f32b904912e",
+      "manifest_status": "FAILED_DAILY_TRADE",
+      "pending_order_preserved": true,
+      "fabricated_fill_created": false,
+      "next_retry": "2026-08-17T13:00:00+08:00"
+    }
+  },
+  "ledger_checks": {
+    "json_files_parsed": 2,
+    "jsonl_rows_parsed": 56,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 55,
+    "committed_event_count": 55,
+    "head_event_sha256": "f49b3fade19727b7000a38597dcc8658bdd8146019ed34a414ba8bad75c753ae",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 10,
+    "portfolio_filled_trade_count": 10,
+    "pending_orders": 1,
+    "positions": 6
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "repairs": [
+    {
+      "code": "WSL_NETWORK_RECOVERED",
+      "action": "CHANGED_WSL_NETWORKING_MODE_FROM_FAILED_MIRRORED_TO_NAT",
+      "verification": "ETH0_ROUTE_DNS_AND_TENCENT_SINA_HTTP_200"
+    },
+    {
+      "code": "OPEN_OWNER_SCHEDULER_HARDENED",
+      "action": "CONVERTED_VIBE_FINANCE_5_TO_PROJECT_LEVEL_LOCAL_CRON",
+      "schedule": "WEEKDAYS_0929_ASIA_SHANGHAI"
+    },
+    {
+      "code": "REFLECTION_OWNER_RESTORED",
+      "action": "CREATED_VIBE_FINANCE_10_PROJECT_LEVEL_LOCAL_CRON",
+      "schedule": "SATURDAY_2030_ASIA_SHANGHAI"
+    },
+    {
+      "code": "ORPHAN_MANIFEST_RECONCILED",
+      "action": "HASH_BOUND_TO_COMMITTED_RETRY_AND_REMOVED",
+      "governance_report": "reports/research/2026-08-17-operational-gap-reconciliation.json"
+    }
+  ],
+  "alerts": [
+    {
+      "code": "OPEN_SETTLEMENT_WINDOW_MISSED",
+      "minimal_repair": "Keep the existing PENDING_NEXT_OPEN order unchanged. Let the ACTIVE vibe-finance-6 owner run the governed intraday recovery at 2026-08-17T13:00:00+08:00. If current dual-source evidence, identity, limit, cash, or risk gates fail, preserve the order outcome and failure evidence without fabricating a fill."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "9ba0fdb6351d9ff175234094c72d2684755eed59",
+    "origin_main_before_sync": "9ba0fdb6351d9ff175234094c72d2684755eed59",
+    "heartbeat_sha256": "55574f300fb350cdd7032217db480bc816aade853471f5c71115d85ad8fe6fa1",
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}
