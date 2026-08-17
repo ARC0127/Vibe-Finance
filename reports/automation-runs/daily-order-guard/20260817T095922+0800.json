@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "daily-order-guard",
+  "task_status": "PASS_WITH_FINDINGS",
+  "run_timestamp": "2026-08-17 09:59:22 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "72f5dc3eadd9cd4a02ca94f636d8d0e0bb777038",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+      "bytes": 5363,
+      "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.3.1",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-17T01:59:23.976277+00:00",
+  "simulation_only": true
+}

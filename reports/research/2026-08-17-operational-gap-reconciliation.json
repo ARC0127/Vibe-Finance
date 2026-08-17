@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "report_type": "operational_gap_reconciliation",
+  "generated_at": "2026-08-17T09:36:20+08:00",
+  "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+  "simulation_only": true,
+  "scope": "HISTORICAL_ARTIFACT_GAPS_AND_UNPUSHED_AUTOMATION_MANIFEST_ONLY",
+  "policy": {
+    "historical_financial_artifacts_are_immutable": true,
+    "hindsight_backfill_is_forbidden": true,
+    "missing_cutoff_bound_evidence_remains_missing": true,
+    "new_or_current_cycle_failures_must_still_alert": true
+  },
+  "evidence": [
+    {
+      "path": "reports/weekly/2026-W32.json",
+      "sha256": "3738175ff8873c67db9518aeacfaa5bd3d7ddd4fde347e1a27c8379264fd0399",
+      "role": "AUTHORITATIVE_WEEKLY_COMPLETENESS_FINDINGS"
+    },
+    {
+      "path": "reports/weekly/2026-W33.json",
+      "sha256": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309",
+      "role": "AUTHORITATIVE_WEEKLY_COMPLETENESS_FINDINGS"
+    }
+  ],
+  "historical_cycles": [
+    {
+      "cycle_date": "2026-08-03",
+      "task_id": "fund-nav",
+      "expected_paths": [
+        "data/inbox/2026-08-03-funds.json",
+        "reports/funds/2026-08-03-funds.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_CUTOFF_BOUND_FUND_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "cycle_date": "2026-08-06",
+      "task_id": "close-analysis",
+      "expected_paths": [
+        "data/inbox/2026-08-06.json",
+        "reports/daily/2026-08-06-short.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_CUTOFF_BOUND_CLOSE_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "cycle_date": "2026-08-06",
+      "task_id": "fund-nav",
+      "expected_paths": [
+        "data/inbox/2026-08-06-funds.json",
+        "reports/funds/2026-08-06-funds.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_CUTOFF_BOUND_FUND_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "cycle_date": "2026-08-07",
+      "task_id": "preopen-review",
+      "expected_paths": [
+        "data/inbox/2026-08-07-preopen.json",
+        "reports/preopen/2026-08-07-preopen.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_CUTOFF_BOUND_PREOPEN_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "cycle_date": "2026-08-07",
+      "task_id": "open-settlement",
+      "expected_paths": [
+        "data/inbox/2026-08-07-open.json",
+        "reports/execution/2026-08-07-open.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_0930_TO_0935_OPEN_WINDOW_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "cycle_date": "2026-08-07",
+      "task_id": "fund-nav",
+      "expected_paths": [
+        "data/inbox/2026-08-07-funds.json",
+        "reports/funds/2026-08-07-funds.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_CUTOFF_BOUND_FUND_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "cycle_date": "2026-08-11",
+      "task_id": "open-settlement",
+      "expected_paths": [
+        "data/inbox/2026-08-11-open.json",
+        "reports/execution/2026-08-11-open.json"
+      ],
+      "disposition": "SUBSTITUTED_BY_GOVERNED_INTRADAY_RECOVERY",
+      "substitute_paths": [
+        {
+          "path": "data/inbox/2026-08-11-intraday.json",
+          "sha256": "33cbff5cea287a9e3d0e74fa2228d81188f4ad9cd5399f42184b53d7112373c0"
+        },
+        {
+          "path": "reports/execution/2026-08-11-intraday.json",
+          "sha256": "f1220dc7dc7ad694900c14812ed0c296a29b06b74a9dd644008e1e9c88b41bd8"
+        }
+      ],
+      "reason": "CANONICAL_OPEN_FILES_REMAIN_ABSENT_WITHOUT_REWRITING_HISTORY"
+    },
+    {
+      "cycle_date": "2026-08-14",
+      "task_id": "fund-nav",
+      "expected_paths": [
+        "data/inbox/2026-08-14-funds.json",
+        "reports/funds/2026-08-14-funds.json"
+      ],
+      "disposition": "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "reason": "ORIGINAL_CUTOFF_BOUND_FUND_EVIDENCE_UNAVAILABLE"
+    }
+  ],
+  "orphan_manifest_reconciliation": {
+    "orphan_path": "reports/automation-runs/daily-order-guard/20260813T091525+0800.json",
+    "orphan_sha256": "778accd8e3ad046b121ef844d26a03961dc7bfbf1045d3483cbc8421e1ac29ed",
+    "orphan_summary": {
+      "task_id": "daily-order-guard",
+      "task_status": "READY",
+      "run_timestamp": "2026-08-13 09:15:25 CST",
+      "base_commit": "1d72e22048dda6fabdd537d78117a3a144d6b6a5",
+      "changed_files_before_manifest": [],
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "deepseek_actual_calls": 0,
+      "deepseek_spent_cny": 0.0,
+      "simulation_only": true
+    },
+    "replacement_path": "reports/automation-runs/daily-order-guard/20260813T091729+0800.json",
+    "replacement_sha256": "986d1ebd3dc5f9b59dc5b4f3e1ffad091f4f6dbbdd803c3da49b4a359a255d2b",
+    "replacement_commit": "11bede78c647d25f1993aa5d285afda8dcadbf74",
+    "disposition": "SUPERSEDED_BY_COMMITTED_GOVERNED_RETRY",
+    "local_action": "REMOVE_UNTRACKED_ORPHAN_AFTER_HASH_BOUND_RECONCILIATION"
+  },
+  "monitoring_rule": {
+    "acknowledge_only_exact_listed_paths": true,
+    "require_evidence_sha256_match": true,
+    "do_not_recreate_missing_paths": true,
+    "do_not_suppress_new_due_cycle_alerts": true
+  }
+}
