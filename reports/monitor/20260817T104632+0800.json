@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-17 10:46:32 CST",
+  "created_at_utc": "2026-08-17T02:46:32Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 2.571,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-17T00:12:24.017971+00:00",
+    "last_success_at_shanghai": "2026-08-17T08:12:24.017971+08:00",
+    "last_run_id": "07fb9b803838467d9faeee81cf8d244e",
+    "last_run_date": "2026-08-17",
+    "last_mode": "preopen",
+    "decision_report_count": 19,
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 10,
+    "last_filled_trade_date": "2026-08-14",
+    "project_equity_cny": 30442.7,
+    "total_pnl_cny": 442.7,
+    "total_return_pct": 0.01475666666666669,
+    "command_exit_code": 0
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_session": "AFTER_OPEN_CAPTURE_WINDOW_BEFORE_INTRADAY_RECOVERY",
+    "open_capture_window": "2026-08-17T09:30:00+08:00/2026-08-17T09:35:00+08:00",
+    "next_financial_retry": "2026-08-17T13:00:00+08:00",
+    "recovery_owner": "vibe-finance-6",
+    "recovery_owner_status": "ACTIVE"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "report": "reports/daily/2026-08-14-short.json",
+      "report_sha256": "50d29779ff3dc386b4b27b99d0d41f2dfb1e544dbc8f559a4cf13c1e1e45eefd",
+      "input": "data/inbox/2026-08-14.json",
+      "manifest": "reports/automation-runs/close-analysis/20260814T171415+0800.json",
+      "status": "CURRENT_FOR_PRE_CLOSE_MONDAY"
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W33.json",
+      "report_json_sha256": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309",
+      "report_markdown": "reports/weekly/2026-W33.md",
+      "generated_at": "2026-08-16T20:10:06+08:00",
+      "age_days": 0.609,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_hash_replay": "PASS_47_OF_47"
+    },
+    "historical_gap_governance": {
+      "report": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+      "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+      "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+      "weekly_evidence_sha256_match": true,
+      "exact_listed_path_states_match": true,
+      "substitute_sha256_match": true,
+      "orphan_manifest_state_match": true,
+      "new_historical_backfill_created": false
+    },
+    "current_open_settlement": {
+      "input_exists": false,
+      "execution_report_exists": false,
+      "manifest": "reports/automation-runs/open-settlement/20260817T094036+0800.json",
+      "manifest_sha256": "1807af391a47ef2e6cdb018e3115276a797d39e669371a1a10451f32b904912e",
+      "manifest_status": "FAILED_DAILY_TRADE",
+      "pending_order_preserved": true,
+      "fabricated_fill_created": false,
+      "next_retry": "2026-08-17T13:00:00+08:00"
+    }
+  },
+  "ledger_checks": {
+    "json_files_parsed": 2,
+    "jsonl_rows_parsed": 56,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 55,
+    "committed_event_count": 55,
+    "head_event_sha256": "f49b3fade19727b7000a38597dcc8658bdd8146019ed34a414ba8bad75c753ae",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 10,
+    "portfolio_filled_trade_count": 10,
+    "pending_orders": 1,
+    "positions": 6
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "repairs": [],
+  "alerts": [
+    {
+      "code": "OPEN_SETTLEMENT_WINDOW_MISSED",
+      "minimal_repair": "Keep the existing PENDING_NEXT_OPEN order unchanged. Let the ACTIVE vibe-finance-6 owner run the governed intraday recovery at 2026-08-17T13:00:00+08:00. If current dual-source evidence, identity, limit, cash, or risk gates fail, preserve the order outcome and failure evidence without fabricating a fill."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "60210b8d4618ef13f9b8abdb01a7a9b371a9a55f",
+    "origin_main_before_sync": "60210b8d4618ef13f9b8abdb01a7a9b371a9a55f",
+    "heartbeat_sha256": "55574f300fb350cdd7032217db480bc816aade853471f5c71115d85ad8fe6fa1",
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "automation_definition_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  }
+}

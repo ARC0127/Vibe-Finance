@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-17 16:47:53 CST",
+  "created_at_utc": "2026-08-17T08:47:53Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 3.706,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-17T05:05:26.928202+00:00",
+    "last_success_at_shanghai": "2026-08-17T13:05:26.928202+08:00",
+    "last_run_id": "2741980232134878be27cb7be28b7508",
+    "last_run_date": "2026-08-17",
+    "last_mode": "intraday_settlement",
+    "decision_report_count": 19,
+    "pending_orders": 0,
+    "positions": 6,
+    "filled_trade_count": 11,
+    "last_filled_trade_date": "2026-08-17",
+    "project_equity_cny": 30700.2,
+    "total_pnl_cny": 700.2,
+    "total_return_pct": 0.023340000000000024,
+    "command_exit_code": 0
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_session": "AFTER_CLOSE_ANALYSIS_SCHEDULE",
+    "close_analysis_due_at": "2026-08-17T16:30:00+08:00",
+    "close_analysis_observed_missing_at": "2026-08-17T16:47:36+08:00",
+    "close_analysis_owner": "vibe-finance",
+    "owner_local_config_status": "ACTIVE",
+    "owner_schedule": "WEEKDAYS_1630_ASIA_SHANGHAI",
+    "same_day_retry_automation_defined": false,
+    "next_defined_regular_schedule": "2026-08-18T16:30:00+08:00"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "expected_input": "data/inbox/2026-08-17.json",
+      "expected_report": "reports/daily/2026-08-17-short.json",
+      "expected_manifest_task": "close-analysis",
+      "input_exists": false,
+      "report_exists": false,
+      "manifest_exists": false,
+      "owner_process_running": false,
+      "status": "MISSING_AFTER_SCHEDULE"
+    },
+    "latest_completed_short": {
+      "report": "reports/daily/2026-08-14-short.json",
+      "report_sha256": "50d29779ff3dc386b4b27b99d0d41f2dfb1e544dbc8f559a4cf13c1e1e45eefd",
+      "status": "ORDER_SCHEDULED"
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W33.json",
+      "report_json_sha256": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309",
+      "report_markdown": "reports/weekly/2026-W33.md",
+      "generated_at": "2026-08-16T20:10:06+08:00",
+      "age_days": 0.86,
+      "maximum_age_days": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "freshness_status": "CURRENT",
+      "input_hash_replay": "PASS_47_OF_47"
+    },
+    "historical_gap_governance": {
+      "report": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+      "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+      "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+      "weekly_evidence_sha256_match": true,
+      "exact_listed_path_states_match": true,
+      "substitute_sha256_match": true,
+      "orphan_manifest_state_match": true,
+      "new_historical_backfill_created": false
+    },
+    "intraday_recovery": {
+      "report": "reports/execution/2026-08-17-intraday.json",
+      "report_sha256": "e4e2736dd83403d2e1ceae88d508a271d6d2920eff58dbafbc8802150c76a6c5",
+      "manifest": "reports/automation-runs/open-settlement/20260817T130747+0800.json",
+      "manifest_sha256": "71388c8075e8303face25046dd7f8749b6e5c20e9b848e5d52237ab160cf7c7e",
+      "status": "PASS_INTRADAY_RECOVERY",
+      "filled_events": 1,
+      "pending_after": 0
+    }
+  },
+  "ledger_checks": {
+    "json_files_parsed": 2,
+    "jsonl_rows_parsed": 57,
+    "jsonl_errors": [],
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 56,
+    "committed_event_count": 56,
+    "head_event_sha256": "12b07296933006f806238fc1555f404d6482cdfc280a39160f750150174aae15",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 11,
+    "portfolio_filled_trade_count": 11,
+    "pending_orders": 0,
+    "positions": 6
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_log_cny": 100.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "repairs": [
+    {
+      "code": "UNSYNCED_MONITOR_REPORT_CARRIED_FORWARD",
+      "path": "reports/monitor/20260817T104632+0800.json",
+      "sha256": "271565eedb73f17b1228a8fa4e66a29f6398ae64f372bbbe52f62ca14dde54dd",
+      "action": "INCLUDE_IN_CURRENT_GOVERNED_ACTIVITY_MONITOR_SYNC"
+    }
+  ],
+  "alerts": [
+    {
+      "code": "LATEST_DUE_SHORT_REPORT_MISSING",
+      "minimal_repair": "The ACTIVE vibe-finance close-analysis owner must execute the already-due 2026-08-17 16:30 cycle. The activity monitor must not collect close data, run trading analysis, create an order, or refresh the financial heartbeat. No separate same-day retry automation is defined; if the delayed dispatch does not run, the next regular schedule is 2026-08-18T16:30:00+08:00."
+    },
+    {
+      "code": "AUTOMATION_VIEW_COMMAND_TIMEOUT",
+      "minimal_repair": "Retry the Codex automation service view after the external service responds. The local automation.toml still records owner vibe-finance as ACTIVE on the weekday 16:30 schedule, but the current dispatcher state could not be retrieved."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "8ef42dadd162d9aa279d8d3af91e8fd9e6f67c2e",
+    "origin_main_before_sync": "8ef42dadd162d9aa279d8d3af91e8fd9e6f67c2e",
+    "heartbeat_sha256": "a702e090ffe4b36c5f994f6363f1fdc1bbf7b1c7b5a4556dd0b3414a199a59e7",
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "automation_definition_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false,
+    "project_experience_promoted": false
+  }
+}
