@@ -214,6 +214,10 @@ flowchart LR
 | 周日 20:00 | 汇总组合表现、来源质量和长期风险；可用时额外导出只读 Excel 仪表盘 |
 | 每日 23:10 | 整理本地文档、索引和日志 |
 
+### 自有投资经验账本
+
+反思任务把观察、假设、支持证据、反例、适用范围、验证状态和策略影响保存为不可变经验记录。工作日盘前任务会读取这些记录，但只有闭环成交样本达标，并同时通过走前、独立样本外、回滚重放和受保护门禁的经验，才能对应到已经生效的策略规则。当前未通过的经验只进入复核区，不参与下单。数据合同见 [`docs/INVESTMENT_EXPERIENCE_LEDGER.md`](docs/INVESTMENT_EXPERIENCE_LEDGER.md)。
+
 每个任务结束前运行密钥扫描、JSON/JSONL解析、测试、任务文件白名单和 Git 提交检查，再推送 `main`。公开仓库不会接收 API 密钥或其他凭据。
 
 ## 策略为什么同时保留趋势和反转？
@@ -263,8 +267,10 @@ python -m vibe_finance update-readme
 | [`reports/`](reports/) | 决策、成交、基金、进化与自动化报告 |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | 来源等级和证据使用规则 |
 | [`docs/AUTOMATION.md`](docs/AUTOMATION.md) | 定时任务及失败处理 |
+| [`docs/INVESTMENT_EXPERIENCE_LEDGER.md`](docs/INVESTMENT_EXPERIENCE_LEDGER.md) | 跨对话投资经验、修订链与策略晋级门禁 |
 | [`docs/PLUGIN_POLICY.md`](docs/PLUGIN_POLICY.md) | 插件接入边界：模板只做派生展示，投行插件不进入选股 |
 | [`tests/test_pipeline.py`](tests/test_pipeline.py) | 前视偏差、冷启动、每日交易、费用和结算测试 |
+| [`tests/test_experience.py`](tests/test_experience.py) | 经验写入、重载、证据漂移、修订链和晋级门禁测试 |
 
 ## 明确边界
 

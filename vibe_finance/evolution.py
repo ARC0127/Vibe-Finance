@@ -12,6 +12,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
 
+from .experience import ExperienceLedgerError, validate_experience_record_file
 from .file_lock import advisory_file_lock
 
 
@@ -1051,6 +1052,40 @@ def verify_evolution_gate(
         if actual != reference["sha256"]:
             raise EvolutionGateError(f"{name} SHA-256 mismatch")
         evidence[name] = {"status": "UNTRUSTED_PRODUCER", "path": str(path), "sha256": actual}
+
+    experience_reference = proposal.get("experience")
+    if experience_reference is not None:
+        if not isinstance(experience_reference, dict):
+            raise EvolutionGateError("experience reference must be an object")
+        if "path" not in experience_reference or "sha256" not in experience_reference:
+            raise EvolutionGateError("experience path and sha256 are required")
+        experience_path = _safe_proposal_path(
+            proposal_dir, str(experience_reference["path"])
+        )
+        experience_sha = sha256_file(experience_path)
+        if experience_sha != experience_reference["sha256"]:
+            raise EvolutionGateError("experience SHA-256 mismatch")
+        try:
+            experience_record = validate_experience_record_file(
+                experience_path, repo_root=repo_root
+            )
+        except ExperienceLedgerError as error:
+            raise EvolutionGateError(f"experience record is invalid: {error}") from error
+        impact = experience_record["strategy_impact"]
+        if (
+            impact["status"] == "PROPOSED_ONLY"
+            and impact.get("evolution_run_id") != proposal["run_id"]
+        ):
+            raise EvolutionGateError("experience evolution_run_id must match proposal run_id")
+        evidence["experience"] = {
+            "status": "UNTRUSTED_PRODUCER",
+            "path": str(experience_path),
+            "sha256": experience_sha,
+            "experience_id": experience_record["experience_id"],
+            "revision": experience_record["revision"],
+            "validation_status": experience_record["validation"]["status"],
+            "strategy_impact_status": impact["status"],
+        }
 
     # The repository has no protected WF/OOS evaluator registry yet. Evidence
     # can be hashed and retained, but no caller-authored artifact may unlock ACCEPTED.

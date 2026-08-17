@@ -21,6 +21,13 @@ from .evaluation import (
     verify_readiness_artifact,
     write_readiness_artifact,
 )
+from .experience import (
+    DEFAULT_EXPERIENCE_ROOT,
+    DEFAULT_MODE_LOCK as DEFAULT_EXPERIENCE_MODE_LOCK,
+    DEFAULT_STRATEGY as DEFAULT_EXPERIENCE_STRATEGY,
+    validate_experience_ledger,
+    write_experience_record,
+)
 from .frozen_baseline import (
     run_frozen_b0_mechanical,
     verify_frozen_b0_artifact,
@@ -86,6 +93,9 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--report-dir", type=Path, default=DEFAULT_REPORT_DIR)
     run.add_argument("--orders-log", type=Path, default=DEFAULT_ORDERS_LOG)
     run.add_argument("--mode", choices=("short", "long", "preopen"), default="short")
+    run.add_argument(
+        "--experience-root", type=Path, default=DEFAULT_EXPERIENCE_ROOT
+    )
 
     settle = sub.add_parser("settle-open", help="只结算上一收盘生成的开盘虚拟订单")
     settle.add_argument("--input", type=Path, required=True)
@@ -229,6 +239,30 @@ def build_parser() -> argparse.ArgumentParser:
         "--review-root", type=Path, default=DEFAULT_REVIEW_ROOT
     )
     skill_review.add_argument("--date")
+
+    experience_record = sub.add_parser(
+        "experience-record",
+        help="把反思草稿写为不可覆盖、哈希绑定的项目投资经验记录",
+    )
+    experience_record.add_argument("--draft", type=Path, required=True)
+    experience_record.add_argument("--output", type=Path, required=True)
+    experience_record.add_argument(
+        "--experience-root", type=Path, default=DEFAULT_EXPERIENCE_ROOT
+    )
+
+    experience_validate = sub.add_parser(
+        "experience-validate",
+        help="校验项目投资经验修订链和策略晋级门禁",
+    )
+    experience_validate.add_argument(
+        "--experience-root", type=Path, default=DEFAULT_EXPERIENCE_ROOT
+    )
+    experience_validate.add_argument(
+        "--mode-lock", type=Path, default=DEFAULT_EXPERIENCE_MODE_LOCK
+    )
+    experience_validate.add_argument(
+        "--strategy", type=Path, default=DEFAULT_EXPERIENCE_STRATEGY
+    )
     return parser
 
 
@@ -246,6 +280,7 @@ def main() -> None:
             report_dir=args.report_dir,
             orders_log=args.orders_log,
             mode=args.mode,
+            experience_root=args.experience_root,
         )
     elif args.command == "settle-open":
         result = settle_open_orders(
@@ -363,6 +398,18 @@ def main() -> None:
             candidate_root=args.candidate_root,
             review_root=args.review_root,
             review_date=args.date,
+        )
+    elif args.command == "experience-record":
+        result = write_experience_record(
+            args.draft,
+            args.output,
+            experience_root=args.experience_root,
+        )
+    elif args.command == "experience-validate":
+        result = validate_experience_ledger(
+            args.experience_root,
+            mode_lock_path=args.mode_lock,
+            strategy_path=args.strategy,
         )
     else:
         result = update_readme_status(

@@ -27,7 +27,7 @@ class TaskContractTests(unittest.TestCase):
         self.assertEqual(result["real_broker_integration"], "forbid")
         self.assertEqual(result["caller_force_bypass"], "forbid")
         self.assertEqual(result["sync_allowlist_status"], "PASS")
-        self.assertEqual(result["task_count"], 13)
+        self.assertEqual(result["task_count"], 14)
 
     def test_activity_monitor_has_no_financial_runtime_write_authority(self) -> None:
         result = audit_task_contracts(
@@ -74,6 +74,19 @@ class TaskContractTests(unittest.TestCase):
         self.assertEqual(contract["sync_allowlist"], expected)
         self.assertFalse(any(path.startswith("reports") for path in expected))
         self.assertFalse(any(path.startswith("data/ledger") for path in expected))
+
+    def test_experience_ledger_release_is_narrow_and_excludes_financial_state(self) -> None:
+        result = audit_task_contracts(
+            REGISTRY, SYNC_SCRIPT, task_id="experience-ledger-release"
+        )
+        contract = result["task"]
+        self.assertEqual(contract["side_effect_class"], "governed_release")
+        self.assertEqual(contract["runtime_write_roots"], contract["sync_allowlist"])
+        self.assertIn("reports/evolution", contract["sync_allowlist"])
+        self.assertIn("vibe_finance/experience.py", contract["sync_allowlist"])
+        self.assertNotIn("data/ledger", contract["sync_allowlist"])
+        self.assertNotIn("config/strategy.json", contract["sync_allowlist"])
+        self.assertNotIn("reports/skill-memory/reviews", contract["sync_allowlist"])
 
     def test_force_bypass_and_broker_integration_fail_closed(self) -> None:
         payload = json.loads(REGISTRY.read_text(encoding="utf-8"))

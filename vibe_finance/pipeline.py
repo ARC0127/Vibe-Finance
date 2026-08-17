@@ -16,6 +16,7 @@ from .evolution import (
     REPO_ROOT as EVOLUTION_REPO_ROOT,
     pipeline_event_payload_sha256,
 )
+from .experience import DEFAULT_EXPERIENCE_ROOT, load_preopen_experience_context
 from .file_lock import fsync_directory
 from .transaction import (
     inspect_transaction_state,
@@ -1556,6 +1557,7 @@ def _render_report(
     orders: list[dict[str, Any]],
     input_hash: str,
     mode: str,
+    experience_context: dict[str, Any] | None = None,
 ) -> str:
     pending_orders = [
         order
@@ -1591,6 +1593,36 @@ def _render_report(
         lines.extend(f"- `{block}`" for block in blocks)
     else:
         lines.append("- 必要数据与组合约束已通过，可以登记虚拟订单。")
+    if experience_context is not None:
+        lines.extend(
+            [
+                "",
+                "## 项目投资经验账本",
+                "",
+                f"- 账本 SHA-256：`{experience_context['ledger_sha256']}`",
+                f"- 已记录经验：{experience_context['experience_count']} 条，"
+                f"共 {experience_context['record_count']} 个不可变版本。",
+                f"- 已晋级策略规则：{experience_context['promoted_rule_count']} 条；"
+                f"仍为提议：{experience_context['proposed_only_count']} 条。",
+            ]
+        )
+        active = experience_context.get("active_strategy_rules", [])
+        if not active:
+            lines.append("- 当前没有通过闭环样本和独立门禁的经验规则；未验证经验不参与下单。")
+        else:
+            for item in active:
+                lines.append(
+                    f"- ACTIVE `{item['experience_id']}` → {item['strategy_target']}；"
+                    f"记录 `{item['record_sha256']}`。"
+                )
+        review_items = experience_context.get("review_items", [])
+        if review_items:
+            lines.extend(["", "### 本轮读取的最新经验", ""])
+            for item in review_items[:5]:
+                lines.append(
+                    f"- `{item['experience_id']}` [{item['validation_status']}/"
+                    f"{item['strategy_status']}] {item['observation']}"
+                )
     lines.extend(
         [
             "",
@@ -1673,6 +1705,7 @@ def _run_pipeline_locked(
     report_dir: Path = DEFAULT_REPORT_DIR,
     orders_log: Path = DEFAULT_ORDERS_LOG,
     mode: str = "short",
+    experience_root: Path = DEFAULT_EXPERIENCE_ROOT,
 ) -> dict[str, Any]:
     snapshot = _read_json(input_path)
     strategy = _read_json(strategy_path)
@@ -1684,6 +1717,15 @@ def _run_pipeline_locked(
     initialize_ledger(ledger_path)
     ledger = _read_json(ledger_path)
     _ensure_ledger_schema(ledger)
+    experience_context = (
+        load_preopen_experience_context(
+            experience_root,
+            repo_root=EVOLUTION_REPO_ROOT,
+            strategy_path=strategy_path,
+        )
+        if mode == "preopen"
+        else None
+    )
     fills = _settle_pending(ledger, snapshot, strategy)
     recommendations, blocks = _recommendations(ledger, snapshot, strategy, warnings)
     orders = _create_orders(ledger, snapshot, strategy, recommendations, blocks)
@@ -1720,6 +1762,8 @@ def _run_pipeline_locked(
         "daily_execution_status": daily_execution_status,
         "valuation": values,
     }
+    if experience_context is not None:
+        decision["experience_context"] = experience_context
     ledger["last_run_id"] = run_id
     ledger["run_history"].append(
         {"run_id": run_id, "run_date": snapshot["run_date"], "mode": mode, "input_sha256": input_hash}
@@ -1734,6 +1778,7 @@ def _run_pipeline_locked(
         orders,
         input_hash,
         mode,
+        experience_context,
     )
     event_payloads = _prepare_pipeline_events(
         events=fills + orders,
@@ -3416,6 +3461,7 @@ def run_pipeline(
     report_dir: Path = DEFAULT_REPORT_DIR,
     orders_log: Path = DEFAULT_ORDERS_LOG,
     mode: str = "short",
+    experience_root: Path = DEFAULT_EXPERIENCE_ROOT,
 ) -> dict[str, Any]:
     with locked_state(ledger_path, exclusive=True):
         recovered = recover_incomplete_transactions(ledger_path)
@@ -3428,6 +3474,7 @@ def run_pipeline(
             report_dir,
             orders_log,
             mode,
+            experience_root,
         )
 
 

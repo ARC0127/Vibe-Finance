@@ -129,6 +129,7 @@
       "acceptance_checks": [
         "proposal is bound to the baseline commit",
         "referenced artifacts are hash-verified",
+        "experience records are immutable and hash-bound when present",
         "gate output is independently reverified",
         "protected paths remain unchanged"
       ],
@@ -136,6 +137,7 @@
       "constraints": [
         "caller cannot supply the evaluation decision",
         "proposal cannot directly modify protected strategy or code",
+        "experience records cannot self-declare a promoted strategy rule",
         "local structural pass is not scientific or financial performance evidence"
       ]
     },
@@ -252,6 +254,27 @@
       "constraints": [
         "release synchronization is not authority to rerun or rewrite financial history",
         "simulation-only and fail-closed controls remain unchanged",
+        "push requires the governed sync workflow"
+      ]
+    },
+    {
+      "task_id": "experience-ledger-release",
+      "purpose": "Release the project-owned investment experience ledger, preopen reader, and promotion gates without collecting unrelated artifacts.",
+      "side_effect_class": "governed_release",
+      "runtime_write_roots": ["MASTER_PROMPT.md", "MODE_LOCK.md", "MODE_LOCK.json", "README.md", "config/task_contracts.json", "docs/AUTOMATION.md", "docs/INVESTMENT_EXPERIENCE_LEDGER.md", "reports/evolution", "scripts/sync_github.sh", "tests/test_experience.py", "tests/test_evolution.py", "tests/test_pipeline.py", "tests/test_task_contracts.py", "vibe_finance/__main__.py", "vibe_finance/evolution.py", "vibe_finance/experience.py", "vibe_finance/pipeline.py"],
+      "sync_allowlist": ["MASTER_PROMPT.md", "MODE_LOCK.md", "MODE_LOCK.json", "README.md", "config/task_contracts.json", "docs/AUTOMATION.md", "docs/INVESTMENT_EXPERIENCE_LEDGER.md", "reports/evolution", "scripts/sync_github.sh", "tests/test_experience.py", "tests/test_evolution.py", "tests/test_pipeline.py", "tests/test_task_contracts.py", "vibe_finance/__main__.py", "vibe_finance/evolution.py", "vibe_finance/experience.py", "vibe_finance/pipeline.py"],
+      "acceptance_checks": [
+        "experience records reload with evidence and revision hashes intact",
+        "preopen decisions bind the experience ledger digest",
+        "unpromoted experience remains non-binding",
+        "forged or incomplete promotion gates fail closed",
+        "full tests and task-contract audit pass"
+      ],
+      "allow_force_bypass": false,
+      "constraints": [
+        "simulation-only mode remains locked",
+        "release cannot change live strategy or financial ledger state",
+        "unrelated reports and skill-memory reviews remain outside the staged set",
         "push requires the governed sync workflow"
       ]
     }

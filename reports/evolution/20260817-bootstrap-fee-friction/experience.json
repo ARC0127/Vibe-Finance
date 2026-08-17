@@ -1,0 +1,81 @@
+{
+  "as_of": "2026-08-14T16:30:00+08:00",
+  "counterevidence": [
+    {
+      "claim": "该比例只覆盖一周且没有已结束买卖回合，不能据此确定稳定的最优费用阈值。",
+      "path": "reports/weekly/2026-W33.md",
+      "sha256": "67e3b3a51756bff93da6cef82b2881a4dde1eb27ae1e253f35e7858619edfe25"
+    }
+  ],
+  "counterevidence_search": {
+    "notes": "已检查同一周报的样本边界和闭环成交统计。",
+    "status": "FOUND"
+  },
+  "created_by_task": "experience-ledger-bootstrap",
+  "evidence": [
+    {
+      "claim": "周报分别记录 35.80 元价格亏损、15.00 元费用和 50.80 元净亏损。",
+      "path": "reports/weekly/2026-W33.md",
+      "sha256": "67e3b3a51756bff93da6cef82b2881a4dde1eb27ae1e253f35e7858619edfe25"
+    },
+    {
+      "claim": "机器报告保存费用和周度归因的结构化数值。",
+      "path": "reports/weekly/2026-W33.json",
+      "sha256": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309"
+    }
+  ],
+  "experience_id": "EXP-W33-FEE-FRICTION",
+  "hypothesis": {
+    "falsification_criteria": "累计至少 20 个 eligible closed round trips 后，成本阈值候选在相同走前和独立样本外窗口的净收益、回撤和换手均未优于当前策略。",
+    "statement": "在下单前要求预期优势覆盖显式费用和保守滑点，可以减少净收益为负的低优势交易。"
+  },
+  "observation": {
+    "statement": "W33 的市场价格毛亏损为 35.80 元，三笔成交费用为 15.00 元，费用占当周净亏损 50.80 元的 29.5%。"
+  },
+  "previous_record_sha256": null,
+  "record_sha256": "459d23ebc051e02473d37ff3fbce72dc7ab2bdb6f3d77faf73f0bac61c8f9e1c",
+  "recorded_at": "2026-08-17T09:45:06+08:00",
+  "revision": 1,
+  "schema_version": 1,
+  "scope": {
+    "asset_types": [
+      "equity_etf",
+      "gold_etf",
+      "bond_etf",
+      "cash_etf"
+    ],
+    "exclusions": [
+      "场外基金未知价成交",
+      "真实交易"
+    ],
+    "horizon": "未来至少 20 个 eligible closed round trips",
+    "market_scope": "CN_MAINLAND_PUBLIC_MARKETS",
+    "regimes": [
+      "正常流动性",
+      "非涨跌停或停牌状态"
+    ]
+  },
+  "strategy_impact": {
+    "proposed_change": "后续反思可预注册成本覆盖阈值候选；当前不修改 live 策略。",
+    "rollback_condition": "若候选在走前或独立样本外的净收益、回撤或换手未达到预注册门槛，则拒绝。",
+    "status": "NONE",
+    "target": "execution.minimum_expected_edge"
+  },
+  "validation": {
+    "completed_round_trips": 0,
+    "eligible_round_trips": 0,
+    "limitations": [
+      "单周样本",
+      "没有卖出闭环",
+      "未运行候选策略对照"
+    ],
+    "method": "在封存周报中核对毛收益、费用和净收益恒等式。",
+    "metrics": {
+      "fee_share_of_net_loss": 0.2952755906,
+      "weekly_fees_cny": 15.0,
+      "weekly_gross_market_pnl_cny": -35.8,
+      "weekly_net_pnl_cny": -50.8
+    },
+    "status": "OBSERVED"
+  }
+}

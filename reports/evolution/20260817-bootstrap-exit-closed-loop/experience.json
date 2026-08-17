@@ -1,0 +1,83 @@
+{
+  "as_of": "2026-08-14T16:30:00+08:00",
+  "counterevidence": [
+    {
+      "claim": "部分持仓已有未实现盈利，但未实现盈亏不能替代已结束交易对退出规则的检验。",
+      "path": "reports/weekly/2026-W33.md",
+      "sha256": "67e3b3a51756bff93da6cef82b2881a4dde1eb27ae1e253f35e7858619edfe25"
+    }
+  ],
+  "counterevidence_search": {
+    "notes": "已区分未实现盈利与闭环成交证据。",
+    "status": "FOUND"
+  },
+  "created_by_task": "experience-ledger-bootstrap",
+  "evidence": [
+    {
+      "claim": "策略进化结论明确记录 10 笔成交全部为买入、闭环样本为 0。",
+      "path": "reports/weekly/2026-W33.md",
+      "sha256": "67e3b3a51756bff93da6cef82b2881a4dde1eb27ae1e253f35e7858619edfe25"
+    },
+    {
+      "claim": "机器报告保存 eligible sample count 和 PROPOSED_ONLY 状态。",
+      "path": "reports/weekly/2026-W33.json",
+      "sha256": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309"
+    }
+  ],
+  "experience_id": "EXP-W33-EXIT-CLOSED-LOOP",
+  "hypothesis": {
+    "falsification_criteria": "完成至少 20 个 eligible closed round trips 后，预注册退出规则在净收益、最大回撤和相对基准收益上不优于继续持有或现金对照。",
+    "statement": "把每笔买入绑定预注册退出条件，并对实际退出、继续持有和保持现金做同口径比较，可以识别有效的退出规则。"
+  },
+  "observation": {
+    "statement": "截至 W33，累计 10 笔成交全部为买入，eligible closed round trips 为 0，因此退出、止盈、止损和再平衡能力尚未得到闭环验证。"
+  },
+  "previous_record_sha256": null,
+  "record_sha256": "6c57194a6e0ffb398cc5a2c2e200cac7da1d55b444e86cb39384dd0a52fa91f0",
+  "recorded_at": "2026-08-17T09:45:08+08:00",
+  "revision": 1,
+  "schema_version": 1,
+  "scope": {
+    "asset_types": [
+      "stock",
+      "equity_etf",
+      "gold_etf",
+      "bond_etf",
+      "cash_etf",
+      "open_end_fund"
+    ],
+    "exclusions": [
+      "未成交订单",
+      "未实现盈亏",
+      "真实交易"
+    ],
+    "horizon": "未来至少 20 个 eligible closed round trips",
+    "market_scope": "CN_MAINLAND_PUBLIC_MARKETS",
+    "regimes": [
+      "正常交易和可验证净值确认"
+    ]
+  },
+  "strategy_impact": {
+    "proposed_change": "后续订单研究应记录预注册退出条件和现金对照；当前不强制改写 live 订单逻辑。",
+    "rollback_condition": "若退出候选未通过走前、独立样本外和回滚重放，则不进入策略。",
+    "status": "NONE",
+    "target": "exit.entry_bound_exit_plan"
+  },
+  "validation": {
+    "completed_round_trips": 0,
+    "eligible_round_trips": 0,
+    "limitations": [
+      "没有卖出样本",
+      "无法计算闭环胜率",
+      "无法比较退出规则"
+    ],
+    "method": "读取受保护门禁从合法 pending-to-filled 事件链重放的闭环样本计数。",
+    "metrics": {
+      "buy_fills": 10,
+      "cumulative_fills": 10,
+      "eligible_closed_round_trips": 0,
+      "sell_fills": 0
+    },
+    "status": "OBSERVED"
+  }
+}

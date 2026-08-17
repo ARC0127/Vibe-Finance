@@ -1,0 +1,80 @@
+{
+  "as_of": "2026-08-14T16:30:00+08:00",
+  "counterevidence": [
+    {
+      "claim": "510880 与 588000 的短样本相关系数为 -0.489，说明六只持仓并非完全重复；全部相关性只覆盖 15 个观察。",
+      "path": "reports/weekly/2026-W33.md",
+      "sha256": "67e3b3a51756bff93da6cef82b2881a4dde1eb27ae1e253f35e7858619edfe25"
+    }
+  ],
+  "counterevidence_search": {
+    "notes": "已保留负相关组合和短样本限制，没有把高相关诊断写成长期因果结论。",
+    "status": "FOUND"
+  },
+  "created_by_task": "experience-ledger-bootstrap",
+  "evidence": [
+    {
+      "claim": "周报记录六个持仓、风险桶权重和成对相关系数。",
+      "path": "reports/weekly/2026-W33.md",
+      "sha256": "67e3b3a51756bff93da6cef82b2881a4dde1eb27ae1e253f35e7858619edfe25"
+    },
+    {
+      "claim": "机器报告保存分散度和风险暴露诊断。",
+      "path": "reports/weekly/2026-W33.json",
+      "sha256": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309"
+    }
+  ],
+  "experience_id": "EXP-W33-FACTOR-DIVERSIFICATION",
+  "hypothesis": {
+    "falsification_criteria": "在预注册窗口中，加入相关性约束的候选没有降低组合回撤或风险桶集中度，且风险调整后收益不优于当前 exposure_group 规则。",
+    "statement": "按经济暴露组、风险桶和相关性共同约束新增仓位，比按证券代码数量分散更能控制重复风险暴露。"
+  },
+  "observation": {
+    "statement": "W33 虽持有 6 只 ETF，但 510300/510500、510500/512100 和 510300/512100 的 15 点短样本相关系数分别为 0.979、0.962 和 0.930。"
+  },
+  "previous_record_sha256": null,
+  "record_sha256": "db2878639bc580b1f00c65a50d4d6b8bbfb3252985833d8aa6fed1cb4f8d67d9",
+  "recorded_at": "2026-08-17T09:45:07+08:00",
+  "revision": 1,
+  "schema_version": 1,
+  "scope": {
+    "asset_types": [
+      "equity_etf",
+      "gold_etf"
+    ],
+    "exclusions": [
+      "相关性样本不足时的自动参数修改",
+      "真实交易"
+    ],
+    "horizon": "至少 60 个同口径收盘观察和 20 个 eligible closed round trips",
+    "market_scope": "CN_MAINLAND_PUBLIC_MARKETS",
+    "regimes": [
+      "正常交易日",
+      "现行最多六持仓约束"
+    ]
+  },
+  "strategy_impact": {
+    "proposed_change": "后续反思可比较相关性簇约束与现行 exposure_group；当前不修改风险参数。",
+    "rollback_condition": "若候选没有改善独立样本外回撤或风险调整后收益，则保留现行规则。",
+    "status": "NONE",
+    "target": "risk.correlation_cluster_limit"
+  },
+  "validation": {
+    "completed_round_trips": 0,
+    "eligible_round_trips": 0,
+    "limitations": [
+      "相关性窗口短",
+      "未覆盖多种市场状态",
+      "没有闭环收益对照"
+    ],
+    "method": "从不可变周报复核成对相关系数、风险桶权重和 exposure_group。",
+    "metrics": {
+      "corr_510300_510500": 0.979,
+      "corr_510300_512100": 0.93,
+      "corr_510500_512100": 0.962,
+      "corr_510880_588000": -0.489,
+      "observations": 15
+    },
+    "status": "OBSERVED"
+  }
+}

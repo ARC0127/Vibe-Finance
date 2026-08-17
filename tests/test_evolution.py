@@ -30,6 +30,7 @@ from vibe_finance.evolution import (
     verify_portfolio_projection,
     verify_pipeline_event_provenance,
 )
+from vibe_finance.experience import canonical_json_bytes as experience_payload
 
 
 BASELINE_REF = "3950ea74801c28a63fd99ba3c6a9e7fe3e2cc6e5"
@@ -506,6 +507,79 @@ class EvolutionDecisionTests(unittest.TestCase):
                     mode_lock_path=mode_lock,
                     baseline_ref=BASELINE_REF,
                 )
+
+    def test_gate_hash_binds_optional_experience_record(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            proposal = self._proposal(root)
+            value = json.loads(proposal.read_text(encoding="utf-8"))
+            evidence_path = REPO_ROOT / "reports/weekly/2026-W33.md"
+            record = {
+                "schema_version": 1,
+                "experience_id": "EXP-W33-GATE-BINDING",
+                "revision": 1,
+                "previous_record_sha256": None,
+                "recorded_at": "2026-08-17T10:00:00+08:00",
+                "as_of": "2026-08-14T16:30:00+08:00",
+                "created_by_task": "reflection-evolution",
+                "observation": {"statement": "Experience evidence requires gate binding."},
+                "hypothesis": {
+                    "statement": "Hash binding prevents silent experience replacement.",
+                    "falsification_criteria": "Reject if a changed file passes the gate.",
+                },
+                "evidence": [
+                    {
+                        "path": "reports/weekly/2026-W33.md",
+                        "sha256": sha256_file(evidence_path),
+                        "claim": "The sealed weekly report is an immutable input.",
+                    }
+                ],
+                "counterevidence": [],
+                "counterevidence_search": {
+                    "status": "SEARCHED_NONE_FOUND",
+                    "notes": "This test covers integrity rather than strategy efficacy.",
+                },
+                "scope": {
+                    "market_scope": "CN_MAINLAND_PUBLIC_MARKETS",
+                    "asset_types": ["equity_etf"],
+                    "horizon": "governance validation",
+                    "regimes": [],
+                    "exclusions": ["real trading"],
+                },
+                "validation": {
+                    "status": "OBSERVED",
+                    "method": "Recompute record and file hashes.",
+                    "completed_round_trips": 0,
+                    "eligible_round_trips": 0,
+                    "metrics": {},
+                    "limitations": ["No performance claim"],
+                },
+                "strategy_impact": {
+                    "status": "NONE",
+                    "target": "experience.integrity",
+                    "proposed_change": "No live strategy change.",
+                    "rollback_condition": "Not applicable to live strategy.",
+                },
+            }
+            record["record_sha256"] = sha256_bytes(experience_payload(record))
+            experience = root / "experience.json"
+            experience.write_text(json.dumps(record), encoding="utf-8")
+            value["experience"] = {
+                "path": experience.name,
+                "sha256": sha256_file(experience),
+            }
+            proposal.write_text(json.dumps(value), encoding="utf-8")
+
+            result = verify_evolution_gate(proposal, baseline_ref=BASELINE_REF)
+            self.assertEqual(result["decision"], "PROPOSED_ONLY")
+            self.assertEqual(
+                result["evidence"]["experience"]["experience_id"],
+                "EXP-W33-GATE-BINDING",
+            )
+            self.assertEqual(
+                result["evidence"]["experience"]["sha256"],
+                sha256_file(experience),
+            )
 
 
 if __name__ == "__main__":

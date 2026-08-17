@@ -861,6 +861,62 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(value["performance"]["last_filled_trade_date"], "2026-07-20")
             self.assertGreater(value["performance"]["cumulative_fees_cny"], 0)
 
+    def test_preopen_decision_binds_project_experience_context(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            input_path = root / "preopen.json"
+            input_path.write_text(
+                json.dumps(
+                    cold_start_snapshot(
+                        "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+                    )
+                ),
+                encoding="utf-8",
+            )
+            context = {
+                "status": "PASS",
+                "claim_boundary": "PROMOTED_RULES_ONLY_AFTER_CLOSED_LOOP_AND_INDEPENDENT_GATE",
+                "ledger_sha256": "1" * 64,
+                "record_count": 1,
+                "experience_count": 1,
+                "promoted_rule_count": 0,
+                "proposed_only_count": 1,
+                "active_strategy_rules": [],
+                "review_items": [
+                    {
+                        "experience_id": "EXP-W33-FEE-FRICTION",
+                        "validation_status": "OBSERVED",
+                        "strategy_status": "NON_BINDING",
+                        "observation": "Minimum fees materially affected the weekly result.",
+                    }
+                ],
+            }
+            with patch(
+                "vibe_finance.pipeline.load_preopen_experience_context",
+                return_value=context,
+            ) as loader:
+                run_pipeline(
+                    input_path=input_path,
+                    ledger_path=root / "portfolio.json",
+                    strategy_path=STRATEGY_PATH,
+                    report_dir=root / "preopen",
+                    orders_log=root / "orders.jsonl",
+                    mode="preopen",
+                    experience_root=root / "evolution",
+                )
+            loader.assert_called_once()
+            decision = json.loads(
+                (root / "preopen/2026-07-20-preopen.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(decision["experience_context"], context)
+            report = (root / "preopen/2026-07-20-preopen.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("项目投资经验账本", report)
+            self.assertIn("未验证经验不参与下单", report)
+
     def test_preopen_signal_can_recover_at_dual_source_intraday_price(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -76,6 +76,24 @@
     "manifest_gate_sha_pinning_required": true,
     "pipeline_cross_file_transaction_status": "NOT_IMPLEMENTED_FAIL_CLOSED_FOR_ACCEPTANCE"
   },
+  "experience_ledger_policy": {
+    "storage": "reports/evolution/<run-id>/experience.json",
+    "history": "immutable_hash_linked_revisions",
+    "required_fields": [
+      "observation",
+      "hypothesis",
+      "evidence",
+      "counterevidence",
+      "scope",
+      "validation",
+      "strategy_impact"
+    ],
+    "reflection_writer": "reflection-evolution",
+    "preopen_reader": "required_fail_closed",
+    "unpromoted_strategy_effect": "forbid",
+    "promotion_authority": "protected_static_verifier_only",
+    "active_rule_requires_live_strategy_hash_match": true
+  },
   "execution_policy": {
     "minimum_virtual_fills_per_normal_trading_day": 1,
     "stocks_and_listed_funds": "prior_close_or_same_day_preopen_signal_then_later_double_sourced_open; failed_open_capture_may_recover_existing_orders_at_timely_dual_source_intraday_price",

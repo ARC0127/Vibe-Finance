@@ -6,6 +6,7 @@
 
 - 核验交易日、隔夜公告、停复牌、公司行为、基金状态和已有订单。
 - 使用最近封存的收盘价格与历史，补充截至08:00已公开的事件信息。
+- 运行时自动校验并读取 `reports/evolution/*/experience.json`。未晋级经验只进入盘前复核区；经验链、证据哈希或门禁异常时失败关闭。
 - 创建 `data/inbox/YYYY-MM-DD-preopen.json`，`market_state` 必须为 `preopen`。
 - 先运行 `validate`，再运行：
 
@@ -88,8 +89,11 @@ python3 -m vibe_finance settle-intraday \
 
 - 分别统计最近5、20和60个交易日的收益、回撤、费用、成交偏差与取消原因。
 - 分离趋势、回撤、防御、股票、场内基金和场外基金的贡献。
+- 把新增观察或既有经验修订写为 `reports/evolution/<run-id>/experience.json`，完整记录假设、支持证据、反例、适用范围、验证状态和策略影响。新修订必须引用上一版记录 SHA-256。
+- 若经验提出策略影响，必须由同一运行的 `proposal.json` 以路径和文件 SHA-256 引用；经验文本不能指定门禁结论。
 - 参数升级至少需要20笔完成交易，并通过走前和未参与调参的样本外检验。
 - 未通过的修改保留为 `PROPOSED_ONLY`，不能直接改变线上策略。
+- 写入后运行 `python3 -m vibe_finance experience-validate`；详细数据合同见 `docs/INVESTMENT_EXPERIENCE_LEDGER.md`。
 
 ## 周日 20:00：长期复盘
 
