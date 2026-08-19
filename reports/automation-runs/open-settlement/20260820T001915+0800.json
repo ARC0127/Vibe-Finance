@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "open-settlement",
+  "task_status": "FAILED_TIME_WINDOW_CLOSED",
+  "run_timestamp": "2026-08-20 00:19:15 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "0dd6175848414c6d51b078050601725f4a99191d",
+  "allowlist": [
+    "reports/execution",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-19T16:19:15.958419+00:00",
+  "simulation_only": true
+}
