@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "task_id": "document-log",
+  "task_status": "PASS_WITH_FINDINGS",
+  "run_timestamp": "2026-08-19 23:51:17 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "30aeaeb6b3ac38bc31800d7b0469d49d4a377560",
+  "allowlist": [
+    "reports/document-log",
+    "docs/DOCUMENT_LOG_INDEX.md",
+    "docs/GITHUB_AUTOMATION.md",
+    "README.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "docs/SOURCES.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17636,
+      "sha256": "95955ce11b13c51d888f2d2ab2d357fcc1a68fd331f8171e8c1c7f869a3d195e"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/DOCUMENT_LOG_INDEX.md",
+      "bytes": 90239,
+      "sha256": "ca3d06e275a11605c52c7ec9785a878b614d3768c29cb45f3995b9f06e9b9b73"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-08-19-1020.json",
+      "bytes": 344853,
+      "sha256": "f1ace2aa07c8f6ee0f39731cd887b84092f4ccb0ea63fc27046045e123c3c535"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-08-19-1020.md",
+      "bytes": 4602,
+      "sha256": "8e82411577ec8f77aff7d31568b4964f92564a671edb917d47ff7aba877da934"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-08-19-2349.json",
+      "bytes": 356122,
+      "sha256": "51086a47257eeb191990a22fc8f87d780f76a8b4534ee0d43ffaf594907e2be4"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-08-19-2349.md",
+      "bytes": 4276,
+      "sha256": "9b41ba6e03006bc565c5d95b3b56ab1b080eb0114283dde167ad6eb7adf6d6ba"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-19T15:51:17.381727+00:00",
+  "simulation_only": true
+}
