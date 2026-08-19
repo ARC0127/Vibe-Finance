@@ -7,7 +7,7 @@ import os
 import tempfile
 import uuid
 from datetime import date, datetime, timezone
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_DOWN, ROUND_HALF_UP
 from pathlib import Path
 from statistics import pstdev
 from typing import Any
@@ -561,8 +561,12 @@ def _update_ledger_valuation(
     ledger: dict[str, Any],
     assets: dict[str, dict[str, Any]],
     values: dict[str, Any],
-    as_of: str,
+    strategy: dict[str, Any] | str,
+    as_of: str | None = None,
 ) -> None:
+    exit_strategy = strategy if isinstance(strategy, dict) else None
+    if as_of is None:
+        as_of = str(strategy)
     _ensure_ledger_schema(ledger)
     for symbol, position in ledger["positions"].items():
         mark = values["position_marks"][str(symbol)]
@@ -571,6 +575,13 @@ def _update_ledger_valuation(
         if mark["basis"] == "SNAPSHOT_PRICE":
             position["last_price"] = float(price)
             position["last_price_as_of"] = str(mark["price_as_of"])
+            position["highest_mark_since_entry"] = max(
+                float(position.get("highest_mark_since_entry", position.get("average_cost", price))),
+                float(price),
+            )
+        if exit_strategy is not None and "exit_plan" not in position:
+            position["exit_plan"] = _strategy_exit_plan(exit_strategy)
+            position["exit_plan_bound_at"] = as_of
         position["market_value_cny"] = float(_money(price * quantity))
         average_cost = Decimal(str(position.get("average_cost", price)))
         position["unrealized_pnl_cny"] = float(_money((price - average_cost) * quantity))
@@ -627,6 +638,76 @@ def _maximum_asset_weight(asset_type: str, strategy: dict[str, Any]) -> float:
     if asset_type in OPEN_END_FUND_TYPES:
         return float(risk["max_single_open_end_fund_weight"])
     return float(risk["max_single_etf_weight"])
+
+
+def _strategy_exit_plan(strategy: dict[str, Any]) -> dict[str, Any]:
+    policy = strategy["risk"]["exit"]
+    return {
+        "strategy_version": str(strategy["version"]),
+        "hard_stop_loss_return": float(policy["hard_stop_loss_return"]),
+        "soft_trend_below_ma20_ratio": float(
+            policy["soft_trend_below_ma20_ratio"]
+        ),
+        "hard_trend_below_ma20_ratio": float(
+            policy["hard_trend_below_ma20_ratio"]
+        ),
+        "profit_protection_activation_return": float(
+            policy["profit_protection_activation_return"]
+        ),
+        "profit_protection_drawdown_from_peak": float(
+            policy["profit_protection_drawdown_from_peak"]
+        ),
+        "partial_reduce_fraction": float(policy["partial_reduce_fraction"]),
+        "overweight_tolerance": float(policy["overweight_tolerance"]),
+    }
+
+
+def _partial_exit_quantity(
+    asset: dict[str, Any],
+    current_quantity: Decimal,
+    fraction: float,
+    strategy: dict[str, Any],
+) -> int | str:
+    bounded_fraction = min(max(Decimal(str(fraction)), Decimal("0")), Decimal("1"))
+    if str(asset["asset_type"]) in OPEN_END_FUND_TYPES:
+        precision = int(strategy["fund_orders"]["share_precision"])
+        quantum = Decimal("1").scaleb(-precision)
+        quantity = (current_quantity * bounded_fraction).quantize(
+            quantum, rounding=ROUND_DOWN
+        )
+        if quantity <= 0:
+            quantity = min(current_quantity, quantum)
+        return _decimal_string(min(current_quantity, quantity))
+    lot = int(asset.get("lot_size", 100))
+    minimum_lots = int(strategy["risk"]["exit"].get("minimum_reduce_lots", 1))
+    lots = int(
+        (current_quantity * bounded_fraction / Decimal(lot)).to_integral_value(
+            rounding=ROUND_DOWN
+        )
+    )
+    quantity = max(minimum_lots * lot, lots * lot)
+    return min(int(current_quantity), quantity)
+
+
+def _weakness_rank(
+    recommendation: dict[str, Any],
+    asset: dict[str, Any],
+    position: dict[str, Any],
+) -> tuple[float, float, float, float, str]:
+    metrics = recommendation.get("metrics") or {}
+    close = float(asset["close"])
+    ma20 = float(metrics.get("ma20", close))
+    trend_gap = close / ma20 - 1 if ma20 else 0.0
+    return20 = float(metrics.get("return20", asset.get("daily_return", 0.0)))
+    average_cost = float(position.get("average_cost", close))
+    cost_return = close / average_cost - 1 if average_cost else 0.0
+    return (
+        trend_gap,
+        return20,
+        cost_return,
+        -float(recommendation.get("current_weight", 0.0)),
+        str(recommendation["symbol"]),
+    )
 
 
 def _trade_fees(
@@ -750,6 +831,14 @@ def _settle_pending(
                 "exposure_group", order.get("exposure_group", order["symbol"])
             )
             position.setdefault("acquired_date", snapshot["run_date"])
+            position.setdefault(
+                "exit_plan", order.get("exit_plan", _strategy_exit_plan(strategy))
+            )
+            position.setdefault("exit_plan_bound_at", str(order["signal_as_of"]))
+            position["highest_mark_since_entry"] = max(
+                float(position.get("highest_mark_since_entry", price)),
+                float(price),
+            )
             position["last_buy_date"] = snapshot["run_date"]
             ledger["positions"][order["symbol"]] = position
             ledger["cash_cny"] = float(_money(ledger["cash_cny"]) - total)
@@ -952,6 +1041,15 @@ def _recommendations(
         "FUND_STYLE_DRIFT_NOT_CLEARED",
         "OPEN_END_FUND_EXECUTION_NOT_IMPLEMENTED",
     }
+    buy_only_reason_names = {
+        "FUND_SUBSCRIPTION_STATUS_MISSING",
+        "FUND_SUBSCRIPTION_NOT_OPEN",
+        "FUND_AUM_MISSING",
+        "FUND_AUM_TOO_SMALL",
+        "FUND_MANAGER_TENURE_TOO_SHORT",
+        "FUND_HOLDINGS_STALE",
+        "FUND_STYLE_DRIFT_NOT_CLEARED",
+    }
     recommendations: list[dict[str, Any]] = []
 
     for asset in snapshot["assets"]:
@@ -977,6 +1075,22 @@ def _recommendations(
             str(ledger["positions"].get(symbol, {}).get("quantity", 0))
         )
         current_weight = float(Decimal(str(asset["close"])) * current_quantity) / portfolio_value
+        position = ledger["positions"].get(symbol, {})
+        exit_plan = position.get("exit_plan") or _strategy_exit_plan(strategy)
+        average_cost = float(position.get("average_cost", asset["close"]))
+        highest_mark = max(
+            float(position.get("highest_mark_since_entry", average_cost)),
+            float(position.get("last_price", average_cost)),
+            float(asset["close"]),
+        )
+        position_return = (
+            float(asset["close"]) / average_cost - 1 if current_quantity and average_cost else 0.0
+        )
+        peak_return = highest_mark / average_cost - 1 if current_quantity and average_cost else 0.0
+        drawdown_from_peak = (
+            float(asset["close"]) / highest_mark - 1 if current_quantity and highest_mark else 0.0
+        )
+        order_quantity: int | str | None = None
 
         price_sources = _price_source_ids(asset)
         if len(price_sources) < min_sources:
@@ -1007,16 +1121,26 @@ def _recommendations(
             reasons.append("UNADJUSTED_CORPORATE_ACTION")
 
         hard_blocked = any(reason in hard_reason_names for reason in reasons)
+        exit_hard_blocked = any(
+            reason in hard_reason_names - buy_only_reason_names for reason in reasons
+        )
         daily_return = float(asset.get("daily_return", 0.0))
-        if hard_blocked:
+        exit_selected = False
+        if current_quantity and not exit_hard_blocked:
+            if full_history and float(asset["close"]) < metrics["ma20"] * float(
+                exit_plan["hard_trend_below_ma20_ratio"]
+            ):
+                action = "SELL"
+                target_weight = 0.0
+                signal_type = "TREND_EXIT"
+                score = 2.5 + abs(metrics["return20"])
+                reasons.append("TREND_EXIT")
+                exit_selected = True
+
+        if exit_selected:
             pass
-        elif full_history and current_quantity and float(asset["close"]) < metrics["ma20"] * float(
-            strategy["risk"]["exit_below_ma20_ratio"]
-        ):
-            action = "SELL"
-            signal_type = "TREND_EXIT"
-            score = 2.0 + abs(metrics["return20"])
-            reasons.append("TREND_EXIT")
+        elif hard_blocked:
+            pass
         elif asset_type in {"cash_etf", "money_market_fund"} and full_history:
             if metrics["volatility20"] <= float(strategy["risk"]["cash_etf_max_volatility"]):
                 target_weight = float(strategy["risk"]["cash_etf_target_weight"])
@@ -1128,7 +1252,12 @@ def _recommendations(
                 "target_weight": target_weight,
                 "reasons": sorted(set(reasons)),
                 "metrics": metrics,
+                "position_return": position_return if current_quantity else None,
+                "peak_return": peak_return if current_quantity else None,
+                "drawdown_from_peak": drawdown_from_peak if current_quantity else None,
+                "exit_plan": exit_plan if current_quantity else None,
                 "source_count": len(price_sources),
+                **({"order_quantity": order_quantity} if order_quantity is not None else {}),
             }
         )
 
@@ -1181,7 +1310,9 @@ def _recommendations(
             fallback_selected = True
             break
         if not fallback_selected:
-            trim_candidates: list[tuple[float, dict[str, Any], dict[str, Any]]] = []
+            trim_candidates: list[
+                tuple[tuple[float, float, float, float, str], dict[str, Any], dict[str, Any]]
+            ] = []
             for item in recommendations:
                 asset = assets.get(str(item["symbol"]))
                 position = ledger["positions"].get(str(item["symbol"]))
@@ -1194,14 +1325,16 @@ def _recommendations(
                     continue
                 if str(position.get("last_buy_date", "")) >= str(snapshot["run_date"]):
                     continue
-                trim_candidates.append((float(item["current_weight"]), item, asset))
+                trim_candidates.append(
+                    (_weakness_rank(item, asset, position), item, asset)
+                )
             if trim_candidates:
-                _, item, asset = max(trim_candidates, key=lambda value: value[0])
+                _, item, asset = min(trim_candidates, key=lambda value: value[0])
                 item["action"] = "REDUCE"
                 item["order_quantity"] = int(asset.get("lot_size", 100))
-                item["signal_type"] = "DAILY_REBALANCE_TRIM"
+                item["signal_type"] = "DAILY_WEAKNESS_ROTATION"
                 item["score"] = 0.1
-                item["reasons"].append("DAILY_REBALANCE_TRIM")
+                item["reasons"].append("DAILY_WEAKNESS_ROTATION")
 
     return recommendations, sorted(set(global_blocks))
 
@@ -1399,6 +1532,8 @@ def _create_orders(
             "signal_type": recommendation.get("signal_type", "UNKNOWN"),
             "signal_score": float(recommendation.get("score", 0.0)),
             "reasons": recommendation["reasons"],
+            "exit_plan": recommendation.get("exit_plan")
+            or _strategy_exit_plan(strategy),
         }
         ledger["pending_orders"].append(order)
         orders.append(order)
@@ -1484,6 +1619,53 @@ def _create_orders(
             )
             if fallback_orders:
                 return fallback_orders
+        trim_candidates: list[
+            tuple[
+                tuple[float, float, float, float, str],
+                dict[str, Any],
+                dict[str, Any],
+            ]
+        ] = []
+        for recommendation in recommendations:
+            symbol = str(recommendation["symbol"])
+            asset = assets.get(symbol)
+            position = ledger["positions"].get(symbol)
+            if (
+                not asset
+                or not position
+                or str(asset.get("asset_type")) not in eligible_types
+            ):
+                continue
+            if _listed_primary_gate_reasons(asset):
+                continue
+            if any(reason in unsafe_reasons for reason in recommendation["reasons"]):
+                continue
+            lot = int(asset.get("lot_size", 100))
+            if int(position.get("quantity", 0)) < lot:
+                continue
+            if str(position.get("last_buy_date", "")) >= str(snapshot["run_date"]):
+                continue
+            trim_candidates.append(
+                (_weakness_rank(recommendation, asset, position), recommendation, asset)
+            )
+        if trim_candidates:
+            _, recommendation, asset = min(trim_candidates, key=lambda value: value[0])
+            recommendation["action"] = "REDUCE"
+            recommendation["order_quantity"] = int(asset.get("lot_size", 100))
+            recommendation["signal_type"] = "DAILY_WEAKNESS_ROTATION"
+            recommendation["score"] = 0.1
+            if "DAILY_WEAKNESS_ROTATION" not in recommendation["reasons"]:
+                recommendation["reasons"].append("DAILY_WEAKNESS_ROTATION")
+            trim_orders = _create_orders(
+                ledger,
+                snapshot,
+                strategy,
+                recommendations,
+                blocks,
+                _allow_post_execution_fallback=False,
+            )
+            if trim_orders:
+                return trim_orders
     return orders
 
 
@@ -1731,7 +1913,7 @@ def _run_pipeline_locked(
     orders = _create_orders(ledger, snapshot, strategy, recommendations, blocks)
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
     values = _project_value(ledger, assets, str(snapshot["as_of"]))
-    _update_ledger_valuation(ledger, assets, values, str(snapshot["as_of"]))
+    _update_ledger_valuation(ledger, assets, values, strategy, str(snapshot["as_of"]))
     pending_open = sum(
         order.get("status") == "PENDING_NEXT_OPEN" for order in ledger["pending_orders"]
     )
@@ -1793,7 +1975,7 @@ def _run_pipeline_locked(
         run_id=run_id,
         ledger_path=ledger_path,
         orders_log=orders_log,
-        recorded_at=str(snapshot["as_of"]),
+        recorded_at=datetime.now(timezone.utc).isoformat(),
         portfolio=ledger,
         decision_path=decision_path,
         decision=decision,
@@ -1893,6 +2075,14 @@ def _settle_pending_fund_orders(
                     "last_buy_date": nav_date,
                     "valuation_basis": "confirmed_nav",
                 }
+            )
+            position.setdefault(
+                "exit_plan", order.get("exit_plan", _strategy_exit_plan(strategy))
+            )
+            position.setdefault("exit_plan_bound_at", str(order["signal_as_of"]))
+            position["highest_mark_since_entry"] = max(
+                float(position.get("highest_mark_since_entry", nav)),
+                float(nav),
             )
             ledger["positions"][order["symbol"]] = position
             ledger["cash_cny"] = float(_money(ledger["cash_cny"]) - amount)
@@ -2138,6 +2328,8 @@ def _create_fund_orders(
             "signal_type": recommendation.get("signal_type", "UNKNOWN"),
             "signal_score": float(recommendation.get("score", 0.0)),
             "reasons": recommendation["reasons"],
+            "exit_plan": recommendation.get("exit_plan")
+            or _strategy_exit_plan(strategy),
             **order_value,
         }
         ledger["pending_orders"].append(order)
@@ -2299,7 +2491,7 @@ def _run_fund_nav_pipeline_locked(
     orders = _create_fund_orders(ledger, snapshot, strategy, recommendations, blocks)
     assets = {str(item["symbol"]): item for item in snapshot["assets"]}
     values = _project_value(ledger, assets, str(snapshot["as_of"]))
-    _update_ledger_valuation(ledger, assets, values, str(snapshot["as_of"]))
+    _update_ledger_valuation(ledger, assets, values, strategy, str(snapshot["as_of"]))
     input_hash = _sha256(input_path)
     strategy_hash = _sha256(strategy_path)
     run_id = uuid.uuid4().hex
@@ -2337,7 +2529,7 @@ def _run_fund_nav_pipeline_locked(
         run_id=run_id,
         ledger_path=ledger_path,
         orders_log=orders_log,
-        recorded_at=str(snapshot["as_of"]),
+        recorded_at=datetime.now(timezone.utc).isoformat(),
         portfolio=ledger,
         decision_path=decision_path,
         decision=decision,
@@ -2551,7 +2743,9 @@ def _settle_open_orders_locked(
         valuation_assets[str(valued["symbol"])] = valued
     values = _project_value(ledger, valuation_assets, str(snapshot["as_of"]))
     blocks.extend(values["blocks"])
-    _update_ledger_valuation(ledger, valuation_assets, values, str(snapshot["as_of"]))
+    _update_ledger_valuation(
+        ledger, valuation_assets, values, strategy, str(snapshot["as_of"])
+    )
     filled_count = sum(event.get("status") == "FILLED" for event in events)
     required_count = int(daily_rules.get("minimum_filled_trades_per_trading_day", 1))
     if not snapshot["is_trading_day"]:
@@ -2618,7 +2812,7 @@ def _settle_open_orders_locked(
         run_id=run_id,
         ledger_path=ledger_path,
         orders_log=orders_log,
-        recorded_at=str(snapshot["as_of"]),
+        recorded_at=datetime.now(timezone.utc).isoformat(),
         portfolio=ledger,
         decision_path=decision_path,
         decision=decision,
@@ -2715,7 +2909,9 @@ def _settle_intraday_orders_locked(
         valuation_assets[str(valued["symbol"])] = valued
     values = _project_value(ledger, valuation_assets, str(snapshot["as_of"]))
     blocks.extend(values["blocks"])
-    _update_ledger_valuation(ledger, valuation_assets, values, str(snapshot["as_of"]))
+    _update_ledger_valuation(
+        ledger, valuation_assets, values, strategy, str(snapshot["as_of"])
+    )
     filled_count = sum(event.get("status") == "FILLED" for event in events)
     required_count = int(daily_rules.get("minimum_filled_trades_per_trading_day", 1))
     if not snapshot["is_trading_day"]:
@@ -2781,7 +2977,7 @@ def _settle_intraday_orders_locked(
         run_id=run_id,
         ledger_path=ledger_path,
         orders_log=orders_log,
-        recorded_at=str(snapshot["as_of"]),
+        recorded_at=datetime.now(timezone.utc).isoformat(),
         portfolio=ledger,
         decision_path=decision_path,
         decision=decision,
@@ -2821,7 +3017,14 @@ def _latest_strategy_report(
     report_root: Path,
     directories: tuple[str, ...],
 ) -> tuple[Path, dict[str, Any]] | None:
-    candidates: list[tuple[datetime, str, Path, dict[str, Any]]] = []
+    success_statuses = {
+        "ORDER_SCHEDULED",
+        "PASS",
+        "FILLED",
+        "PARTIAL_WITH_PENDING",
+        "ORDERS_PENDING",
+    }
+    candidates: list[tuple[str, int, datetime, str, Path, dict[str, Any]]] = []
     for directory in directories:
         report_dir = report_root / directory
         if not report_dir.exists():
@@ -2832,12 +3035,31 @@ def _latest_strategy_report(
                 continue
             if "recommendations" not in value and "events" not in value:
                 continue
+            status_rank = 1 if value.get("daily_execution_status") in success_statuses else 0
+            if status_rank and value.get("mode") == "preopen":
+                guard_cutoff = f"{value['run_date']}T09:10:00+08:00"
+                for order in value.get("new_orders") or []:
+                    if (
+                        order.get("status") == "PENDING_NEXT_OPEN"
+                        and str(order.get("signal_as_of", "")) >= guard_cutoff
+                    ):
+                        status_rank = 0
+                        break
             candidates.append(
-                (_parse_time(str(value["as_of"])), path.as_posix(), path, value)
+                (
+                    str(value["run_date"]),
+                    status_rank,
+                    _parse_time(str(value["as_of"])),
+                    path.as_posix(),
+                    path,
+                    value,
+                )
             )
     if not candidates:
         return None
-    _, _, path, value = max(candidates, key=lambda item: (item[0], item[1]))
+    _, _, _, _, path, value = max(
+        candidates, key=lambda item: (item[0], item[1], item[2], item[3])
+    )
     return path, value
 
 

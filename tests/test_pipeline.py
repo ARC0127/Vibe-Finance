@@ -227,7 +227,11 @@ class PipelineTests(unittest.TestCase):
                 values["blocks"], ["POSITION_MARK_NOT_IN_SNAPSHOT:FUND"]
             )
             _update_ledger_valuation(
-                ledger, {}, values, "2026-07-17T22:30:00+08:00"
+                ledger,
+                {},
+                values,
+                _read_json(STRATEGY_PATH),
+                "2026-07-17T22:30:00+08:00",
             )
             self.assertEqual(ledger["positions"]["FUND"]["market_value_cny"], 35.0)
             self.assertFalse(ledger["performance"]["valuation_complete"])
@@ -1148,6 +1152,107 @@ class PipelineTests(unittest.TestCase):
                 "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
                 blocked_signal["reasons"],
             )
+
+    def test_daily_fallback_trims_safe_holding_when_full_portfolio_blocks_buys(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger_path = root / "portfolio.json"
+            initialize_ledger(ledger_path)
+            ledger = _read_json(ledger_path)
+            ledger["cash_cny"] = 21900.0
+            ledger["positions"] = {
+                "510300": {
+                    "name": "沪深300ETF",
+                    "quantity": 1200,
+                    "average_cost": 4.6,
+                    "risk_bucket": "core_equity",
+                    "exposure_group": "csi300",
+                    "last_buy_date": "2026-07-17",
+                },
+                "518880": {
+                    "name": "黄金ETF",
+                    "quantity": 300,
+                    "average_cost": 8.2,
+                    "risk_bucket": "gold",
+                    "exposure_group": "gold",
+                    "last_buy_date": "2026-07-17",
+                },
+            }
+
+            value = cold_start_snapshot(
+                "2026-07-20", market_state="preopen", as_of_time="08:00:00"
+            )
+            for asset in value["assets"]:
+                asset["trading_status"] = "UNVERIFIED_PREOPEN"
+            strategy = _read_json(STRATEGY_PATH)
+            strategy["diversification"]["maximum_positions"] = 2
+            warnings = validate_snapshot(value, strategy)
+            recommendations, blocks = _recommendations(
+                ledger, value, strategy, warnings
+            )
+
+            orders = _create_orders(
+                ledger, value, strategy, recommendations, blocks
+            )
+
+            self.assertEqual(len(orders), 1)
+            self.assertEqual(orders[0]["side"], "SELL")
+            self.assertEqual(orders[0]["symbol"], "518880")
+            self.assertEqual(orders[0]["quantity"], 100)
+            self.assertEqual(orders[0]["signal_type"], "DAILY_WEAKNESS_ROTATION")
+
+    def test_latest_strategy_report_prefers_same_day_successful_recovery(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            failed_dir = root / "preopen" / "guard"
+            ready_dir = root / "preopen" / "guard-ready"
+            failed_dir.mkdir(parents=True)
+            ready_dir.mkdir(parents=True)
+            base = {
+                "schema_version": 1,
+                "run_date": "2026-08-18",
+                "mode": "preopen",
+                "recommendations": [],
+            }
+            (failed_dir / "2026-08-18-preopen.json").write_text(
+                json.dumps(
+                    {
+                        **base,
+                        "as_of": "2026-08-18T09:10:00+08:00",
+                        "daily_execution_status": "ORDER_SCHEDULED",
+                        "new_orders": [
+                            {
+                                "status": "PENDING_NEXT_OPEN",
+                                "signal_as_of": "2026-08-18T09:10:00+08:00",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (ready_dir / "2026-08-18-preopen.json").write_text(
+                json.dumps(
+                    {
+                        **base,
+                        "as_of": "2026-08-18T09:09:59+08:00",
+                        "daily_execution_status": "ORDER_SCHEDULED",
+                        "new_orders": [
+                            {
+                                "status": "PENDING_NEXT_OPEN",
+                                "signal_as_of": "2026-08-18T09:09:59+08:00",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            selected = _latest_strategy_report(root, ("preopen",))
+
+            self.assertIsNotNone(selected)
+            path, report = selected
+            self.assertEqual(path.parent.name, "guard-ready")
+            self.assertEqual(report["daily_execution_status"], "ORDER_SCHEDULED")
 
     def test_cash_and_bond_etfs_reach_candidate_and_order_execution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

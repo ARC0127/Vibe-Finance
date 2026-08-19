@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.4.0",
   "data_collection": {
     "daily_snapshot_asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"],
     "daily_snapshot_coverage_effective_date": "2026-07-24",
@@ -43,7 +43,6 @@
   "risk": {
     "broad_market_shock_daily_return": -0.03,
     "single_asset_shock_daily_return": -0.04,
-    "exit_below_ma20_ratio": 0.95,
     "maximum_next_open_gap": 0.015,
     "max_single_stock_weight": 0.10,
     "max_single_etf_weight": 0.20,
@@ -53,7 +52,18 @@
     "cash_etf_target_weight": 0.35,
     "cash_etf_max_volatility": 0.03,
     "max_total_equity_weight": 0.70,
-    "minimum_cash_weight": 0.10
+    "minimum_cash_weight": 0.10,
+    "exit": {
+      "hard_stop_loss_return": -0.08,
+      "soft_trend_below_ma20_ratio": 1.0,
+      "hard_trend_below_ma20_ratio": 0.95,
+      "profit_protection_activation_return": 0.12,
+      "profit_protection_drawdown_from_peak": -0.05,
+      "partial_reduce_fraction": 0.50,
+      "overweight_tolerance": 0.02,
+      "minimum_reduce_lots": 1,
+      "daily_rotation_selector": "weakest_eligible_holding"
+    }
   },
   "signals": {
     "trend": {
