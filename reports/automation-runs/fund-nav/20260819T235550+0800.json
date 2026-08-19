@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "task_id": "fund-nav",
+  "task_status": "NO_TRADE",
+  "run_timestamp": "2026-08-19 23:55:50 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "676ff4625405570679c46f6bf635365098386867",
+  "allowlist": [
+    "reports/funds",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17536,
+      "sha256": "7d417e6b3cef8eb55a81a831237f26ee38b275a6f70699896039fb0b16a82aaa"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 266,
+      "sha256": "009b83a1f45ca35cffc138c0fe727f6b6eba82c31a097ca99e9f9d80a1d3396d"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 24263,
+      "sha256": "02fcb69063e33160532fefa270b638077c4c6eb093137834367542a84cc16a5a"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-19-funds.json",
+      "bytes": 103073,
+      "sha256": "766f74b6227f4b042ebc4d18d060c6c985b905090a97e28ec5263874595107f9"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-19.json",
+      "bytes": 55747,
+      "sha256": "3b33096022fba170c07cd6de9bd5ec62ba0b58aef288174b22e3d0d597907970"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/a3f94e1e3e8442c5be7ddc7be0a84daf/commit.json",
+      "bytes": 974,
+      "sha256": "2a311f4d13e47fd2c5d5d2052390b165bf44449d062f1bd15ea011b040057454"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/a3f94e1e3e8442c5be7ddc7be0a84daf/prepare.json",
+      "bytes": 52969,
+      "sha256": "2dc0b06ebbad6fd585d4732283250de60233401efd35306fc5721d57400f780c"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/bace4e5696894504b88a18ae3839feba/commit.json",
+      "bytes": 974,
+      "sha256": "8559a41e4c559530e8599912d18a9d528f59cf82970d0031d889a32b5d865b04"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/bace4e5696894504b88a18ae3839feba/prepare.json",
+      "bytes": 47230,
+      "sha256": "6f1f648205425d6cd8924758a466705ed58c4723493d19663fa1f42a36031e12"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/funds/2026-08-19-funds.json",
+      "bytes": 20563,
+      "sha256": "5400518d3389bd0df9fa23e7b3f532b19582e5f67504ebdc6b04b95830b52e1d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/funds/2026-08-19-funds.md",
+      "bytes": 4160,
+      "sha256": "987742320c0e74e9757c5a8f4997063fdc31bf322adf88f9dbe1cbffab35eb92"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-19T15:55:51.795101+00:00",
+  "simulation_only": true
+}
