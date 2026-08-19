@@ -1,0 +1,17 @@
+{
+  "auxiliary_files": [],
+  "committed_at": "2026-08-18T01:48:25.177141+00:00",
+  "decision_path": "F:\\Git\\Vibe Finance\\reports\\preopen\\guard-cancel\\2026-08-18-preopen-cancel.json",
+  "decision_sha256": "f5e922d2364465bd708ebaf9d2b43e07b407d591f288c53bf8c1c05898196c43",
+  "event_count": 58,
+  "event_head_sha256": "ac73cfa93ae2f2bacbf6645f9361ee7c84ead62545a5244b3d497291361318cb",
+  "heartbeat_path": "F:\\Git\\Vibe Finance\\data\\ledger\\heartbeat.json",
+  "heartbeat_sha256": "df73e5731c68003da84690d65940e7dfca80579d9ffc5f544da14c3b4b3eaccc",
+  "portfolio_sha256": "dbdbe46b069142c3c974ad2165fede60b30123164e14c0851c757f12db133b1f",
+  "prepare_sha256": "be3c63e1ad87131740edc7fe1f2fc60bda2cfd2798315502b86c09c9627aa593",
+  "projection_status": "PASS",
+  "report_path": "F:\\Git\\Vibe Finance\\reports\\preopen\\guard-cancel\\2026-08-18-preopen-cancel.md",
+  "report_sha256": "7e8874a7df367bcaf9fc66855d9408cf7d97147497ad87d4de0e836b5ed6bf72",
+  "run_id": "cancel_invalid_0910_b46d2e6123df444e",
+  "schema_version": 1
+}

@@ -1,0 +1,17 @@
+{
+  "auxiliary_files": [],
+  "committed_at": "2026-08-18T01:42:17.389944+00:00",
+  "decision_path": "F:\\Git\\Vibe Finance\\reports\\preopen\\guard-fixed\\2026-08-18-preopen.json",
+  "decision_sha256": "1627eec1e524d2d178cb771809c066da4a8a5f30500ae818f2b8e54e01f5d156",
+  "event_count": 57,
+  "event_head_sha256": "7be11a72645ae9a0b0d881fe2ce37e0f1b634fedf480bf17e6c5676297916350",
+  "heartbeat_path": "F:\\Git\\Vibe Finance\\data\\ledger\\heartbeat.json",
+  "heartbeat_sha256": "bd8f17900888092985307dac2b811a8d2cb11ba84974840616a04c109b68b8eb",
+  "portfolio_sha256": "f0d4abeca03188cd56fbfb4476b27b206649315970d2702c44c04ca1d24cf561",
+  "prepare_sha256": "95fece578b3ffb6d46239461eaccf02478c3710ca2c8f62030f2569bb946cba1",
+  "projection_status": "PASS",
+  "report_path": "F:\\Git\\Vibe Finance\\reports\\preopen\\guard-fixed\\2026-08-18-preopen.md",
+  "report_sha256": "5a9e48e65532ae3312f2c7bfd5cafa3948574bc606c3285a8b40ec7235eade74",
+  "run_id": "bf6f3658f2854b05947ed93c1c076913",
+  "schema_version": 1
+}

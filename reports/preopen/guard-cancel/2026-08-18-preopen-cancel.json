@@ -1,0 +1,41 @@
+{
+  "as_of": "2026-08-18T09:48:24.355506+08:00",
+  "blocks": [
+    "PREOPEN_SIGNAL_AS_OF_NOT_BEFORE_0910"
+  ],
+  "cancelled_orders": [
+    {
+      "cancellation_reason": "PREOPEN_SIGNAL_AS_OF_NOT_BEFORE_0910",
+      "exposure_group": "dividend",
+      "limit_price": 0.0,
+      "lot_size": 100,
+      "name": "华泰柏瑞上证红利ETF",
+      "order_id": "ed73e959cd6a4681b53855245d232d8e",
+      "quantity": 100,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING",
+        "DAILY_EXPLORATION_FALLBACK",
+        "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
+        "DAILY_REBALANCE_TRIM"
+      ],
+      "risk_bucket": "dividend_equity",
+      "side": "SELL",
+      "signal_as_of": "2026-08-18T09:10:00+08:00",
+      "signal_close": 3.296,
+      "signal_date": "2026-08-18",
+      "signal_score": 0.1,
+      "signal_type": "DAILY_REBALANCE_TRIM",
+      "simulation_only": true,
+      "status": "CANCELLED_DATA_GATE",
+      "symbol": "510880"
+    }
+  ],
+  "daily_execution_status": "CANCELLED_INVALID_PREOPEN_ORDER",
+  "mode": "preopen_guard_cancellation",
+  "run_date": "2026-08-18",
+  "run_id": "cancel_invalid_0910_b46d2e6123df444e",
+  "schema_version": 1,
+  "simulation_only": true
+}
