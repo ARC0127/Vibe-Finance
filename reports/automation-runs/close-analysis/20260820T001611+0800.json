@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "close-analysis",
+  "task_status": "ORDER_SCHEDULED",
+  "run_timestamp": "2026-08-20 00:16:11 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "1fd0a73bf5b2058febbe957d0248302c61523a74",
+  "allowlist": [
+    "reports/daily",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-08-19-short.json",
+      "bytes": 14951,
+      "sha256": "577182dcb62adfaa87fbd221d0aa26c4f17e5d6dfe6a9dedb56d2b120d28279f"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-08-19-short.md",
+      "bytes": 4653,
+      "sha256": "c2b7e9be2bfcea44082a1f6b898520cffb5a481d24f94360f62dfed8584cd59c"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-19T16:16:12.784521+00:00",
+  "simulation_only": true
+}
