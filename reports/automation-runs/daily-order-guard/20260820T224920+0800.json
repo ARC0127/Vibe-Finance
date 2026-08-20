@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "daily-order-guard",
+  "task_status": "FAILED_TIME_WINDOW_CLOSED",
+  "run_timestamp": "2026-08-20 22:49:20 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "3cb4fa1c73a90f12b886462781de2a8ff2cd410e",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "data/ledger/transaction_invalidations.jsonl",
+      "bytes": 512,
+      "sha256": "88f13c7d7a49c5c41d667d93820a3c883257d48171477291c3dd6b3f4d5abff0"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-20T14:49:20.638204+00:00",
+  "simulation_only": true
+}
