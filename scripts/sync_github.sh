@@ -58,7 +58,7 @@ case "$task_id" in
     allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config/strategy.json config/task_contracts.json data/inbox data/ledger docs/AUTOMATION.md docs/STOCK_FUND_STRATEGY.md reports/execution scripts/sync_github.sh tests vibe_finance)
     ;;
   governance-code-release)
-    allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/pipeline.py)
+    allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/pipeline.py vibe_finance/task_contracts.py vibe_finance/transaction.py)
     ;;
   experience-ledger-release)
     allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config/task_contracts.json docs/AUTOMATION.md docs/INVESTMENT_EXPERIENCE_LEDGER.md reports/evolution scripts/sync_github.sh tests/test_experience.py tests/test_evolution.py tests/test_pipeline.py tests/test_task_contracts.py vibe_finance/__main__.py vibe_finance/evolution.py vibe_finance/experience.py vibe_finance/pipeline.py)
@@ -495,7 +495,30 @@ if [[ "$task_id" != "reflection-evolution" \
   python3 -m vibe_finance update-readme >/dev/null
 fi
 
-deleted=$(git status --porcelain=v1 --untracked-files=all -- "${allowlist[@]}" | awk 'substr($0,1,2) ~ /D/ {print}')
+mapfile -t dirty_allowlist_paths < <(
+  git status --porcelain=v1 -z --untracked-files=all -- "${allowlist[@]}" \
+    | python3 -c 'import sys; raw=sys.stdin.buffer.read().decode("utf-8", "replace"); [print((r[3:].split(" -> ", 1)[-1])) for r in raw.split("\0") if r]'
+)
+owned_paths=()
+if [[ ${#dirty_allowlist_paths[@]} -gt 0 ]]; then
+  printf -v dirty_allowlist_lines '%s\n' "${dirty_allowlist_paths[@]}"
+  mapfile -t owned_paths < <(
+    RUN_TASK_ID="$task_id" DIRTY_ALLOWLIST_PATHS="$dirty_allowlist_lines" python3 - <<'PY'
+import os
+from pathlib import Path
+from vibe_finance.task_contracts import select_sync_owned_paths
+
+paths = [path for path in os.environ["DIRTY_ALLOWLIST_PATHS"].splitlines() if path]
+for path in select_sync_owned_paths(os.environ["RUN_TASK_ID"], paths, root=Path.cwd()):
+    print(path)
+PY
+  )
+fi
+
+deleted=""
+if [[ ${#owned_paths[@]} -gt 0 ]]; then
+  deleted=$(git status --porcelain=v1 --untracked-files=all -- "${owned_paths[@]}" | awk 'substr($0,1,2) ~ /D/ {print}')
+fi
 if [[ -n "$deleted" ]]; then
   echo "refusing automatic deletion or rename:" >&2
   echo "$deleted" >&2
@@ -571,6 +594,7 @@ RUN_TIMESTAMP="$timestamp_human" \
 RUN_BRANCH="$branch" \
 RUN_MANIFEST="$manifest" \
 RUN_ALLOWLIST="${allowlist[*]}" \
+RUN_OWNED_PATHS="$(printf '%s\n' "${owned_paths[@]}")" \
 EVOLUTION_GATE="$evolution_gate" \
 EVOLUTION_GATE_SHA="$evolution_gate_sha" \
 EVOLUTION_DECISION="$evolution_decision" \
@@ -587,9 +611,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 allowlist = os.environ["RUN_ALLOWLIST"].split()
-status_raw = subprocess.check_output(
-    ["git", "status", "--porcelain=v1", "-z", "--untracked-files=all", "--", *allowlist]
-).decode("utf-8", errors="replace")
+owned_paths = [path for path in os.environ.get("RUN_OWNED_PATHS", "").splitlines() if path]
+status_raw = (
+    subprocess.check_output(
+        ["git", "status", "--porcelain=v1", "-z", "--untracked-files=all", "--", *owned_paths]
+    ).decode("utf-8", errors="replace")
+    if owned_paths
+    else ""
+)
 records = [item for item in status_raw.split("\0") if item]
 files = []
 for record in records:
@@ -664,12 +693,10 @@ stage_paths=("$manifest")
 if [[ "$task_id" == "reflection-evolution" ]]; then
   paths_to_stage=("${evolution_allowed_paths[@]}")
 else
-  paths_to_stage=("${allowlist[@]}")
+  paths_to_stage=("${owned_paths[@]}")
 fi
 for path in "${paths_to_stage[@]}"; do
-  if [[ -e "$path" ]]; then
-    stage_paths+=("$path")
-  fi
+  stage_paths+=("$path")
 done
 git add -- "${stage_paths[@]}"
 staged_tree_after_add=$(git write-tree)

@@ -62,6 +62,70 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _load_transaction_invalidations(
+    ledger_path: Path,
+    committed: dict[str, tuple[Path, dict[str, Any]]],
+) -> set[str]:
+    path = ledger_path.parent / "transaction_invalidations.jsonl"
+    if not path.exists():
+        return set()
+    invalidated: set[str] = set()
+    for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise TransactionError(
+                f"invalid transaction invalidation JSON at line {number}: {exc}"
+            ) from exc
+        if not isinstance(record, dict) or record.get("schema_version") != 1:
+            raise TransactionError(
+                f"invalid transaction invalidation schema at line {number}"
+            )
+        run_id = record.get("run_id")
+        if not isinstance(run_id, str) or run_id not in committed:
+            raise TransactionError(
+                f"transaction invalidation references unknown run at line {number}"
+            )
+        if run_id in invalidated:
+            raise TransactionError(f"duplicate transaction invalidation: {run_id}")
+        if record.get("reason") != "INVALID_TEMPORAL_PROVENANCE":
+            raise TransactionError(
+                f"unsupported transaction invalidation reason at line {number}"
+            )
+        run_dir, commit = committed[run_id]
+        prepare_path = run_dir / "prepare.json"
+        commit_path = run_dir / "commit.json"
+        if (
+            record.get("prepare_sha256") != _sha256_file(prepare_path)
+            or record.get("commit_sha256") != _sha256_file(commit_path)
+        ):
+            raise TransactionError(
+                f"transaction invalidation journal hash mismatch: {run_id}"
+            )
+        prepare = _load_object(prepare_path)
+        if (
+            int(commit.get("event_count", -1))
+            != int(prepare.get("base_event_count", -2))
+            or commit.get("event_head_sha256")
+            != prepare.get("base_event_head_sha256")
+        ):
+            raise TransactionError(
+                f"transaction invalidation cannot suppress financial events: {run_id}"
+            )
+        evidence_path = _runtime_path(record.get("evidence_path"))
+        if (
+            not evidence_path.exists()
+            or record.get("evidence_sha256") != _sha256_file(evidence_path)
+        ):
+            raise TransactionError(
+                f"transaction invalidation evidence mismatch: {run_id}"
+            )
+        invalidated.add(run_id)
+    return invalidated
+
+
 def _durable_replace(path: Path, payload: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temp_name = tempfile.mkstemp(dir=path.parent)
@@ -368,7 +432,28 @@ def inspect_transaction_state(ledger_path: Path) -> dict[str, Any]:
         }
     if not committed:
         return {"status": "LEGACY_NO_TRANSACTION_JOURNAL"}
-    _, _, latest = max(committed, key=lambda item: item[0])
+    committed_by_run = {
+        str(commit.get("run_id")): (run_dir, commit)
+        for _, run_dir, commit in committed
+    }
+    try:
+        invalidated = _load_transaction_invalidations(ledger_path, committed_by_run)
+    except TransactionError as exc:
+        return {
+            "status": "INCOMPLETE",
+            "reason": f"INVALID_TRANSACTION_INVALIDATION_LEDGER:{exc}",
+            "recoverable": False,
+        }
+    valid_commits = [
+        item for item in committed if str(item[2].get("run_id")) not in invalidated
+    ]
+    if not valid_commits:
+        return {
+            "status": "INCOMPLETE",
+            "reason": "ALL_COMMITTED_TRANSACTIONS_INVALIDATED",
+            "recoverable": False,
+        }
+    _, _, latest = max(valid_commits, key=lambda item: item[0])
     checks = (
         (ledger_path, latest.get("portfolio_sha256")),
         (_runtime_path(latest.get("decision_path")), latest.get("decision_sha256")),
@@ -392,4 +477,8 @@ def inspect_transaction_state(ledger_path: Path) -> dict[str, Any]:
                 "incomplete_run_ids": [str(latest.get("run_id"))],
                 "recoverable": False,
             }
-    return {"status": "COMMITTED", "latest_commit": latest}
+    return {
+        "status": "COMMITTED",
+        "latest_commit": latest,
+        "invalidated_run_ids": sorted(invalidated),
+    }

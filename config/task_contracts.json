@@ -241,14 +241,16 @@
       "task_id": "governance-code-release",
       "purpose": "Release narrowly reviewed pipeline and GitHub synchronization repairs without collecting unrelated reports or financial artifacts.",
       "side_effect_class": "governed_release",
-      "runtime_write_roots": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py"],
-      "sync_allowlist": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py"],
+      "runtime_write_roots": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py", "vibe_finance/task_contracts.py", "vibe_finance/transaction.py"],
+      "sync_allowlist": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py", "vibe_finance/task_contracts.py", "vibe_finance/transaction.py"],
       "acceptance_checks": [
         "pipeline close-state and report-rendering regressions pass",
         "pending sync resume remains bound to one manifest-verified commit",
         "remote retries and post-push SHA verification remain enabled",
         "full test suite and task-contract audit pass",
-        "unrelated reports and financial artifacts remain outside the staged set"
+        "unrelated reports and financial artifacts remain outside the staged set",
+        "financial task sync selects task-owned paths instead of every dirty path under shared roots",
+        "invalid temporal-provenance transactions remain hash-bound forensic evidence and cannot suppress financial events"
       ],
       "allow_force_bypass": false,
       "constraints": [

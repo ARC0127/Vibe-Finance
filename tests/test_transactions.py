@@ -4,6 +4,7 @@ import json
 import os
 import tempfile
 import unittest
+import hashlib
 from pathlib import Path
 
 from tests.test_pipeline import STRATEGY_PATH, snapshot
@@ -30,6 +31,10 @@ from vibe_finance.transaction import (
 
 
 class TransactionTests(unittest.TestCase):
+    @staticmethod
+    def _sha256(path: Path) -> str:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+
     def test_runtime_path_maps_windows_and_wsl_mounts(self) -> None:
         if os.name == "nt":
             self.assertEqual(
@@ -185,6 +190,140 @@ class TransactionTests(unittest.TestCase):
             )
             self.assertEqual(inspect_transaction_state(ledger)["status"], "COMMITTED")
             self.assertEqual(project_status(ledger, root / "reports")["status"], "ACTIVE")
+
+    def test_hash_bound_zero_event_invalidation_restores_last_valid_commit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger = root / "portfolio.json"
+            orders = root / "orders.jsonl"
+            initialize_ledger(ledger)
+            baseline_portfolio = json.loads(ledger.read_text(encoding="utf-8"))
+            baseline_portfolio["last_run_id"] = "valid-run"
+            baseline_portfolio["run_history"].append(
+                {"run_id": "valid-run", "run_date": "2026-08-19", "mode": "fund_nav", "input_sha256": "1" * 64}
+            )
+            valid_heartbeat = {
+                "status": "ACTIVE",
+                "last_success_at": "2026-08-19T15:54:05+00:00",
+                "run_id": "valid-run",
+                "run_date": "2026-08-19",
+                "mode": "fund_nav",
+                "input_sha256": "1" * 64,
+            }
+            with locked_state(ledger, exclusive=True):
+                prepare_run_transaction(
+                    run_id="valid-run",
+                    ledger_path=ledger,
+                    orders_log=orders,
+                    recorded_at="2026-08-19T15:54:05+00:00",
+                    portfolio=baseline_portfolio,
+                    decision_path=root / "valid.json",
+                    decision={"schema_version": 1, "run_id": "valid-run", "mode": "fund_nav"},
+                    report_path=root / "valid.md",
+                    report_text="valid\n",
+                    heartbeat=valid_heartbeat,
+                    events=[],
+                )
+            valid_portfolio_bytes = ledger.read_bytes()
+            valid_heartbeat_bytes = (root / "heartbeat.json").read_bytes()
+            invalid_portfolio = json.loads(valid_portfolio_bytes)
+            invalid_portfolio["last_run_id"] = "invalid-run"
+            invalid_portfolio["run_history"].append(
+                {"run_id": "invalid-run", "run_date": "2026-08-20", "mode": "preopen", "input_sha256": "2" * 64}
+            )
+            with locked_state(ledger, exclusive=True):
+                prepare_run_transaction(
+                    run_id="invalid-run",
+                    ledger_path=ledger,
+                    orders_log=orders,
+                    recorded_at="2026-08-20T14:26:18+00:00",
+                    portfolio=invalid_portfolio,
+                    decision_path=root / "invalid.json",
+                    decision={"schema_version": 1, "run_id": "invalid-run", "mode": "preopen"},
+                    report_path=root / "invalid.md",
+                    report_text="invalid\n",
+                    heartbeat={**valid_heartbeat, "run_id": "invalid-run", "run_date": "2026-08-20", "mode": "preopen"},
+                    events=[],
+                )
+            ledger.write_bytes(valid_portfolio_bytes)
+            (root / "heartbeat.json").write_bytes(valid_heartbeat_bytes)
+            self.assertEqual(inspect_transaction_state(ledger)["status"], "INCOMPLETE")
+
+            evidence = root / "invalidation-evidence.json"
+            evidence.write_text('{"status":"FAILED_TIME_WINDOW_CLOSED"}\n', encoding="utf-8")
+            run_dir = root / "transactions" / "invalid-run"
+            record = {
+                "schema_version": 1,
+                "run_id": "invalid-run",
+                "reason": "INVALID_TEMPORAL_PROVENANCE",
+                "prepare_sha256": self._sha256(run_dir / "prepare.json"),
+                "commit_sha256": self._sha256(run_dir / "commit.json"),
+                "evidence_path": str(evidence),
+                "evidence_sha256": self._sha256(evidence),
+            }
+            (root / "transaction_invalidations.jsonl").write_text(
+                json.dumps(record) + "\n", encoding="utf-8"
+            )
+            state = inspect_transaction_state(ledger)
+            self.assertEqual(state["status"], "COMMITTED")
+            self.assertEqual(state["latest_commit"]["run_id"], "valid-run")
+            self.assertEqual(state["invalidated_run_ids"], ["invalid-run"])
+            self.assertEqual(project_status(ledger, root / "reports")["last_run_id"], "valid-run")
+
+    def test_transaction_invalidation_cannot_suppress_financial_events(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger = root / "portfolio.json"
+            orders = root / "orders.jsonl"
+            initialize_ledger(ledger)
+            portfolio = json.loads(ledger.read_text(encoding="utf-8"))
+            portfolio["last_run_id"] = "event-run"
+            event = {
+                "run_id": "event-run",
+                "order_id": "event-order",
+                "status": "PENDING_NEXT_OPEN",
+                "side": "BUY",
+                "symbol": "TEST",
+                "quantity": 100,
+                "simulation_only": True,
+                "signal_as_of": "2026-08-20T09:09:59+08:00",
+            }
+            portfolio["pending_orders"] = [dict(event)]
+            portfolio["run_history"].append(
+                {"run_id": "event-run", "run_date": "2026-08-20", "mode": "preopen", "input_sha256": "3" * 64}
+            )
+            with locked_state(ledger, exclusive=True):
+                prepare_run_transaction(
+                    run_id="event-run",
+                    ledger_path=ledger,
+                    orders_log=orders,
+                    recorded_at="2026-08-20T14:26:18+00:00",
+                    portfolio=portfolio,
+                    decision_path=root / "event.json",
+                    decision={"schema_version": 1, "run_id": "event-run", "mode": "preopen"},
+                    report_path=root / "event.md",
+                    report_text="event\n",
+                    heartbeat={"run_id": "event-run"},
+                    events=[event],
+                )
+            evidence = root / "evidence.json"
+            evidence.write_text("{}\n", encoding="utf-8")
+            run_dir = root / "transactions" / "event-run"
+            (root / "transaction_invalidations.jsonl").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "run_id": "event-run",
+                    "reason": "INVALID_TEMPORAL_PROVENANCE",
+                    "prepare_sha256": self._sha256(run_dir / "prepare.json"),
+                    "commit_sha256": self._sha256(run_dir / "commit.json"),
+                    "evidence_path": str(evidence),
+                    "evidence_sha256": self._sha256(evidence),
+                }) + "\n",
+                encoding="utf-8",
+            )
+            state = inspect_transaction_state(ledger)
+            self.assertEqual(state["status"], "INCOMPLETE")
+            self.assertIn("cannot suppress financial events", state["reason"])
 
     def test_pipeline_commits_event_portfolio_reports_and_heartbeat_together(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

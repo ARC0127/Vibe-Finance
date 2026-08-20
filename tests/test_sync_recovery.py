@@ -74,12 +74,17 @@ class SyncRecoveryBoundaryTests(unittest.TestCase):
     def test_governance_code_release_is_narrow_and_skips_readme_refresh(self) -> None:
         block = self.source.split("governance-code-release)", 1)[1].split(";;", 1)[0]
         self.assertIn(
-            "allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/pipeline.py)",
+            "allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/pipeline.py vibe_finance/task_contracts.py vibe_finance/transaction.py)",
             block,
         )
         self.assertNotIn("reports", block)
         self.assertNotIn("data/ledger", block)
         self.assertIn('"$task_id" != "governance-code-release"', self.source)
+
+    def test_financial_sync_stages_task_owned_paths_only(self) -> None:
+        self.assertIn("select_sync_owned_paths", self.source)
+        self.assertIn('paths_to_stage=("${owned_paths[@]}")', self.source)
+        self.assertNotIn('paths_to_stage=("${allowlist[@]}")', self.source)
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ from vibe_finance.task_contracts import (
     TaskContractError,
     audit_task_contracts,
     load_task_contracts,
+    select_sync_owned_paths,
 )
 
 
@@ -68,6 +69,8 @@ class TaskContractTests(unittest.TestCase):
             "scripts/sync_github.sh",
             "tests",
             "vibe_finance/pipeline.py",
+            "vibe_finance/task_contracts.py",
+            "vibe_finance/transaction.py",
         ]
         self.assertEqual(contract["side_effect_class"], "governed_release")
         self.assertEqual(contract["runtime_write_roots"], expected)
@@ -139,6 +142,32 @@ class TaskContractTests(unittest.TestCase):
     def test_unknown_task_id_is_rejected(self) -> None:
         with self.assertRaisesRegex(TaskContractError, "unknown task_id"):
             audit_task_contracts(REGISTRY, SYNC_SCRIPT, task_id="not-a-task")
+
+    def test_financial_sync_path_ownership_separates_concurrent_tasks(self) -> None:
+        paths = [
+            "data/inbox/2026-08-20.json",
+            "data/inbox/2026-08-20-0910-preopen.json",
+            "reports/daily/2026-08-20-short.json",
+            "reports/preopen/guard/2026-08-20-preopen.json",
+            "reports/research/2026-08-20-daily-order-guard-failed-time-window.json",
+            "README.md",
+        ]
+        self.assertEqual(
+            select_sync_owned_paths("daily-order-guard", paths),
+            [
+                "data/inbox/2026-08-20-0910-preopen.json",
+                "reports/preopen/guard/2026-08-20-preopen.json",
+                "reports/research/2026-08-20-daily-order-guard-failed-time-window.json",
+            ],
+        )
+        self.assertEqual(
+            select_sync_owned_paths("close-analysis", paths),
+            [
+                "data/inbox/2026-08-20.json",
+                "reports/daily/2026-08-20-short.json",
+            ],
+        )
+        self.assertEqual(select_sync_owned_paths("activity-monitor", paths), [])
 
 
 if __name__ == "__main__":

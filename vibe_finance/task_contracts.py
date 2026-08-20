@@ -26,6 +26,106 @@ class TaskContractError(ValueError):
     """Raised when task-contract governance is missing, invalid, or inconsistent."""
 
 
+_FINANCIAL_SYNC_TASKS = {
+    "preopen-review",
+    "daily-order-guard",
+    "open-settlement",
+    "close-analysis",
+    "fund-nav",
+}
+
+
+def _transaction_owner(path: str, root: Path) -> str | None:
+    match = re.fullmatch(r"data/ledger/transactions/([^/]+)/(?:prepare|commit)\.json", path)
+    if not match:
+        return None
+    prepare_path = root / "data/ledger/transactions" / match.group(1) / "prepare.json"
+    if not prepare_path.exists():
+        return None
+    try:
+        prepare = json.loads(prepare_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    mode = prepare.get("decision", {}).get("mode")
+    decision_path = str(prepare.get("decision_path", "")).replace("\\", "/")
+    if mode == "preopen":
+        return "daily-order-guard" if "/reports/preopen/guard/" in decision_path else "preopen-review"
+    return {
+        "open_settlement": "open-settlement",
+        "intraday_settlement": "open-settlement",
+        "short": "close-analysis",
+        "fund_nav": "fund-nav",
+    }.get(mode)
+
+
+def select_sync_owned_paths(
+    task_id: str, paths: list[str], *, root: Path = Path(".")
+) -> list[str]:
+    """Return dirty paths provably owned by one synchronization task."""
+    normalized = sorted({_relative_path(path, field="dirty path") for path in paths})
+    if task_id == "activity-monitor":
+        return [path for path in normalized if path.startswith("reports/monitor/")]
+    if task_id not in _FINANCIAL_SYNC_TASKS:
+        return normalized
+
+    transaction_paths: set[str] = set()
+    owned_transaction_runs: set[str] = set()
+    for path in normalized:
+        if _transaction_owner(path, root) == task_id:
+            transaction_paths.add(path)
+            owned_transaction_runs.add(path.split("/")[3])
+
+    owned: set[str] = set(transaction_paths)
+    for path in normalized:
+        name = PurePosixPath(path).name
+        if task_id == "preopen-review":
+            if (
+                path.startswith("reports/preopen/")
+                and not path.startswith("reports/preopen/guard/")
+            ) or (
+                path.startswith("data/inbox/")
+                and name.endswith("-preopen.json")
+                and not name.endswith("-0910-preopen.json")
+            ) or (
+                path.startswith("reports/research/") and "preopen-review" in name
+            ):
+                owned.add(path)
+        elif task_id == "daily-order-guard":
+            if path.startswith("reports/preopen/guard/") or (
+                path.startswith("data/inbox/") and name.endswith("-0910-preopen.json")
+            ) or (
+                path.startswith("reports/research/") and "daily-order-guard" in name
+            ) or path == "data/ledger/transaction_invalidations.jsonl":
+                owned.add(path)
+        elif task_id == "open-settlement":
+            if path.startswith("reports/execution/") or (
+                path.startswith("data/inbox/")
+                and (name.endswith("-open.json") or name.endswith("-intraday.json"))
+            ):
+                owned.add(path)
+        elif task_id == "close-analysis":
+            if path.startswith("reports/daily/") or (
+                path.startswith("data/inbox/")
+                and re.fullmatch(r"\d{4}-\d{2}-\d{2}\.json", name)
+            ):
+                owned.add(path)
+        elif task_id == "fund-nav":
+            if path.startswith("reports/funds/") or (
+                path.startswith("data/inbox/") and name.endswith("-funds.json")
+            ):
+                owned.add(path)
+
+    if owned_transaction_runs:
+        shared = {
+            "README.md",
+            "data/ledger/heartbeat.json",
+            "data/ledger/portfolio.json",
+            "data/ledger/orders.jsonl",
+        }
+        owned.update(path for path in normalized if path in shared)
+    return sorted(owned)
+
+
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
