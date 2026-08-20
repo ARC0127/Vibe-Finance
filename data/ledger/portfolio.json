@@ -2,7 +2,7 @@
   "cash_cny": 9309.8,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "a3f94e1e3e8442c5be7ddc7be0a84daf",
+  "last_run_id": "61d89d88a2f94e4b856aa5fd0cc04256",
   "pending_orders": [
     {
       "exposure_group": "dividend",
@@ -39,7 +39,7 @@
     "investable_value_cny": 30108.9,
     "last_filled_trade_date": "2026-08-17",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-19T22:30:00+08:00",
+    "last_valuation_as_of": "2026-08-20T22:30:00+08:00",
     "project_equity_cny": 30208.9,
     "realized_pnl_cny": 0.0,
     "total_pnl_cny": 208.9,
@@ -686,6 +686,12 @@
       "mode": "fund_nav",
       "run_date": "2026-08-19",
       "run_id": "a3f94e1e3e8442c5be7ddc7be0a84daf"
+    },
+    {
+      "input_sha256": "6d8c15e21e356669e327ee43a5bdd6804184b82af1c7e861b1297f27f9fec79f",
+      "mode": "fund_nav",
+      "run_date": "2026-08-20",
+      "run_id": "61d89d88a2f94e4b856aa5fd0cc04256"
     }
   ],
   "schema_version": 1
