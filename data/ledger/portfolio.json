@@ -2,7 +2,7 @@
   "cash_cny": 9309.8,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "61d89d88a2f94e4b856aa5fd0cc04256",
+  "last_run_id": "f3a3fb5a458547eea23c8f81ddc9d458",
   "pending_orders": [
     {
       "exposure_group": "dividend",
@@ -36,14 +36,14 @@
     "cumulative_fees_cny": 55.0,
     "cumulative_sell_notional_cny": 0.0,
     "filled_trade_count": 11,
-    "investable_value_cny": 30108.9,
+    "investable_value_cny": 30239.2,
     "last_filled_trade_date": "2026-08-17",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-20T22:30:00+08:00",
-    "project_equity_cny": 30208.9,
+    "last_valuation_as_of": "2026-08-20T16:30:00+08:00",
+    "project_equity_cny": 30339.2,
     "realized_pnl_cny": 0.0,
-    "total_pnl_cny": 208.9,
-    "total_return_pct": 0.006963333333333382,
+    "total_pnl_cny": 339.2,
+    "total_return_pct": 0.01130666666666669,
     "valuation_complete": true,
     "valuation_stale_symbols": []
   },
@@ -66,13 +66,13 @@
       "exposure_group": "csi300",
       "highest_mark_since_entry": 4.726,
       "last_buy_date": "2026-07-21",
-      "last_price": 4.654,
-      "last_price_as_of": "2026-08-19T16:14:56+08:00",
-      "market_value_cny": 5584.8,
+      "last_price": 4.653,
+      "last_price_as_of": "2026-08-20T16:14:40+08:00",
+      "market_value_cny": 5583.6,
       "name": "华泰柏瑞沪深300ETF",
       "quantity": 1200,
       "risk_bucket": "core_equity",
-      "unrealized_pnl_cny": -32.6
+      "unrealized_pnl_cny": -33.8
     },
     "510500": {
       "acquired_date": "2026-07-27",
@@ -92,13 +92,13 @@
       "exposure_group": "csi500",
       "highest_mark_since_entry": 7.998,
       "last_buy_date": "2026-07-28",
-      "last_price": 7.804,
-      "last_price_as_of": "2026-08-19T16:14:43+08:00",
-      "market_value_cny": 3121.6,
+      "last_price": 7.863,
+      "last_price_as_of": "2026-08-20T16:14:57+08:00",
+      "market_value_cny": 3145.2,
       "name": "南方中证500ETF",
       "quantity": 400,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 55.5
+      "unrealized_pnl_cny": 79.1
     },
     "510880": {
       "acquired_date": "2026-07-28",
@@ -116,15 +116,15 @@
       },
       "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
       "exposure_group": "dividend",
-      "highest_mark_since_entry": 3.36,
+      "highest_mark_since_entry": 3.382,
       "last_buy_date": "2026-08-17",
-      "last_price": 3.36,
-      "last_price_as_of": "2026-08-19T16:14:54+08:00",
-      "market_value_cny": 4368.0,
+      "last_price": 3.382,
+      "last_price_as_of": "2026-08-20T16:15:00+08:00",
+      "market_value_cny": 4396.6,
       "name": "华泰柏瑞上证红利ETF",
       "quantity": 1300,
       "risk_bucket": "dividend_equity",
-      "unrealized_pnl_cny": 157.7
+      "unrealized_pnl_cny": 186.3
     },
     "512100": {
       "acquired_date": "2026-07-21",
@@ -144,13 +144,13 @@
       "exposure_group": "csi1000",
       "highest_mark_since_entry": 3.145,
       "last_buy_date": "2026-08-03",
-      "last_price": 3.048,
-      "last_price_as_of": "2026-08-19T16:14:31+08:00",
-      "market_value_cny": 2743.2,
+      "last_price": 3.074,
+      "last_price_as_of": "2026-08-20T16:14:45+08:00",
+      "market_value_cny": 2766.6,
       "name": "南方中证1000ETF",
       "quantity": 900,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 189.0
+      "unrealized_pnl_cny": 212.4
     },
     "518880": {
       "acquired_date": "2026-08-12",
@@ -168,15 +168,15 @@
       },
       "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
       "exposure_group": "gold",
-      "highest_mark_since_entry": 9.048666666666668,
+      "highest_mark_since_entry": 9.234,
       "last_buy_date": "2026-08-14",
-      "last_price": 8.974,
-      "last_price_as_of": "2026-08-19T16:14:34+08:00",
-      "market_value_cny": 2692.2,
+      "last_price": 9.234,
+      "last_price_as_of": "2026-08-20T16:14:48+08:00",
+      "market_value_cny": 2770.2,
       "name": "华安黄金易ETF",
       "quantity": 300,
       "risk_bucket": "gold",
-      "unrealized_pnl_cny": -22.4
+      "unrealized_pnl_cny": 55.6
     },
     "588000": {
       "acquired_date": "2026-07-28",
@@ -196,13 +196,13 @@
       "exposure_group": "star50",
       "highest_mark_since_entry": 1.8673846153846154,
       "last_buy_date": "2026-08-13",
-      "last_price": 1.761,
-      "last_price_as_of": "2026-08-19T16:14:51+08:00",
-      "market_value_cny": 2289.3,
+      "last_price": 1.744,
+      "last_price_as_of": "2026-08-20T16:14:56+08:00",
+      "market_value_cny": 2267.2,
       "name": "华夏上证科创板50成份ETF",
       "quantity": 1300,
       "risk_bucket": "industry_equity",
-      "unrealized_pnl_cny": -138.3
+      "unrealized_pnl_cny": -160.4
     }
   },
   "research_infrastructure": {
@@ -692,6 +692,12 @@
       "mode": "fund_nav",
       "run_date": "2026-08-20",
       "run_id": "61d89d88a2f94e4b856aa5fd0cc04256"
+    },
+    {
+      "input_sha256": "443d9877779bac80668455afa2bb57c21aaa670fb491225bafb37b9aa2b925bf",
+      "mode": "short",
+      "run_date": "2026-08-20",
+      "run_id": "f3a3fb5a458547eea23c8f81ddc9d458"
     }
   ],
   "schema_version": 1
