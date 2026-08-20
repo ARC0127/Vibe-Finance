@@ -818,6 +818,143 @@ class PipelineTests(unittest.TestCase):
             self.assertIn("- 状态：`FAILED_NO_OPEN_ORDER`", rendered)
             self.assertIn("[source_without_title](https://example.invalid/source)", rendered)
 
+    def test_report_resolves_missing_evidence_tier_from_unique_source(self) -> None:
+        value = snapshot("2026-07-20", trading=True)
+        value["sources"] = [
+            {
+                "source_id": "source_without_inline_tier",
+                "url": "https://example.invalid/source",
+                "tier": "C",
+            }
+        ]
+        value["evidence"] = [
+            {
+                "source_id": "source_without_inline_tier",
+                "url": "https://example.invalid/source",
+                "as_of": "2026-07-20",
+            }
+        ]
+
+        rendered = _render_report(
+            value,
+            {
+                "initial_project_capital_cny": 30000.0,
+                "pending_orders": [],
+                "research_infrastructure": {"actual_calls": 0, "spent_cny": 0.0},
+            },
+            {
+                "project_equity_cny": 30000.0,
+                "cash_cny": 29900.0,
+                "positions_cny": 0.0,
+                "infrastructure_remaining_cny": 100.0,
+            },
+            recommendations=[],
+            blocks=[],
+            fills=[],
+            orders=[],
+            input_hash="fixture",
+            mode="short",
+        )
+
+        self.assertIn("，C级", rendered)
+
+    def test_report_resolves_aggregate_evidence_tier_from_shared_source_url(self) -> None:
+        value = snapshot("2026-07-20", trading=True)
+        value["sources"] = [
+            {
+                "source_id": "source_a",
+                "url": "local-raw://close-quotes.json",
+                "tier": "C",
+            },
+            {
+                "source_id": "source_b",
+                "url": "local-raw://close-quotes.json",
+                "tier": "C",
+            },
+        ]
+        value["evidence"] = [
+            {
+                "source_id": "dual_source_close",
+                "url": "local-raw://close-quotes.json",
+                "as_of": "2026-07-20",
+            }
+        ]
+
+        rendered = _render_report(
+            value,
+            {
+                "initial_project_capital_cny": 30000.0,
+                "pending_orders": [],
+                "research_infrastructure": {"actual_calls": 0, "spent_cny": 0.0},
+            },
+            {
+                "project_equity_cny": 30000.0,
+                "cash_cny": 29900.0,
+                "positions_cny": 0.0,
+                "infrastructure_remaining_cny": 100.0,
+            },
+            recommendations=[],
+            blocks=[],
+            fills=[],
+            orders=[],
+            input_hash="fixture",
+            mode="short",
+        )
+
+        self.assertIn("，C级", rendered)
+
+    def test_report_rejects_unresolved_or_conflicting_evidence_tier(self) -> None:
+        for sources in (
+            [],
+            [
+                {
+                    "source_id": "source_without_inline_tier",
+                    "url": "https://example.invalid/source",
+                    "tier": "A",
+                },
+                {
+                    "source_id": "source_without_inline_tier",
+                    "url": "https://example.invalid/source",
+                    "tier": "C",
+                },
+            ],
+        ):
+            with self.subTest(sources=sources):
+                value = snapshot("2026-07-20", trading=True)
+                value["sources"] = sources
+                value["evidence"] = [
+                    {
+                        "source_id": "source_without_inline_tier",
+                        "url": "https://example.invalid/source",
+                        "as_of": "2026-07-20",
+                    }
+                ]
+
+                with self.assertRaises(DataGateError):
+                    _render_report(
+                        value,
+                        {
+                            "initial_project_capital_cny": 30000.0,
+                            "pending_orders": [],
+                            "research_infrastructure": {
+                                "actual_calls": 0,
+                                "spent_cny": 0.0,
+                            },
+                        },
+                        {
+                            "project_equity_cny": 30000.0,
+                            "cash_cny": 29900.0,
+                            "positions_cny": 0.0,
+                            "infrastructure_remaining_cny": 100.0,
+                        },
+                        recommendations=[],
+                        blocks=[],
+                        fills=[],
+                        orders=[],
+                        input_hash="fixture",
+                        mode="short",
+                    )
+
     def test_preopen_signal_can_fill_later_the_same_day(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "governance-code-release",
+  "task_status": "PASS",
+  "run_timestamp": "2026-08-20 23:03:10 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "b7f8149aa076fae2f22310f8f3a6ff5c47a3f703",
+  "allowlist": [
+    "config/task_contracts.json",
+    "scripts/sync_github.sh",
+    "tests",
+    "vibe_finance/pipeline.py",
+    "vibe_finance/task_contracts.py",
+    "vibe_finance/transaction.py"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "tests/test_pipeline.py",
+      "bytes": 70125,
+      "sha256": "20077821b65ed72bd0ca63167671cb6c927c5e5edccc84b6528f819f372d422d"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/pipeline.py",
+      "bytes": 158767,
+      "sha256": "6decffcd7caa9dd19a82e65009813f58d45107f80436a8e6e6fa434f9fa6e478"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-20T15:03:10.382527+00:00",
+  "simulation_only": true
+}

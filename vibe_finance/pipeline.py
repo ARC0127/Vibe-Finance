@@ -1673,6 +1673,35 @@ def _fmt_pct(value: float | None) -> str:
     return "UNKNOWN" if value is None else f"{value * 100:.2f}%"
 
 
+def _evidence_tier(snapshot: dict[str, Any], evidence: dict[str, Any]) -> str:
+    direct_tier = evidence.get("tier")
+    if isinstance(direct_tier, str) and direct_tier:
+        return direct_tier
+
+    source_rows = [
+        source
+        for source in snapshot.get("sources", [])
+        if isinstance(source, dict)
+    ]
+    source_id = evidence.get("source_id")
+    matching_rows = [
+        source for source in source_rows if source.get("source_id") == source_id
+    ]
+    if not matching_rows and evidence.get("url"):
+        matching_rows = [
+            source for source in source_rows if source.get("url") == evidence["url"]
+        ]
+    tiers = {
+        source.get("tier")
+        for source in matching_rows
+        if isinstance(source.get("tier"), str) and source.get("tier")
+    }
+    if len(tiers) == 1:
+        return tiers.pop()
+    reason = "MISSING" if not tiers else "CONFLICTING"
+    raise DataGateError(f"{reason}_EVIDENCE_TIER:{source_id or 'UNKNOWN'}")
+
+
 def _render_report_legacy(
     snapshot: dict[str, Any], ledger: dict[str, Any], values: dict[str, float], recommendations: list[dict[str, Any]], blocks: list[str], fills: list[dict[str, Any]], orders: list[dict[str, Any]], input_hash: str, mode: str
 ) -> str:
@@ -1709,7 +1738,10 @@ def _render_report_legacy(
         lines.append(f"- PENDING {order['side']} {order['symbol']} {order['quantity']}，下一开盘价门限 {order['limit_price']}")
     lines.extend(["", "## 证据", ""])
     for evidence in snapshot["evidence"]:
-        lines.append(f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}")
+        lines.append(
+            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，"
+            f"{_evidence_tier(snapshot, evidence)}"
+        )
     infra = ledger["research_infrastructure"]
     lines.extend(
         [
@@ -1859,7 +1891,8 @@ def _render_report(
             or "UNTITLED_EVIDENCE"
         )
         lines.append(
-            f"- [{evidence_title}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}级"
+            f"- [{evidence_title}]({evidence['url']}) — {evidence['as_of']}，"
+            f"{_evidence_tier(snapshot, evidence)}级"
         )
     infra = ledger["research_infrastructure"]
     lines.extend(
@@ -2379,7 +2412,10 @@ def _render_fund_report_legacy(
         lines.append(f"- PENDING_NEXT_NAV {order['side']} {order['symbol']}，申请规模 {size}。")
     lines.extend(["", "## 证据", ""])
     for evidence in snapshot["evidence"]:
-        lines.append(f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}")
+        lines.append(
+            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，"
+            f"{_evidence_tier(snapshot, evidence)}"
+        )
     lines.extend(
         [
             "",
@@ -2447,7 +2483,8 @@ def _render_fund_report(
     lines.extend(["", "## 证据", ""])
     for evidence in snapshot["evidence"]:
         lines.append(
-            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，{evidence['tier']}级"
+            f"- [{evidence['title']}]({evidence['url']}) — {evidence['as_of']}，"
+            f"{_evidence_tier(snapshot, evidence)}级"
         )
     lines.extend(
         [
