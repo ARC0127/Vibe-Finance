@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "task_id": "open-settlement",
+  "task_status": "FAILED_NO_PREOPEN_BASE",
+  "run_timestamp": "2026-08-20 22:27:45 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "e1c975e972faecfd7bbd8cca7a056b527a10061e",
+  "allowlist": [
+    "reports/execution",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17875,
+      "sha256": "b064ff23bfe359ccb0578d550c740347334c31bc7fd65a2142f64ad904a45463"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 265,
+      "sha256": "3505ed08a721ac09014c8ac44dc460bb321b493a5fc9c9297612e8aaa2b61698"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 24474,
+      "sha256": "50103c4e2d8c5a8fe453096342ea8eeda5efbdc2647673478f53161a418870ff"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-20-0910-preopen.json",
+      "bytes": 66393,
+      "sha256": "795205531c436919073df569499ee5eb558f8378e7ce0474173527ab87aa470c"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/00b679ea1b6045cfb5362ffc213c64ee/commit.json",
+      "bytes": 1016,
+      "sha256": "4a878aa1b83dcb3e24c5ad2232a27b87471f38e5a3fdf0a448fc8de49fa907e8"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/00b679ea1b6045cfb5362ffc213c64ee/prepare.json",
+      "bytes": 52389,
+      "sha256": "9f6b2a1626d255ab4d2a8a20402a9c022e73ae8916746f824ddd688e588796aa"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-20T14:27:46.456048+00:00",
+  "simulation_only": true
+}
