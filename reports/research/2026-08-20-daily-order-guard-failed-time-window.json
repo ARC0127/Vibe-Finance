@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "automation_id": "vibe-finance-9",
+  "task_id": "daily-order-guard",
+  "status": "FAILED_TIME_WINDOW_CLOSED",
+  "run_date": "2026-08-20",
+  "timezone": "Asia/Shanghai",
+  "scheduled_guard_cutoff": "2026-08-20T09:10:00+08:00",
+  "actual_owner_correction_received_at": "2026-08-20T22:28:00+08:00",
+  "failure_reason": "INVALID_TEMPORAL_PROVENANCE",
+  "finding": "Business artifacts generated after 22:25 Asia/Shanghai cannot serve as 09:10 preopen evidence and must not be synced as READY or ORDER_SCHEDULED.",
+  "revoked_artifacts": [
+    "data/inbox/2026-08-20-0910-preopen.json",
+    "reports/preopen/guard/2026-08-20-preopen.json",
+    "reports/preopen/guard/2026-08-20-preopen.md",
+    "data/ledger/transactions/00b679ea1b6045cfb5362ffc213c64ee/prepare.json",
+    "data/ledger/transactions/00b679ea1b6045cfb5362ffc213c64ee/commit.json"
+  ],
+  "restored_baseline_reference": "e1c975e972faecfd7bbd8cca7a056b527a10061e",
+  "governance_action": "Revert the invalid late-generated financial artifacts by deletion/restoration and sync only the failure evidence.",
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0
+  }
+}
