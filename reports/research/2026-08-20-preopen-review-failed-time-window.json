@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "automation_id": "vibe-finance-4",
+  "task_id": "preopen-review",
+  "status": "FAILED_TIME_WINDOW_CLOSED",
+  "failure_code": "FAILED_LATE_DISPATCH",
+  "failure_reason": "INVALID_TEMPORAL_PROVENANCE",
+  "run_date": "2026-08-20",
+  "timezone": "Asia/Shanghai",
+  "scheduled_evidence_cutoff": "2026-08-20T08:00:00+08:00",
+  "actual_dispatch_time": "2026-08-20T22:23:30.232+08:00",
+  "governance_evidence_created_at": "2026-08-20T22:50:53+08:00",
+  "finding": "The 08:00 preopen evidence window was already closed when this automation was dispatched. A time-valid preopen state cannot be reconstructed from information visible after the cutoff.",
+  "trading_day_check": {
+    "classification": "TRADING_DAY",
+    "checked_after_window": true,
+    "scope": "CALENDAR_CLASSIFICATION_ONLY",
+    "not_used_for_preopen_market_facts": true,
+    "sources": [
+      {
+        "authority": "Shanghai Stock Exchange",
+        "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/",
+        "result": "2026-08-20 is not in the published 2026 closure intervals"
+      },
+      {
+        "authority": "Shenzhen Stock Exchange",
+        "url": "https://www.szse.cn/disclosure/notice/general/t20251222_618087.html",
+        "result": "2026-08-20 is not in the published 2026 closure intervals"
+      }
+    ]
+  },
+  "experience_context": {
+    "validation_status": "PASS",
+    "record_count": 3,
+    "experience_count": 3,
+    "promoted_rule_count": 0,
+    "proposed_only_count": 0,
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "ledger_sha256": "fd55fafbcf38eec9495ab512ed64a535a64d5dea85da5e9e1ef6c7e1b2e92e21",
+    "effect_on_orders": "NONE"
+  },
+  "business_pipeline_actions": {
+    "preopen_snapshot_created": false,
+    "preopen_validation_run": false,
+    "preopen_strategy_run": false,
+    "preopen_report_created": false,
+    "order_created": false,
+    "fill_created": false,
+    "heartbeat_written": false,
+    "readme_updated_by_preopen_run": false,
+    "post_cutoff_market_data_backfilled": false
+  },
+  "absence_checks": [
+    "data/inbox/2026-08-20-preopen.json",
+    "reports/preopen/2026-08-20-preopen.json",
+    "reports/preopen/2026-08-20-preopen.md"
+  ],
+  "ledger_preservation": {
+    "orders_sha256_at_failure": "91650456bc9cd59857901d504fe53f216e63f515905a8db5b80cee03bf995d02",
+    "portfolio_sha256_at_failure": "1f675148dffafd24445819ed6f42f816a95013235202851c6a0f1002f60435e5",
+    "heartbeat_sha256_at_failure": "4d85ad9d4af982757c5715c65271b835d7ff542a577fe0ff197ebefc6b755d8e",
+    "new_orders_written": 0,
+    "new_fills_written": 0
+  },
+  "preexisting_late_artifact_disposition": {
+    "run_id": "00b679ea1b6045cfb5362ffc213c64ee",
+    "status": "INVALIDATED_AUDIT_EVIDENCE_ONLY",
+    "reason": "INVALID_TEMPORAL_PROVENANCE",
+    "invalidation_record": "data/ledger/transaction_invalidations.jsonl",
+    "preserved_without_modification": true,
+    "accepted_as_preopen_evidence": false
+  },
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0
+  },
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "next_automatic_retry": "2026-08-21T08:00:00+08:00"
+}
