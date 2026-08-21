@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "open-settlement",
+  "task_status": "PASS_INTRADAY_RECOVERY",
+  "run_timestamp": "2026-08-21 13:42:06 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "9cc51f2d0874c75a4c3bd5fefa78f0571cb38d81",
+  "allowlist": [
+    "reports/execution",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-21T05:42:06.874381+00:00",
+  "simulation_only": true
+}
