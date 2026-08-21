@@ -1,0 +1,104 @@
+{
+  "as_of": "2026-08-21T13:36:35.244661+08:00",
+  "blocks": [],
+  "daily_execution_status": "PASS_INTRADAY_RECOVERY",
+  "events": [
+    {
+      "commission_cny": 5.0,
+      "exposure_group": "dividend",
+      "fee_model_version": "0.4.0",
+      "fill_as_of": "2026-08-21T13:36:35.244661+08:00",
+      "fill_date": "2026-08-21",
+      "fill_price": 3.39,
+      "limit_price": 0.0,
+      "lot_size": 100,
+      "name": "华泰柏瑞上证红利ETF",
+      "order_id": "6041f9ad80fb401b9dd940051fc6ee1b",
+      "quantity": 100,
+      "realized_pnl_cny": 10.13,
+      "reasons": [
+        "COLD_START_LIMITED_HISTORY",
+        "COLD_START_TREND_ENTRY",
+        "PREOPEN_EXECUTION_STATUS_PENDING",
+        "DAILY_EXPLORATION_FALLBACK",
+        "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
+        "DAILY_REBALANCE_TRIM"
+      ],
+      "risk_bucket": "dividend_equity",
+      "side": "SELL",
+      "signal_as_of": "2026-08-18T09:09:59+08:00",
+      "signal_close": 3.296,
+      "signal_date": "2026-08-18",
+      "signal_score": 0.1,
+      "signal_type": "DAILY_REBALANCE_TRIM",
+      "simulation_only": true,
+      "stamp_tax_cny": 0.0,
+      "status": "FILLED",
+      "symbol": "510880",
+      "total_fees_cny": 5.0,
+      "transfer_fee_cny": 0.0
+    }
+  ],
+  "input_sha256": "e32f4560cd9ce315918232979630e7381d66c2d89b956752e5f636f056fb5eae",
+  "mode": "intraday_settlement",
+  "pending_after": 0,
+  "pending_before": 1,
+  "run_date": "2026-08-21",
+  "run_id": "18b09951aec14c97874aaebcd780184f",
+  "schema_version": 1,
+  "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+  "valuation": {
+    "blocks": [],
+    "cash_cny": 9643.8,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 30294.0,
+    "mark_status": "COMPLETE",
+    "position_marks": {
+      "510300": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 5614.8,
+        "price": "4.679",
+        "price_as_of": "2026-08-21T13:36:32+08:00",
+        "quantity": "1200"
+      },
+      "510500": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 3138.0,
+        "price": "7.845",
+        "price_as_of": "2026-08-21T13:36:33+08:00",
+        "quantity": "400"
+      },
+      "510880": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 4068.0,
+        "price": "3.39",
+        "price_as_of": "2026-08-21T13:36:33+08:00",
+        "quantity": "1200"
+      },
+      "512100": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2765.7,
+        "price": "3.073",
+        "price_as_of": "2026-08-21T13:36:34+08:00",
+        "quantity": "900"
+      },
+      "518880": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2801.7,
+        "price": "9.339",
+        "price_as_of": "2026-08-21T13:36:31+08:00",
+        "quantity": "300"
+      },
+      "588000": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2262.0,
+        "price": "1.74",
+        "price_as_of": "2026-08-21T13:36:31+08:00",
+        "quantity": "1300"
+      }
+    },
+    "positions_cny": 20650.2,
+    "project_equity_cny": 30394.0,
+    "stale_symbols": []
+  }
+}
