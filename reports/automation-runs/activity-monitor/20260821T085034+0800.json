@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-21 08:50:34 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "6665d30d5565f615018830eec50ea2ec16d2d20a",
+  "allowlist": [
+    "reports/monitor",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "reports/monitor/20260821T084620+0800.json",
+      "bytes": 8933,
+      "sha256": "cef34df92245691af9227031499f91c720e08694f87e50d1dcd8c1ad8de19d76"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-21T00:50:34.805484+00:00",
+  "simulation_only": true
+}
