@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "task_status": "PASS",
+  "run_timestamp": "2026-08-21 08:44:33 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "5c50e8a3f7f8a2c8529b3aff00cda94a02a08ccd",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17878,
+      "sha256": "4308131c3bbbbb0d29c9e4cbecde55e8f26848060f786462586289a946d3a2a1"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 265,
+      "sha256": "c29f7fe0f24c2ab392f503a760e1e4c7273d58fcea9583e0bbc27d31c5d8d5a1"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 24883,
+      "sha256": "22c7c6ac911693c6fb1d3f3c8e325c2fa719897d42df5c959186ccd8736138f2"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-21-preopen.json",
+      "bytes": 64545,
+      "sha256": "7e096611ca884d4345aed938142c966440ee6119c743a6e90594acbb46cec54b"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/f631de4d826044fabfc518a5992b7034/commit.json",
+      "bytes": 982,
+      "sha256": "3bdd18394c3eff1ec9e59edc30007eb5674a00adb5e0610ea9454074a7f34764"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/f631de4d826044fabfc518a5992b7034/prepare.json",
+      "bytes": 53334,
+      "sha256": "7d4501ec2d2d7b719616901f669d9dedf632db43e76d8857ae29f2b06a48df82"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-08-21-preopen.json",
+      "bytes": 18627,
+      "sha256": "39fd864b126faa29380fde518cafaaf97e0bca384b5deb977f4fa16db23d971e"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-08-21-preopen.md",
+      "bytes": 6029,
+      "sha256": "2191d1025213f33b32d754067f8c13f7a317b7655f0356b6318bd86466920f7c"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-21T00:44:33.659091+00:00",
+  "simulation_only": true
+}
