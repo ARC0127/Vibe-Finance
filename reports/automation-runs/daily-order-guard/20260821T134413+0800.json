@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "daily-order-guard",
+  "task_status": "FAILED_DAILY_ORDER_GUARD",
+  "run_timestamp": "2026-08-21 13:44:13 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "7bd2a998db662545a8a87edc235e00eafb065e3d",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-08-21-daily-order-guard-failed-daily-order-guard.json",
+      "bytes": 3306,
+      "sha256": "262db5b5275e753b6e0c7e12625389fb5f0130999e13f54ed10ad379513cf60e"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-08-21-daily-order-guard-failed-daily-order-guard.md",
+      "bytes": 2531,
+      "sha256": "5e7c272f0590a8fa18808ab047e17e22fa63c3ebbd373c801b14dcf0362aef21"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-21T05:44:13.611168+00:00",
+  "simulation_only": true
+}
