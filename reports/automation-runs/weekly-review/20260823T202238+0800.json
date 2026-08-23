@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "task_id": "weekly-review",
+  "task_status": "PASS_WITH_FINDINGS",
+  "run_timestamp": "2026-08-23 20:22:38 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "1c965ebc54a033a79de7a5c39c72ad06d1dd2e16",
+  "allowlist": [
+    "reports/weekly",
+    "reports/daily",
+    "data/research",
+    "data/ledger",
+    "artifacts/weekly-dashboard",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17684,
+      "sha256": "ea502e397c0223e270975faaf8151430d7efcc1749131b4fbdc9a9fa3cf1f4c5"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/weekly/2026-W34.json",
+      "bytes": 24003,
+      "sha256": "a00f61fc354fe58b027a261e31d1e4954580234326489b4bf1832d57ca498327"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/weekly/2026-W34.md",
+      "bytes": 7718,
+      "sha256": "b52437141cd648225fe51f0ca77750c88a6e9d53bcbde5afc2734068435ec88d"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-23T12:22:38.990535+00:00",
+  "simulation_only": true
+}

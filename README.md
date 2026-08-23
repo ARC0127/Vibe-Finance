@@ -4,7 +4,7 @@
 
 <p align="center">
   <img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" />
-  <img alt="Strategy 0.3.1" src="https://img.shields.io/badge/Strategy-v0.3.1-7C3AED?style=flat-square" />
+  <img alt="Strategy 0.4.0" src="https://img.shields.io/badge/Strategy-v0.4.0-7C3AED?style=flat-square" />
   <img alt="Virtual capital CNY 30000" src="https://img.shields.io/badge/Virtual%20Capital-%C2%A530%2C000-16A34A?style=flat-square" />
   <img alt="China A-shares and funds" src="https://img.shields.io/badge/Market-China%20A--shares%20%2B%20Funds-E53935?style=flat-square" />
   <img alt="No broker connection" src="https://img.shields.io/badge/Broker-Not%20Connected-334155?style=flat-square" />
@@ -64,11 +64,11 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 
 ## 最新周度复盘
 
-2026-W33（8 月 10 日至 8 月 16 日）项目权益减少 **¥50.80（-0.167%）**，累计仍盈利 **¥442.70（+1.476%）**。权益 ETF 净贡献 -¥20.00，新建黄金仓位净贡献 -¥30.80；组合跑赢上证指数、科创50和上证50，落后于深证成指与创业板指。
+2026-W34（8 月 17 日至 8 月 23 日）项目权益减少 **¥15.20（-0.050%）**，累计仍盈利 **¥427.50（+1.425%）**。股票型场内 ETF 净贡献 -¥147.80，黄金 ETF 贡献 +¥132.60；组合跑赢五个跟踪指数，落后于现金 0.050 个百分点。
 
-本周 3/5 个交易日完成成交，持仓达到 6 个上限。小盘成长桶已占 19.872%，黄金桶占 8.845%；两者的剩余容量都不足以容纳当前价格下的新增整手。15 点短样本显示宽基与成长 ETF 仍高度相关，黄金暂未形成稳定的独立分散来源。基金任务覆盖 4/5，但没有取得可配对的当前净值。
+本周 2/5 个交易日完成成交，持仓达到 6 个上限。小盘成长桶占 19.515%，黄金桶占 9.287%；黄金剩余容量不足以容纳当前价格下的一手。基金任务覆盖 3/5，天天基金 F10 与基金公司当日明细仍未形成可接受的配对净值。8 月 17–18 日缺少不可变收盘工件，完整周波动率和最大回撤不计算。
 
-完整证据、资产类别归因、天天基金核验、基准比较与风险诊断见 [`2026-W33 周报`](reports/weekly/2026-W33.md)；机器可读版本见 [`2026-W33.json`](reports/weekly/2026-W33.json)。
+完整证据、资产类别归因、天天基金核验、基准比较与风险诊断见 [`2026-W34 周报`](reports/weekly/2026-W34.md)；机器可读版本见 [`2026-W34.json`](reports/weekly/2026-W34.json)。
 
 <!-- VIBE_DAILY_STRATEGY:START -->
 ## 当前市场判断
