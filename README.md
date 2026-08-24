@@ -32,7 +32,7 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_STATUS:START -->
 ### 公开实验账本
 
-> 数据截点：`2026-08-21T22:30:00+08:00`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。
+> 数据截点：`2026-08-24T08:00:00+08:00`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。
 
 | 指标 | 当前值 |
 |---|---:|
@@ -73,7 +73,7 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_DAILY_STRATEGY:START -->
 ## 当前市场判断
 
-> 每日策略日期：**2026-08-21**；决策截点：`2026-08-21T16:30:00+08:00`；策略版本：`v0.4.0`。本区块由最新不可变报告自动生成，不再保留首日静态策略。
+> 每日策略日期：**2026-08-24**；决策截点：`2026-08-24T08:00:00+08:00`；策略版本：`v0.4.0`。本区块由最新不可变报告自动生成，不再保留首日静态策略。
 
 ### 市场温度
 
@@ -89,38 +89,37 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 
 **结论：广泛市场冲击门未触发，可继续按趋势、受控回撤和分散规则筛选。**
 
-点时输入：[`2026-08-21.json`](data/inbox/2026-08-21.json)。
+点时输入：[`2026-08-24-preopen.json`](data/inbox/2026-08-24-preopen.json)。
 
 ### 今日策略动作
 
 | 代码 | 标的 | 动作 | 当前权重 | 主要依据 |
 |---|---|---:|---:|---|
-| 510880 | 华泰柏瑞上证红利ETF | 加仓 | 13.4% | 历史仍处于冷启动；`TREND_NOT_CONFIRMED`；每日小额探索 |
-| 510300 | 华泰柏瑞沪深300ETF | 持有 | 18.5% | 历史仍处于冷启动；`SECURITY_IDENTITY_NOT_CLEARED`；`TERMINATION_RISK_NOT_CLEARED` |
-| 510500 | 南方中证500ETF | 持有 | 10.4% | 历史仍处于冷启动；`TREND_NOT_CONFIRMED` |
-| 512100 | 南方中证1000ETF | 持有 | 9.1% | 历史仍处于冷启动；`TREND_NOT_CONFIRMED` |
-| 518880 | 华安黄金易ETF | 持有 | 9.3% | 历史仍处于冷启动；`TREND_NOT_CONFIRMED` |
-| 588000 | 华夏上证科创板50成份ETF | 持有 | 7.5% | 历史仍处于冷启动；`TREND_NOT_CONFIRMED` |
-| 159915 | 易方达创业板ETF | 观察 | 0.0% | 历史仍处于冷启动；冷启动趋势信号；`MAXIMUM_POSITIONS_REACHED` |
-| 159928 | 汇添富中证主要消费ETF | 观察 | 0.0% | 历史仍处于冷启动；`TREND_NOT_CONFIRMED` |
-| 510050 | 华夏上证50ETF | 观察 | 0.0% | 历史仍处于冷启动；`SECURITY_IDENTITY_NOT_CLEARED`；`TERMINATION_RISK_NOT_CLEARED` |
-| 511010 | 国泰上证5年期国债ETF | 观察 | 0.0% | 历史仍处于冷启动；`SECURITY_IDENTITY_NOT_CLEARED`；`TERMINATION_RISK_NOT_CLEARED` |
+| 510300 | 华泰柏瑞沪深300ETF | 持有 | 18.5% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 510500 | 南方中证500ETF | 持有 | 10.4% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 510880 | 华泰柏瑞上证红利ETF | 持有 | 13.4% | 历史仍处于冷启动；盘前交易状态待核验；`TREND_NOT_CONFIRMED` |
+| 512100 | 南方中证1000ETF | 持有 | 9.1% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 518880 | 华安黄金易ETF | 持有 | 9.3% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 588000 | 华夏上证科创板50成份ETF | 持有 | 7.5% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 159915 | 易方达创业板ETF | 观察 | 0.0% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 159928 | 汇添富中证主要消费ETF | 观察 | 0.0% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 510050 | 华夏上证50ETF | 观察 | 0.0% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
+| 511010 | 国泰上证5年期国债ETF | 观察 | 0.0% | 历史仍处于冷启动；`CORPORATE_ACTION_STATUS_NOT_CLEARED`；盘前交易状态待核验 |
 
 其余 3 个低优先级观察项保留在机器报告中。
 
-决策报告：[`2026-08-21-short.json`](reports/daily/2026-08-21-short.json)。
+决策报告：[`2026-08-24-preopen.json`](reports/preopen/2026-08-24-preopen.json)。
 
 ### 今日执行与订单
 
-- 开盘结算截点：`2026-08-21T13:36:35.244661+08:00`；实际虚拟成交 **1** 笔，取消 **0** 笔。
-- `FILLED` 卖出 `510880` 100 份；原因：`DAILY_REBALANCE_TRIM`。
-- 执行报告：[`2026-08-21-intraday.json`](reports/execution/2026-08-21-intraday.json)。
+- 当日开盘结算报告尚未生成；当前只展示最新策略信号。
 - 当前账本待执行订单：**1** 笔。
 
 ### 场外基金周期
 
 - 最新净值周期：**2026-08-21** `2026-08-21T22:30:00+08:00`；扫描 7 只场外基金，可执行信号 0 个。
 - 天天基金只作净值、申赎、费率等交叉检查；详情见 [`2026-08-21-funds.json`](reports/funds/2026-08-21-funds.json)。
+- 今日 22:30 基金净值周期尚未产出；不会把上一交易日净值冒充今日结果。
 
 <!-- VIBE_DAILY_STRATEGY:END -->
 
@@ -167,7 +166,7 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_DAILY_PLAN:START -->
 ## 未来五个交易日怎么做？
 
-> 这是依据 **2026-08-21** 最新证据生成的滚动计划；下一次 `update-readme` 会整体替换本区块，历史判断仍保留在不可变日报中。
+> 这是依据 **2026-08-24** 最新证据生成的滚动计划；下一次 `update-readme` 会整体替换本区块，历史判断仍保留在不可变日报中。
 
 | 阶段 | 计划 | 判定条件 |
 |---|---|---|
