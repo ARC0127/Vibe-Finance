@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "run_date": "2026-08-25",
+  "status": "PASS_WITH_TIMING_NOTE",
+  "automation_dispatched_at": "2026-08-25T08:01:02.898+08:00",
+  "evidence_cutoff": "2026-08-25T08:00:00+08:00",
+  "snapshot_created_at": "2026-08-25T08:12:22+08:00",
+  "snapshot_path": "data/inbox/2026-08-25-preopen.json",
+  "snapshot_sha256": "eb67b39dc9833fc9aa145e158c9421414b5cb86c81f219379638b12fa8f4d0fb",
+  "pipeline_run_id": "be7d14dc042e41a983bba5128cce9b7e",
+  "pipeline_status": "PASS",
+  "daily_execution_status": "ORDER_SCHEDULED",
+  "timing_classification": "POST_0910_PREOPEN_REVIEW_BEFORE_OPEN",
+  "correction": {
+    "field": "provenance.recovery_window",
+    "recorded_value": "AUTHORIZED_PREOPEN_RECOVERY_BEFORE_09_10",
+    "authoritative_interpretation": "The review was dispatched at 08:01 but the immutable snapshot was finalized after the 09:10 order-readiness checkpoint and before the market opened. The recorded recovery-window label is not an accurate creation-time classification. The snapshot created_at value controls."
+  },
+  "temporal_evidence": {
+    "post_0800_market_or_event_data_used": false,
+    "same_day_open_or_intraday_price_used": false,
+    "latest_price_boundary": "data/inbox/2026-08-24.json",
+    "existing_order_created_before_review": true,
+    "existing_order_id": "c8660184082445a7838c5f8e4e37a56b",
+    "new_orders": 0,
+    "fills": 0
+  },
+  "settlement_gate": "588000 remains UNVERIFIED_PREOPEN and requires 09:30-09:35 TRADING plus dual-source opening-price proof before any virtual fill.",
+  "simulation_only": true,
+  "broker_connected": false
+}
