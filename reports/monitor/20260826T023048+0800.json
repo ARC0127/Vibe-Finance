@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-26 02:30:48 CST",
+  "created_at_utc": "2026-08-25T18:30:48Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 3.914,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-25T14:34:53.750910+00:00",
+    "last_success_at_shanghai": "2026-08-25T22:34:53.750910+08:00",
+    "last_run_id": "5a60d4cc4bed4a40a803af09a93a9b8e",
+    "last_run_date": "2026-08-25",
+    "last_mode": "fund_nav",
+    "decision_report_count": 24,
+    "pending_orders": 1,
+    "positions": 5,
+    "filled_trade_count": 14,
+    "last_filled_trade_date": "2026-08-25",
+    "project_equity_cny": 30225.2,
+    "total_pnl_cny": 225.2,
+    "total_return_pct": 0.007506666666666691,
+    "command_exit_code": 0
+  },
+  "calendar_context": {
+    "current_day": "WEDNESDAY",
+    "current_session": "AFTER_FUND_NAV_AND_DOCUMENT_LOG_BEFORE_PREOPEN",
+    "is_trading_day": true,
+    "latest_close_analysis_due_status": "PASS_ORDER_SCHEDULED",
+    "latest_fund_nav_due_status": "NO_TRADE",
+    "next_preopen_due_at": "2026-08-26T08:00:00+08:00",
+    "next_preopen_due_status": "NOT_YET_DUE"
+  },
+  "report_checks": {
+    "latest_due_short": {
+      "input": "data/inbox/2026-08-25.json",
+      "input_sha256": "ee3e68bc6c57fb5076fd47b6f60a670c2918a05a859e9cd5ec2316457c3c1582",
+      "report": "reports/daily/2026-08-25-short.json",
+      "report_sha256": "219bcdf54804fdc4365233c5abf45a5250ba89462ff1b00996ea67f2b5e6e773",
+      "input_sha256_matches_report": true,
+      "run_id": "e9a69af8108c49c0b6fd32d2b2a90b0c",
+      "daily_execution_status": "ORDER_SCHEDULED",
+      "new_pending_order": "BUY 159928 x3600",
+      "owner_commit": "6b4be90dde81ee0958d0af4c2f0b4b117c99f21d",
+      "status": "PRESENT_AND_HASH_CONSISTENT"
+    },
+    "latest_due_fund_nav": {
+      "input": "data/inbox/2026-08-25-funds.json",
+      "input_sha256": "41d93cce1955dc564cbce3612bd390175bc71cd8040c6fdbe99a6e79d4315e83",
+      "report": "reports/funds/2026-08-25-funds.json",
+      "report_sha256": "9274ec0327fc7f2a6a6ad62758e659e5601deb62be7b3f3c061f5396708fd16e",
+      "input_sha256_matches_report": true,
+      "run_id": "5a60d4cc4bed4a40a803af09a93a9b8e",
+      "blocks": [
+        "NAV_NOT_PUBLISHED"
+      ],
+      "new_orders": 0,
+      "manifest": "reports/automation-runs/fund-nav/20260825T223706+0800.json",
+      "manifest_sha256": "db2955ec7a34c2c3cd5196f021821c0ed3bec5a8e667d1fa6011d920196407ec",
+      "manifest_status": "NO_TRADE",
+      "owner_commit": "5d62c4e",
+      "status": "PRESENT_AND_HASH_CONSISTENT"
+    },
+    "daily_order_guard": {
+      "manifest": "reports/automation-runs/daily-order-guard/20260825T091607+0800.json",
+      "manifest_sha256": "2d99dfe61fbc7f8080f37b4bb052dcc39cccf30aaf991fe5ab34f704033d34fe",
+      "manifest_status": "READY",
+      "run_timestamp": "2026-08-25 09:16:07 CST",
+      "lateness_seconds": 367,
+      "validation_status": "PASS",
+      "tracked_by_git": false,
+      "status": "READY_MANIFEST_UNTRACKED"
+    },
+    "preopen_timing_note": {
+      "report": "reports/research/2026-08-25-preopen-review-timing-note.json",
+      "sha256": "8fb348861f469b3350929e63fa2a1f370b98cfb5a5124c689a1009eae46d14e0",
+      "snapshot_created_at": "2026-08-25T08:12:22+08:00",
+      "recorded_timing_classification": "POST_0910_PREOPEN_REVIEW_BEFORE_OPEN",
+      "timestamp_implied_classification": "PRE_0910_PREOPEN_REVIEW_BEFORE_OPEN",
+      "immutable_correction_present": false,
+      "status": "INTERNAL_TEMPORAL_CONTRADICTION",
+      "financial_effect": "NONE"
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W34.json",
+      "report_json_sha256": "a00f61fc354fe58b027a261e31d1e4954580234326489b4bf1832d57ca498327",
+      "generated_at": "2026-08-23T20:18:24+08:00",
+      "status": "PASS_WITH_FINDINGS",
+      "age_days": 2.259,
+      "input_manifest_count": 32,
+      "current_worktree_hash_matches": 30,
+      "expected_current_drift": [
+        "data/ledger/orders.jsonl",
+        "data/ledger/portfolio.json"
+      ],
+      "untracked_inputs": [
+        {
+          "path": "reports/evolution/20260823-w34-no-decidable-experience/gate.json",
+          "sha256": "a21833d3cb5f1db908d08c5c5af1899c4f53dcd9237d479d63b67f917fb3b2bf"
+        },
+        {
+          "path": "reports/evolution/20260823-w34-no-decidable-experience/proposal.json",
+          "sha256": "8787956c40e786cf3cc8be11f17ee2a813518967008aec1473ec098829b93ffd"
+        }
+      ],
+      "freshness_status": "CURRENT",
+      "reproducibility_status": "FAIL_REFERENCES_UNCOMMITTED_INPUTS"
+    },
+    "historical_gap_governance": {
+      "report": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+      "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+      "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+      "weekly_evidence_sha256_match": true,
+      "exact_listed_path_and_substitute_checks": 22,
+      "exact_listed_path_states_match": true,
+      "orphan_manifest_state_match": true,
+      "new_historical_backfill_created": false
+    },
+    "unacknowledged_prior_short_gaps": {
+      "missing_paths": [
+        "data/inbox/2026-08-17.json",
+        "reports/daily/2026-08-17-short.json",
+        "data/inbox/2026-08-18.json",
+        "reports/daily/2026-08-18-short.json"
+      ],
+      "listed_in_2026_08_17_reconciliation": false,
+      "status": "NEW_IMMUTABLE_GAPS_REQUIRE_GOVERNANCE"
+    }
+  },
+  "ledger_checks": {
+    "ledger_json_files_parsed": 175,
+    "ledger_jsonl_files_parsed": 3,
+    "jsonl_rows_parsed": 67,
+    "parse_status": "PASS",
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 65,
+    "committed_event_count": 65,
+    "head_event_sha256": "b02a6f41fcfb9965f9dfe2bcba9b63680f368231ace5ab67d15fb622e8ce3dfc",
+    "portfolio_projection_status": "PASS",
+    "filled_event_count": 14,
+    "portfolio_filled_trade_count": 14,
+    "completed_round_trip_count": 1,
+    "eligible_closed_round_trips": 0,
+    "pending_orders": 1,
+    "positions": 5,
+    "transaction_state": "COMMITTED",
+    "latest_valid_transaction_run_id": "5a60d4cc4bed4a40a803af09a93a9b8e",
+    "latest_transaction_projection_status": "PASS",
+    "invalidated_run_ids": [
+      "00b679ea1b6045cfb5362ffc213c64ee"
+    ]
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "strategy_governance": {
+    "current_strategy_version": "0.4.0",
+    "current_strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "experience_validation_status": "PASS",
+    "experience_record_count": 3,
+    "promoted_rule_count": 0,
+    "active_strategy_rules": [],
+    "completed_round_trip_count": 1,
+    "eligible_closed_round_trips": 0,
+    "minimum_eligible_closed_round_trips": 20,
+    "last_governed_strategy_version": "0.3.1",
+    "status": "INCONSISTENT_WITH_PROMOTION_CONTRACT"
+  },
+  "alerts": [
+    {
+      "code": "CURRENT_DAILY_ORDER_GUARD_MANIFEST_UNTRACKED",
+      "minimal_repair": "The daily-order-guard owner must preserve exact SHA-256 2d99dfe61fbc7f8080f37b4bb052dcc39cccf30aaf991fe5ab34f704033d34fe and complete scripts/sync_github.sh daily-order-guard READY."
+    },
+    {
+      "code": "PREOPEN_TIMING_NOTE_INTERNAL_CONTRADICTION",
+      "minimal_repair": "The preopen owner must append an immutable correction bound to SHA-256 8fb348861f469b3350929e63fa2a1f370b98cfb5a5124c689a1009eae46d14e0."
+    },
+    {
+      "code": "UNCOMMITTED_WEEKLY_REFLECTION_CYCLE",
+      "minimal_repair": "The reflection-evolution owner must preserve the exact proposal and gate bytes and complete its governed sync."
+    },
+    {
+      "code": "WEEKLY_REPORT_REFERENCES_UNCOMMITTED_INPUTS",
+      "minimal_repair": "Commit the two exact hash-bound reflection inputs through their owner, then revalidate W34 from Git HEAD without overwriting W34."
+    },
+    {
+      "code": "UNACKNOWLEDGED_HISTORICAL_SHORT_GAPS",
+      "minimal_repair": "Do not backfill the 2026-08-17/18 close files; add an immutable reconciliation for these exact paths."
+    },
+    {
+      "code": "STRATEGY_GOVERNANCE_INCONSISTENCY",
+      "minimal_repair": "A strategy-owning governed task must restore 0.3.1 unless a protected gate authorizes 0.4.0."
+    },
+    {
+      "code": "HISTORICAL_CROSS_TASK_OWNERSHIP_MISMATCH",
+      "minimal_repair": "Do not rewrite history; append governance reconciliation binding commit c463f1a and selector repair 3cb4fa1."
+    },
+    {
+      "code": "DUPLICATE_OPEN_SETTLEMENT_FINALIZATION",
+      "minimal_repair": "The scheduler owner must skip 13:00 recovery after a successful same-day open fill while preserving no-op manifests."
+    },
+    {
+      "code": "LATE_CONCURRENT_DAILY_ORDER_GUARD_FAILURE",
+      "minimal_repair": "Preserve historical evidence; future guards must complete and sync by 09:10 before settlement."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "6969c0d716adf08ee9a4eaffe29f97be1b34cc96",
+    "origin_main_before_sync": "6969c0d716adf08ee9a4eaffe29f97be1b34cc96",
+    "remote_main_before_sync": "6969c0d716adf08ee9a4eaffe29f97be1b34cc96",
+    "heartbeat_sha256": "415fa3e9a39676732f0437dc4dd3306bb9b97c49775f9f64e93ff5fb0005bdd2",
+    "portfolio_sha256": "58361c7c88d30044593f5328bcfe28a74eae4c9d667f72d62068e9a6c16dec6a",
+    "orders_sha256": "795638d7640be4cb2fe7fd3ae04786b4d54c9567ab8ec8ab7df6c1fced2960db",
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "strategy_modified_by_monitor": false,
+    "automation_definition_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false,
+    "project_experience_promoted": false
+  }
+}
