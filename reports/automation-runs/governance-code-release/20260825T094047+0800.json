@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "governance-code-release",
+  "task_status": "PASS_TEST_REPAIR",
+  "run_timestamp": "2026-08-25 09:40:47 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "09cdd153a6957b8b422da4370214ee6349a56d59",
+  "allowlist": [
+    "config/task_contracts.json",
+    "scripts/sync_github.sh",
+    "tests",
+    "vibe_finance/pipeline.py",
+    "vibe_finance/task_contracts.py",
+    "vibe_finance/transaction.py"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "tests/test_evolution.py",
+      "bytes": 25766,
+      "sha256": "7f3552a83afa7a1b863f0c406734a3a303bc6ecd90bd3bceba261d670af07b21"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-25T01:40:48.095933+00:00",
+  "simulation_only": true
+}

@@ -281,7 +281,7 @@ class EvolutionLedgerTests(unittest.TestCase):
         self.assertEqual(replay["completed_round_trip_count"], 1)
         self.assertEqual(replay["eligible_sample_count"], 0)
 
-    def test_current_legacy_prefix_is_git_anchored_and_replays_zero_round_trips(self):
+    def test_current_legacy_prefix_is_git_anchored_and_replays_round_trips(self):
         ledger = verify_event_ledger()
         replay = verify_portfolio_projection(ledger["_events"], DEFAULT_PORTFOLIO)
         self.assertEqual(ledger["anchor"]["status"], "VERIFIED_LEGACY_GIT_ANCHORED")
@@ -290,7 +290,8 @@ class EvolutionLedgerTests(unittest.TestCase):
             ledger["event_count"],
             ledger["legacy_event_count"] + ledger["v2_event_count"],
         )
-        self.assertEqual(replay["completed_round_trip_count"], 0)
+        self.assertEqual(replay["completed_round_trip_count"], 1)
+        self.assertEqual(replay["eligible_sample_count"], 0)
 
     def test_legacy_prefix_mutation_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -481,7 +482,8 @@ class EvolutionDecisionTests(unittest.TestCase):
             )
         self.assertEqual(result["decision"], "PROPOSED_ONLY")
         self.assertEqual(result["legacy_acceptance_status"], "INVALID_LEGACY_ACCEPTANCE")
-        self.assertEqual(result["ledger"]["completed_round_trip_count"], 0)
+        self.assertEqual(result["ledger"]["completed_round_trip_count"], 1)
+        self.assertEqual(result["ledger"]["eligible_sample_count"], 0)
         self.assertIn("ELIGIBLE_ROUND_TRIPS_0_LT_20", result["reasons"])
         self.assertIn("TRUSTED_EVALUATOR_UNAVAILABLE", result["reasons"])
 
