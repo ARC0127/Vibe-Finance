@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "task_status": "PASS_WITH_TIMING_NOTE",
+  "run_timestamp": "2026-08-26 08:19:12 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "64870253161d9fe726f9dba0ff383ff51a5839b2",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17795,
+      "sha256": "a46f8b8d6e57e547f74257db1194a9ede225cae08ab6fd09d2fe2a1f0c28811c"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 265,
+      "sha256": "fc83ae2fdc3be2f6f018a2a8aa2ba8f40497cd6d9db8d32b01133e5e8309951b"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 26672,
+      "sha256": "9b3eb73d5ee6fb6559a2ee82625e6f0b2526813cf153b60902ff32d599cd6f65"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-08-26-preopen.json",
+      "bytes": 105392,
+      "sha256": "894f525a45d02d0728a024843e65d775d02322dff6cab503c5f19485e34f6983"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/ba18ad9b42c34f03a2403b1ce317dd67/commit.json",
+      "bytes": 982,
+      "sha256": "0371ce7b9d628db465158034872790c87d24ed6af73f5a763c163817b77752f5"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/ba18ad9b42c34f03a2403b1ce317dd67/prepare.json",
+      "bytes": 58387,
+      "sha256": "bd6f1f9c3abe23f664a1c299a64b3a015fb7a68cdbbedb4b34f5fdc0acb84e5f"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-08-26-preopen.json",
+      "bytes": 17801,
+      "sha256": "e6eb7b15a879daf2fd74a27bde37c0427e6b254198e74e91f86b3886f3694636"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-08-26-preopen.md",
+      "bytes": 10029,
+      "sha256": "f7028f8023d0bdf1af27dd6ab6ae15bb2b49d9e2cb6fe17b66817b3b72e29899"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-08-26-preopen-review-timing-note.json",
+      "bytes": 1666,
+      "sha256": "296564694558c7d15f9259154a96fd74d569b0cef8be29066c27f3a955d2429d"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-08-26-preopen-review-timing-note.md",
+      "bytes": 1653,
+      "sha256": "836f12dd75676457f3990e05bb51f72e9711a2a9d64a466d0bcc7d06bfcf8f53"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-08-26T00:19:12.913114+00:00",
+  "simulation_only": true
+}
