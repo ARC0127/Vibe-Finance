@@ -1,0 +1,980 @@
+{
+  "auxiliary_files": [],
+  "base_event_count": 67,
+  "base_event_head_sha256": "6efccf9b7ca9242ed52757eeffbcadff634b29ad26a0a8f505d4871a128d4699",
+  "base_portfolio_sha256": "e0f5c9c1bc0e253131a0c17449eb548bb72d314edb9136c58e89f1148efa8829",
+  "decision": {
+    "as_of": "2026-08-27T09:30:30+08:00",
+    "blocks": [],
+    "daily_execution_status": "PASS",
+    "events": [
+      {
+        "commission_cny": 5.0,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exposure_group": "csi500",
+        "fee_model_version": "0.4.0",
+        "fill_as_of": "2026-08-27T09:30:30+08:00",
+        "fill_date": "2026-08-27",
+        "fill_price": 7.799,
+        "limit_price": 0.0,
+        "lot_size": 100,
+        "name": "南方中证500ETF",
+        "order_id": "5ab0bf8d7c2243db8f203e58430379e9",
+        "quantity": 100,
+        "realized_pnl_cny": 8.37,
+        "reasons": [
+          "COLD_START_TREND_ENTRY",
+          "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
+          "DAILY_WEAKNESS_ROTATION"
+        ],
+        "risk_bucket": "small_growth_equity",
+        "side": "SELL",
+        "signal_as_of": "2026-08-26T16:30:00+08:00",
+        "signal_close": 7.789,
+        "signal_date": "2026-08-26",
+        "signal_score": 0.1,
+        "signal_type": "DAILY_WEAKNESS_ROTATION",
+        "simulation_only": true,
+        "stamp_tax_cny": 0.0,
+        "status": "FILLED",
+        "symbol": "510500",
+        "total_fees_cny": 5.0,
+        "transfer_fee_cny": 0.0
+      }
+    ],
+    "input_sha256": "6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0",
+    "mode": "open_settlement",
+    "pending_after": 0,
+    "pending_before": 1,
+    "run_date": "2026-08-27",
+    "run_id": "f48d3c2dab3b49b89ca98ca901cfead9",
+    "schema_version": 1,
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "valuation": {
+      "blocks": [],
+      "cash_cny": 9854.7,
+      "infrastructure_remaining_cny": 100.0,
+      "investable_value_cny": 30242.7,
+      "mark_status": "COMPLETE",
+      "position_marks": {
+        "159928": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 2383.2,
+          "price": "0.662",
+          "price_as_of": "2026-08-27T09:30:30+08:00",
+          "quantity": "3600"
+        },
+        "510300": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 5590.8,
+          "price": "4.659",
+          "price_as_of": "2026-08-27T09:30:29+08:00",
+          "quantity": "1200"
+        },
+        "510500": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 2339.7,
+          "price": "7.799",
+          "price_as_of": "2026-08-27T09:30:30+08:00",
+          "quantity": "300"
+        },
+        "510880": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 4465.5,
+          "price": "3.435",
+          "price_as_of": "2026-08-27T09:30:29+08:00",
+          "quantity": "1300"
+        },
+        "512100": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 2757.6,
+          "price": "3.064",
+          "price_as_of": "2026-08-27T09:30:28+08:00",
+          "quantity": "900"
+        },
+        "518880": {
+          "basis": "SNAPSHOT_PRICE",
+          "market_value_cny": 2851.2,
+          "price": "9.504",
+          "price_as_of": "2026-08-27T09:30:28+08:00",
+          "quantity": "300"
+        }
+      },
+      "positions_cny": 20388.0,
+      "project_equity_cny": 30342.7,
+      "stale_symbols": []
+    }
+  },
+  "decision_path": "/mnt/f/Git/Vibe Finance/reports/execution/2026-08-27-open.json",
+  "events": [
+    {
+      "event_id": "c5d74fb433eb6bbc628392ca664f1f3916d0bc8fb3d215a2a327ba1b50dda235",
+      "payload": {
+        "commission_cny": 5.0,
+        "evolution_provenance": {
+          "decision_manifest_path": "reports/execution/2026-08-27-open.json",
+          "decision_manifest_sha256": "776c3fa1dc6deae9e936ff9cb99bfb8fcdc5c5373330090d7eac56db55028e42",
+          "event_payload_sha256": "a70df8be70447a07ee789ef9c2b3f43643b7281855b1890a16f219284a8861ab",
+          "input_path": "data/inbox/2026-08-27-open.json",
+          "input_sha256": "6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0",
+          "pipeline_mode": "open_settlement",
+          "producer": "vibe_finance.pipeline",
+          "schema_version": 2,
+          "strategy_path": "config/strategy.json",
+          "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a"
+        },
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exposure_group": "csi500",
+        "fee_model_version": "0.4.0",
+        "fill_as_of": "2026-08-27T09:30:30+08:00",
+        "fill_date": "2026-08-27",
+        "fill_price": 7.799,
+        "limit_price": 0.0,
+        "lot_size": 100,
+        "name": "南方中证500ETF",
+        "order_id": "5ab0bf8d7c2243db8f203e58430379e9",
+        "quantity": 100,
+        "realized_pnl_cny": 8.37,
+        "reasons": [
+          "COLD_START_TREND_ENTRY",
+          "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
+          "DAILY_WEAKNESS_ROTATION"
+        ],
+        "risk_bucket": "small_growth_equity",
+        "run_id": "f48d3c2dab3b49b89ca98ca901cfead9",
+        "side": "SELL",
+        "signal_as_of": "2026-08-26T16:30:00+08:00",
+        "signal_close": 7.789,
+        "signal_date": "2026-08-26",
+        "signal_score": 0.1,
+        "signal_type": "DAILY_WEAKNESS_ROTATION",
+        "simulation_only": true,
+        "stamp_tax_cny": 0.0,
+        "status": "FILLED",
+        "symbol": "510500",
+        "total_fees_cny": 5.0,
+        "transfer_fee_cny": 0.0
+      }
+    }
+  ],
+  "heartbeat": {
+    "input_sha256": "6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0",
+    "last_success_at": "2026-08-27T01:30:39.729974+00:00",
+    "mode": "open_settlement",
+    "run_date": "2026-08-27",
+    "run_id": "f48d3c2dab3b49b89ca98ca901cfead9",
+    "status": "ACTIVE"
+  },
+  "heartbeat_path": "/mnt/f/Git/Vibe Finance/data/ledger/heartbeat.json",
+  "ledger_path": "/mnt/f/Git/Vibe Finance/data/ledger/portfolio.json",
+  "orders_log": "/mnt/f/Git/Vibe Finance/data/ledger/orders.jsonl",
+  "portfolio": {
+    "cash_cny": 9854.7,
+    "initial_project_capital_cny": 30000.0,
+    "initialized_at": "2026-07-19T00:00:00+08:00",
+    "last_run_id": "f48d3c2dab3b49b89ca98ca901cfead9",
+    "pending_orders": [],
+    "performance": {
+      "cumulative_buy_notional_cny": 23250.0,
+      "cumulative_fees_cny": 80.0,
+      "cumulative_sell_notional_cny": 3284.7,
+      "filled_trade_count": 16,
+      "investable_value_cny": 30242.7,
+      "last_filled_trade_date": "2026-08-27",
+      "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
+      "last_valuation_as_of": "2026-08-27T09:30:30+08:00",
+      "project_equity_cny": 30342.7,
+      "realized_pnl_cny": -248.3,
+      "total_pnl_cny": 342.7,
+      "total_return_pct": 0.011423333333333358,
+      "valuation_complete": true,
+      "valuation_stale_symbols": []
+    },
+    "positions": {
+      "159928": {
+        "acquired_date": "2026-08-26",
+        "asset_type": "equity_etf",
+        "average_cost": 0.6613888888888889,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exit_plan_bound_at": "2026-08-25T16:30:00+08:00",
+        "exposure_group": "consumer",
+        "highest_mark_since_entry": 0.665,
+        "last_buy_date": "2026-08-26",
+        "last_price": 0.662,
+        "last_price_as_of": "2026-08-27T09:30:30+08:00",
+        "market_value_cny": 2383.2,
+        "name": "汇添富中证主要消费ETF",
+        "quantity": 3600,
+        "risk_bucket": "industry_equity",
+        "unrealized_pnl_cny": 2.2
+      },
+      "510300": {
+        "acquired_date": "2026-07-21",
+        "asset_type": "equity_etf",
+        "average_cost": 4.681166666666667,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
+        "exposure_group": "csi300",
+        "highest_mark_since_entry": 4.726,
+        "last_buy_date": "2026-07-21",
+        "last_price": 4.659,
+        "last_price_as_of": "2026-08-27T09:30:29+08:00",
+        "market_value_cny": 5590.8,
+        "name": "华泰柏瑞沪深300ETF",
+        "quantity": 1200,
+        "risk_bucket": "core_equity",
+        "unrealized_pnl_cny": -26.6
+      },
+      "510500": {
+        "acquired_date": "2026-07-27",
+        "asset_type": "equity_etf",
+        "average_cost": 7.66525,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
+        "exposure_group": "csi500",
+        "highest_mark_since_entry": 7.998,
+        "last_buy_date": "2026-07-28",
+        "last_price": 7.799,
+        "last_price_as_of": "2026-08-27T09:30:30+08:00",
+        "market_value_cny": 2339.7,
+        "name": "南方中证500ETF",
+        "quantity": 300,
+        "risk_bucket": "small_growth_equity",
+        "unrealized_pnl_cny": 40.13
+      },
+      "510880": {
+        "acquired_date": "2026-07-28",
+        "asset_type": "equity_etf",
+        "average_cost": 3.254023076923077,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
+        "exposure_group": "dividend",
+        "highest_mark_since_entry": 3.44,
+        "last_buy_date": "2026-08-24",
+        "last_price": 3.435,
+        "last_price_as_of": "2026-08-27T09:30:29+08:00",
+        "market_value_cny": 4465.5,
+        "name": "华泰柏瑞上证红利ETF",
+        "quantity": 1300,
+        "risk_bucket": "dividend_equity",
+        "unrealized_pnl_cny": 235.27
+      },
+      "512100": {
+        "acquired_date": "2026-07-21",
+        "asset_type": "equity_etf",
+        "average_cost": 2.838,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
+        "exposure_group": "csi1000",
+        "highest_mark_since_entry": 3.145,
+        "last_buy_date": "2026-08-03",
+        "last_price": 3.064,
+        "last_price_as_of": "2026-08-27T09:30:28+08:00",
+        "market_value_cny": 2757.6,
+        "name": "南方中证1000ETF",
+        "quantity": 900,
+        "risk_bucket": "small_growth_equity",
+        "unrealized_pnl_cny": 203.4
+      },
+      "518880": {
+        "acquired_date": "2026-08-12",
+        "asset_type": "gold_etf",
+        "average_cost": 9.048666666666668,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1.0,
+          "strategy_version": "0.4.0"
+        },
+        "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
+        "exposure_group": "gold",
+        "highest_mark_since_entry": 9.607,
+        "last_buy_date": "2026-08-14",
+        "last_price": 9.504,
+        "last_price_as_of": "2026-08-27T09:30:28+08:00",
+        "market_value_cny": 2851.2,
+        "name": "华安黄金易ETF",
+        "quantity": 300,
+        "risk_bucket": "gold",
+        "unrealized_pnl_cny": 136.6
+      }
+    },
+    "research_infrastructure": {
+      "actual_calls": 0,
+      "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+      "provider": "DeepSeek",
+      "reserved_cny": 100.0,
+      "spent_cny": 0.0
+    },
+    "run_history": [
+      {
+        "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+        "mode": "short",
+        "run_date": "2026-07-19",
+        "run_id": "aa926b6e72824a3ba169f51c7dbbbcee"
+      },
+      {
+        "input_sha256": "2a784ca3a7fcd6a445b0c2c62303a7de09b33a48c2e05595509cb5e720946f26",
+        "mode": "long",
+        "run_date": "2026-07-19",
+        "run_id": "dca782ee7cf14c4cbc81a2754866d464"
+      },
+      {
+        "input_sha256": "3c00253ec9002068f90f435e9400bab13cf524fd7bd14ddfbd8f0f837b04bc21",
+        "mode": "short",
+        "run_date": "2026-07-20",
+        "run_id": "296f6ec61ce84147bcb4287b55123291"
+      },
+      {
+        "input_sha256": "93accaecd21491245810e7ecd8b4e5b2a2ef1330b30f5bd2165613c42eb83220",
+        "mode": "fund_nav",
+        "run_date": "2026-07-20",
+        "run_id": "f509baa49afa48f79660553ebd1c4706"
+      },
+      {
+        "input_sha256": "6e547a7a927695039d310ec3c5abd690f25c8ce3a0821cd0b81a28e3f5a6bbff",
+        "mode": "preopen",
+        "run_date": "2026-07-21",
+        "run_id": "66abf97bac94497a940eee06946f2c5c"
+      },
+      {
+        "input_sha256": "6e547a7a927695039d310ec3c5abd690f25c8ce3a0821cd0b81a28e3f5a6bbff",
+        "mode": "preopen",
+        "run_date": "2026-07-21",
+        "run_id": "be4f642a51ee4cbabeb663ced76c90ca"
+      },
+      {
+        "input_sha256": "20c709a22d767c2460953b8c4f1cf664f7210b3575f760b4c367be8700228bd2",
+        "mode": "open_settlement",
+        "run_date": "2026-07-21",
+        "run_id": "a953ee89d0ac4875a2118e552baebfa1"
+      },
+      {
+        "input_sha256": "b5840e769fc97a9e24a4579668b2d0b9e99e9b41f275dec09f16148ef895ebc2",
+        "mode": "short",
+        "run_date": "2026-07-21",
+        "run_id": "89b12f8760674924bb471c96b9a4a244"
+      },
+      {
+        "input_sha256": "4f21d4b89267730c06835c8d30bf87692de11dfc0c37b58280767cd8ec4847a5",
+        "mode": "short",
+        "run_date": "2026-07-21",
+        "run_id": "37d77226e9344b82b2d78949c01b8515"
+      },
+      {
+        "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+        "mode": "preopen",
+        "run_date": "2026-07-22",
+        "run_id": "8f2ec4afc526467a857df39734b6087a"
+      },
+      {
+        "input_sha256": "085d6ceaf27cffaf0f3fb8c586153a8e5407cbc85fb095365563b86484147e55",
+        "mode": "preopen",
+        "run_date": "2026-07-22",
+        "run_id": "aaf11168887f4b6c98400e883caf69f7"
+      },
+      {
+        "input_sha256": "8e3e6294384d625cb796229505a3e454c30bbf21b3665f892a5011354907da9e",
+        "mode": "short",
+        "run_date": "2026-07-22",
+        "run_id": "88bbd1b60ca149ae9d5b30d9cce624cb"
+      },
+      {
+        "input_sha256": "6e204780e06057693a27e77fefae97f94ccdb13b91f97b678c3159753b116cba",
+        "mode": "fund_nav",
+        "run_date": "2026-07-22",
+        "run_id": "ae513076971243beb24579e0af68b855"
+      },
+      {
+        "input_sha256": "534c8219a38e22794507771d188b7e7d340013dc6688301bb5cb8a7a17aa3f46",
+        "mode": "preopen",
+        "run_date": "2026-07-23",
+        "run_id": "70c604cbc886475fba2a797c359bae7f"
+      },
+      {
+        "input_sha256": "d39d132e7d3047a7737f002346e34282e0f7d3723854b8a09009122d273fc1df",
+        "mode": "open_settlement",
+        "run_date": "2026-07-23",
+        "run_id": "4d386db6a74744c99ecaca99c04ab50a"
+      },
+      {
+        "input_sha256": "78d48475cfc8b8e9a8d5e1c096ada58dee327d454fb30b3ed1b6a95f793ff55f",
+        "mode": "short",
+        "run_date": "2026-07-23",
+        "run_id": "571dfde1a0dd41aab64a94533dd5604f"
+      },
+      {
+        "input_sha256": "fe850830eee1d9b5fafb627c22af5b6e87ea11d2edc6bd5438dbd57eb636c52e",
+        "mode": "fund_nav",
+        "run_date": "2026-07-23",
+        "run_id": "2219d7b8d28a4f23bfeab0facf240696"
+      },
+      {
+        "input_sha256": "881568cf9c79a5814886af1be93b9e6dc7ed9087e656a3414c975b394eac876e",
+        "mode": "preopen",
+        "run_date": "2026-07-24",
+        "run_id": "c17f8a5a43e44490b2f425fcebef61d9"
+      },
+      {
+        "input_sha256": "681123dd6ca95f01ec21415be142bb78aac7b3c70d4a1b6a261d91cfcd2b2ee5",
+        "mode": "fund_nav",
+        "run_date": "2026-07-24",
+        "run_id": "a1ef541b0b514e2c80ea1d38e9cbd2ce"
+      },
+      {
+        "input_sha256": "53f3a39815197ff1fe494df891c1564f08c940d924738f6b17441cbf6be31e6d",
+        "mode": "short",
+        "run_date": "2026-07-24",
+        "run_id": "2883d6ba6bf64204921491033ec21ed4"
+      },
+      {
+        "input_sha256": "6493a163b6164eb8fe79f4b080413dbebbf1d5b17313d7f416b0f56b87e401e6",
+        "mode": "preopen",
+        "run_date": "2026-07-27",
+        "run_id": "2373db02679f47efa5dbb8a40df0c29c"
+      },
+      {
+        "input_sha256": "e927a7b36ed270af3cf879a383304e3db2b71a0df7df1bf2a39bf3982503440b",
+        "mode": "intraday_settlement",
+        "run_date": "2026-07-27",
+        "run_id": "f3efcca3b01249b6bd1271fc5469602e"
+      },
+      {
+        "input_sha256": "306cb5e8b66bf7299a59b3965fd243b83d30c4d39c4e375d6d3647c7ed35c46c",
+        "mode": "short",
+        "run_date": "2026-07-27",
+        "run_id": "6739d16399484cf78de7359c649a0893"
+      },
+      {
+        "input_sha256": "808c0f14cfd9b2176a658f710ff76d49fd6c0ca9f4288e9a343e1a5c90129837",
+        "mode": "fund_nav",
+        "run_date": "2026-07-27",
+        "run_id": "bfb36f0fb4a64ac0ad39a0c79a6753e6"
+      },
+      {
+        "input_sha256": "92e3f08c41be45595bb8e2f60e2877d956f6859f3511da5f87b48ea112251adc",
+        "mode": "preopen",
+        "run_date": "2026-07-28",
+        "run_id": "5b6e6a5da75e44bf9a902b82e8a3b8d7"
+      },
+      {
+        "input_sha256": "106551a5c9ba9a27d50bbecb58ffeda8dd3ab8b3e6e6e6e697a07ef0612a66ed",
+        "mode": "open_settlement",
+        "run_date": "2026-07-28",
+        "run_id": "0bbaa69444f04409a7b36651a6d4cc5b"
+      },
+      {
+        "input_sha256": "cd605ca2b74528965a7d3ce532171560aefc70bec8fbe08c51ef91e48355cc0b",
+        "mode": "fund_nav",
+        "run_date": "2026-07-28",
+        "run_id": "864d44637b464c0a9feaf3cbd61673dc"
+      },
+      {
+        "input_sha256": "5c02ef9401e9ae78c33783653e112676966e5f1b39a62171c34ff8065fdd06f3",
+        "mode": "preopen",
+        "run_date": "2026-07-29",
+        "run_id": "d0e597a3d43348199ae9ed2f5e1a822e"
+      },
+      {
+        "input_sha256": "6703e520e3385ff9a5f1b6a922d2dd73187d9167169c1815ed4248cc1139ccb9",
+        "mode": "preopen",
+        "run_date": "2026-07-30",
+        "run_id": "0bed3ca0393b41848fd416b4abecd733"
+      },
+      {
+        "input_sha256": "dc4f3537bc576e9c4354b4a08783151cdaa8c584850c80f0038350714afe0e73",
+        "mode": "fund_nav",
+        "run_date": "2026-07-30",
+        "run_id": "1b1c82ddaf1745b4b885d433f2b977e4"
+      },
+      {
+        "input_sha256": "db380bdf52a9d8ac95ff5e634d5362513f53331c3fd9bd4320c35424dd22993a",
+        "mode": "preopen",
+        "run_date": "2026-07-31",
+        "run_id": "16de13e232cb48efabbf719e7a5524b1"
+      },
+      {
+        "input_sha256": "4659586293a8ed4432dff7ec982bfccaeb63465befd3d06835b9b61d7bc4e595",
+        "mode": "open_settlement",
+        "run_date": "2026-07-31",
+        "run_id": "1d79f247235a4b238cda712c78cf1d6a"
+      },
+      {
+        "input_sha256": "13e59b80340f0c9efae8b1967262294fff4ba5f4f3acef0e1ae233310bff624f",
+        "mode": "short",
+        "run_date": "2026-07-31",
+        "run_id": "abb625a4e51f4af8ac9469ba198f2c85"
+      },
+      {
+        "input_sha256": "069a35c28f494c78b4d17e66fd600efaaebbc361d99450e0055141556d52d8e8",
+        "mode": "fund_nav",
+        "run_date": "2026-07-31",
+        "run_id": "5a6126c5f8a94795a2ddcbff3cece2b8"
+      },
+      {
+        "input_sha256": "4b3f85c50bc960ff65eacfd9b93e192adcd23bdf87cb538075c5bff1ce41b3bf",
+        "mode": "preopen",
+        "run_date": "2026-08-03",
+        "run_id": "c3141e642b8b40a285c3c7d619b48041"
+      },
+      {
+        "input_sha256": "9f1a1ae6fcdc254474960ffc78d9f1ef2f34bdf4004d7275e6e844f689bffe04",
+        "mode": "open_settlement",
+        "run_date": "2026-08-03",
+        "run_id": "f4a2d4ddd3734913b005c54b29268b58"
+      },
+      {
+        "input_sha256": "8047e5d67a03e7d349ea8ff316c81e81225f851c256929d0f2864a5d1d246613",
+        "mode": "short",
+        "run_date": "2026-08-03",
+        "run_id": "dc1c5587c30f44329417de073b17c208"
+      },
+      {
+        "input_sha256": "c1e0d782c49a53ea5d4f480bc87fec73a4a3b398f217aa627bc2423c708fbb98",
+        "mode": "preopen",
+        "run_date": "2026-08-04",
+        "run_id": "3a7c49aa101c4867a116fd48f2d131c5"
+      },
+      {
+        "input_sha256": "d85e325fcba36109ca30693cc21e22414948e2126de44a8618de996c555420be",
+        "mode": "open_settlement",
+        "run_date": "2026-08-04",
+        "run_id": "5b608574e4524997bb0f80b2d0020676"
+      },
+      {
+        "input_sha256": "a1cd73d71563895005e7ec4eb5fb2100465adf66fc95490d9ca1a33755036ffb",
+        "mode": "short",
+        "run_date": "2026-08-04",
+        "run_id": "ff9d8b5cb9fd4511880997070d2affae"
+      },
+      {
+        "input_sha256": "4b7c8e22d3082da70d9d770c8ca2163854a962bd1dae8f7e9f9ab8ae03ca5c60",
+        "mode": "fund_nav",
+        "run_date": "2026-08-04",
+        "run_id": "69c1b79d0d4f4ec6ac6eb219c3910d12"
+      },
+      {
+        "input_sha256": "1ef3f72b7fc5b15b03f4e796f133856a0d81b9ed9ad7cbea1a3afa59fd8136d4",
+        "mode": "preopen",
+        "run_date": "2026-08-05",
+        "run_id": "35df522919034008baefe5b7591c5af3"
+      },
+      {
+        "input_sha256": "9004c4f8d9cdd5d312954f6c53dd26bb9299b6223ad9c564751228320899ac18",
+        "mode": "open_settlement",
+        "run_date": "2026-08-05",
+        "run_id": "a27f0b242b254349bd744b951b9c1152"
+      },
+      {
+        "input_sha256": "936b764195229beb816132937e1d6127dec03145ae5941c63d07392e315c8e47",
+        "mode": "short",
+        "run_date": "2026-08-05",
+        "run_id": "623e63e128704d0ea348c22b36ad2e6a"
+      },
+      {
+        "input_sha256": "484e45991eb19636a80fccf321e7b4c877fb9188d3375581a3a57acf26cd9bb8",
+        "mode": "fund_nav",
+        "run_date": "2026-08-05",
+        "run_id": "313e38d3c03d45789df05928f0550163"
+      },
+      {
+        "input_sha256": "fbb4de6fa54adc4dbc1b4619bc1c7c479a7ef4e6af565fe35aef048886aece16",
+        "mode": "preopen",
+        "run_date": "2026-08-06",
+        "run_id": "e882f94487934452b7727edc7c79dedc"
+      },
+      {
+        "input_sha256": "b611464304f10912452cdbbb2bc53f16b20b2cd9beeecfabc1e7403c6b7f425c",
+        "mode": "open_settlement",
+        "run_date": "2026-08-06",
+        "run_id": "79b56a256ba0423ab7838e1e3df9b608"
+      },
+      {
+        "input_sha256": "51a1b24242ca864d5f42a681bf678b528b61428e7c65315359ae7dfbdb1607c6",
+        "mode": "short",
+        "run_date": "2026-08-07",
+        "run_id": "b4eefc389f504ab6883e5912af6d3af7"
+      },
+      {
+        "input_sha256": "f00e0ece005bdbcf8968280de60a8e6cbefda8228293968ba26bfe4f7453a94e",
+        "mode": "preopen",
+        "run_date": "2026-08-10",
+        "run_id": "c61df30ad56241418c302317c4af59e4"
+      },
+      {
+        "input_sha256": "c9b14caf98640fd355b551d6ca5d643bb3d9b52db78bb98097740400c51fe310",
+        "mode": "open_settlement",
+        "run_date": "2026-08-10",
+        "run_id": "1e5297cda9b14599ad00ddc1ce5e004a"
+      },
+      {
+        "input_sha256": "472b78e17120103c6de6fee3fd3419210150f20020f3215abc57853459b4179e",
+        "mode": "short",
+        "run_date": "2026-08-10",
+        "run_id": "bf6445ec740544e5873dbbfb61e41f34"
+      },
+      {
+        "input_sha256": "1976dd27ee4e705535294d3f5e335514950455651716b9f2cf14e8fce7d0f47d",
+        "mode": "fund_nav",
+        "run_date": "2026-08-10",
+        "run_id": "900567ffc29346f7a9f3fbf9ea25cc81"
+      },
+      {
+        "input_sha256": "8f07a3e47129bdd7738a160b46a0032c574690857ccde5778cfc74a6384b5ab9",
+        "mode": "preopen",
+        "run_date": "2026-08-11",
+        "run_id": "c62b7a113bee4e4cb892bd92f09d3949"
+      },
+      {
+        "input_sha256": "a7639e9e07a4777e10c4792d07c2f858bd68979d0f15eaaad87fa55035ace0d5",
+        "mode": "preopen",
+        "run_date": "2026-08-11",
+        "run_id": "4c77eb8ee46040629daa15080123716c"
+      },
+      {
+        "input_sha256": "33cbff5cea287a9e3d0e74fa2228d81188f4ad9cd5399f42184b53d7112373c0",
+        "mode": "intraday_settlement",
+        "run_date": "2026-08-11",
+        "run_id": "84383db68e894612b6dd2b89e2e0a09a"
+      },
+      {
+        "input_sha256": "a114718e5c5fe449460c9aa820d98713ff9ecde6cdcb5629f177460c397f9b1e",
+        "mode": "short",
+        "run_date": "2026-08-11",
+        "run_id": "ac6f42608fea4f5eb7c69c1af05fce66"
+      },
+      {
+        "input_sha256": "034bad39afc6147c83cf3bb9bbeac245a80ce9de2f76dcf6bd6e62c97adc71ee",
+        "mode": "fund_nav",
+        "run_date": "2026-08-11",
+        "run_id": "400cb4f9e79f427587c02a3475a0d18c"
+      },
+      {
+        "input_sha256": "3be131691828e405f34ce7ab724500872d958fa4b2094075a10d845171fa3ebd",
+        "mode": "preopen",
+        "run_date": "2026-08-12",
+        "run_id": "4bee8221a81347fdb53596b3641fc472"
+      },
+      {
+        "input_sha256": "3be131691828e405f34ce7ab724500872d958fa4b2094075a10d845171fa3ebd",
+        "mode": "preopen",
+        "run_date": "2026-08-12",
+        "run_id": "0b9255bd6ac64825b1e2d74eba235927"
+      },
+      {
+        "input_sha256": "bc8e8108e38198639395fedf6154d24180627ba27337327c40239f517274e548",
+        "mode": "open_settlement",
+        "run_date": "2026-08-12",
+        "run_id": "07eeed3a5e604d42bf78782bdd972c9b"
+      },
+      {
+        "input_sha256": "68363292866f7963fcfd19f4d398dfc8b845afa0cc9afb5268fbf81a30e6db9b",
+        "mode": "short",
+        "run_date": "2026-08-12",
+        "run_id": "db9638131462463c83bdf96a9d10549f"
+      },
+      {
+        "input_sha256": "844b3fa3ac9b133efcba4a16a6ace5ed31d56371fd3c55b20f1543ce41302ffb",
+        "mode": "fund_nav",
+        "run_date": "2026-08-12",
+        "run_id": "d0ffa1d8c4db457685c5a87020e4dc5d"
+      },
+      {
+        "input_sha256": "d10c9f706bb2013b69f842310c45bd924da6e718e970db4d5660cba002d3d9bc",
+        "mode": "preopen",
+        "run_date": "2026-08-13",
+        "run_id": "0393d94672bd46d0a26afe1deca909dd"
+      },
+      {
+        "input_sha256": "91f9beb2cddefada1a2d5de5caa981528f5cda8b5f5b92ab31d9b0c404a2ab40",
+        "mode": "open_settlement",
+        "run_date": "2026-08-13",
+        "run_id": "7d536e30b6de4d549b811013ed0bbd03"
+      },
+      {
+        "input_sha256": "73cd2e74029324cba8b9765bed184f22dd6f4ad1eb1b4ba95cb53d2074c4fe59",
+        "mode": "short",
+        "run_date": "2026-08-13",
+        "run_id": "92242243b3fe45ffbf0c90c3ff505a89"
+      },
+      {
+        "input_sha256": "33a09bbded768475acbc40a33d67b56299b6895c3938a39b8961e3f253750ddd",
+        "mode": "fund_nav",
+        "run_date": "2026-08-13",
+        "run_id": "d8d57030e8fa4b5181fdd94c27d25551"
+      },
+      {
+        "input_sha256": "75436ea57294f727901e89794382df43afc4a638b33df5d9ddab6dfd13cdaab2",
+        "mode": "preopen",
+        "run_date": "2026-08-14",
+        "run_id": "39166b9852db4c4ea265a935eb732f30"
+      },
+      {
+        "input_sha256": "d457490b70baad0c4c7168b28e5153f916cae0ac81d8e42529d215dcc6195c2e",
+        "mode": "open_settlement",
+        "run_date": "2026-08-14",
+        "run_id": "7b250729e201478190491e88aefd4b64"
+      },
+      {
+        "input_sha256": "63032394ab9340075ecbe079e13365ccc714f6c851f60ef500ffbd71a551f8b2",
+        "mode": "short",
+        "run_date": "2026-08-14",
+        "run_id": "cb081aa930a1487e942ce4b6d17d015e"
+      },
+      {
+        "input_sha256": "56009eec345856e9155c2289d8cddfbe8bf62aac8c80bd7359bbcb27338cbb73",
+        "mode": "preopen",
+        "run_date": "2026-08-17",
+        "run_id": "07fb9b803838467d9faeee81cf8d244e"
+      },
+      {
+        "input_sha256": "4ce76331fbdb3baf06dd08871287862452d43e51c38f4e21918a5f0813d9e995",
+        "mode": "intraday_settlement",
+        "run_date": "2026-08-17",
+        "run_id": "2741980232134878be27cb7be28b7508"
+      },
+      {
+        "input_sha256": "feef44de874685ea096c5e4ff98da385f9df94d220b8817ab2d041db31cbfefc",
+        "mode": "preopen",
+        "run_date": "2026-08-18",
+        "run_id": "77434f1a914c457686028a1fb443893b"
+      },
+      {
+        "input_sha256": "927b4292b0fdf1256beac3cef2072688bbb4631a3fed32810727d16781fce2fa",
+        "mode": "preopen",
+        "run_date": "2026-08-18",
+        "run_id": "9999c483411c493c859ccad45e3aca3d"
+      },
+      {
+        "input_sha256": "927b4292b0fdf1256beac3cef2072688bbb4631a3fed32810727d16781fce2fa",
+        "mode": "preopen",
+        "run_date": "2026-08-18",
+        "run_id": "bf6f3658f2854b05947ed93c1c076913"
+      },
+      {
+        "input_sha256": "d381fb95280ff1ac5cafc769f63a0b347f51f8210d970d675ac78eb244c74bd5",
+        "mode": "preopen",
+        "run_date": "2026-08-18",
+        "run_id": "a0712e782d6c4b3e870ff894169bc2b3"
+      },
+      {
+        "input_sha256": "b25d2c11e7a029e902caf9c5cb66580e866b12310ef3f72d59cb7519276241d0",
+        "mode": "preopen",
+        "run_date": "2026-08-19",
+        "run_id": "219d24d7cbd94347a5be541ac826eb13"
+      },
+      {
+        "input_sha256": "83cc2d0ce775666dd93b7761cd26ec061753346c489b8f514e7c0c6807927717",
+        "mode": "preopen",
+        "run_date": "2026-08-19",
+        "run_id": "4729a9787bcb45c790a4c5a1debe3a3a"
+      },
+      {
+        "input_sha256": "3b33096022fba170c07cd6de9bd5ec62ba0b58aef288174b22e3d0d597907970",
+        "mode": "short",
+        "run_date": "2026-08-19",
+        "run_id": "bace4e5696894504b88a18ae3839feba"
+      },
+      {
+        "input_sha256": "766f74b6227f4b042ebc4d18d060c6c985b905090a97e28ec5263874595107f9",
+        "mode": "fund_nav",
+        "run_date": "2026-08-19",
+        "run_id": "a3f94e1e3e8442c5be7ddc7be0a84daf"
+      },
+      {
+        "input_sha256": "6d8c15e21e356669e327ee43a5bdd6804184b82af1c7e861b1297f27f9fec79f",
+        "mode": "fund_nav",
+        "run_date": "2026-08-20",
+        "run_id": "61d89d88a2f94e4b856aa5fd0cc04256"
+      },
+      {
+        "input_sha256": "443d9877779bac80668455afa2bb57c21aaa670fb491225bafb37b9aa2b925bf",
+        "mode": "short",
+        "run_date": "2026-08-20",
+        "run_id": "f3a3fb5a458547eea23c8f81ddc9d458"
+      },
+      {
+        "input_sha256": "7e096611ca884d4345aed938142c966440ee6119c743a6e90594acbb46cec54b",
+        "mode": "preopen",
+        "run_date": "2026-08-21",
+        "run_id": "f631de4d826044fabfc518a5992b7034"
+      },
+      {
+        "input_sha256": "e32f4560cd9ce315918232979630e7381d66c2d89b956752e5f636f056fb5eae",
+        "mode": "intraday_settlement",
+        "run_date": "2026-08-21",
+        "run_id": "18b09951aec14c97874aaebcd780184f"
+      },
+      {
+        "input_sha256": "7b7a6a3f64e954c46c0ee9a835e7e8f9c4d9295eac56a7fe46e47e4e2574624a",
+        "mode": "short",
+        "run_date": "2026-08-21",
+        "run_id": "6979e011c3134eb0b9ca81952f45e971"
+      },
+      {
+        "input_sha256": "f91f7d1af42740f45f1cfbd68c85124d2f631ea29443e0dbdd4102efe559e5d5",
+        "mode": "fund_nav",
+        "run_date": "2026-08-21",
+        "run_id": "3431c4d7a9cb4f44ad131d09a73783d7"
+      },
+      {
+        "input_sha256": "e6a6299bb28cdc4dcf9241a7dc1953f62c7091ec25074229d35b6aaded5d0967",
+        "mode": "preopen",
+        "run_date": "2026-08-24",
+        "run_id": "15569da998634099b39c14a04120e9a4"
+      },
+      {
+        "input_sha256": "d32026a71c2106d31fbfd0efc825a2305386ec870e12daa32850ecbdc03dbf74",
+        "mode": "open_settlement",
+        "run_date": "2026-08-24",
+        "run_id": "064f330c6a9c4f39a2defa20bfcdae14"
+      },
+      {
+        "input_sha256": "f65591762b00664f0390daa0d4e2f33c8f9a2173859341fd40d6949f7ab7f242",
+        "mode": "short",
+        "run_date": "2026-08-24",
+        "run_id": "1e1f8862561a43459fd33f77d4a2436e"
+      },
+      {
+        "input_sha256": "d198706ea9089dbfd1a6fbd4e39e8802beef67bc6b38b0da8c220e36e6f74dd4",
+        "mode": "fund_nav",
+        "run_date": "2026-08-24",
+        "run_id": "4ded95acfd39433b82c06d0b0da99750"
+      },
+      {
+        "input_sha256": "eb67b39dc9833fc9aa145e158c9421414b5cb86c81f219379638b12fa8f4d0fb",
+        "mode": "preopen",
+        "run_date": "2026-08-25",
+        "run_id": "be7d14dc042e41a983bba5128cce9b7e"
+      },
+      {
+        "input_sha256": "8b1ab8fbad74e70c5b7224604f7aaea8f057eb21f2341d67375117718effb95b",
+        "mode": "open_settlement",
+        "run_date": "2026-08-25",
+        "run_id": "5aefdafc319444e9b9bbdecee17c2db0"
+      },
+      {
+        "input_sha256": "ee3e68bc6c57fb5076fd47b6f60a670c2918a05a859e9cd5ec2316457c3c1582",
+        "mode": "short",
+        "run_date": "2026-08-25",
+        "run_id": "e9a69af8108c49c0b6fd32d2b2a90b0c"
+      },
+      {
+        "input_sha256": "41d93cce1955dc564cbce3612bd390175bc71cd8040c6fdbe99a6e79d4315e83",
+        "mode": "fund_nav",
+        "run_date": "2026-08-25",
+        "run_id": "5a60d4cc4bed4a40a803af09a93a9b8e"
+      },
+      {
+        "input_sha256": "894f525a45d02d0728a024843e65d775d02322dff6cab503c5f19485e34f6983",
+        "mode": "preopen",
+        "run_date": "2026-08-26",
+        "run_id": "ba18ad9b42c34f03a2403b1ce317dd67"
+      },
+      {
+        "input_sha256": "781b91ea6979b92b600c34aac09b154b30376db12542f02bc72372072f80c435",
+        "mode": "open_settlement",
+        "run_date": "2026-08-26",
+        "run_id": "afc55565e09042ebbb36d7f2ca68cd9d"
+      },
+      {
+        "input_sha256": "3f0f4e809786e2ae8b23630287dc6afe550c3cfac8067b286c92113f975ce557",
+        "mode": "short",
+        "run_date": "2026-08-26",
+        "run_id": "3ce6231070a541ceb97144cc0150ee86"
+      },
+      {
+        "input_sha256": "3ddda83b4bab558208fea4f2d6ab91ab71fc0ab35e9e6b69387a115272da7b40",
+        "mode": "fund_nav",
+        "run_date": "2026-08-26",
+        "run_id": "2a26ad09047c4e50befff67b57549e62"
+      },
+      {
+        "input_sha256": "00e1327f6e80886bb320e5016e66df8695e42cdaffd9ad5fc42b2aa3d701e691",
+        "mode": "preopen",
+        "run_date": "2026-08-27",
+        "run_id": "f47401ab6f714240a65c9d89c76bc435"
+      },
+      {
+        "input_sha256": "6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0",
+        "mode": "open_settlement",
+        "run_date": "2026-08-27",
+        "run_id": "f48d3c2dab3b49b89ca98ca901cfead9"
+      }
+    ],
+    "schema_version": 1
+  },
+  "prepared_at": "2026-08-27T01:30:43.228112+00:00",
+  "recorded_at": "2026-08-27T01:30:39.729946+00:00",
+  "report_path": "/mnt/f/Git/Vibe Finance/reports/execution/2026-08-27-open.md",
+  "report_text": "# Vibe Finance 2026-08-27 开盘虚拟成交结算\n\n- 状态：`FILLED`\n- 证据截点：2026-08-27T09:30:30+08:00\n- 输入 SHA-256：`6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0`\n- 结算前待执行：1\n- 成交：1；取消：0；结算后待执行：0\n- 估值后项目总权益：¥30342.70\n\n## 结算门禁\n\n- 交易日、时间顺序、交易状态和双源价格均已通过。\n\n## 虚拟成交事件\n\n- FILLED SELL 510500 100 @ 7.799；佣金 ¥5.00，过户费 ¥0.00，印花税 ¥0.00，合计 ¥5.00。\n\n## 费用模型\n\n- 模拟佣金：成交额的 0.030%，单笔最低 ¥5.00。\n- A股卖出印花税：成交额的 0.050%。\n- 股票ETF不计证券交易印花税；所有费用仍按虚拟账本记录。\n\n本报告仅用于虚拟实验，不连接券商，不构成任何投资建议；项目不分析或发布政治议题。\n",
+  "run_id": "f48d3c2dab3b49b89ca98ca901cfead9",
+  "schema_version": 1
+}

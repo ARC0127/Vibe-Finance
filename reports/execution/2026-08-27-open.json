@@ -1,0 +1,111 @@
+{
+  "as_of": "2026-08-27T09:30:30+08:00",
+  "blocks": [],
+  "daily_execution_status": "PASS",
+  "events": [
+    {
+      "commission_cny": 5.0,
+      "exit_plan": {
+        "hard_stop_loss_return": -0.08,
+        "hard_trend_below_ma20_ratio": 0.95,
+        "overweight_tolerance": 0.02,
+        "partial_reduce_fraction": 0.5,
+        "profit_protection_activation_return": 0.12,
+        "profit_protection_drawdown_from_peak": -0.05,
+        "soft_trend_below_ma20_ratio": 1.0,
+        "strategy_version": "0.4.0"
+      },
+      "exposure_group": "csi500",
+      "fee_model_version": "0.4.0",
+      "fill_as_of": "2026-08-27T09:30:30+08:00",
+      "fill_date": "2026-08-27",
+      "fill_price": 7.799,
+      "limit_price": 0.0,
+      "lot_size": 100,
+      "name": "南方中证500ETF",
+      "order_id": "5ab0bf8d7c2243db8f203e58430379e9",
+      "quantity": 100,
+      "realized_pnl_cny": 8.37,
+      "reasons": [
+        "COLD_START_TREND_ENTRY",
+        "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
+        "DAILY_WEAKNESS_ROTATION"
+      ],
+      "risk_bucket": "small_growth_equity",
+      "side": "SELL",
+      "signal_as_of": "2026-08-26T16:30:00+08:00",
+      "signal_close": 7.789,
+      "signal_date": "2026-08-26",
+      "signal_score": 0.1,
+      "signal_type": "DAILY_WEAKNESS_ROTATION",
+      "simulation_only": true,
+      "stamp_tax_cny": 0.0,
+      "status": "FILLED",
+      "symbol": "510500",
+      "total_fees_cny": 5.0,
+      "transfer_fee_cny": 0.0
+    }
+  ],
+  "input_sha256": "6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0",
+  "mode": "open_settlement",
+  "pending_after": 0,
+  "pending_before": 1,
+  "run_date": "2026-08-27",
+  "run_id": "f48d3c2dab3b49b89ca98ca901cfead9",
+  "schema_version": 1,
+  "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+  "valuation": {
+    "blocks": [],
+    "cash_cny": 9854.7,
+    "infrastructure_remaining_cny": 100.0,
+    "investable_value_cny": 30242.7,
+    "mark_status": "COMPLETE",
+    "position_marks": {
+      "159928": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2383.2,
+        "price": "0.662",
+        "price_as_of": "2026-08-27T09:30:30+08:00",
+        "quantity": "3600"
+      },
+      "510300": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 5590.8,
+        "price": "4.659",
+        "price_as_of": "2026-08-27T09:30:29+08:00",
+        "quantity": "1200"
+      },
+      "510500": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2339.7,
+        "price": "7.799",
+        "price_as_of": "2026-08-27T09:30:30+08:00",
+        "quantity": "300"
+      },
+      "510880": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 4465.5,
+        "price": "3.435",
+        "price_as_of": "2026-08-27T09:30:29+08:00",
+        "quantity": "1300"
+      },
+      "512100": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2757.6,
+        "price": "3.064",
+        "price_as_of": "2026-08-27T09:30:28+08:00",
+        "quantity": "900"
+      },
+      "518880": {
+        "basis": "SNAPSHOT_PRICE",
+        "market_value_cny": 2851.2,
+        "price": "9.504",
+        "price_as_of": "2026-08-27T09:30:28+08:00",
+        "quantity": "300"
+      }
+    },
+    "positions_cny": 20388.0,
+    "project_equity_cny": 30342.7,
+    "stale_symbols": []
+  }
+}
