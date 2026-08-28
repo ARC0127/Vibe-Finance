@@ -32,31 +32,31 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_STATUS:START -->
 ### 公开实验账本
 
-> 数据截点：`2026-08-28T09:31:09+08:00`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。
+> 数据截点：`2026-08-28T16:30:00+08:00`。状态由 `data/ledger/portfolio.json` 生成；所有金额均为虚拟记录。
 
 | 指标 | 当前值 |
 |---|---:|
 | 初始项目资本 | ¥30,000.00 |
 | 累计买入金额 | ¥23,876.40 |
-| 当前持仓市值 | ¥21,156.90 |
+| 当前持仓市值 | ¥21,188.80 |
 | 可投资现金 | ¥9,223.30 |
 | 累计交易费用 | ¥85.00 |
 | DeepSeek 已用预算 | ¥0.000000 |
-| 项目总权益 | ¥30,480.20 |
-| 累计盈亏 | **盈利 +480.20 元（+1.60%）** |
+| 项目总权益 | ¥30,512.10 |
+| 累计盈亏 | **盈利 +512.10 元（+1.71%）** |
 | 已成交笔数 | 17 |
-| 待执行订单 | 0 |
+| 待执行订单 | 1 |
 
 #### 当前持仓
 
 | 代码 | 标的 | 数量 | 平均成本 | 最近估值 | 市值 | 未实现盈亏（元） |
 |---|---|---:|---:|---:|---:|---:|
-| 159928 | 汇添富中证主要消费ETF | 3600 | ¥0.6614 | ¥0.6630 | ¥2,386.80 | +5.80 |
-| 510300 | 华泰柏瑞沪深300ETF | 1200 | ¥4.6812 | ¥4.6840 | ¥5,620.80 | +3.40 |
-| 510500 | 南方中证500ETF | 300 | ¥7.6653 | ¥7.9600 | ¥2,388.00 | +88.42 |
-| 510880 | 华泰柏瑞上证红利ETF | 1300 | ¥3.2540 | ¥3.4500 | ¥4,485.00 | +254.77 |
-| 512100 | 南方中证1000ETF | 1100 | ¥2.8960 | ¥3.1320 | ¥3,445.20 | +259.60 |
-| 518880 | 华安黄金易ETF | 300 | ¥9.0487 | ¥9.4370 | ¥2,831.10 | +116.50 |
+| 159928 | 汇添富中证主要消费ETF | 3600 | ¥0.6614 | ¥0.6710 | ¥2,415.60 | +34.60 |
+| 510300 | 华泰柏瑞沪深300ETF | 1200 | ¥4.6812 | ¥4.6790 | ¥5,614.80 | -2.60 |
+| 510500 | 南方中证500ETF | 300 | ¥7.6653 | ¥7.9230 | ¥2,376.90 | +77.32 |
+| 510880 | 华泰柏瑞上证红利ETF | 1300 | ¥3.2540 | ¥3.4610 | ¥4,499.30 | +269.07 |
+| 512100 | 南方中证1000ETF | 1100 | ¥2.8960 | ¥3.1270 | ¥3,439.70 | +254.10 |
+| 518880 | 华安黄金易ETF | 300 | ¥9.0487 | ¥9.4750 | ¥2,842.50 | +127.90 |
 
 <!-- VIBE_STATUS:END -->
 
@@ -73,49 +73,49 @@ Vibe Finance 给一个金融 Agent 30,000 元虚拟本金，让它只研究中�
 <!-- VIBE_DAILY_STRATEGY:START -->
 ## 当前市场判断
 
-> 每日策略日期：**2026-08-28**；决策截点：`2026-08-28T08:00:00+08:00`；策略版本：`v0.4.0`。本区块由最新不可变报告自动生成，不再保留首日静态策略。
+> 每日策略日期：**2026-08-28**；决策截点：`2026-08-28T16:30:00+08:00`；策略版本：`v0.4.0`。本区块由最新不可变报告自动生成，不再保留首日静态策略。
 
 ### 市场温度
 
-行情观测截至 `2026-08-25T16:14:33+08:00`。
+行情观测截至 `2026-08-28T16:14:39+08:00`。
 
 | 指数 | 当日涨跌 |
 |---|---:|
-| 上证指数 | +0.19% |
-| 深证成指 | -0.35% |
-| 创业板指 | -1.00% |
-| 科创50 | +0.14% |
-| 上证50 | +0.16% |
+| 上证指数 | -0.11% |
+| 深证成指 | -0.68% |
+| 创业板指 | -1.41% |
+| 科创50 | -1.85% |
+| 上证50 | -0.24% |
 
 **结论：广泛市场冲击门未触发，可继续按趋势、受控回撤和分散规则筛选。**
 
-点时输入：[`2026-08-28-preopen.json`](data/inbox/2026-08-28-preopen.json)。
+点时输入：[`2026-08-28.json`](data/inbox/2026-08-28.json)。
 
 ### 今日策略动作
 
 | 代码 | 标的 | 动作 | 当前权重 | 主要依据 |
 |---|---|---:|---:|---|
-| 159928 | 汇添富中证主要消费ETF | 持有 | 7.9% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 510300 | 华泰柏瑞沪深300ETF | 持有 | 18.5% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 510500 | 南方中证500ETF | 持有 | 7.9% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 510880 | 华泰柏瑞上证红利ETF | 持有 | 14.8% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 512100 | 南方中证1000ETF | 持有 | 9.3% | `NOT_TRADING` |
-| 518880 | 华安黄金易ETF | 持有 | 9.3% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 159915 | 易方达创业板ETF | 观察 | 0.0% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 510050 | 华夏上证50ETF | 观察 | 0.0% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 511010 | 国泰上证5年期国债ETF | 观察 | 0.0% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
-| 511880 | 银华日利ETF | 观察 | 0.0% | `CORPORATE_ACTION_STATUS_NOT_CLEARED`；`NOT_TRADING`；`SECURITY_IDENTITY_NOT_CLEARED` |
+| 159928 | 汇添富中证主要消费ETF | 减仓 | 7.9% | 冷启动趋势信号；`POSITION_TOO_SMALL_AFTER_DIVERSIFICATION`；`DAILY_WEAKNESS_ROTATION` |
+| 510300 | 华泰柏瑞沪深300ETF | 持有 | 18.5% | `SECURITY_IDENTITY_NOT_CLEARED`；`TERMINATION_RISK_NOT_CLEARED` |
+| 588000 | 华夏上证科创板50成份ETF | 观察 | 0.0% | 受控回撤信号；`MAXIMUM_POSITIONS_REACHED` |
+| 510500 | 南方中证500ETF | 观察 | 7.8% | 正向趋势信号；`POSITION_TOO_SMALL_AFTER_DIVERSIFICATION` |
+| 518880 | 华安黄金易ETF | 观察 | 9.3% | 黄金分散条件通过；`POSITION_TOO_SMALL_AFTER_DIVERSIFICATION` |
+| 511880 | 银华日利ETF | 观察 | 0.0% | 现金管理条件通过；`MAXIMUM_POSITIONS_REACHED` |
+| 159915 | 易方达创业板ETF | 观察 | 0.0% | 受控回撤信号；`MAXIMUM_POSITIONS_REACHED`；每日小额探索 |
+| 510880 | 华泰柏瑞上证红利ETF | 观察 | 14.8% | 正向趋势信号；每日小额探索；`POSITION_TOO_SMALL_AFTER_DIVERSIFICATION` |
+| 512100 | 南方中证1000ETF | 观察 | 11.3% | 正向趋势信号；`POSITION_TOO_SMALL_AFTER_DIVERSIFICATION`；每日小额探索 |
+| 510050 | 华夏上证50ETF | 观察 | 0.0% | `SECURITY_IDENTITY_NOT_CLEARED`；`TERMINATION_RISK_NOT_CLEARED` |
 
 其余 3 个低优先级观察项保留在机器报告中。
 
-决策报告：[`2026-08-28-preopen.json`](reports/preopen/2026-08-28-preopen.json)。
+决策报告：[`2026-08-28-short.json`](reports/daily/2026-08-28-short.json)。
 
 ### 今日执行与订单
 
 - 开盘结算截点：`2026-08-28T09:31:09+08:00`；实际虚拟成交 **1** 笔，取消 **0** 笔。
 - `FILLED` 买入 `512100` 200 份；原因：`TREND`。
 - 执行报告：[`2026-08-28-open.json`](reports/execution/2026-08-28-open.json)。
-- 当前账本待执行订单：**0** 笔。
+- 当前账本待执行订单：**1** 笔。
 
 ### 场外基金周期
 
