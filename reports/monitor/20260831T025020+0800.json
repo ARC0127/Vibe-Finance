@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "run_timestamp": "2026-08-31 02:50:20 CST",
+  "created_at_utc": "2026-08-30T18:50:20.430Z",
+  "simulation_only": true,
+  "status_command": {
+    "status": "STALE",
+    "heartbeat_age_hours": 52.45,
+    "heartbeat_age_hours_at_trigger": 52.242135,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-08-28T14:35:48.745262+00:00",
+    "last_success_at_shanghai": "2026-08-28T22:35:48.745262+08:00",
+    "last_run_id": "f52b366b65b548379941a7955a85df4b",
+    "last_run_date": "2026-08-28",
+    "last_mode": "fund_nav",
+    "decision_report_count": 27,
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 17,
+    "last_filled_trade_date": "2026-08-28",
+    "project_equity_cny": 30512.1,
+    "total_pnl_cny": 512.1,
+    "total_return_pct": 0.01706999999999995,
+    "deepseek_actual_calls": 0,
+    "deepseek_spent_cny": 0.0,
+    "deepseek_remaining_cny": 100.0,
+    "command_exit_code": 0
+  },
+  "calendar_context": {
+    "current_day": "MONDAY",
+    "current_day_is_trading_day": null,
+    "trading_day_status": "NOT_YET_ESTABLISHED_BY_AUTHORITATIVE_PREOPEN_EVIDENCE",
+    "calendar_claim_boundary": "The local evaluation calendar is NOT_ACQUIRED; a trading day is not inferred solely from the weekday.",
+    "preopen_due_at": "2026-08-31T08:00:00+08:00",
+    "preopen_due_status": "NOT_YET_DUE_AT_TRIGGER",
+    "latest_completed_short_date": "2026-08-28",
+    "latest_completed_fund_nav_date": "2026-08-28",
+    "weekly_review_due_status": "PRESENT_GOVERNED_PASS_WITH_FINDINGS",
+    "next_automatic_retry_point": "2026-08-31T08:00:00+08:00"
+  },
+  "report_checks": {
+    "latest_completed_short": {
+      "input": "data/inbox/2026-08-28.json",
+      "input_sha256": "42ceb0ecb8f557e5c710997d6bf622cad9bf252b1e92bda7bc0be387e5397435",
+      "report": "reports/daily/2026-08-28-short.json",
+      "report_sha256": "8f8da7843c05634808554c623a341bf6b1de1510c4a538a9d3b95dae0baeb80f",
+      "input_sha256_matches_report": true,
+      "as_of": "2026-08-28T16:30:00+08:00",
+      "run_id": "91f2207afde941b9b0301a8573f8eb85",
+      "manifest": "reports/automation-runs/close-analysis/20260828T163656+0800.json",
+      "manifest_sha256": "c98fe44f53836dcfbc0fd886a30c3d93fe0eec31a6d9d574455ded8d64a68847",
+      "manifest_status": "ORDER_SCHEDULED",
+      "pending_order": "SELL 159928 x100",
+      "status": "PRESENT_TIMELY_AND_HASH_CONSISTENT"
+    },
+    "latest_completed_fund_nav": {
+      "input": "data/inbox/2026-08-28-funds.json",
+      "input_sha256": "c576713b35140b812efb027d3a9307e04d146109eb96e447733453a887a08a9b",
+      "report": "reports/funds/2026-08-28-funds.json",
+      "report_sha256": "d950da1957c5c1209e7cccc83077d4ecc47059294b796dc48cb0458ef3ad0932",
+      "report_markdown_sha256": "78edecb19229c548336302133d8a77f97a0d00150f83e257ceb8a615d10076ea",
+      "input_sha256_matches_report": true,
+      "as_of": "2026-08-28T22:30:00+08:00",
+      "run_id": "f52b366b65b548379941a7955a85df4b",
+      "manifest": "reports/automation-runs/fund-nav/20260828T223740+0800.json",
+      "manifest_sha256": "a079d414a76a08fa0e599e10338464be952214f89bab40cc48e343ed880a9073",
+      "manifest_status": "NO_TRADE",
+      "blocks": [
+        "NAV_NOT_PUBLISHED"
+      ],
+      "new_orders": 0,
+      "events": 0,
+      "status": "PRESENT_TIMELY_AND_HASH_CONSISTENT"
+    },
+    "latest_long_cycle": {
+      "report_json": "reports/weekly/2026-W35.json",
+      "report_json_sha256": "9a48259e410bc34f061151ca49c4399b7d4645ba7c961da90f66e205635bea3f",
+      "report_markdown": "reports/weekly/2026-W35.md",
+      "report_markdown_sha256": "74620aba3003b0e87b3ee3441dcfba611124cdd574557d784cf7d20a8e9f906b",
+      "generated_at": "2026-08-30T20:15:50+08:00",
+      "status": "PASS_WITH_FINDINGS",
+      "age_days_at_trigger": 0.273963,
+      "manifest": "reports/automation-runs/weekly-review/20260830T202013+0800.json",
+      "manifest_sha256": "898d48c5e0d8161e1a0d0ec1da826aa9416a007762597755b24a897d2e769b4c",
+      "manifest_status": "PASS_WITH_FINDINGS",
+      "owner_commit": "375330d386d71835244c9c7bf31e414130a2bba6",
+      "input_manifest_count": 56,
+      "current_worktree_hash_matches": 56,
+      "current_hash_drift": [],
+      "untracked_inputs": [
+        {
+          "path": "reports/evolution/20260829-w35-no-decidable-experience/gate.json",
+          "sha256": "0660b2c9b6e5bac23f4451a4d39b7661c0c178b585b08e95c0783780dc8e0990"
+        },
+        {
+          "path": "reports/evolution/20260829-w35-no-decidable-experience/proposal.json",
+          "sha256": "6f92cdce7d397d646e41b837749937bfeb7a7317d28e2585ae5f803fc71bbf15"
+        }
+      ],
+      "freshness_status": "CURRENT",
+      "reproducibility_status": "FAIL_REFERENCES_UNCOMMITTED_INPUTS"
+    },
+    "due_reflection_cycle": {
+      "owner_automation_id": "vibe-finance-10",
+      "run_directory": "reports/evolution/20260829-w35-no-decidable-experience",
+      "proposal_sha256": "6f92cdce7d397d646e41b837749937bfeb7a7317d28e2585ae5f803fc71bbf15",
+      "proposal_result": "NO_DECIDABLE_EXPERIENCE",
+      "gate_sha256": "0660b2c9b6e5bac23f4451a4d39b7661c0c178b585b08e95c0783780dc8e0990",
+      "gate_decision": "NOT_APPLICABLE",
+      "completed_round_trip_count": 1,
+      "eligible_sample_count": 0,
+      "minimum_eligible_sample_count": 20,
+      "candidate_strategy_created": false,
+      "experience_created": false,
+      "strategy_impact": "NONE",
+      "current_governed_manifest_count": 0,
+      "github_sync_status": "FAILED_BEFORE_STAGING",
+      "blocking_path": "reports/evolution/20260818-v040-exit-auto-promotion/baseline.json",
+      "blocking_path_sha256": "846bb4e9795ffbc506f7fd1613af08795981041f2804a03bb5028d02edea5de6",
+      "related_preregistration_sha256": "0a8b483155774475e9408ac2c279d97e4b82ff687e3b7b810fdc53817b8a46d9",
+      "status": "DUE_CYCLE_LOCAL_EVIDENCE_PRESENT_GITHUB_SYNC_FAILED"
+    },
+    "historical_gap_governance": {
+      "report": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+      "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+      "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+      "current_assertions": 22,
+      "assertions_passed": 22,
+      "weekly_evidence_sha256_match": true,
+      "exact_listed_path_states_match": true,
+      "orphan_manifest_state_match": true,
+      "new_historical_backfill_created": false
+    },
+    "unacknowledged_prior_short_gaps": {
+      "missing_paths": [
+        "data/inbox/2026-08-17.json",
+        "reports/daily/2026-08-17-short.json",
+        "data/inbox/2026-08-18.json",
+        "reports/daily/2026-08-18-short.json"
+      ],
+      "listed_in_2026_08_17_reconciliation": false,
+      "status": "NEW_IMMUTABLE_GAPS_REQUIRE_GOVERNANCE"
+    }
+  },
+  "ledger_checks": {
+    "ledger_json_files_parsed": 199,
+    "ledger_jsonl_files_parsed": 3,
+    "jsonl_rows_parsed": 73,
+    "parse_status": "PASS",
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 71,
+    "committed_event_count": 71,
+    "head_event_sha256": "04e8096c2650ed247ff20a4fc573e01e12464df810bcc354ee2384b69e7c66e2",
+    "git_head_prefix_verified": true,
+    "portfolio_projection_status": "PASS",
+    "cash_replay_complete": true,
+    "filled_event_count": 17,
+    "portfolio_filled_trade_count": 17,
+    "completed_round_trip_count": 1,
+    "eligible_closed_round_trips": 0,
+    "pending_orders": 1,
+    "positions": 6,
+    "transaction_state": "COMMITTED",
+    "latest_valid_transaction_run_id": "f52b366b65b548379941a7955a85df4b",
+    "latest_transaction_projection_status": "PASS"
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "api_cost_log_sha256": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "api_cost_log_rows": 1,
+    "actual_calls_log": 0,
+    "actual_calls_portfolio": 0,
+    "spent_log_cny": 0.0,
+    "spent_portfolio_cny": 0.0,
+    "reserved_portfolio_cny": 100.0,
+    "remaining_cny": 100.0,
+    "called_by_monitor": false
+  },
+  "strategy_governance": {
+    "current_strategy_version": "0.4.0",
+    "current_strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "experience_validation_status": "PASS",
+    "experience_record_count": 3,
+    "promoted_rule_count": 0,
+    "active_strategy_rules": [],
+    "completed_round_trip_count": 1,
+    "eligible_closed_round_trips": 0,
+    "minimum_eligible_closed_round_trips": 20,
+    "last_governed_strategy_version": "0.3.1",
+    "status": "INCONSISTENT_WITH_PROMOTION_CONTRACT"
+  },
+  "alerts": [
+    {
+      "code": "HEARTBEAT_STALE_OVER_36_HOURS",
+      "minimal_repair": "Activity monitoring must not refresh the heartbeat. Allow the preopen owner to evaluate the official trading-day evidence at 2026-08-31 08:00 CST and rerun the governed financial cycle if due."
+    },
+    {
+      "code": "REPEATED_PREOPEN_TIMING_NOTE_INTERNAL_CONTRADICTIONS",
+      "minimal_repair": "Append immutable corrections bound to both timing-note hashes."
+    },
+    {
+      "code": "PRIOR_DAILY_ORDER_GUARD_MANIFEST_UNTRACKED",
+      "minimal_repair": "Preserve SHA-256 2d99dfe61fbc7f8080f37b4bb052dcc39cccf30aaf991fe5ab34f704033d34fe and complete governed reconciliation."
+    },
+    {
+      "code": "REPEATED_LATE_DAILY_ORDER_GUARD",
+      "minimal_repair": "Ensure the readiness check completes and syncs by 09:10; the last three runs were 651, 349, and 305 seconds late."
+    },
+    {
+      "code": "UNCOMMITTED_WEEKLY_REFLECTION_CYCLE_AND_REFERENCES",
+      "minimal_repair": "Commit the exact W34 and W35 proposal/gate bytes under their task owner, then revalidate the affected weekly reports from Git HEAD without overwriting them."
+    },
+    {
+      "code": "UNACKNOWLEDGED_HISTORICAL_SHORT_GAPS",
+      "minimal_repair": "Do not backfill the 2026-08-17/18 close files; add immutable reconciliation for these exact paths."
+    },
+    {
+      "code": "STRATEGY_GOVERNANCE_INCONSISTENCY",
+      "minimal_repair": "A strategy-owning governed task must restore 0.3.1 unless a protected gate authorizes 0.4.0."
+    },
+    {
+      "code": "HISTORICAL_CROSS_TASK_OWNERSHIP_MISMATCH",
+      "minimal_repair": "Do not rewrite history; append governance reconciliation binding commit c463f1a and selector repair 3cb4fa1."
+    },
+    {
+      "code": "REPEATED_DUPLICATE_OPEN_SETTLEMENT_FINALIZATION",
+      "minimal_repair": "Skip 13:00 recovery after a successful same-day open fill and preserve all no-op manifests."
+    },
+    {
+      "code": "DUE_W35_REFLECTION_GITHUB_SYNC_FAILED",
+      "minimal_repair": "The reflection-evolution owner must resolve the unreferenced 20260818 baseline under an explicit governed decision, then rerun evolution-gate, experience-validate, and reflection-evolution sync without moving, deleting, or rewriting evidence."
+    }
+  ],
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "df85059f61e93eb7eef9939f58e46846bbc12bbe",
+    "origin_main_before_sync": "df85059f61e93eb7eef9939f58e46846bbc12bbe",
+    "remote_main_before_sync": "df85059f61e93eb7eef9939f58e46846bbc12bbe",
+    "heartbeat_sha256": "918b3cabba57144a797b3cbb16e13aaae2933ebfce86f5f138200012b259a48a",
+    "portfolio_sha256": "254aaffead6c3bebd2958f87f119096feca615492cf8a2da8871a015aa68e8e4",
+    "orders_sha256": "bdd0a26d3ba13c8b4623d296a640307845dbb2c4e5a88a4994f9026a20e072fb",
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "api_cost_log_sha256": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "financial_state_modified_by_monitor": false,
+    "historical_report_modified": false,
+    "strategy_modified_by_monitor": false,
+    "automation_definition_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false,
+    "project_experience_promoted": false
+  }
+}
