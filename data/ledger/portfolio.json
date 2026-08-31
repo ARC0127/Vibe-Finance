@@ -2,21 +2,54 @@
   "cash_cny": 9285.4,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "a83a5c71585746f49c6b83a2f5279ac9",
-  "pending_orders": [],
+  "last_run_id": "f22d87ed2dae4699a58ce5bcace8e0ec",
+  "pending_orders": [
+    {
+      "exit_plan": {
+        "hard_stop_loss_return": -0.08,
+        "hard_trend_below_ma20_ratio": 0.95,
+        "overweight_tolerance": 0.02,
+        "partial_reduce_fraction": 0.5,
+        "profit_protection_activation_return": 0.12,
+        "profit_protection_drawdown_from_peak": -0.05,
+        "soft_trend_below_ma20_ratio": 1.0,
+        "strategy_version": "0.4.0"
+      },
+      "exposure_group": "consumer",
+      "limit_price": 0.0,
+      "lot_size": 100,
+      "name": "汇添富中证主要消费ETF",
+      "order_id": "4f3e581f382e4e9d8dc1bb1ea1ee73ce",
+      "quantity": 100,
+      "reasons": [
+        "TREND_NOT_CONFIRMED",
+        "DAILY_WEAKNESS_ROTATION"
+      ],
+      "risk_bucket": "industry_equity",
+      "side": "SELL",
+      "signal_as_of": "2026-08-31T16:30:00+08:00",
+      "signal_close": 0.666,
+      "signal_date": "2026-08-31",
+      "signal_score": 0.1,
+      "signal_type": "DAILY_WEAKNESS_ROTATION",
+      "simulation_only": true,
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "159928"
+    }
+  ],
   "performance": {
     "cumulative_buy_notional_cny": 23876.4,
     "cumulative_fees_cny": 90.0,
     "cumulative_sell_notional_cny": 3351.8,
     "filled_trade_count": 18,
-    "investable_value_cny": 30215.2,
+    "investable_value_cny": 30368.6,
     "last_filled_trade_date": "2026-08-31",
     "last_partial_valuation_as_of": "2026-07-22T08:00:00+08:00",
-    "last_valuation_as_of": "2026-08-31T09:31:24+08:00",
-    "project_equity_cny": 30315.2,
+    "last_valuation_as_of": "2026-08-31T16:30:00+08:00",
+    "project_equity_cny": 30468.6,
     "realized_pnl_cny": -252.34,
-    "total_pnl_cny": 315.2,
-    "total_return_pct": 0.01050666666666669,
+    "total_pnl_cny": 468.6,
+    "total_return_pct": 0.015619999999999952,
     "valuation_complete": true,
     "valuation_stale_symbols": []
   },
@@ -39,13 +72,13 @@
       "exposure_group": "consumer",
       "highest_mark_since_entry": 0.671,
       "last_buy_date": "2026-08-26",
-      "last_price": 0.671,
-      "last_price_as_of": "2026-08-31T09:31:24+08:00",
-      "market_value_cny": 2348.5,
+      "last_price": 0.666,
+      "last_price_as_of": "2026-08-31T16:14:06+08:00",
+      "market_value_cny": 2331.0,
       "name": "汇添富中证主要消费ETF",
       "quantity": 3500,
       "risk_bucket": "industry_equity",
-      "unrealized_pnl_cny": 33.64
+      "unrealized_pnl_cny": 16.14
     },
     "510300": {
       "acquired_date": "2026-07-21",
@@ -65,13 +98,13 @@
       "exposure_group": "csi300",
       "highest_mark_since_entry": 4.726,
       "last_buy_date": "2026-07-21",
-      "last_price": 4.64,
-      "last_price_as_of": "2026-08-31T09:31:23+08:00",
-      "market_value_cny": 5568.0,
+      "last_price": 4.685,
+      "last_price_as_of": "2026-08-31T16:14:47+08:00",
+      "market_value_cny": 5622.0,
       "name": "华泰柏瑞沪深300ETF",
       "quantity": 1200,
       "risk_bucket": "core_equity",
-      "unrealized_pnl_cny": -49.4
+      "unrealized_pnl_cny": 4.6
     },
     "510500": {
       "acquired_date": "2026-07-27",
@@ -91,13 +124,13 @@
       "exposure_group": "csi500",
       "highest_mark_since_entry": 7.998,
       "last_buy_date": "2026-07-28",
-      "last_price": 7.85,
-      "last_price_as_of": "2026-08-31T09:31:21+08:00",
-      "market_value_cny": 2355.0,
+      "last_price": 7.967,
+      "last_price_as_of": "2026-08-31T16:14:33+08:00",
+      "market_value_cny": 2390.1,
       "name": "南方中证500ETF",
       "quantity": 300,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 55.43
+      "unrealized_pnl_cny": 90.53
     },
     "510880": {
       "acquired_date": "2026-07-28",
@@ -115,15 +148,15 @@
       },
       "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
       "exposure_group": "dividend",
-      "highest_mark_since_entry": 3.466,
+      "highest_mark_since_entry": 3.489,
       "last_buy_date": "2026-08-24",
-      "last_price": 3.466,
-      "last_price_as_of": "2026-08-31T09:31:23+08:00",
-      "market_value_cny": 4505.8,
+      "last_price": 3.489,
+      "last_price_as_of": "2026-08-31T16:14:32+08:00",
+      "market_value_cny": 4535.7,
       "name": "华泰柏瑞上证红利ETF",
       "quantity": 1300,
       "risk_bucket": "dividend_equity",
-      "unrealized_pnl_cny": 275.57
+      "unrealized_pnl_cny": 305.47
     },
     "512100": {
       "acquired_date": "2026-07-21",
@@ -141,15 +174,15 @@
       },
       "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
       "exposure_group": "csi1000",
-      "highest_mark_since_entry": 3.145,
+      "highest_mark_since_entry": 3.149,
       "last_buy_date": "2026-08-28",
-      "last_price": 3.095,
-      "last_price_as_of": "2026-08-31T09:31:22+08:00",
-      "market_value_cny": 3404.5,
+      "last_price": 3.149,
+      "last_price_as_of": "2026-08-31T16:14:52+08:00",
+      "market_value_cny": 3463.9,
       "name": "南方中证1000ETF",
       "quantity": 1100,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 218.9
+      "unrealized_pnl_cny": 278.3
     },
     "518880": {
       "acquired_date": "2026-08-12",
@@ -169,13 +202,13 @@
       "exposure_group": "gold",
       "highest_mark_since_entry": 9.607,
       "last_buy_date": "2026-08-14",
-      "last_price": 9.16,
-      "last_price_as_of": "2026-08-31T09:31:22+08:00",
-      "market_value_cny": 2748.0,
+      "last_price": 9.135,
+      "last_price_as_of": "2026-08-31T16:14:55+08:00",
+      "market_value_cny": 2740.5,
       "name": "华安黄金易ETF",
       "quantity": 300,
       "risk_bucket": "gold",
-      "unrealized_pnl_cny": 33.4
+      "unrealized_pnl_cny": 25.9
     }
   },
   "research_infrastructure": {
@@ -827,6 +860,12 @@
       "mode": "open_settlement",
       "run_date": "2026-08-31",
       "run_id": "a83a5c71585746f49c6b83a2f5279ac9"
+    },
+    {
+      "input_sha256": "41e67021280ea2c854db7d43daadae99554012799fa1f0d68b30fe8c15ab4efc",
+      "mode": "short",
+      "run_date": "2026-08-31",
+      "run_id": "f22d87ed2dae4699a58ce5bcace8e0ec"
     }
   ],
   "schema_version": 1
