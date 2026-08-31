@@ -1,8 +1,8 @@
 {
-  "input_sha256": "31d2da2d48624e131ee3b8bd6dcb5202c574ace6e2463ee0bd5762967dd12694",
-  "last_success_at": "2026-08-31T00:06:28.522104+00:00",
-  "mode": "preopen",
+  "input_sha256": "70de8a9f49464641a7a2da307c64a3c5824bfdd84affb37c06f8ad037e5eb3c7",
+  "last_success_at": "2026-08-31T01:31:45.572726+00:00",
+  "mode": "open_settlement",
   "run_date": "2026-08-31",
-  "run_id": "b9c96a7af57e46dab01af87490737a4a",
+  "run_id": "a83a5c71585746f49c6b83a2f5279ac9",
   "status": "ACTIVE"
 }
