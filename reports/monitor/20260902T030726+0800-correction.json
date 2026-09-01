@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "report_type": "IMMUTABLE_MONITOR_CORRECTION",
+  "run_timestamp": "2026-09-02 03:07:26 CST",
+  "created_at_utc": "2026-09-01T19:07:26.015Z",
+  "simulation_only": true,
+  "corrects": {
+    "report": "reports/monitor/20260902T025502+0800.json",
+    "report_sha256": "28a2ee45e9c699c2a9aa1562fd8eca4c1541acb1c64cc6a0b27d06463cd08841",
+    "commit": "87a96560a2c1030d97da40da3f441208a61d33cb",
+    "manifest": "reports/automation-runs/activity-monitor/20260902T030559+0800.json",
+    "manifest_sha256": "8fc7451ed91ec7a5b9beecf48774da56933374b8198f174d370c5a916f44419a",
+    "json_pointer": "/governance/untracked_files_before_sync",
+    "recorded_value": 45,
+    "correct_value": 46,
+    "evidence_command": "git status --short --untracked-files=all",
+    "evidence_result": {
+      "worktree_entries": 46,
+      "untracked_entries": 46,
+      "tracked_changes": 0
+    }
+  },
+  "impact": {
+    "status_command": "UNCHANGED_ACTIVE",
+    "alert_count": 9,
+    "alert_set_changed": false,
+    "financial_state_changed": false,
+    "historical_report_changed": false,
+    "strategy_changed": false,
+    "deepseek_called": false
+  },
+  "governance": {
+    "correction_method": "APPEND_ONLY_HASH_BOUND_CORRECTION",
+    "original_report_overwritten": false,
+    "foreign_untracked_files_modified": false,
+    "requires_governed_sync": true
+  }
+}
