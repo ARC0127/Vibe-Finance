@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "automation_id": "vibe-finance-9",
+  "task_id": "daily-order-guard",
+  "status": "FAILED_TIME_WINDOW_CLOSED",
+  "run_date": "2026-09-03",
+  "timezone": "Asia/Shanghai",
+  "scheduled_guard_cutoff": "2026-09-03T09:10:00+08:00",
+  "actual_owner_run_at": "2026-09-03T16:37:53+08:00",
+  "failure_reason": "TIME_WINDOW_CLOSED_AND_SAME_DAY_PREOPEN_EVIDENCE_MISSING",
+  "failure_classification": "FAIL_CLOSED",
+  "finding": "The daily-order-guard owner ran after the 09:10 preopen guard cutoff and after the 09:30-09:35 opening proof window. No same-day 08:00 preopen input or report was present, so generating a 09:10 preopen recovery artifact at this time would create invalid temporal provenance.",
+  "same_day_preopen_evidence": {
+    "input_path": "data/inbox/2026-09-03-preopen.json",
+    "input_exists": false,
+    "report_json_path": "reports/preopen/2026-09-03-preopen.json",
+    "report_json_exists": false,
+    "report_md_path": "reports/preopen/2026-09-03-preopen.md",
+    "report_md_exists": false
+  },
+  "current_ledger_reread": {
+    "portfolio_path": "data/ledger/portfolio.json",
+    "portfolio_sha256": "5d8e873e80b8547c9eec846dba81e5df3f176c14383b7a20d91b2b9e079870cf",
+    "orders_path": "data/ledger/orders.jsonl",
+    "orders_sha256": "7c5181437989a1da3d5a10ec1a7fb11e5cd873b1d70f7af23cab616087db2e97",
+    "pending_orders": 1,
+    "pending_next_open_order": {
+      "order_id": "0e87aeb5b1654d9ea74ab2c77fe1d63d",
+      "status": "PENDING_NEXT_OPEN",
+      "symbol": "518880",
+      "side": "SELL",
+      "quantity": 100,
+      "signal_as_of": "2026-09-02T16:30:00+08:00",
+      "signal_type": "DAILY_WEAKNESS_ROTATION",
+      "limit_price": 0.0,
+      "simulation_only": true
+    }
+  },
+  "latest_available_pipeline_status": {
+    "status": "ACTIVE",
+    "last_success_at": "2026-09-02T08:37:04.933896+00:00",
+    "last_run_id": "7132a04a3a864ee39ffefe2682cb1904",
+    "last_run_date": "2026-09-02",
+    "last_mode": "short",
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 20,
+    "last_filled_trade_date": "2026-09-02",
+    "project_equity_cny": 30094.6,
+    "total_pnl_cny": 94.6
+  },
+  "constraints": [
+    "No 2026-09-03 0910 recovery preopen input was generated.",
+    "No 2026-09-03 preopen report was generated.",
+    "No order, portfolio, heartbeat, strategy, or broker-facing state was modified by this failure evidence.",
+    "The existing 2026-09-02 close-analysis pending order is retained as ledger state, but this run does not claim a timely 2026-09-03 09:10 readiness check.",
+    "No NO_TRADE success substitution was used."
+  ],
+  "governance_action": "Sync only failure governance evidence through scripts/sync_github.sh daily-order-guard FAILED_TIME_WINDOW_CLOSED.",
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "remaining_cny": 100.0
+  }
+}
