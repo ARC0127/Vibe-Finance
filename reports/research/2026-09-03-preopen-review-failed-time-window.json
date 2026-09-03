@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "automation_id": "vibe-finance-4",
+  "task_id": "preopen-review",
+  "status": "FAILED_TIME_WINDOW_CLOSED",
+  "failure_code": "FAILED_LATE_DISPATCH",
+  "failure_reason": "INVALID_TEMPORAL_PROVENANCE",
+  "claim_boundary": "FAILURE_GOVERNANCE_ONLY_NOT_PREOPEN_EVIDENCE",
+  "run_date": "2026-09-03",
+  "timezone": "Asia/Shanghai",
+  "scheduled_evidence_cutoff": "2026-09-03T08:00:00+08:00",
+  "actual_dispatch_time": "2026-09-03T16:35:56.133+08:00",
+  "clock_verified_at": "2026-09-03T16:36:29+08:00",
+  "governance_observation_at": "2026-09-03T16:41:38.152247+08:00",
+  "finding": "Dispatch occurred after the 08:00 preopen cutoff, the documented 09:10 recovery check, and the 09:30-09:35 opening window. No same-day preopen snapshot exists. Current post-close observations cannot be backfilled as evidence available at 08:00. The preopen business pipeline was not run.",
+  "trading_day_check": {
+    "classification": "TRADING_DAY",
+    "basis": "Thursday outside both exchanges' published 2026 holiday closure intervals",
+    "checked_after_window": true,
+    "scope": "CALENDAR_CLASSIFICATION_ONLY",
+    "not_used_for_preopen_market_facts": true,
+    "sources": [
+      {
+        "authority": "Shanghai Stock Exchange",
+        "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+        "published_on": "2025-12-22",
+        "access_status": "VERIFIED",
+        "result": "The September holiday closure is September 25-27; September 3 and 4 are outside the published closure intervals."
+      },
+      {
+        "authority": "Shenzhen Stock Exchange",
+        "url": "https://www.szse.cn/disclosure/notice/general/t20251222_618087.html",
+        "access_status": "VERIFIED_HTTP_200",
+        "access_attempts": ["Web fetch timed out", "Windows HTTPS read returned HTTP 200 and the September 25-27 closure paragraph"],
+        "result": "The September holiday closure is September 25-27, with reopening September 28."
+      }
+    ]
+  },
+  "experience_context": {
+    "validation_status": "PASS",
+    "scope": "CURRENT_GOVERNANCE_CHECK_NOT_RETROACTIVE_PREOPEN_CONTEXT",
+    "record_count": 3,
+    "experience_count": 3,
+    "promoted_rule_count": 0,
+    "proposed_only_count": 0,
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "ledger_sha256": "fd55fafbcf38eec9495ab512ed64a535a64d5dea85da5e9e1ef6c7e1b2e92e21",
+    "experiences": [
+      {"experience_id": "EXP-W33-EXIT-CLOSED-LOOP", "validation_status": "OBSERVED", "strategy_status": "NON_BINDING"},
+      {"experience_id": "EXP-W33-FACTOR-DIVERSIFICATION", "validation_status": "OBSERVED", "strategy_status": "NON_BINDING"},
+      {"experience_id": "EXP-W33-FEE-FRICTION", "validation_status": "OBSERVED", "strategy_status": "NON_BINDING"}
+    ],
+    "effect_on_ranking_sizing_orders": "NONE"
+  },
+  "business_pipeline_actions": {
+    "preopen_snapshot_created": false,
+    "preopen_validation_run": false,
+    "preopen_strategy_run": false,
+    "preopen_report_created": false,
+    "order_created": false,
+    "fill_created": false,
+    "heartbeat_written": false,
+    "strategy_or_experience_modified": false,
+    "post_cutoff_market_data_backfilled": false,
+    "update_readme_command": "COMPLETED_BYTE_IDENTICAL",
+    "readme_sha256_before_and_after": "ae3a676373402b93f7c69129d95b10d954a4d6cb5bfba9550ee8fbc52f679564"
+  },
+  "absence_checks": [
+    "data/inbox/2026-09-03-preopen.json",
+    "data/inbox/2026-09-03-0910-preopen.json",
+    "reports/preopen/2026-09-03-preopen.json",
+    "reports/preopen/2026-09-03-preopen.md"
+  ],
+  "ledger_preservation": {
+    "orders_sha256_at_observation": "7c5181437989a1da3d5a10ec1a7fb11e5cd873b1d70f7af23cab616087db2e97",
+    "portfolio_sha256_at_observation": "7baa17d6c7355831c39a0863cd9fc9ff072c0f4daca7bd23003393ca950616e9",
+    "heartbeat_sha256_at_observation": "c294a7d4d92741781d9338894067eeb7c076e54635e17fa8b8c46673b8ac0558",
+    "canonical_order_event_count": 77,
+    "portfolio_and_canonical_pending_ids_match": true,
+    "new_orders_written": 0,
+    "new_fills_written": 0,
+    "estimated_new_order_notional_cny": 0.0
+  },
+  "current_ledger_observation": {
+    "scope": "POST_CLOSE_LOCAL_AUDIT_ONLY_NOT_0800_FACTS",
+    "valuation_as_of": "2026-09-03T16:30:00+08:00",
+    "project_equity_cny": 30174.4,
+    "cash_cny": 9274.5,
+    "positions": 6,
+    "exposure_groups": 6,
+    "filled_trade_count": 20,
+    "last_filled_trade_date": "2026-09-02",
+    "pending_next_nav_count": 0,
+    "pending_next_open_count": 1,
+    "pending_next_open": [
+      {
+        "order_id": "0e87aeb5b1654d9ea74ab2c77fe1d63d",
+        "symbol": "518880",
+        "side": "SELL",
+        "quantity": 100,
+        "signal_as_of": "2026-09-02T16:30:00+08:00",
+        "signal_close": 8.902,
+        "signal_price_notional_cny": 890.2,
+        "preopen_readiness": "NOT_REVALIDATED_TIME_WINDOW_CLOSED",
+        "action_by_this_task": "NONE"
+      }
+    ]
+  },
+  "snapshot_and_research_coverage": {
+    "status": "NOT_REBUILT_TIME_WINDOW_CLOSED",
+    "configured_listed_asset_count": 13,
+    "configured_asset_type_counts": {"equity_etf": 10, "gold_etf": 1, "bond_etf": 1, "cash_etf": 1},
+    "new_preopen_assets_with_history_dual_source_price_and_price_as_of": 0,
+    "all_holdings_and_pending_symbols_must_be_in_next_timely_snapshot": true,
+    "preopen_diversification_and_risk_projection": "NOT_COMPUTED",
+    "stock_shortlist_and_fund_buckets": "NOT_RESEARCHED_AFTER_CUTOFF_FOR_PREOPEN",
+    "security_identity_status": "UNVERIFIED_THIS_PREOPEN_RUN",
+    "st_delisting_status": "UNVERIFIED_THIS_PREOPEN_RUN",
+    "corporate_action_status": "UNVERIFIED_THIS_PREOPEN_RUN"
+  },
+  "preexisting_artifact_disposition": {
+    "policy": "PRESERVED_OTHER_TASK_OWNERSHIP_NOT_ACCEPTED_AS_PREOPEN_EVIDENCE",
+    "close_run_id": "95b0f67d53e6419eac366d203ecc6f3f",
+    "close_input": {"path": "data/inbox/2026-09-03.json", "sha256": "e21765155f9ba63d7251a46c05641269bb9971b6d1d31181afcbee4e078131e4"},
+    "close_report": {"path": "reports/daily/2026-09-03-short.json", "sha256": "5b35adbc94324af25aff229ce90132ab3a3f447d8c3acadca26fac77f63455a5"},
+    "excluded_from_preopen_sync": ["README.md", "data/ledger", "data/inbox/2026-09-03.json", "reports/daily", "reports/document-log", "docs/DOCUMENT_LOG_INDEX.md", "reports/research/2026-09-03-daily-order-guard-failed-time-window.json", "reports/research/2026-09-03-daily-order-guard-failed-time-window.md"]
+  },
+  "repair_disposition": "NON_REPAIRABLE_ELAPSED_TIME_WINDOW_KEEP_FAIL_CLOSED",
+  "governed_sync": {
+    "required_command": "scripts/sync_github.sh preopen-review FAILED_TIME_WINDOW_CLOSED",
+    "result_location": "reports/automation-runs/preopen-review/",
+    "expected_payload": ["reports/research/2026-09-03-preopen-review-failed-time-window.json", "reports/research/2026-09-03-preopen-review-failed-time-window.md", "this task's newly generated sync manifest"]
+  },
+  "deepseek": {"actual_calls": 0, "spent_cny": 0.0},
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "not_investment_advice": true,
+  "next_automatic_retry": "2026-09-04T08:00:00+08:00"
+}
