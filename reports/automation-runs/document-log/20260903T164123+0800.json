@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_id": "document-log",
+  "task_status": "PASS_WITH_FINDINGS",
+  "run_timestamp": "2026-09-03 16:41:23 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "773b2384a305d15e5c933ea6adba7427cff17f56",
+  "allowlist": [
+    "reports/document-log",
+    "docs/DOCUMENT_LOG_INDEX.md",
+    "docs/GITHUB_AUTOMATION.md",
+    "README.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "docs/SOURCES.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17575,
+      "sha256": "ae3a676373402b93f7c69129d95b10d954a4d6cb5bfba9550ee8fbc52f679564"
+    },
+    {
+      "git_status": " M",
+      "path": "docs/DOCUMENT_LOG_INDEX.md",
+      "bytes": 136365,
+      "sha256": "6785b71d8a5859c1855ca5eee776ff5bdc2196536553d393d4010924418a617b"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-09-03-1636.json",
+      "bytes": 543070,
+      "sha256": "b0f41846e05352f11fd90404c622f1f9e1209356a023a0e249a652469b7d148c"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-09-03-1636.md",
+      "bytes": 4710,
+      "sha256": "6b1b89bcc72759ed71bddcceab2fd3c739eb3f31f4ab051a23cd7cbf583991e7"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-03T08:41:23.628871+00:00",
+  "simulation_only": true
+}
