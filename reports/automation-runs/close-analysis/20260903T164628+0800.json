@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "task_id": "close-analysis",
+  "task_status": "ORDER_SCHEDULED",
+  "run_timestamp": "2026-09-03 16:46:28 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "431fb33cdbf27dac132e1bec2416e64714ab12af",
+  "allowlist": [
+    "reports/daily",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 263,
+      "sha256": "c294a7d4d92741781d9338894067eeb7c076e54635e17fa8b8c46673b8ac0558"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 32515,
+      "sha256": "7baa17d6c7355831c39a0863cd9fc9ff072c0f4daca7bd23003393ca950616e9"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-09-03.json",
+      "bytes": 166009,
+      "sha256": "e21765155f9ba63d7251a46c05641269bb9971b6d1d31181afcbee4e078131e4"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/95b0f67d53e6419eac366d203ecc6f3f/commit.json",
+      "bytes": 974,
+      "sha256": "9b67bc38f8afe7f1c53b3eba0a69f0a7ed1f4dcdde98a73b1b3bb36d3c6af43a"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/95b0f67d53e6419eac366d203ecc6f3f/prepare.json",
+      "bytes": 66596,
+      "sha256": "79dd18d5f84f8ca84303c5f7c3ac07227df2f5193f4f1166f0596c892b535056"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-09-03-short.json",
+      "bytes": 14558,
+      "sha256": "5b35adbc94324af25aff229ce90132ab3a3f447d8c3acadca26fac77f63455a5"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/daily/2026-09-03-short.md",
+      "bytes": 15424,
+      "sha256": "61ee08b90250220d4d07411121c8dfde25e3d2d749c724a4ee80cc5cc2e3e35d"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-03T08:46:28.273362+00:00",
+  "simulation_only": true
+}
