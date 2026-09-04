@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_id": "document-log",
+  "task_status": "PASS_WITH_FINDINGS",
+  "run_timestamp": "2026-09-04 23:15:30 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "d336c0081d87fe0406e65363a657a2e260b9f31c",
+  "allowlist": [
+    "reports/document-log",
+    "docs/DOCUMENT_LOG_INDEX.md",
+    "docs/GITHUB_AUTOMATION.md",
+    "README.md",
+    "MODE_LOCK.md",
+    "MODE_LOCK.json",
+    "docs/SOURCES.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "docs/DOCUMENT_LOG_INDEX.md",
+      "bytes": 142793,
+      "sha256": "56f8304b7432b2099465df861747b3479bdc8e97449ea79e216b9c388a51de42"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-09-04-2312.json",
+      "bytes": 570163,
+      "sha256": "a65836dec5698a7eb2b2643817ade26ccfb39fefcb0a44ef8c3bee1b28cb8731"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/document-log/2026-09-04-2312.md",
+      "bytes": 6104,
+      "sha256": "ed6a7bf9bbccc6be6475f0950140cc400485ae0b4a3343d033ac6f40e63f26c9"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-04T15:15:31.010257+00:00",
+  "simulation_only": true
+}
