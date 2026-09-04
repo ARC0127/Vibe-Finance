@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "run_date": "2026-09-04",
+  "cutoff": "2026-09-04T08:00:00+08:00",
+  "simulation_only": true,
+  "announcements": {
+    "http_status": 200,
+    "retrieved_at": "2026-09-04T08:06:48.3317535+08:00",
+    "parsed": {
+      "actionErrors": [],
+      "actionMessages": [],
+      "fieldErrors": {},
+      "isPagination": "true",
+      "jsonCallBack": null,
+      "locale": "en_CN",
+      "pageHelp": {
+        "beginPage": 1,
+        "cacheSize": 5,
+        "data": [
+          {
+            "SSEDATE": "2026-08-31",
+            "ORG_BULLETIN_TYPE_DESC": "中期报告",
+            "BULLETIN_TYPE_DESC": "定期报告(基金)",
+            "NUM": "1",
+            "TITLE": "华安易富黄金交易型开放式证券投资基金2026年中期报告",
+            "FUND_EXPANSION_ABBR": "黄金ETF华安",
+            "SECURITY_CODE": "518880",
+            "URL": "/disclosure/fund/announcement/c/new/2026-08-31/518880_20260831_BLZG.pdf"
+          }
+        ],
+        "endDate": null,
+        "endPage": 1,
+        "objectResult": null,
+        "pageCount": 1,
+        "pageNo": 1,
+        "pageSize": 100,
+        "pageSizeWithOutLimit": 100,
+        "searchDate": null,
+        "sort": null,
+        "startDate": null,
+        "total": 1
+      },
+      "pageNo": null,
+      "pageSize": null,
+      "queryDate": "",
+      "result": [
+        {
+          "SSEDATE": "2026-08-31",
+          "ORG_BULLETIN_TYPE_DESC": "中期报告",
+          "BULLETIN_TYPE_DESC": "定期报告(基金)",
+          "NUM": "1",
+          "TITLE": "华安易富黄金交易型开放式证券投资基金2026年中期报告",
+          "FUND_EXPANSION_ABBR": "黄金ETF华安",
+          "SECURITY_CODE": "518880",
+          "URL": "/disclosure/fund/announcement/c/new/2026-08-31/518880_20260831_BLZG.pdf"
+        }
+      ],
+      "securityCode": "",
+      "sqlId": "COMMON_PL_JJXX_JJGG_NEW_L",
+      "texts": null,
+      "type": "inParams",
+      "validateCode": ""
+    },
+    "decoded_body_sha256": "a56f8ffe3479a45d9e4789babf56e59ebc1abac825f07831bd04f983d36ce920",
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=100&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&type=inParams&sqlId=COMMON_PL_JJXX_JJGG_NEW_L&SECURITY_CODE=518880&START_DATE=2026-08-01&END_DATE=2026-09-04&DATE_DESC=1"
+  },
+  "historical_pcf": {
+    "http_status": 200,
+    "text": "华安易富黄金交易型基金--特征与优势 申购赎回清单 (文件下载) 类型 上交所 金交所 历史查询 查询 基本信息 最新公告日期 20260903 基金名称 华安易富黄金交易型基金 基金管理公司名称 华安基金管理有限公司 基金代码 518880 20260902 信息内容 现金差额(单位:元) ￥ -45,561.97 最小申购、赎回单位资产净值(单位:元) ￥ 891,938.03 基金份额净值(单位:元) ￥ 8.9194 20260903 信息内容 预估现金部分(单位:元) ￥ -45,561.97 现金替代比例上限 100.00% 申购上限 1500000000 赎回上限 450000000 是否需要公布IOPV 是 最小申购、赎回单位(单位:份) 100,000.00 申购、赎回的允许情况 申购和赎回皆允许 成份股信息内容 股票代号 证券简称 股票数量 现金替代标志 申购现金替代溢价比例 赎回现金替代溢价比例 固定替代金额 Au9999 黄金9999 1000 允许 10.00% 0.00% 937500",
+    "retrieved_at": "2026-09-04T08:06:49.3398345+08:00",
+    "decoded_body_sha256": "86cf78b4e2e159a8c54bee903e325144e407aa676df1d004a6c869981346eb6e",
+    "url": "https://huaan.com.cn/etf/518880/sgshqd.jsp?querydate=2026-09-03"
+  },
+  "current_pcf_excluded": {
+    "url": "https://huaan.com.cn/etf/518880/sgshqd.jsp",
+    "observed_date": "2026-09-04",
+    "reason": "Publication time before 08:00 could not be established; not admitted as cutoff evidence"
+  },
+  "calendar": {
+    "published_at": "2025-12-22",
+    "szse_current_access": "WEB_TIMEOUT_AND_WINDOWS_TLS_EOF",
+    "source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+    "basis": "Friday outside SSE published 2026 holiday closures",
+    "szse_source": "https://www.szse.cn/disclosure/notice/general/t20251222_618087.html",
+    "status": "TRADING_DAY"
+  },
+  "tiantian_discovery": {
+    "url": "https://fund.eastmoney.com/518880.html",
+    "primary_verification": "SSE announcement list and fund-manager historical PCF",
+    "scope": "Fund identity and announcement discovery only; no ranking, live quote, or unverified NAV admitted to order prices"
+  },
+  "not_investment_advice": true
+}
