@@ -1,0 +1,741 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "automation_id": "vibe-finance-3",
+  "heartbeat_trigger_utc": "2026-09-04T02:37:57.091Z",
+  "created_at_utc": "2026-09-04T02:43:31.722Z",
+  "timezone": "Asia/Shanghai",
+  "simulation_only": true,
+  "claim_boundary": "Read-only local activity monitoring. No real trading connection and no investment advice.",
+  "notification": {
+    "decision": "DONT_NOTIFY",
+    "reason": "Six previously notified historical/governance findings remain unchanged. Today's preopen and opening cycles completed under owner-scoped sync; the existing pending order was filled from timely dual-source evidence. No new stale, missing, consistency, budget or command failure was found."
+  },
+  "baseline_monitor": {
+    "path": "reports/monitor/20260904T043644+0800.json",
+    "sha256": "de3ee2463aed1cc5f4937304fca793991d783195959a0e4cddb5e3a767d545a9"
+  },
+  "status_command": {
+    "command": "python3 -m vibe_finance status",
+    "exit_code": 0,
+    "status": "ACTIVE",
+    "last_success_at": "2026-09-04T01:32:21.799019+00:00",
+    "last_success_at_shanghai": "2026-09-04T09:32:21.799019+08:00",
+    "last_run_id": "64ee9522efe947e19419c98ed0bd5c93",
+    "last_mode": "open_settlement",
+    "max_age_hours": 36,
+    "age_hours_at_audit": 1.1550713888888888
+  },
+  "calendar_context": {
+    "latest_due_short_date": "2026-09-03",
+    "latest_due_fund_date": "2026-09-03",
+    "current_local_date": "2026-09-04",
+    "current_local_weekday": "Friday",
+    "today_preopen_due": true,
+    "today_open_due": true,
+    "today_preopen_present": true,
+    "today_open_present": true,
+    "weekends_excluded": true,
+    "local_evaluation_calendar": "NOT_ACQUIRED_UNMODIFIED",
+    "official_holiday_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+    "verification_basis": "The official SSE 2026 closure notice was read in the preceding monitor earlier on September 4; its contents remain available in this thread. September 3-4 are weekdays outside the published closures. Today's 16:30 short and 22:30 fund cutoffs are not yet due. No calendar or market data was written.",
+    "next_owner_checkpoint_at": "2026-09-04T13:00:00+08:00",
+    "next_owner_checkpoint_expectation": "The intraday owner must re-read the ledger; today's fill requirement is already met and pending_orders is zero, so no recovery trade is needed.",
+    "next_short_cutoff_at": "2026-09-04T16:30:00+08:00",
+    "next_fund_cutoff_at": "2026-09-04T22:30:00+08:00",
+    "nominal_next_monitor_at": "2026-09-04T16:37:57.091+08:00"
+  },
+  "checked_at_utc": "2026-09-04T02:41:40.056992+00:00",
+  "current_reports": {
+    "short": {
+      "report": "reports/daily/2026-09-03-short.json",
+      "input": "data/inbox/2026-09-03.json",
+      "as_of": "2026-09-03T16:30:00+08:00",
+      "run_id": "95b0f67d53e6419eac366d203ecc6f3f",
+      "input_sha256_matches": true,
+      "blocks": [],
+      "fills": 0,
+      "new_orders": 0,
+      "daily_execution_status": "ORDER_SCHEDULED",
+      "report_tracked": true,
+      "input_tracked": true
+    },
+    "fund": {
+      "report": "reports/funds/2026-09-03-funds.json",
+      "input": "data/inbox/2026-09-03-funds.json",
+      "as_of": "2026-09-03T22:30:00+08:00",
+      "run_id": "79da02bd9be84775add3539026d55cad",
+      "input_sha256_matches": true,
+      "blocks": [
+        "NAV_NOT_PUBLISHED"
+      ],
+      "fills": 0,
+      "new_orders": 0,
+      "daily_execution_status": null,
+      "report_tracked": true,
+      "input_tracked": true
+    },
+    "preopen": {
+      "report": "reports/preopen/2026-09-04-preopen.json",
+      "input": "data/inbox/2026-09-04-preopen.json",
+      "as_of": "2026-09-04T08:00:00+08:00",
+      "run_id": "4f0b6b8d35c9419aaf16c185692cd75a",
+      "input_sha256_matches": true,
+      "blocks": [],
+      "fills": 0,
+      "new_orders": 0,
+      "daily_execution_status": "ORDER_SCHEDULED",
+      "report_tracked": true,
+      "input_tracked": true
+    },
+    "open": {
+      "report": "reports/execution/2026-09-04-open.json",
+      "input": "data/inbox/2026-09-04-open.json",
+      "as_of": "2026-09-04T09:31:58+08:00",
+      "run_id": "64ee9522efe947e19419c98ed0bd5c93",
+      "input_sha256_matches": true,
+      "blocks": [],
+      "fills": 1,
+      "new_orders": 0,
+      "daily_execution_status": "PASS",
+      "report_tracked": true,
+      "input_tracked": true
+    }
+  },
+  "long_cycle": {
+    "report": "reports/weekly/2026-W35.json",
+    "generated_at": "2026-08-30T20:15:50+08:00",
+    "age_days": 4.601286045601851,
+    "input_count": 56,
+    "drift": [
+      {
+        "path": "data/ledger/orders.jsonl",
+        "expected": "bdd0a26d3ba13c8b4623d296a640307845dbb2c4e5a88a4994f9026a20e072fb",
+        "actual": "b43f23f33e73b8415c0857d50e47be6ae895849c468f4079dd3b8ebaf04534c9"
+      },
+      {
+        "path": "data/ledger/portfolio.json",
+        "expected": "254aaffead6c3bebd2958f87f119096feca615492cf8a2da8871a015aa68e8e4",
+        "actual": "b26187c6348b3a3ad331027f93ebcf58f6ae79630ba64abd87a2b036eacba298"
+      }
+    ],
+    "missing": [],
+    "untracked_inputs": [
+      "reports/evolution/20260829-w35-no-decidable-experience/gate.json",
+      "reports/evolution/20260829-w35-no-decidable-experience/proposal.json"
+    ],
+    "freshness": "CURRENT",
+    "max_age_days": 8,
+    "current_hash_matches": 54,
+    "drift_disposition": "orders and portfolio changed under later governed runs. The earlier 71-event prefix/line-ending equivalence audit remains hash-bound in the baseline monitor.",
+    "uncommitted_reference_status": "UNRESOLVED"
+  },
+  "ledger": {
+    "parse_status": "PASS",
+    "json_files": 229,
+    "jsonl_files": 3,
+    "jsonl_rows": 80,
+    "event_ledger_status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "event_count": 78,
+    "committed_event_count": 78,
+    "head_event_sha256": "966bbe0b6a93c06a0fa5ccf17bc8db04e27c23b31ea817aeac39b583283a5afc",
+    "git_prefix_commit": "06e5c6b46fa633ff3b45c3c4d504c863413b6335",
+    "projection": {
+      "status": "PASS",
+      "filled_event_count": 21,
+      "completed_round_trip_count": 1,
+      "eligible_sample_count": 0,
+      "cash_replay_complete": true,
+      "cash_delta_cny": "-19709.50",
+      "cumulative_buy_notional_cny": "23943.80",
+      "cumulative_sell_notional_cny": "4339.30",
+      "cumulative_fees_cny": "105.00",
+      "cumulative_realized_pnl_cny": "-245.85",
+      "open_episode_count": 6,
+      "portfolio_filled_trade_count": 21
+    },
+    "transaction_state": "COMMITTED",
+    "transaction_hash_checks": {
+      "decision_sha256": true,
+      "report_sha256": true,
+      "heartbeat_sha256": true,
+      "portfolio_sha256": true,
+      "prepare_sha256": true,
+      "run_id": true,
+      "event_head": true
+    },
+    "pending_orders": []
+  },
+  "deepseek_budget": {
+    "consistent": true,
+    "actual_calls": 0,
+    "spent_cny": 0,
+    "reserved_cny": 100,
+    "remaining_cny": 100,
+    "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+    "called_by_monitor": false,
+    "external_balance_queried": false
+  },
+  "historical_gap_governance": {
+    "path": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+    "checks": 23,
+    "passed": 23,
+    "failed": [],
+    "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+    "only_exact_listed_entries_acknowledged": true
+  },
+  "existing_findings_verification": {
+    "historical_path_states": [
+      {
+        "path": "data/inbox/2026-08-17.json",
+        "current": {
+          "exists": false,
+          "tracked": false,
+          "sha256": null
+        },
+        "same_as_prior": true
+      },
+      {
+        "path": "reports/daily/2026-08-17-short.json",
+        "current": {
+          "exists": false,
+          "tracked": false,
+          "sha256": null
+        },
+        "same_as_prior": true
+      },
+      {
+        "path": "data/inbox/2026-08-18.json",
+        "current": {
+          "exists": false,
+          "tracked": false,
+          "sha256": null
+        },
+        "same_as_prior": true
+      },
+      {
+        "path": "reports/daily/2026-08-18-short.json",
+        "current": {
+          "exists": false,
+          "tracked": false,
+          "sha256": null
+        },
+        "same_as_prior": true
+      },
+      {
+        "path": "reports/automation-runs/daily-order-guard/20260825T091607+0800.json",
+        "current": {
+          "exists": true,
+          "tracked": false,
+          "sha256": "2d99dfe61fbc7f8080f37b4bb052dcc39cccf30aaf991fe5ab34f704033d34fe"
+        },
+        "same_as_prior": true
+      },
+      {
+        "path": "reports/evolution/20260818-v040-exit-auto-promotion/baseline.json",
+        "current": {
+          "exists": true,
+          "tracked": false,
+          "sha256": "846bb4e9795ffbc506f7fd1613af08795981041f2804a03bb5028d02edea5de6"
+        },
+        "same_as_prior": true
+      },
+      {
+        "path": "reports/evolution/20260818-v040-exit-auto-promotion/preregistration.json",
+        "current": {
+          "exists": true,
+          "tracked": false,
+          "sha256": "0a8b483155774475e9408ac2c279d97e4b82ff687e3b7b810fdc53817b8a46d9"
+        },
+        "same_as_prior": true
+      }
+    ],
+    "missing_paths_still_absent": {
+      "data/inbox/2026-09-02-funds.json": true,
+      "reports/funds/2026-09-02-funds.json": true,
+      "reports/funds/2026-09-02-funds.md": true,
+      "data/inbox/2026-09-03-preopen.json": true,
+      "reports/preopen/2026-09-03-preopen.json": true,
+      "data/inbox/2026-09-03-0910-preopen.json": true,
+      "data/inbox/2026-09-03-open.json": true,
+      "reports/execution/2026-09-03-open.json": true,
+      "data/inbox/2026-09-03-intraday.json": true,
+      "reports/execution/2026-09-03-intraday.json": true
+    },
+    "prior_immutable_input_drift": [],
+    "prior_mutable_input_drift": [
+      "data/ledger/heartbeat.json",
+      "data/ledger/portfolio.json",
+      "data/ledger/orders.jsonl"
+    ],
+    "previous_monitor_input_count": 104,
+    "mutable_drift_disposition": "Exactly heartbeat, orders and portfolio changed under the new governed preopen/opening owner commits; all other prior inputs remain hash-matched. These changes preceded this monitoring run."
+  },
+  "strategy_experience_validation": {
+    "status": "PASS",
+    "record_count": 3,
+    "promoted_rule_count": 0,
+    "active_strategy_rules": [],
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a"
+  },
+  "owner_manifests": {
+    "fund-nav": {
+      "path": "reports/automation-runs/fund-nav/20260903T223718+0800.json",
+      "sha256": "1c84398ca7d8e3da15c77b3d257fc095434cc8b3eeb811e5be87a40a0c27426a",
+      "task_status": "NO_TRADE",
+      "tracked": true,
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "close-analysis": {
+      "path": "reports/automation-runs/close-analysis/20260903T164628+0800.json",
+      "sha256": "5d344fae29986f7111147e4605b46daa345d9ec7983decbc334deec0e6ea200a",
+      "task_status": "ORDER_SCHEDULED",
+      "tracked": true,
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "preopen-review": {
+      "path": "reports/automation-runs/preopen-review/20260904T082200+0800.json",
+      "sha256": "a502cdad017ca4820c80dd05a0863094d2e3072d744b57533f7db0f8de693659",
+      "task_status": "PASS_WITH_LOSSLESS_EVIDENCE_COPY",
+      "tracked": true,
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "daily-order-guard": {
+      "path": "reports/automation-runs/daily-order-guard/20260904T091644+0800.json",
+      "sha256": "fdcaa2bcf739438400669ae65bf9550582cc06e92c306ac40e45237407378cbd",
+      "task_status": "READY",
+      "tracked": true,
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "open-settlement": {
+      "path": "reports/automation-runs/open-settlement/20260904T093519+0800.json",
+      "sha256": "460f56f03c3012829d4331ea0fe520b39920832fe29ccb542d6c1ba94318f8df",
+      "task_status": "PASS",
+      "tracked": true,
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    },
+    "reflection-evolution": {
+      "path": "reports/automation-runs/reflection-evolution/20260817T100418+0800.json",
+      "sha256": "a937177979ce374ceae083997be4a41dba3bea470570334a8a6bea0b6f7802a9",
+      "task_status": "NOT_APPLICABLE",
+      "tracked": true,
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      }
+    }
+  },
+  "alerts": [
+    {
+      "code": "NEW_FUND_CYCLE_INTERRUPTED_AND_MISSING",
+      "state": "UNCHANGED",
+      "date": "2026-09-02",
+      "minimal_repair": "Preserve the original access log and do not backfill the missed cutoff. The current 2026-09-03 NO_TRADE fund cycle is not a replacement for this absent historical report."
+    },
+    {
+      "code": "TODAY_PREOPEN_AND_SETTLEMENT_WINDOWS_MISSED",
+      "state": "UNCHANGED",
+      "date": "2026-09-03",
+      "minimal_repair": "Preserve the missing September 3 cutoff evidence without backfill. The pending order was legitimately settled in the new September 4 opening window; retain the historical governance finding until separately reconciled.",
+      "date_bound_interpretation": "The stable alert code refers only to the missed 2026-09-03 windows. The 2026-09-04 preopen/opening cycles passed and do not recreate September 3 evidence."
+    },
+    {
+      "code": "DUE_REFLECTION_SYNC_BLOCKED_AND_WEEKLY_REFERENCES_UNCOMMITTED",
+      "state": "UNCHANGED",
+      "minimal_repair": "The reflection owner must govern the preserved extra baseline and retry its verifier and sync without deleting, moving, or rewriting evidence."
+    },
+    {
+      "code": "UNACKNOWLEDGED_HISTORICAL_SHORT_GAPS",
+      "state": "UNCHANGED",
+      "dates": [
+        "2026-08-17",
+        "2026-08-18"
+      ],
+      "minimal_repair": "Require exact-path immutable governance without financial backfill; these four absent paths are not covered by the fixed 2026-08-17 reconciliation."
+    },
+    {
+      "code": "PRIOR_DAILY_ORDER_GUARD_MANIFEST_UNTRACKED",
+      "state": "UNCHANGED",
+      "minimal_repair": "Preserve reports/automation-runs/daily-order-guard/20260825T091607+0800.json and obtain owner-scoped governed reconciliation."
+    },
+    {
+      "code": "STRATEGY_GOVERNANCE_INCONSISTENCY",
+      "state": "UNCHANGED",
+      "minimal_repair": "The strategy owner must reconcile live 0.4.0 with protected change authority; the monitor cannot promote, roll back, or edit strategy."
+    }
+  ],
+  "new_alerts": [],
+  "current_run_repair_assessment": {
+    "safely_repairable_failure_found": false,
+    "blockers": "Remaining failures require immutable historical evidence or another task's governance/strategy ownership; changing financial files or bypassing the sync gate is prohibited. No code or configuration defect was reproduced in this monitor run.",
+    "history_backfilled": false,
+    "prior_monitor_corrections_preserved": true
+  },
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "06e5c6b46fa633ff3b45c3c4d504c863413b6335",
+    "origin_main_before_sync": "06e5c6b46fa633ff3b45c3c4d504c863413b6335",
+    "remote_main_before_sync": "06e5c6b46fa633ff3b45c3c4d504c863413b6335",
+    "tracked_worktree_clean_before_report": true,
+    "foreign_untracked_count": 52,
+    "protected_file_count": 769,
+    "protected_baseline_at": "2026-09-04T02:40:01.189000+00:00",
+    "sync_command": "scripts/sync_github.sh activity-monitor FAILED",
+    "sync_status_at_report_creation": "PENDING",
+    "financial_state_modified_by_monitor": false,
+    "historical_reports_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false,
+    "project_experience_promoted": false
+  },
+  "input_manifest": {
+    "reports/monitor/20260904T043644+0800.json": "de3ee2463aed1cc5f4937304fca793991d783195959a0e4cddb5e3a767d545a9",
+    "data/ledger/transactions/64ee9522efe947e19419c98ed0bd5c93/commit.json": "71f5fcfa06d0a91c0b279335884f97465cbacdf00bb686e610f1ff9638259132",
+    "reports/execution/2026-09-04-open.json": "af1b532b6868064eab17f6aca19d82447db7b0a4cf06eab47d02ce37a0d81b2e",
+    "reports/execution/2026-09-04-open.md": "e12ee9d6a330534ed365858e2006f8faa51adc1991433a24b755fae7e42bf617",
+    "data/ledger/heartbeat.json": "27bf095945ed85e516e9763cb2601838443927e9c8041698dc159015a1620039",
+    "data/ledger/portfolio.json": "b26187c6348b3a3ad331027f93ebcf58f6ae79630ba64abd87a2b036eacba298",
+    "data/ledger/transactions/64ee9522efe947e19419c98ed0bd5c93/prepare.json": "12fe15b258054cee4295a9870b120f3ab82999cee674c5edb01077d63df464e5",
+    "reports/daily/2026-09-03-short.json": "5b35adbc94324af25aff229ce90132ab3a3f447d8c3acadca26fac77f63455a5",
+    "reports/daily/2026-09-03-short.md": "61ee08b90250220d4d07411121c8dfde25e3d2d749c724a4ee80cc5cc2e3e35d",
+    "data/inbox/2026-09-03.json": "e21765155f9ba63d7251a46c05641269bb9971b6d1d31181afcbee4e078131e4",
+    "reports/funds/2026-09-03-funds.json": "669818390500d842c53e328cf0a2b86a65bb2038e0a27425f08c3e7c885a4d47",
+    "reports/funds/2026-09-03-funds.md": "ccc66b853becbdf65f0a322c7a363cf30ea842001deb4cf903534774282a2a19",
+    "data/inbox/2026-09-03-funds.json": "4691f06485703c903d56c444055cce50fb5224d8d90dd77d193b039d83687cf8",
+    "reports/preopen/2026-09-04-preopen.json": "4cbe1908a1ebcc533d8f5be7902627e04feb19d780a1ec654b8abc677fe0e088",
+    "reports/preopen/2026-09-04-preopen.md": "c360707ead72d445e75a724b5d4f53ea557535ff590c586616f92acf3c02d8fa",
+    "data/inbox/2026-09-04-preopen.json": "e08ae7fb6330ce0e20384e43f54540533c492744a3f10d8996f1c513f37f71ca",
+    "data/inbox/2026-09-04-open.json": "a2820023543e1d67d21df661ef761bf8fb445734ed035172ce498a906d478109",
+    "reports/research/2026-08-17-operational-gap-reconciliation.json": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "reports/weekly/2026-W32.json": "3738175ff8873c67db9518aeacfaa5bd3d7ddd4fde347e1a27c8379264fd0399",
+    "reports/weekly/2026-W33.json": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309",
+    "data/inbox/2026-08-11-intraday.json": "33cbff5cea287a9e3d0e74fa2228d81188f4ad9cd5399f42184b53d7112373c0",
+    "reports/execution/2026-08-11-intraday.json": "f1220dc7dc7ad694900c14812ed0c296a29b06b74a9dd644008e1e9c88b41bd8",
+    "reports/automation-runs/daily-order-guard/20260813T091729+0800.json": "986d1ebd3dc5f9b59dc5b4f3e1ffad091f4f6dbbdd803c3da49b4a359a255d2b",
+    "reports/weekly/2026-W35.json": "9a48259e410bc34f061151ca49c4399b7d4645ba7c961da90f66e205635bea3f",
+    "reports/weekly/2026-W35.md": "74620aba3003b0e87b3ee3441dcfba611124cdd574557d784cf7d20a8e9f906b",
+    "MASTER_PROMPT.md": "ff6f7eae26187728d8fa4df4820962e7cda1cb8dc7a0e5c822665cc621a988ff",
+    "MODE_LOCK.md": "fadaae7101288a1b32f1fc797d5896dbb476a23172bf4cd57a5233aee903419d",
+    "config/strategy.json": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "config/universe.json": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7",
+    "data/inbox/2026-08-24-funds.json": "d198706ea9089dbfd1a6fbd4e39e8802beef67bc6b38b0da8c220e36e6f74dd4",
+    "data/inbox/2026-08-24-open.json": "d32026a71c2106d31fbfd0efc825a2305386ec870e12daa32850ecbdc03dbf74",
+    "data/inbox/2026-08-24-preopen.json": "e6a6299bb28cdc4dcf9241a7dc1953f62c7091ec25074229d35b6aaded5d0967",
+    "data/inbox/2026-08-24.json": "f65591762b00664f0390daa0d4e2f33c8f9a2173859341fd40d6949f7ab7f242",
+    "data/inbox/2026-08-25-funds.json": "41d93cce1955dc564cbce3612bd390175bc71cd8040c6fdbe99a6e79d4315e83",
+    "data/inbox/2026-08-25-open.json": "8b1ab8fbad74e70c5b7224604f7aaea8f057eb21f2341d67375117718effb95b",
+    "data/inbox/2026-08-25-preopen.json": "eb67b39dc9833fc9aa145e158c9421414b5cb86c81f219379638b12fa8f4d0fb",
+    "data/inbox/2026-08-25.json": "ee3e68bc6c57fb5076fd47b6f60a670c2918a05a859e9cd5ec2316457c3c1582",
+    "data/inbox/2026-08-26-funds.json": "3ddda83b4bab558208fea4f2d6ab91ab71fc0ab35e9e6b69387a115272da7b40",
+    "data/inbox/2026-08-26-open.json": "781b91ea6979b92b600c34aac09b154b30376db12542f02bc72372072f80c435",
+    "data/inbox/2026-08-26-preopen.json": "894f525a45d02d0728a024843e65d775d02322dff6cab503c5f19485e34f6983",
+    "data/inbox/2026-08-26.json": "3f0f4e809786e2ae8b23630287dc6afe550c3cfac8067b286c92113f975ce557",
+    "data/inbox/2026-08-27-funds.json": "3988a73954a87e4474971172bb43ebdb070528012c6575769cdcb78808937b53",
+    "data/inbox/2026-08-27-open.json": "6e726c442e6cd90a3ef76a7da23727da51faa14729b83c364019a4c3980fdec0",
+    "data/inbox/2026-08-27-preopen.json": "00e1327f6e80886bb320e5016e66df8695e42cdaffd9ad5fc42b2aa3d701e691",
+    "data/inbox/2026-08-27.json": "f458c783eec54b37022d42431d419ae428c079b29444348636946dbade33e592",
+    "data/inbox/2026-08-28-funds.json": "c576713b35140b812efb027d3a9307e04d146109eb96e447733453a887a08a9b",
+    "data/inbox/2026-08-28-open.json": "aab65110417364c99ce36a0372a8d0d94afb99f4592abb02831112ee699a6b18",
+    "data/inbox/2026-08-28-preopen.json": "0f0133b5b39c8173292447debab108bb65b2a7745f73eff0dad04ceb4e4685b9",
+    "data/inbox/2026-08-28.json": "42ceb0ecb8f557e5c710997d6bf622cad9bf252b1e92bda7bc0be387e5397435",
+    "data/ledger/api_costs.jsonl": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "data/ledger/orders.jsonl": "b43f23f33e73b8415c0857d50e47be6ae895849c468f4079dd3b8ebaf04534c9",
+    "docs/AUTOMATION.md": "c6cdcb1b0dce205d4a0c1060f2e4be80cba906283743156e803c2b817a4aaa7e",
+    "docs/PLUGIN_POLICY.md": "ae35209717447678b5a027013698ec6b339dc35aa4926f8d6cfd2c64194c48af",
+    "docs/REFERENCE_PROJECTS.md": "4f9ab978fe2992561533a021b8d33dbebbe694f37d34a81a456ba856ac216203",
+    "docs/SOURCES.md": "8954a7a7f814a209b35c69a70d80d89bac751050df7e72ed8018225360b02d5b",
+    "docs/STOCK_FUND_STRATEGY.md": "7f274291f978b018c55536c8fe92825e9089f7dea6b7ec7c81a08e5832e3c784",
+    "docs/TIANTIAN_FUND.md": "461f0cab93d4ed82870cb38725078cbc79f3ef7c0445ecc4322fb4a46ca07644",
+    "reports/daily/2026-08-24-short.json": "f37f25c1d2651e6a4f8cf42c96e3785cfe98b0b6a33fbf75a3651fa427b1c8b6",
+    "reports/daily/2026-08-25-short.json": "219bcdf54804fdc4365233c5abf45a5250ba89462ff1b00996ea67f2b5e6e773",
+    "reports/daily/2026-08-26-short.json": "f2d2a86013473b8a3a82f8a7de4408801db5cfca401a58e1b863ca180d8004bc",
+    "reports/daily/2026-08-27-short.json": "2efacbf3b463876ed51de0d90ad1ab5fe089d6b7161592e78d3f83e26d59eeab",
+    "reports/daily/2026-08-28-short.json": "8f8da7843c05634808554c623a341bf6b1de1510c4a538a9d3b95dae0baeb80f",
+    "reports/evolution/20260829-w35-no-decidable-experience/gate.json": "0660b2c9b6e5bac23f4451a4d39b7661c0c178b585b08e95c0783780dc8e0990",
+    "reports/evolution/20260829-w35-no-decidable-experience/proposal.json": "6f92cdce7d397d646e41b837749937bfeb7a7317d28e2585ae5f803fc71bbf15",
+    "reports/execution/2026-08-24-open.json": "cc2fbb16e56be99349d3278237e870bcd975dd5ab113111ac75c6326effd6ce2",
+    "reports/execution/2026-08-25-open.json": "20acf99966d4a4fbf47c3f7120e74745f19b790c2c8c2129c201334f7a32d74d",
+    "reports/execution/2026-08-26-open.json": "ffd41e3583d3ef5efc9ca983de69e7bc5a01075755dec2fa98b9d755495daada",
+    "reports/execution/2026-08-27-open.json": "776c3fa1dc6deae9e936ff9cb99bfb8fcdc5c5373330090d7eac56db55028e42",
+    "reports/execution/2026-08-28-open.json": "6c6223a438f616886e212515c402fb11f6e7fc216f280c864592b50e950b0f8f",
+    "reports/funds/2026-08-24-funds.json": "1ae7daa7b2c3653fcd17aa807bf4a96ea36acd25b4af54f39690125a0a57648a",
+    "reports/funds/2026-08-25-funds.json": "9274ec0327fc7f2a6a6ad62758e659e5601deb62be7b3f3c061f5396708fd16e",
+    "reports/funds/2026-08-26-funds.json": "093e25b6f8f256424d7e7342c27392882ddb4795c64f9f3352ebd7dd0e105702",
+    "reports/funds/2026-08-27-funds.json": "5c6e2c8fd0f26d43a4dde09866848d4e09757779490645ba2a1b95fb47f7fc47",
+    "reports/funds/2026-08-28-funds.json": "d950da1957c5c1209e7cccc83077d4ecc47059294b796dc48cb0458ef3ad0932",
+    "reports/preopen/2026-08-24-preopen.json": "82287e2acde96fb72753044ddf76571c3ca1ddd0779af2a3cf475869ea2a8503",
+    "reports/preopen/2026-08-25-preopen.json": "f415db59052013d292b7a0a6866b43a92aaa45a30121843e51c540df5546b81d",
+    "reports/preopen/2026-08-26-preopen.json": "e6eb7b15a879daf2fd74a27bde37c0427e6b254198e74e91f86b3886f3694636",
+    "reports/preopen/2026-08-27-preopen.json": "d18b548356ee10ad5b1af313077eba7d18ea423934f755712aec6408d0ca0e25",
+    "reports/preopen/2026-08-28-preopen.json": "14871d1cf0ca7babbac303f4b44c509a01ba550d4abe3b59603a26141687047a",
+    "reports/weekly/2026-W34.json": "a00f61fc354fe58b027a261e31d1e4954580234326489b4bf1832d57ca498327",
+    "reports/automation-runs/daily-order-guard/20260825T091607+0800.json": "2d99dfe61fbc7f8080f37b4bb052dcc39cccf30aaf991fe5ab34f704033d34fe",
+    "reports/evolution/20260818-v040-exit-auto-promotion/baseline.json": "846bb4e9795ffbc506f7fd1613af08795981041f2804a03bb5028d02edea5de6",
+    "reports/evolution/20260818-v040-exit-auto-promotion/preregistration.json": "0a8b483155774475e9408ac2c279d97e4b82ff687e3b7b810fdc53817b8a46d9",
+    "reports/automation-runs/fund-nav/20260903T223718+0800.json": "1c84398ca7d8e3da15c77b3d257fc095434cc8b3eeb811e5be87a40a0c27426a",
+    "reports/automation-runs/close-analysis/20260903T164628+0800.json": "5d344fae29986f7111147e4605b46daa345d9ec7983decbc334deec0e6ea200a",
+    "reports/automation-runs/preopen-review/20260904T082200+0800.json": "a502cdad017ca4820c80dd05a0863094d2e3072d744b57533f7db0f8de693659",
+    "reports/automation-runs/daily-order-guard/20260904T091644+0800.json": "fdcaa2bcf739438400669ae65bf9550582cc06e92c306ac40e45237407378cbd",
+    "reports/automation-runs/open-settlement/20260904T093519+0800.json": "460f56f03c3012829d4331ea0fe520b39920832fe29ccb542d6c1ba94318f8df",
+    "reports/automation-runs/reflection-evolution/20260817T100418+0800.json": "a937177979ce374ceae083997be4a41dba3bea470570334a8a6bea0b6f7802a9",
+    "config/task_contracts.json": "0b63cd8e4f2797908ec34f40765b1f80fa15ed235d35697075b593e53249ca68",
+    "scripts/sync_github.sh": "aae6bb670a4e23a4a4880f756a8b574a0c3993d1c851107ebd98bdd1eda315f5",
+    "reports/monitor/20260903T164924+0800.json": "810ae65f565861713e2084ff554b7187be09814b667e7ffd0ee822e02372719d",
+    "data/ledger/transactions/79da02bd9be84775add3539026d55cad/commit.json": "10cdee9b447d30d7d4d168ac3d512f43110c9bf21b33f7251458ceaf69450ee2",
+    "data/ledger/transactions/79da02bd9be84775add3539026d55cad/prepare.json": "8753d175dcf11ce01f602fea78966ef989c8b09808744a9104462bbb8b818cc5",
+    "reports/research/2026-08-25-preopen-review-timing-note.json": "8fb348861f469b3350929e63fa2a1f370b98cfb5a5124c689a1009eae46d14e0",
+    "reports/research/2026-08-26-preopen-review-timing-note.json": "296564694558c7d15f9259154a96fd74d569b0cef8be29066c27f3a955d2429d",
+    "reports/automation-runs/preopen-review/20260903T164815+0800.json": "2c4cd2cb7305ab72ca8ba5aa01b9ff64f09c1297f15a27cfd90de9382f3bddf9",
+    "reports/automation-runs/daily-order-guard/20260903T164258+0800.json": "d086174dcc1979fe86a15d2173203542dc452992de86274ce755c1951a79f51e",
+    "reports/automation-runs/open-settlement/20260903T164443+0800.json": "cf05cdddfc8b031ba5d0638e58143857c7fe934b285565b9dcd6842d341f691a",
+    "/mnt/d/codex/home/automations/vibe-finance-6/automation.toml": "fdec41eb28979e5d640dcd52455a4d6147f9207f81a98a67846f9f01970bfcaf",
+    "data/ledger/transactions/95b0f67d53e6419eac366d203ecc6f3f/prepare.json": "79dd18d5f84f8ca84303c5f7c3ac07227df2f5193f4f1166f0596c892b535056",
+    "data/ledger/transactions/95b0f67d53e6419eac366d203ecc6f3f/commit.json": "9b67bc38f8afe7f1c53b3eba0a69f0a7ed1f4dcdde98a73b1b3bb36d3c6af43a",
+    "reports/monitor/20260902T205637+0800.json": "652b22bb58a8992f83737cb802a78a3be4c8760b654a2b25b6d15c97c5f1c30a",
+    "reports/automation-runs/preopen-review/20260902T081139+0800.json": "2ec5939f6a02598e20cf979729936177de8726a90e9901545ec969aa419d3772",
+    "reports/automation-runs/daily-order-guard/20260902T091529+0800.json": "1fe567f6bdaab4087f9bd191a2175527203d9bba5173d86b8eb931dc3738870b",
+    "reports/automation-runs/open-settlement/20260903T163910+0800.json": "99194e09336d702700e8367226241a71c76da3ad129f2dd2bd11af8ae5ffe5c8",
+    "reports/automation-runs/close-analysis/20260902T164122+0800.json": "de4d11f3f42607dcbb863d2323e4a0c1f399fc670ccbb15d08530344979aa095",
+    "reports/automation-runs/fund-nav/20260831T223944+0800.json": "c48a367b08860dd2b44475b5d577adec6ae41b80e7f2c5f57e35726909e81b0d",
+    "reports/automation-runs/fund-nav/20260901T223719+0800.json": "83c4ce684f0e82c3bb7e9e60945f6ade5216c05ef2ea00e9052d08efe509354f",
+    "reports/automation-runs/document-log/20260901T231526+0800.json": "43d6e6ba95cc7698d7b1b7356dc254e4b513002fdf8d9b6bd1aa5da36c4802be",
+    "reports/automation-runs/document-log/20260903T164123+0800.json": "10b8a90e62e886e12aecdef06a835888a37d5b207f35d98487c2b2a49e5f7eea",
+    "reports/automation-runs/weekly-review/20260823T202238+0800.json": "8b7807540ef515a1672856b17929cb7f55539551da42872081275bcfd3c25b18",
+    "reports/automation-runs/weekly-review/20260830T202013+0800.json": "898d48c5e0d8161e1a0d0ec1da826aa9416a007762597755b24a897d2e769b4c",
+    "reports/automation-runs/reflection-evolution/20260721T105013+0800.json": "fa4448b1fe3663224601371773a3f2ae4b65b2d5e7f8bbf5ecdfd59854eba103",
+    "work/2026-09-02-fund-network-attempts.jsonl": "4b30f7f883294bfcd6df09b771ec97b2b1f4ed946fbd614e2106d6ee39536aad",
+    "reports/monitor/20260903T223605+0800.json": "033aa0a312ad25016b5ccbb7bd3630ac25b7a8cd5575e2f9aa26ca72698ca1be",
+    "reports/research/2026-09-04-preopen-review-evidence.json": "d18842e5a57de129894f72053cd0a2d75d349f990fca4e62881d9161855bb896",
+    "reports/research/2026-09-04-preopen-review-evidence-transport.json": "c029ed6c9806b61aadc74229a2626b0f7ac68d651aaf50c7e1d0b72bfc66ae4c",
+    "reports/research/2026-09-04-preopen-review-audit.md": "caa07836a63a30b2599e935581dd8eba559071570349e25e4ce8a969d0561220",
+    "reports/automation-runs/preopen-review/20260904T081901+0800.json": "63dc97e9cce778d263a80992f63debc5faf8a94e89bb146fb45e40708680b6e2"
+  },
+  "experience_validation": {
+    "status": "PASS",
+    "record_count": 3,
+    "promoted_rule_count": 0,
+    "active_strategy_rules": [],
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a"
+  },
+  "new_owner_cycle_verification": {
+    "checked_at_utc": "2026-09-04T02:42:34.300450+00:00",
+    "prior_monitor_sha256": "de3ee2463aed1cc5f4937304fca793991d783195959a0e4cddb5e3a767d545a9",
+    "prior_monitor_input_count": 104,
+    "prior_committed_event_count": 77,
+    "current_event_count": 78,
+    "canonical_prefix_unchanged": true,
+    "new_events": 1,
+    "open_owner_manifest_file_checks": {
+      "README.md": true,
+      "data/ledger/heartbeat.json": true,
+      "data/ledger/orders.jsonl": true,
+      "data/ledger/portfolio.json": true,
+      "data/inbox/2026-09-04-open.json": true,
+      "data/ledger/transactions/64ee9522efe947e19419c98ed0bd5c93/commit.json": true,
+      "data/ledger/transactions/64ee9522efe947e19419c98ed0bd5c93/prepare.json": true,
+      "reports/execution/2026-09-04-open.json": true,
+      "reports/execution/2026-09-04-open.md": true
+    },
+    "symbols": {
+      "159915": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "159928": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "510050": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "510300": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:58+08:00",
+        "positive_volume": true
+      },
+      "510500": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:56+08:00",
+        "positive_volume": true
+      },
+      "510880": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "511010": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "511880": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "512100": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "512170": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:58+08:00",
+        "positive_volume": true
+      },
+      "512480": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:58+08:00",
+        "positive_volume": true
+      },
+      "518880": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:57+08:00",
+        "positive_volume": true
+      },
+      "588000": {
+        "sources": [
+          "tencent_finance",
+          "sina_finance"
+        ],
+        "time": "2026-09-04T09:31:58+08:00",
+        "positive_volume": true
+      }
+    },
+    "window_dual_source_volume_pass": true,
+    "signal_precedes_fill": true,
+    "fill_events": [
+      {
+        "commission_cny": 5,
+        "exit_plan": {
+          "hard_stop_loss_return": -0.08,
+          "hard_trend_below_ma20_ratio": 0.95,
+          "overweight_tolerance": 0.02,
+          "partial_reduce_fraction": 0.5,
+          "profit_protection_activation_return": 0.12,
+          "profit_protection_drawdown_from_peak": -0.05,
+          "soft_trend_below_ma20_ratio": 1,
+          "strategy_version": "0.4.0"
+        },
+        "exposure_group": "gold",
+        "fee_model_version": "0.4.0",
+        "fill_as_of": "2026-09-04T09:31:58+08:00",
+        "fill_date": "2026-09-04",
+        "fill_price": 9.21,
+        "limit_price": 0,
+        "lot_size": 100,
+        "name": "华安黄金易ETF",
+        "order_id": "0e87aeb5b1654d9ea74ab2c77fe1d63d",
+        "quantity": 100,
+        "realized_pnl_cny": 11.13,
+        "reasons": [
+          "TREND_NOT_CONFIRMED",
+          "DAILY_WEAKNESS_ROTATION"
+        ],
+        "risk_bucket": "gold",
+        "side": "SELL",
+        "signal_as_of": "2026-09-02T16:30:00+08:00",
+        "signal_close": 8.902,
+        "signal_date": "2026-09-02",
+        "signal_score": 0.1,
+        "signal_type": "DAILY_WEAKNESS_ROTATION",
+        "simulation_only": true,
+        "stamp_tax_cny": 0,
+        "status": "FILLED",
+        "symbol": "518880",
+        "total_fees_cny": 5,
+        "transfer_fee_cny": 0
+      }
+    ],
+    "extra_evidence": {
+      "reports/research/2026-09-04-preopen-review-evidence.json": {
+        "sha256": "d18842e5a57de129894f72053cd0a2d75d349f990fca4e62881d9161855bb896",
+        "tracked": true
+      },
+      "reports/research/2026-09-04-preopen-review-evidence-transport.json": {
+        "sha256": "c029ed6c9806b61aadc74229a2626b0f7ac68d651aaf50c7e1d0b72bfc66ae4c",
+        "tracked": true
+      },
+      "reports/research/2026-09-04-preopen-review-audit.md": {
+        "sha256": "caa07836a63a30b2599e935581dd8eba559071570349e25e4ce8a969d0561220",
+        "tracked": true
+      },
+      "reports/automation-runs/preopen-review/20260904T081901+0800.json": {
+        "sha256": "63dc97e9cce778d263a80992f63debc5faf8a94e89bb146fb45e40708680b6e2",
+        "tracked": true
+      }
+    },
+    "preopen_validate": "PASS_NO_WARNINGS",
+    "open_validate": "PASS_NO_WARNINGS",
+    "owner_open_commit": "06e5c6b46fa633ff3b45c3c4d504c863413b6335",
+    "not_a_backfill_of_september_3": true
+  }
+}
