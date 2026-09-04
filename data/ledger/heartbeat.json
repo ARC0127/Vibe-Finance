@@ -1,8 +1,8 @@
 {
-  "input_sha256": "a2820023543e1d67d21df661ef761bf8fb445734ed035172ce498a906d478109",
-  "last_success_at": "2026-09-04T01:32:21.799019+00:00",
-  "mode": "open_settlement",
+  "input_sha256": "8644f149f13f49f8abd9f5a66df22d74c27218c54f6f65d58c3c04674389fd03",
+  "last_success_at": "2026-09-04T14:37:53.101969+00:00",
+  "mode": "fund_nav",
   "run_date": "2026-09-04",
-  "run_id": "64ee9522efe947e19419c98ed0bd5c93",
+  "run_id": "4ed99e627505453ba908a1bac92f1133",
   "status": "ACTIVE"
 }
