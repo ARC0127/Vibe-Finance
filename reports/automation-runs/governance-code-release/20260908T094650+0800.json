@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "task_id": "governance-code-release",
+  "task_status": "PASS_TEST_REPAIR",
+  "run_timestamp": "2026-09-08 09:46:50 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "4a166db48013b479cb9e760b3726653ccd2aa006",
+  "allowlist": [
+    "config/task_contracts.json",
+    "scripts/sync_github.sh",
+    "tests",
+    "vibe_finance/evolution.py",
+    "vibe_finance/pipeline.py",
+    "vibe_finance/task_contracts.py",
+    "vibe_finance/transaction.py"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "config/task_contracts.json",
+      "bytes": 14924,
+      "sha256": "397780aa39912ec362a1ff0af3419e0afd2a63586b1862a65e7388f837e23e43"
+    },
+    {
+      "git_status": " M",
+      "path": "scripts/sync_github.sh",
+      "bytes": 29673,
+      "sha256": "1f0abf2bda7dbfecb0da95ab483806b3374e52a962b9d610281a47e8685f1120"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_evolution.py",
+      "bytes": 28455,
+      "sha256": "247b2bb67973ce533ffcb857b7ee155142c8d0e2704805c7f10e19fe1140d280"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_sync_recovery.py",
+      "bytes": 4223,
+      "sha256": "1fd7e29255b6c7f90450c7619bef454fac09c5d3862e236b1582a3cae75349fe"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_task_contracts.py",
+      "bytes": 7591,
+      "sha256": "fba64f93c5d110b5663a6275c42203b31bb56cbf0c36c641c54579bd0babd305"
+    },
+    {
+      "git_status": " M",
+      "path": "tests/test_transactions.py",
+      "bytes": 23381,
+      "sha256": "3d1509f3fd8d8c039b02f1dd51a637a1a1ea13802681565f89cc74cfb010b796"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/evolution.py",
+      "bytes": 52199,
+      "sha256": "e4e40aef5501d9ded62a89cc71009c7137f84a452c6d1092dc4e824ae6c10935"
+    },
+    {
+      "git_status": " M",
+      "path": "vibe_finance/transaction.py",
+      "bytes": 19318,
+      "sha256": "32e49d01c5013321d0ae119276091e0d8b295817b663e7fc8a58d59c54b634ca"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-08T01:46:51.048523+00:00",
+  "simulation_only": true
+}

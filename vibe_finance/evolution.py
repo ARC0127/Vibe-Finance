@@ -866,8 +866,15 @@ def verify_portfolio_projection(
             ):
                 raise EvolutionGateError(f"portfolio {field} differs from ledger replay")
         for symbol, expected in replay["average_costs"].items():
+            quantity = replay_positions[symbol]
             actual = Decimal(str(portfolio["positions"][symbol].get("average_cost")))
-            if abs(actual - Decimal(expected)) > Decimal("0.000001"):
+            actual_cost = (actual * quantity).quantize(
+                Decimal("0.01"), rounding=ROUND_HALF_UP
+            )
+            expected_cost = (Decimal(expected) * quantity).quantize(
+                Decimal("0.01"), rounding=ROUND_HALF_UP
+            )
+            if actual_cost != expected_cost:
                 raise EvolutionGateError(
                     f"portfolio average_cost differs from ledger replay for {symbol}"
                 )

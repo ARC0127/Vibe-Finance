@@ -450,6 +450,73 @@ class EvolutionLedgerTests(unittest.TestCase):
             with self.assertRaisesRegex(EvolutionGateError, "filled_trade_count"):
                 verify_portfolio_projection(_lifecycle("b", "BUY", 1), portfolio)
 
+    def test_portfolio_average_cost_allows_cent_rounded_cost_basis(self):
+        events = [
+            _pending("b1", "BUY", 200, "518880"),
+            {
+                **_fill("b1", "BUY", 200, "518880"),
+                "fill_price": 9.07,
+                "total_fees_cny": 5.0,
+                "realized_pnl_cny": 0.0,
+            },
+            _pending("b2", "BUY", 100, "518880"),
+            {
+                **_fill("b2", "BUY", 100, "518880"),
+                "fill_price": 8.906,
+                "total_fees_cny": 5.0,
+                "realized_pnl_cny": 0.0,
+            },
+            _pending("s1", "SELL", 100, "518880"),
+            {
+                **_fill("s1", "SELL", 100, "518880"),
+                "fill_price": 9.21,
+                "total_fees_cny": 5.0,
+                "realized_pnl_cny": 11.13,
+            },
+            _pending("b3", "BUY", 100, "518880"),
+            {
+                **_fill("b3", "BUY", 100, "518880"),
+                "fill_price": 9.102,
+                "total_fees_cny": 5.0,
+                "realized_pnl_cny": 0.0,
+            },
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            portfolio = Path(directory) / "portfolio.json"
+            portfolio.write_text(
+                json.dumps(
+                    {
+                        "cash_cny": 27186.20,
+                        "initial_project_capital_cny": 30000.0,
+                        "pending_orders": [],
+                        "performance": {
+                            "cumulative_buy_notional_cny": 3614.80,
+                            "cumulative_sell_notional_cny": 921.00,
+                            "cumulative_fees_cny": 20.00,
+                            "filled_trade_count": 4,
+                            "investable_value_cny": 29916.80,
+                            "project_equity_cny": 30016.80,
+                            "realized_pnl_cny": 11.13,
+                            "total_pnl_cny": 16.80,
+                        },
+                        "positions": {
+                            "518880": {
+                                "quantity": 300,
+                                "average_cost": 9.0831,
+                                "market_value_cny": 2730.60,
+                            }
+                        },
+                        "research_infrastructure": {
+                            "reserved_cny": 100.0,
+                            "spent_cny": 0.0,
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            replay = verify_portfolio_projection(events, portfolio)
+        self.assertEqual(replay["status"], "PASS")
+
 
 class EvolutionDecisionTests(unittest.TestCase):
     def _proposal(self, root: Path) -> Path:

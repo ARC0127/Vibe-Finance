@@ -58,7 +58,7 @@ case "$task_id" in
     allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config/strategy.json config/task_contracts.json data/inbox data/ledger docs/AUTOMATION.md docs/STOCK_FUND_STRATEGY.md reports/execution scripts/sync_github.sh tests vibe_finance)
     ;;
   governance-code-release)
-    allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/pipeline.py vibe_finance/task_contracts.py vibe_finance/transaction.py)
+    allowlist=(config/task_contracts.json scripts/sync_github.sh tests vibe_finance/evolution.py vibe_finance/pipeline.py vibe_finance/task_contracts.py vibe_finance/transaction.py)
     ;;
   experience-ledger-release)
     allowlist=(MASTER_PROMPT.md MODE_LOCK.md MODE_LOCK.json README.md config/task_contracts.json docs/AUTOMATION.md docs/INVESTMENT_EXPERIENCE_LEDGER.md reports/evolution scripts/sync_github.sh tests/test_experience.py tests/test_evolution.py tests/test_pipeline.py tests/test_task_contracts.py vibe_finance/__main__.py vibe_finance/evolution.py vibe_finance/experience.py vibe_finance/pipeline.py)

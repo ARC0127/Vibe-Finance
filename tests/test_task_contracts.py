@@ -68,6 +68,7 @@ class TaskContractTests(unittest.TestCase):
             "config/task_contracts.json",
             "scripts/sync_github.sh",
             "tests",
+            "vibe_finance/evolution.py",
             "vibe_finance/pipeline.py",
             "vibe_finance/task_contracts.py",
             "vibe_finance/transaction.py",

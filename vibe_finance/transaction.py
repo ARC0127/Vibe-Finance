@@ -147,7 +147,7 @@ def _durable_replace(path: Path, payload: bytes) -> None:
 def _publish_immutable(path: Path, payload: bytes) -> None:
     expected = _sha256_bytes(payload)
     if path.exists():
-        if _sha256_file(path) != expected:
+        if _sha256_file(path) != expected and not _same_immutable_payload(path, payload):
             raise TransactionError(f"immutable artifact conflict: {path}")
         return
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -160,6 +160,25 @@ def _publish_immutable(path: Path, payload: bytes) -> None:
     finally:
         os.close(descriptor)
     fsync_directory(path.parent)
+
+
+def _same_immutable_payload(path: Path, payload: bytes) -> bool:
+    existing = path.read_bytes()
+    if path.suffix.lower() == ".json":
+        try:
+            return json.loads(existing.decode("utf-8")) == json.loads(
+                payload.decode("utf-8")
+            )
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return False
+    try:
+        existing_text = existing.decode("utf-8")
+        payload_text = payload.decode("utf-8")
+    except UnicodeDecodeError:
+        return False
+    return existing_text.replace("\r\n", "\n").replace("\r", "\n") == payload_text.replace(
+        "\r\n", "\n"
+    ).replace("\r", "\n")
 
 
 def state_lock_path(ledger_path: Path) -> Path:

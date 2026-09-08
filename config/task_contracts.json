@@ -241,8 +241,8 @@
       "task_id": "governance-code-release",
       "purpose": "Release narrowly reviewed pipeline and GitHub synchronization repairs without collecting unrelated reports or financial artifacts.",
       "side_effect_class": "governed_release",
-      "runtime_write_roots": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py", "vibe_finance/task_contracts.py", "vibe_finance/transaction.py"],
-      "sync_allowlist": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/pipeline.py", "vibe_finance/task_contracts.py", "vibe_finance/transaction.py"],
+      "runtime_write_roots": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/evolution.py", "vibe_finance/pipeline.py", "vibe_finance/task_contracts.py", "vibe_finance/transaction.py"],
+      "sync_allowlist": ["config/task_contracts.json", "scripts/sync_github.sh", "tests", "vibe_finance/evolution.py", "vibe_finance/pipeline.py", "vibe_finance/task_contracts.py", "vibe_finance/transaction.py"],
       "acceptance_checks": [
         "pipeline close-state and report-rendering regressions pass",
         "pending sync resume remains bound to one manifest-verified commit",

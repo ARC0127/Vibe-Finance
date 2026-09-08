@@ -464,6 +464,46 @@ class TransactionTests(unittest.TestCase):
                     recover_incomplete_transactions(ledger_path)
             self.assertEqual((root / "decision.json").read_text(encoding="utf-8"), "foreign")
 
+    def test_recovery_accepts_semantically_identical_published_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger_path = root / "portfolio.json"
+            orders = root / "orders.jsonl"
+            initialize_ledger(ledger_path)
+            portfolio = json.loads(ledger_path.read_text(encoding="utf-8"))
+            decision_path = root / "decision.json"
+            report_path = root / "report.md"
+
+            def fail_after_portfolio(stage: str) -> None:
+                if stage == "after_portfolio":
+                    raise RuntimeError("fault injection")
+
+            with locked_state(ledger_path, exclusive=True):
+                with self.assertRaises(RuntimeError):
+                    prepare_run_transaction(
+                        run_id="same-artifacts",
+                        ledger_path=ledger_path,
+                        orders_log=orders,
+                        recorded_at="2026-07-17T15:00:00+08:00",
+                        portfolio=portfolio,
+                        decision_path=decision_path,
+                        decision={"schema_version": 1, "run_id": "same-artifacts"},
+                        report_path=report_path,
+                        report_text="expected\n",
+                        heartbeat={"run_id": "same-artifacts"},
+                        events=[],
+                        fault_hook=fail_after_portfolio,
+                    )
+            decision_path.write_text(
+                '{"run_id":"same-artifacts","schema_version":1}',
+                encoding="utf-8",
+            )
+            report_path.write_bytes(b"expected\r\n")
+            with locked_state(ledger_path, exclusive=True):
+                recovered = recover_incomplete_transactions(ledger_path)
+            self.assertEqual(len(recovered), 1)
+            self.assertEqual(inspect_transaction_state(ledger_path)["status"], "COMMITTED")
+
 
 if __name__ == "__main__":
     unittest.main()
