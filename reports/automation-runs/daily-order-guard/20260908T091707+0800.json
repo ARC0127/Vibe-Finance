@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "task_id": "daily-order-guard",
+  "task_status": "READY",
+  "run_timestamp": "2026-09-08 09:17:07 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "b8c859ea3180168718cff3cc88f9b1af8f2b37c4",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17935,
+      "sha256": "d3d07feea564b7bbc265215ea1da513229bd349a8aa33e8fc35ec577c2afd494"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 265,
+      "sha256": "2b8fd808da44129db6cc2a9ef33cdc784551217d1d7d1d3568bbf6c5e7efb1d5"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/orders.jsonl",
+      "bytes": 124358,
+      "sha256": "d05e7555d9ed9398a4c59e90a854f5b6879e0e35ef9a553ac76f495e6e4b4de8"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 33847,
+      "sha256": "07ddce5195c46b4acf4a690e37ecbb27139e0694dd3e4c6eb7b548716b296eba"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-09-08-0910-preopen.json",
+      "bytes": 211577,
+      "sha256": "e306e80be0204920cf0bb9dd0659284cabfaf1ad4b29c5eb5c41769110685217"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/e53f7ea32fe44b3b8f0070deb72c423f/commit.json",
+      "bytes": 994,
+      "sha256": "bdb809bc4582eff2848fe091c1c66dce0edd76ec45d5ab5fa8945c10e9df6cbb"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/e53f7ea32fe44b3b8f0070deb72c423f/prepare.json",
+      "bytes": 77285,
+      "sha256": "2a5c7f1818fb3dc8c5c5aeafe57b4bec892ebc28f93b740413598e2ba3f08002"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/guard/2026-09-08-preopen.json",
+      "bytes": 18841,
+      "sha256": "ae0e544301341586861de69b6e27a568544813df7a4910cd6045abe3d0877af4"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/guard/2026-09-08-preopen.md",
+      "bytes": 18117,
+      "sha256": "cf956ec3d16755012d229d45777f83eed4aed1c47f6882821eee9f85df73c887"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-08T01:17:07.329018+00:00",
+  "simulation_only": true
+}
