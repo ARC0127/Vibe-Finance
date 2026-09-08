@@ -1,0 +1,17 @@
+{
+  "auxiliary_files": [],
+  "committed_at": "2026-09-08T01:38:05.206862+00:00",
+  "decision_path": "F:\\Git\\Vibe Finance\\reports\\execution\\2026-09-08-open.json",
+  "decision_sha256": "cfe6e18d50b6c5eb2942145e7ea9498dc3cc652dc6a63366bfcfc597e667d728",
+  "event_count": 80,
+  "event_head_sha256": "168166943330fdf275bd6dddd6699f81e901ac5a9abd4d7f4e1e74e02f7daed2",
+  "heartbeat_path": "F:\\Git\\Vibe Finance\\data\\ledger\\heartbeat.json",
+  "heartbeat_sha256": "6503e08169c463b2a07ea7f0ccd81f4c7266db9cc828d4ec501030d281e7fdd9",
+  "portfolio_sha256": "cc7b26a8a122c5313262cf32e18697161000eb2aab3aef397c75bb9285c85b6e",
+  "prepare_sha256": "dbb799576ae982703125143478d8d3ce94f2d6f6be0243392d0394d1d7588502",
+  "projection_status": "PASS",
+  "report_path": "F:\\Git\\Vibe Finance\\reports\\execution\\2026-09-08-open.md",
+  "report_sha256": "d71a7d2210f4bdcc5279d852cbe1e967a960874c87982079897e1466cda2da0e",
+  "run_id": "0092b3f2c2b64ccc88349904c5a63ee0",
+  "schema_version": 1
+}
