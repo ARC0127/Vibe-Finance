@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "run_date": "2026-09-10",
+  "cutoff": "2026-09-10T08:00:00+08:00",
+  "simulation_only": true,
+  "calendar": {
+    "status": "TRADING_DAY",
+    "basis": "Thursday outside all SSE- and SZSE-published 2026 closure intervals; the next September closure starts 2026-09-25.",
+    "sse": {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+      "retrieved_at": "2026-09-10T08:14:20.104755+08:00",
+      "http_status": 200,
+      "bytes": 29251,
+      "body_sha256": "4e260b815ce1309175ed994e6490a4ccd51b998a5f92bcdc41cec00fc6823dc7",
+      "published_at": "2025-12-22"
+    },
+    "szse": {
+      "url": "https://investor.szse.cn/disclosure/notice/general/t20251222_618087.html",
+      "retrieved_at": "2026-09-10T08:14:22.276441+08:00",
+      "http_status": 200,
+      "bytes": 24946,
+      "body_sha256": "1656d8708d5faed33c7588538639d96128f39fdface02cfa6eb66d796c40f14e",
+      "published_at": "2025-12-22"
+    }
+  },
+  "candidate_security": {
+    "symbol": "510500",
+    "identity_document": {
+      "url": "https://www.nffund.com/main/files/2026/03/19/126105702839.pdf",
+      "retrieved_at": "2026-09-10T08:14:24.195548+08:00",
+      "http_status": 200,
+      "bytes": 47062,
+      "body_sha256": "46aaf843103786ea4b933a1d75826eb49bfc4e01eae9f882f0f808400b22ae05",
+      "published_at": "2026-03-20"
+    },
+    "announcement_query": {
+      "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=100&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&type=inParams&sqlId=COMMON_PL_JJXX_JJGG_NEW_L&SECURITY_CODE=510500&START_DATE=2026-09-01&END_DATE=2026-09-10&DATE_DESC=1",
+      "retrieved_at": "2026-09-10T08:14:23.294520+08:00",
+      "http_status": 200,
+      "bytes": 497,
+      "body_sha256": "d9f8134e65f3cbcd552b22061dad11b5c7f2851812c3df661507f0d8bdae7bd2",
+      "parsed": {
+        "actionErrors": [],
+        "actionMessages": [],
+        "fieldErrors": {},
+        "isPagination": "true",
+        "jsonCallBack": null,
+        "locale": "en_CN",
+        "pageHelp": {
+          "beginPage": 1,
+          "cacheSize": 5,
+          "data": [],
+          "endDate": null,
+          "endPage": 1,
+          "objectResult": null,
+          "pageCount": 0,
+          "pageNo": 1,
+          "pageSize": 100,
+          "pageSizeWithOutLimit": 100,
+          "searchDate": null,
+          "sort": null,
+          "startDate": null,
+          "total": 0
+        },
+        "pageNo": null,
+        "pageSize": null,
+        "queryDate": "",
+        "result": [],
+        "securityCode": "",
+        "sqlId": "COMMON_PL_JJXX_JJGG_NEW_L",
+        "texts": null,
+        "type": "inParams",
+        "validateCode": ""
+      }
+    },
+    "review": "The complete one-page SSE fund-announcement query returned zero records from 2026-09-01 through 2026-09-10. Identity remains tied to the official Southern Fund document and the sealed source chain. No termination, liquidation, distribution, split, suspension notice, or unresolved fund-share action was found."
+  },
+  "latest_fund_review": {
+    "path": "data/inbox/2026-09-09-funds.json",
+    "sha256": "e2a765e41910267cd3c578cad9506dfcc988c42a2f91c5d4fb733d4377e185aa",
+    "as_of": "2026-09-09T22:30:00+08:00",
+    "decision": "WATCH_ONLY"
+  },
+  "boundary": {
+    "prices": "Only immutable data/inbox/2026-09-08.json and its hash-pinned raw Tencent/Sina close batch are admissible. No 2026-09-09 sealed close exists.",
+    "missing_close_sessions": [
+      "2026-09-09"
+    ],
+    "trading_status": "UNVERIFIED_PREOPEN; current TRADING and dual-source opening price must be reproved at 09:30-09:35.",
+    "fund_research": "The 2026-09-09 fund review is discovery/cross-check only; rankings cannot trigger an order.",
+    "deepseek_calls": 0,
+    "broker_connections": 0
+  }
+}
