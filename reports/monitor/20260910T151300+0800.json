@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "task_status": "FAILED",
+  "automation_id": "vibe-finance-3",
+  "heartbeat_trigger_utc": "2026-09-10T07:13:00.584Z",
+  "created_at_utc": "2026-09-10T07:19:50.8531990Z",
+  "timezone": "Asia/Shanghai",
+  "simulation_only": true,
+  "claim_boundary": "READ_ONLY_ACTIVITY_MONITOR_NO_FINANCIAL_STATE_WRITE_NO_TRADING_ANALYSIS_NO_DEEPSEEK",
+  "notification": "DONT_NOTIFY",
+  "baseline_monitor": {
+    "path": "reports/monitor/20260910T091124+0800.json",
+    "sha256": "21cc3b4129a535f3a4fc93b0e179f0c8cf7863a2c70e69b5160c2f2c9c9fc64b",
+    "manifest_path": "reports/automation-runs/activity-monitor/20260910T093421+0800.json",
+    "manifest_sha256": "4b34b31710d65a031ba9b45111bfc00c0d1be8585798854c980f17aff9d3232c"
+  },
+  "status_command": {
+    "command": "python3 -m vibe_finance status",
+    "observed_at_local": "2026-09-10T15:15:25.396189+08:00",
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 5.715,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-09-10T01:32:31.396189+00:00",
+    "last_success_at_local": "2026-09-10T09:32:31.396189+08:00",
+    "last_run_id": "1bbda0282044474d841496ce3a775ea0",
+    "last_run_date": "2026-09-10",
+    "last_mode": "open_settlement",
+    "decision_report_count": 32,
+    "pending_orders": 0,
+    "positions": 6,
+    "filled_trade_count": 24,
+    "last_filled_trade_date": "2026-09-10",
+    "project_equity_cny": 30256.0,
+    "total_pnl_cny": 256.0,
+    "total_return_pct": 0.008533333333333334
+  },
+  "calendar_context": {
+    "trigger_local": "2026-09-10T15:13:00.584+08:00",
+    "weekday": "Thursday",
+    "exchange_calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+    "exchange_calendar_observation": "September 10 is outside the published 2026 holiday closures and is treated as a normal trading weekday.",
+    "completed_due_cycles": [
+      "2026-09-10 preopen-review",
+      "2026-09-10 daily-order-guard",
+      "2026-09-10 open-settlement",
+      "2026-09-10 13:00 open-settlement recovery check"
+    ],
+    "failed_due_cycles": [
+      "2026-09-09 close-analysis"
+    ],
+    "not_due_at_trigger": [
+      "2026-09-10 close-analysis",
+      "2026-09-10 fund-nav",
+      "2026-09-10 document-log"
+    ]
+  },
+  "current_reports": {
+    "latest_short_json": "reports/daily/2026-09-08-short.json",
+    "latest_short_md": "reports/daily/2026-09-08-short.md",
+    "latest_fund_json": "reports/funds/2026-09-09-funds.json",
+    "latest_fund_md": "reports/funds/2026-09-09-funds.md",
+    "latest_preopen_json": "reports/preopen/2026-09-10-preopen.json",
+    "latest_preopen_md": "reports/preopen/2026-09-10-preopen.md",
+    "latest_open_json": "reports/execution/2026-09-10-open.json",
+    "latest_open_md": "reports/execution/2026-09-10-open.md",
+    "latest_weekly_json": "reports/weekly/2026-W35.json",
+    "latest_weekly_md": "reports/weekly/2026-W35.md",
+    "latest_document_log_json": "reports/document-log/2026-09-09-2312.json",
+    "latest_document_log_md": "reports/document-log/2026-09-09-2312.md"
+  },
+  "current_owner_cycles": {
+    "preopen_review": {
+      "state": "COMPLETED",
+      "date": "2026-09-10",
+      "manifest": "reports/automation-runs/preopen-review/20260910T082426+0800.json",
+      "task_status": "PASS_WITH_MISSING_2026_09_09_SEALED_CLOSE",
+      "run_id": "0b47877de2d64a8ebd7c5b0e208095f0",
+      "new_order_count": 1,
+      "deepseek_called": false
+    },
+    "daily_order_guard": {
+      "state": "COMPLETED",
+      "date": "2026-09-10",
+      "manifest": "reports/automation-runs/daily-order-guard/20260910T091819+0800.json",
+      "task_status": "READY",
+      "pending_order_count_at_guard": 1,
+      "deepseek_called": false
+    },
+    "open_settlement": {
+      "state": "COMPLETED",
+      "date": "2026-09-10",
+      "manifest": "reports/automation-runs/open-settlement/20260910T093620+0800.json",
+      "task_status": "PASS",
+      "run_id": "1bbda0282044474d841496ce3a775ea0",
+      "filled_count": 1,
+      "pending_order_count": 0,
+      "deepseek_called": false
+    },
+    "open_settlement_recovery_check": {
+      "state": "COMPLETED_NO_STATE_CHANGE",
+      "date": "2026-09-10",
+      "manifest": "reports/automation-runs/open-settlement/20260910T130619+0800.json",
+      "task_status": "PASS_ALREADY_FILLED",
+      "changed_files_before_manifest": 0,
+      "financial_state_changed": false,
+      "deepseek_called": false
+    },
+    "close_analysis": {
+      "state": "FAILED_SYSTEM_ERROR_MODEL_CAPACITY",
+      "date": "2026-09-09",
+      "owner_thread_id": "019f933f-3c42-77d0-ad63-71c5fcb7a5a5",
+      "observed_error": "Selected model is at capacity. Please try a different model.",
+      "financial_state_changed": false,
+      "historical_report_written": false
+    }
+  },
+  "short_cycle": {
+    "latest_due_date": "2026-09-09",
+    "current_due_close_paths_missing": [
+      "data/inbox/2026-09-09.json",
+      "reports/daily/2026-09-09-short.json",
+      "reports/daily/2026-09-09-short.md"
+    ],
+    "latest_completed_close_date": "2026-09-08",
+    "latest_due_fund_date": "2026-09-09",
+    "latest_fund_json_exists": true,
+    "latest_fund_md_exists": true,
+    "fund_task_status": "NO_TRADE",
+    "latest_due_preopen_date": "2026-09-10",
+    "preopen_task_status": "PASS_WITH_MISSING_2026_09_09_SEALED_CLOSE",
+    "daily_order_guard_status": "READY",
+    "open_settlement_status": "PASS",
+    "recovery_check_status": "PASS_ALREADY_FILLED",
+    "status": "CURRENT_PREOPEN_GUARD_OPEN_AND_RECOVERY_COMPLETE_FUND_PRESENT_CLOSE_GAP_UNCHANGED"
+  },
+  "long_cycle": {
+    "latest_week": "2026-W35",
+    "generated_at": "2026-08-30T20:15:50+08:00",
+    "age_days_at_trigger": 10.789705833333334,
+    "max_age_days": 8.0,
+    "status": "STALE",
+    "successor_week": "2026-W36",
+    "successor_json_exists": false,
+    "successor_md_exists": false,
+    "successor_evolution_exists": false,
+    "input_hashes": {
+      "original_count": 56,
+      "current_match_count": 54,
+      "expected_later_state_changes": [
+        "data/ledger/orders.jsonl",
+        "data/ledger/portfolio.json"
+      ],
+      "unexpected_mismatches": []
+    }
+  },
+  "ledger": {
+    "json_parse": {
+      "status": "PASS",
+      "json_files": 1183,
+      "jsonl_files": 17,
+      "jsonl_rows": 452,
+      "errors": 0
+    },
+    "event_chain": {
+      "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+      "event_count": 84,
+      "legacy_event_count": 4,
+      "v2_event_count": 80,
+      "head_event_sha256": "5b22b7611a3d50bb8911bf45b890a1652c7411716d3eab4de019e760833a6899",
+      "committed_event_count": 84,
+      "git_commit": "44701924ec94bdceff2d2f97ac2f2e7965361d87"
+    },
+    "portfolio_projection": {
+      "status": "PASS",
+      "filled_event_count": 24,
+      "completed_round_trip_count": 1,
+      "eligible_sample_count": 0,
+      "pending_orders": 0,
+      "position_count": 6,
+      "cash_replay_complete": true,
+      "cash_delta_cny": "-20628.10",
+      "cumulative_fees_cny": "120.00"
+    },
+    "latest_transaction": {
+      "status": "COMMITTED",
+      "run_id": "1bbda0282044474d841496ce3a775ea0",
+      "prepare_path": "data/ledger/transactions/1bbda0282044474d841496ce3a775ea0/prepare.json",
+      "prepare_sha256": "1f22934edbdb70fc2dacde0c692e3c41d5553283e5ced2af10478a29be8071fc",
+      "commit_path": "data/ledger/transactions/1bbda0282044474d841496ce3a775ea0/commit.json",
+      "commit_sha256": "515f048a08789a8d5cb336071593aa866872844fb2fb29c40be85a4b5186623f",
+      "projection_status": "PASS"
+    }
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0,
+    "remaining_cny": 100.0,
+    "api_cost_rows": 1,
+    "actual_api_call_rows": 0,
+    "called_by_monitor": false
+  },
+  "historical_gap_governance": {
+    "path": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+    "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+    "evidence_hashes_match": true,
+    "exact_path_and_hash_checks": {
+      "passed": 22,
+      "total": 22
+    },
+    "orphan_20260813T091525_absent": true,
+    "replacement_manifest_hash_matches": true,
+    "new_due_gaps_suppressed": false,
+    "disposition": "VALID"
+  },
+  "experience_validation": {
+    "status": "PASS",
+    "record_count": 3,
+    "promoted_rule_count": 0,
+    "proposed_rule_count": 0,
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "minimum_eligible_round_trips": 20,
+    "current_eligible_round_trips": 0
+  },
+  "task_contract_validation": {
+    "status": "PASS",
+    "task_count": 14,
+    "sync_allowlist_status": "PASS",
+    "real_broker_integration": "forbid",
+    "caller_force_bypass": "forbid"
+  },
+  "report_consistency": {
+    "baseline_broken_current_report_links": 22,
+    "current_broken_current_report_links": 22,
+    "new_since_baseline": 0,
+    "state": "UNCHANGED",
+    "sources": {
+      "reports/daily/2026-09-08-short.md": 5,
+      "reports/funds/2026-09-09-funds.md": 5,
+      "reports/preopen/guard/2026-09-08-preopen.md": 5,
+      "reports/preopen/2026-09-10-preopen.md": 7,
+      "reports/execution/2026-09-10-open.md": 0
+    }
+  },
+  "active_alerts": [
+    {"code": "NEW_FUND_CYCLE_INTERRUPTED_AND_MISSING", "state": "UNCHANGED"},
+    {"code": "TODAY_PREOPEN_AND_SETTLEMENT_WINDOWS_MISSED", "state": "UNCHANGED", "date": "2026-09-03"},
+    {"code": "DUE_REFLECTION_SYNC_BLOCKED_AND_WEEKLY_REFERENCES_UNCOMMITTED", "state": "UNCHANGED"},
+    {"code": "UNACKNOWLEDGED_HISTORICAL_SHORT_GAPS", "state": "UNCHANGED", "dates": ["2026-08-17", "2026-08-18"]},
+    {"code": "PRIOR_DAILY_ORDER_GUARD_MANIFEST_UNTRACKED", "state": "UNCHANGED", "path": "reports/automation-runs/daily-order-guard/20260825T091607+0800.json"},
+    {"code": "STRATEGY_GOVERNANCE_INCONSISTENCY", "state": "UNCHANGED"},
+    {"code": "DUE_SHORT_REPORT_MISSING_OWNER_MODEL_CAPACITY", "state": "UNCHANGED", "date": "2026-09-04"},
+    {"code": "CURRENT_TRADING_DAY_PREOPEN_OPEN_AND_RECOVERY_MISSING", "state": "UNCHANGED", "date": "2026-09-07"},
+    {"code": "DUE_W36_REFLECTION_AND_WEEKLY_OUTPUTS_MISSING", "state": "UNCHANGED"},
+    {"code": "CURRENT_TRADING_DAY_CLOSE_CYCLE_MISSING", "state": "UNCHANGED", "date": "2026-09-07"},
+    {"code": "LONG_REPORT_STALE_OVER_8_DAYS", "state": "UNCHANGED", "age_days": 10.789705833333334},
+    {"code": "CURRENT_REPORT_MARKDOWN_LINKS_BROKEN", "state": "UNCHANGED", "count": 22},
+    {"code": "CURRENT_TRADING_DAY_CLOSE_CYCLE_MISSING_OWNER_MODEL_CAPACITY", "state": "UNCHANGED", "date": "2026-09-09"}
+  ],
+  "resolved_alerts": [],
+  "new_alerts": [],
+  "expanded_alerts": [],
+  "current_run_repair_assessment": {
+    "repairable_by_monitor": false,
+    "reason": "The current preopen, guard, open settlement and 13:00 recovery check completed through their owner workflows. Remaining findings require owner-scoped governance, immutable-gap handling, weekly catch-up or governed code repair. The monitor cannot initiate trading analysis, backfill cutoff evidence, change strategy or alter historical reports.",
+    "next_retry_points": {
+      "close_analysis": "2026-09-10T16:30:00+08:00",
+      "fund_nav": "2026-09-10T22:30:00+08:00",
+      "next_open_settlement": "2026-09-11T09:29:00+08:00 owner start for the 09:30-09:35 capture window",
+      "weekly_review": "Owner-scoped catch-up required"
+    }
+  },
+  "governance": {
+    "branch": "main",
+    "local_head_before_sync": "44701924ec94bdceff2d2f97ac2f2e7965361d87",
+    "origin_main_before_sync": "44701924ec94bdceff2d2f97ac2f2e7965361d87",
+    "remote_main_before_sync": "44701924ec94bdceff2d2f97ac2f2e7965361d87",
+    "tracked_worktree_clean_before_report": true,
+    "protected_scope": "all tracked files except reports/monitor and activity-monitor manifests",
+    "protected_digest_method": "sha256_of_utf8_repo_path_sorted_lines_file_sha256_tab_repo_relative_path_lf",
+    "protected_file_count": 1128,
+    "protected_digest": "64752527c2e2bfd649a92dd7e643faae61ec51560514a4f97198f5526ca929cb",
+    "foreign_untracked_count": 70,
+    "foreign_untracked_digest": "80c2f36a813dd78f1e331f2e16b6ccb523aff18ad88b442e83eb1e1668532020",
+    "foreign_untracked_delta_from_baseline": 0,
+    "foreign_untracked_new_paths": [],
+    "foreign_untracked_disposition": "Preserved unchanged owner and research artifacts outside the activity-monitor sync allowlist.",
+    "sync_command": "scripts/sync_github.sh activity-monitor FAILED",
+    "sync_status_at_report_creation": "PENDING",
+    "financial_state_modified_by_monitor": false,
+    "historical_reports_modified": false,
+    "trading_analysis_started": false,
+    "deepseek_called": false
+  },
+  "input_manifest": {
+    "README.md": "ed2412e02856a1afea89c0473e014b73aea906f43e3fa83460206ab1739f6e10",
+    "MASTER_PROMPT.md": "ff6f7eae26187728d8fa4df4820962e7cda1cb8dc7a0e5c822665cc621a988ff",
+    "MODE_LOCK.md": "fadaae7101288a1b32f1fc797d5896dbb476a23172bf4cd57a5233aee903419d",
+    "config/strategy.json": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "config/task_contracts.json": "397780aa39912ec362a1ff0af3419e0afd2a63586b1862a65e7388f837e23e43",
+    "config/universe.json": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7",
+    "docs/AUTOMATION.md": "c6cdcb1b0dce205d4a0c1060f2e4be80cba906283743156e803c2b817a4aaa7e",
+    "scripts/sync_github.sh": "1f0abf2bda7dbfecb0da95ab483806b3374e52a962b9d610281a47e8685f1120",
+    "vibe_finance/evolution.py": "e4e40aef5501d9ded62a89cc71009c7137f84a452c6d1092dc4e824ae6c10935",
+    "vibe_finance/experience.py": "5adb74a21112862a6fd4887e9e9ce7e6b394f8abcad68e58df1316d7ade962e9",
+    "vibe_finance/pipeline.py": "6decffcd7caa9dd19a82e65009813f58d45107f80436a8e6e6fa434f9fa6e478",
+    "vibe_finance/task_contracts.py": "245efbcccc1680f527181e8f5fbb5a7ef668794c86ad47b8e7e71536212de00b",
+    "vibe_finance/transaction.py": "32e49d01c5013321d0ae119276091e0d8b295817b663e7fc8a58d59c54b634ca",
+    "tests/test_evolution.py": "247b2bb67973ce533ffcb857b7ee155142c8d0e2704805c7f10e19fe1140d280",
+    "tests/test_experience.py": "02276564a61b6c20fe039343527d320d395e2ff930ce08f7f52c3af04e22a33b",
+    "tests/test_pipeline.py": "20077821b65ed72bd0ca63167671cb6c927c5e5edccc84b6528f819f372d422d",
+    "tests/test_task_contracts.py": "fba64f93c5d110b5663a6275c42203b31bb56cbf0c36c641c54579bd0babd305",
+    "tests/test_transactions.py": "3d1509f3fd8d8c039b02f1dd51a637a1a1ea13802681565f89cc74cfb010b796",
+    "data/ledger/heartbeat.json": "57dc083bd03651706ed8ce485ad9f85243e097520e1ce9712c84926b1d011f3c",
+    "data/ledger/portfolio.json": "820bbeb57547219a8a48a3664fb43bda39d32c41a1296106f4748c375038f584",
+    "data/ledger/orders.jsonl": "e8562e100de1504755f778fc7e87ccea80d1b547486b694dda8abf10444a2870",
+    "data/ledger/api_costs.jsonl": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "data/ledger/transaction_invalidations.jsonl": "88f13c7d7a49c5c41d667d93820a3c883257d48171477291c3dd6b3f4d5abff0",
+    "data/inbox/2026-09-08.json": "9a90e914752e56b8518c00a9d15b1deb1424228dacb4a2ebbe92a3d3ef925afa",
+    "reports/daily/2026-09-08-short.json": "cedb93cc778e134580f15c6e27cf938e6f75fc6e8ed1de9083dd3717ef56018f",
+    "reports/daily/2026-09-08-short.md": "9eae34b44079d3d0f48facf2d6aa81a61736999f08b7716c60b180f5331bd50d",
+    "reports/automation-runs/close-analysis/20260908T164426+0800.json": "1627bd5104942bf3498f7367b6615cb5178764b0df2d883bea0dc04f63a37250",
+    "data/inbox/2026-09-09-funds.json": "e2a765e41910267cd3c578cad9506dfcc988c42a2f91c5d4fb733d4377e185aa",
+    "reports/funds/2026-09-09-funds.json": "6a9e3f56ab32570e83ff4f4e0f323dd993b6ead062b464809a421eced185f2b1",
+    "reports/funds/2026-09-09-funds.md": "0586de060276bbf2a433b639dc1015a39795841d0d1af7c7de2755677043c968",
+    "reports/automation-runs/fund-nav/20260909T223956+0800.json": "0ab178050cb940a34739a9202f269c7e497f0c0d7742a9ba12a4d585844f5ab2",
+    "data/inbox/2026-09-10-preopen.json": "c5c35e3ea9e2be46c91d80749e957cac6a365b3b86ff950428172d51a167af7c",
+    "reports/preopen/2026-09-10-preopen.json": "ca751b3f88062cc269f14c54d98223edaca46242c05e20aca317504e60ce7bc5",
+    "reports/preopen/2026-09-10-preopen.md": "dc34e9cd7509a99be8d12b0f165cd5a7a7fa8a23a6450688cbe8ae0b0988c1e6",
+    "reports/research/2026-09-10-preopen-review-audit.md": "64ce00e9f042e0c0eb43621a0c5bea5534d140a843498e370411f85d4c2bbd94",
+    "reports/research/2026-09-10-preopen-review-evidence.json": "7b6466ba039099297739bfb5740fd415044cc9982f1c9b6b3cef53c75d0ae1fc",
+    "reports/automation-runs/preopen-review/20260910T082426+0800.json": "aa877164b4a2c22a9bddf0271bdc88d96fe576311b532d950867bc64d4cf8082",
+    "reports/automation-runs/daily-order-guard/20260910T091819+0800.json": "d75ce78dda8667eb1f2cfd0bb44ec687cbf9bfbf7fbd1da5fb467b79ac348320",
+    "data/inbox/2026-09-10-open.json": "0619ff175a22970300cd1b989e41edfe413ba98725ae8ffc2049a3ab2707ea7d",
+    "reports/execution/2026-09-10-open.json": "ce97250f9387e69360eff7cda84660dc6bd6ca30e844765aec42efa757cd1511",
+    "reports/execution/2026-09-10-open.md": "9d4e535b53bb1cb3d4cb772fada078190ddca107e6e7b0491fbec1e944e2231b",
+    "reports/automation-runs/open-settlement/20260910T093620+0800.json": "504589f7afd595c3f15878756df96a7598369c7b69c8caa63f2bd7af25d8cc1c",
+    "reports/automation-runs/open-settlement/20260910T130619+0800.json": "87dac656030ec5cc643505061330e79d780601e247ea7b020b04f5875c3c32cc",
+    "data/ledger/transactions/1bbda0282044474d841496ce3a775ea0/prepare.json": "1f22934edbdb70fc2dacde0c692e3c41d5553283e5ced2af10478a29be8071fc",
+    "data/ledger/transactions/1bbda0282044474d841496ce3a775ea0/commit.json": "515f048a08789a8d5cb336071593aa866872844fb2fb29c40be85a4b5186623f",
+    "reports/weekly/2026-W35.json": "9a48259e410bc34f061151ca49c4399b7d4645ba7c961da90f66e205635bea3f",
+    "reports/weekly/2026-W35.md": "74620aba3003b0e87b3ee3441dcfba611124cdd574557d784cf7d20a8e9f906b",
+    "reports/automation-runs/weekly-review/20260830T202013+0800.json": "898d48c5e0d8161e1a0d0ec1da826aa9416a007762597755b24a897d2e769b4c",
+    "reports/research/2026-08-17-operational-gap-reconciliation.json": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "reports/weekly/2026-W32.json": "3738175ff8873c67db9518aeacfaa5bd3d7ddd4fde347e1a27c8379264fd0399",
+    "reports/weekly/2026-W33.json": "e4e688d619be4bb2e3100d09e8d00bbe246d53635f85eebce2dab21c67de5309",
+    "data/inbox/2026-08-11-intraday.json": "33cbff5cea287a9e3d0e74fa2228d81188f4ad9cd5399f42184b53d7112373c0",
+    "reports/execution/2026-08-11-intraday.json": "f1220dc7dc7ad694900c14812ed0c296a29b06b74a9dd644008e1e9c88b41bd8",
+    "reports/automation-runs/daily-order-guard/20260813T091729+0800.json": "986d1ebd3dc5f9b59dc5b4f3e1ffad091f4f6dbbdd803c3da49b4a359a255d2b",
+    "reports/document-log/2026-09-09-2312.json": "5eeabcb8ff469f9b6f8147aaa9b4520a4c519bbfca060ad1be3f31450818575a",
+    "reports/document-log/2026-09-09-2312.md": "5df02dbc4e1c01cb038d7a6853905af4fc3c4fd9e9c14dc3ef2680adac762ca6",
+    "reports/automation-runs/document-log/20260909T231521+0800.json": "973ef74a8ed0b17562a3a8a4a6fd1b9894159bf57d930f9fb442613a8ecf5251",
+    "reports/monitor/20260910T091124+0800.json": "21cc3b4129a535f3a4fc93b0e179f0c8cf7863a2c70e69b5160c2f2c9c9fc64b",
+    "reports/automation-runs/activity-monitor/20260910T093421+0800.json": "4b34b31710d65a031ba9b45111bfc00c0d1be8585798854c980f17aff9d3232c",
+    "/mnt/d/codex/home/automations/vibe-finance/automation.toml": "cb49d94e0ff22241eef809bc684a001d37715b77d6e63678e117490444cbfc9e",
+    "/mnt/d/codex/home/automations/vibe-finance/memory.md": "834e0e27050c5338678eef3179042c5ebb478fe82fb1066b0f0e3e29dc25815c",
+    "/mnt/d/codex/home/automations/vibe-finance-3/automation.toml": "f6bc934c0666a609dd27d6db05be1b0f7ac45fd2b7cf338c97e42ea594e0bba1",
+    "/mnt/d/codex/home/automations/vibe-finance-3/memory.md": "e3b17edf94eae0a970631b1b2f154b5736bfb8b7f77169806e4cb8d805e090a9"
+  }
+}
