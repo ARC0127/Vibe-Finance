@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "task_id": "fund-nav",
+  "task_status": "NO_TRADE",
+  "run_timestamp": "2026-09-11 22:36:12 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "f498758c378604f4fc792a08e1138e24f90b52d2",
+  "allowlist": [
+    "reports/funds",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 17631,
+      "sha256": "1d8df5bfacbacdc75c1db4b5aa2abf024261391f3653efe5b5ae7354dee6a015"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 266,
+      "sha256": "455a21e47f0d78b2c4fbcdf5f2d26bb064dc5c80d305f28386a2261f99bf89ce"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 36793,
+      "sha256": "b69fd8e99e5711c2ac8aff39f870299890855450d95399ba9ab92464eec51a08"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-09-11-funds.json",
+      "bytes": 326256,
+      "sha256": "c344b4a4033d7f205f88b811c5372bb58fa4e0f2048bdcd2da19efda04cbdef3"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/c3977b6783dc4d2eac323b5dcf0d595d/commit.json",
+      "bytes": 974,
+      "sha256": "962f536e5db610d22eec4f13d51f6a40e4341fa1f25cb7ce5f7f81238f7181bc"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/c3977b6783dc4d2eac323b5dcf0d595d/prepare.json",
+      "bytes": 80262,
+      "sha256": "8ef645498f3909b238847ae2131c58e0ad4e28d6d1c3d247100dfc6bf1bfcf54"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/funds/2026-09-11-funds.json",
+      "bytes": 20499,
+      "sha256": "3f146db95a3b2120725981ce93b26ad9784bef213f67d577cd6a422d35b9a621"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/funds/2026-09-11-funds.md",
+      "bytes": 18194,
+      "sha256": "86fcb86b62cb6acf74d115e7b36946b83b5444ee48d880329fc730c59a4dc7d2"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-11T14:36:12.384731+00:00",
+  "simulation_only": true
+}
