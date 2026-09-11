@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "run_date": "2026-09-11",
+  "cutoff": "2026-09-11T08:00:00+08:00",
+  "simulation_only": true,
+  "calendar": {
+    "status": "TRADING_DAY",
+    "basis": "Friday outside all SSE- and SZSE-published 2026 closure intervals; the next September closure starts 2026-09-25.",
+    "sse": {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+      "retrieved_at": "2026-09-11T08:07:58.029622+08:00",
+      "http_status": 200,
+      "bytes": 29251,
+      "body_sha256": "4e260b815ce1309175ed994e6490a4ccd51b998a5f92bcdc41cec00fc6823dc7",
+      "published_at": "2025-12-22"
+    },
+    "szse": {
+      "url": "https://investor.szse.cn/disclosure/notice/general/t20251222_618087.html",
+      "retrieved_at": "2026-09-11T08:07:59.275787+08:00",
+      "http_status": 200,
+      "bytes": 24946,
+      "body_sha256": "1656d8708d5faed33c7588538639d96128f39fdface02cfa6eb66d796c40f14e",
+      "transport": "wsl_curl_tls12",
+      "published_at": "2025-12-22"
+    }
+  },
+  "pending_security": {
+    "symbol": "518880",
+    "announcement_query": {
+      "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=100&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&type=inParams&sqlId=COMMON_PL_JJXX_JJGG_NEW_L&SECURITY_CODE=518880&START_DATE=2026-08-01&END_DATE=2026-09-11&DATE_DESC=1",
+      "retrieved_at": "2026-09-11T08:07:59.957764+08:00",
+      "http_status": 200,
+      "bytes": 1205,
+      "body_sha256": "a56f8ffe3479a45d9e4789babf56e59ebc1abac825f07831bd04f983d36ce920",
+      "parsed": {
+        "actionErrors": [],
+        "actionMessages": [],
+        "fieldErrors": {},
+        "isPagination": "true",
+        "jsonCallBack": null,
+        "locale": "en_CN",
+        "pageHelp": {
+          "beginPage": 1,
+          "cacheSize": 5,
+          "data": [
+            {
+              "SSEDATE": "2026-08-31",
+              "ORG_BULLETIN_TYPE_DESC": "中期报告",
+              "BULLETIN_TYPE_DESC": "定期报告(基金)",
+              "NUM": "1",
+              "TITLE": "华安易富黄金交易型开放式证券投资基金2026年中期报告",
+              "FUND_EXPANSION_ABBR": "黄金ETF华安",
+              "SECURITY_CODE": "518880",
+              "URL": "/disclosure/fund/announcement/c/new/2026-08-31/518880_20260831_BLZG.pdf"
+            }
+          ],
+          "endDate": null,
+          "endPage": 1,
+          "objectResult": null,
+          "pageCount": 1,
+          "pageNo": 1,
+          "pageSize": 100,
+          "pageSizeWithOutLimit": 100,
+          "searchDate": null,
+          "sort": null,
+          "startDate": null,
+          "total": 1
+        },
+        "pageNo": null,
+        "pageSize": null,
+        "queryDate": "",
+        "result": [
+          {
+            "SSEDATE": "2026-08-31",
+            "ORG_BULLETIN_TYPE_DESC": "中期报告",
+            "BULLETIN_TYPE_DESC": "定期报告(基金)",
+            "NUM": "1",
+            "TITLE": "华安易富黄金交易型开放式证券投资基金2026年中期报告",
+            "FUND_EXPANSION_ABBR": "黄金ETF华安",
+            "SECURITY_CODE": "518880",
+            "URL": "/disclosure/fund/announcement/c/new/2026-08-31/518880_20260831_BLZG.pdf"
+          }
+        ],
+        "securityCode": "",
+        "sqlId": "COMMON_PL_JJXX_JJGG_NEW_L",
+        "texts": null,
+        "type": "inParams",
+        "validateCode": ""
+      }
+    },
+    "historical_pcf": {
+      "url": "https://huaan.com.cn/etf/518880/sgshqd.jsp?querydate=2026-09-10",
+      "retrieved_at": "2026-09-11T08:08:00.819635+08:00",
+      "http_status": 200,
+      "bytes": 13221,
+      "body_sha256": "f0ef1a96f91aae381a910d24fc2c34c3d1e65b97dbc26cd3d96a67dd56f44a3e",
+      "text": "华安易富黄金交易型基金--特征与优势 申购赎回清单 (文件下载) 类型 上交所 金交所 历史查询 查询 基本信息 最新公告日期 20260910 基金名称 华安易富黄金交易型基金 基金管理公司名称 华安基金管理有限公司 基金代码 518880 20260909 信息内容 现金差额(单位:元) ￥ -46,368.89 最小申购、赎回单位资产净值(单位:元) ￥ 905,401.11 基金份额净值(单位:元) ￥ 9.0540 20260910 信息内容 预估现金部分(单位:元) ￥ -46,368.89 现金替代比例上限 100.00% 申购上限 1500000000 赎回上限 450000000 是否需要公布IOPV 是 最小申购、赎回单位(单位:份) 100,000.00 申购、赎回的允许情况 申购和赎回皆允许 成份股信息内容 股票代号 证券简称 股票数量 现金替代标志 申购现金替代溢价比例 赎回现金替代溢价比例 固定替代金额 Au9999 黄金9999 1000 允许 10.00% 0.00% 951770",
+      "published_at": "2026-09-10"
+    },
+    "review": "The complete one-page SSE fund-announcement query from 2026-08-01 through 2026-09-11 returned no same-day or sensitive termination, liquidation, suspension, dividend, split, or share-conversion title. The fund-manager historical PCF identifies 518880 and permits subscription/redemption. It does not prove current exchange TRADING."
+  },
+  "latest_fund_review": {
+    "path": "data/inbox/2026-09-10-funds.json",
+    "sha256": "9c035bf1d8c0e067e05bc63395d08d391f4ca2b058f6eeb9c7767e1d0c1bbc9d",
+    "as_of": "2026-09-10T22:30:00+08:00",
+    "decision": "WATCH_ONLY"
+  },
+  "boundary": {
+    "prices": "Only immutable data/inbox/2026-09-10.json and its hash-pinned raw Tencent/Sina close batch are admissible.",
+    "trading_status": "UNVERIFIED_PREOPEN; current TRADING and dual-source opening price must be reproved at 09:30-09:35.",
+    "fund_research": "The 2026-09-10 fund review is discovery/cross-check only; rankings cannot trigger an order.",
+    "deepseek_calls": 0,
+    "broker_connections": 0
+  }
+}
