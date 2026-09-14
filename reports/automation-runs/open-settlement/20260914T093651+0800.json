@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "task_id": "open-settlement",
+  "task_status": "PASS",
+  "run_timestamp": "2026-09-14 09:36:51 CST",
+  "run_id": "UNKNOWN",
+  "branch": "main",
+  "base_commit": "6f5ddb31b609f93a8b5b29d2faaf2ceb8accf613",
+  "allowlist": [
+    "reports/execution",
+    "data/inbox",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 18201,
+      "sha256": "e80ea68687bc31aa12ac51db7f8a87b0b14ef08df8b45b396da9fac6358e100c"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 273,
+      "sha256": "27d00af7b2e1c5ccf0b8fb21cc3577c461088adf356cacf6fe9fbe7047d32035"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/orders.jsonl",
+      "bytes": 141410,
+      "sha256": "d21772c1f7bf40f7e4c982bc65212690eb936fd5ff107387b99f36fed91053f8"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 36206,
+      "sha256": "1ceb60043c29830e1577e47845771ec4d45acb1c9fc90894ac012b2a0da51780"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-09-14-open.json",
+      "bytes": 84088,
+      "sha256": "c0d4424310ca48c442a193f762b4c7c9b6a0fe6113bb07f3a35e3364ceeb7451"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/afc16d8ca69b43ce84447bc4adadf019/commit.json",
+      "bytes": 980,
+      "sha256": "9077c269dfa7fe6f99778a9371d5ac82f25e3315cc88bca1e34585650a114acc"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/afc16d8ca69b43ce84447bc4adadf019/prepare.json",
+      "bytes": 46118,
+      "sha256": "5b6c3ada3801158348f9d6677add7be42b2924b45cee55ab677fb97ad9220e4e"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/execution/2026-09-14-open.json",
+      "bytes": 3276,
+      "sha256": "2e6535de09900634768803a001967cefc1125f5a0e8dcb9fcd1a5974bc556caa"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/execution/2026-09-14-open.md",
+      "bytes": 866,
+      "sha256": "5bd5cef40bd4b9b1656901dfba0e8bc96489f2fd49c09fd82713dd37c8e7427e"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-14T01:36:51.479789+00:00",
+  "simulation_only": true
+}
