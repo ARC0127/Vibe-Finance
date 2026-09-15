@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "run_date": "2026-09-15",
+  "cutoff": "2026-09-15T08:00:00+08:00",
+  "simulation_only": true,
+  "calendar": {
+    "status": "TRADING_DAY",
+    "basis": "Tuesday outside all SSE- and SZSE-published 2026 closure intervals; the next September closure starts 2026-09-25.",
+    "sse": {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+      "retrieved_at": "2026-09-15T08:07:10.435853+08:00",
+      "http_status": 200,
+      "bytes": 29251,
+      "body_sha256": "4e260b815ce1309175ed994e6490a4ccd51b998a5f92bcdc41cec00fc6823dc7",
+      "transport": "wsl_urllib",
+      "published_at": "2025-12-22"
+    },
+    "szse": {
+      "url": "https://investor.szse.cn/disclosure/notice/general/t20251222_618087.html",
+      "retrieved_at": "2026-09-15T08:07:13.975344+08:00",
+      "http_status": 200,
+      "bytes": 24946,
+      "body_sha256": "1656d8708d5faed33c7588538639d96128f39fdface02cfa6eb66d796c40f14e",
+      "transport": "wsl_urllib",
+      "published_at": "2025-12-22"
+    }
+  },
+  "pending_security": {
+    "symbol": "512100",
+    "announcement_query": {
+      "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=100&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&type=inParams&sqlId=COMMON_PL_JJXX_JJGG_NEW_L&SECURITY_CODE=512100&START_DATE=2026-09-01&END_DATE=2026-09-15&DATE_DESC=1",
+      "retrieved_at": "2026-09-15T08:07:14.478574+08:00",
+      "http_status": 200,
+      "bytes": 497,
+      "body_sha256": "d9f8134e65f3cbcd552b22061dad11b5c7f2851812c3df661507f0d8bdae7bd2",
+      "transport": "wsl_urllib",
+      "parsed": {
+        "actionErrors": [],
+        "actionMessages": [],
+        "fieldErrors": {},
+        "isPagination": "true",
+        "jsonCallBack": null,
+        "locale": "en_CN",
+        "pageHelp": {
+          "beginPage": 1,
+          "cacheSize": 5,
+          "data": [],
+          "endDate": null,
+          "endPage": 1,
+          "objectResult": null,
+          "pageCount": 0,
+          "pageNo": 1,
+          "pageSize": 100,
+          "pageSizeWithOutLimit": 100,
+          "searchDate": null,
+          "sort": null,
+          "startDate": null,
+          "total": 0
+        },
+        "pageNo": null,
+        "pageSize": null,
+        "queryDate": "",
+        "result": [],
+        "securityCode": "",
+        "sqlId": "COMMON_PL_JJXX_JJGG_NEW_L",
+        "texts": null,
+        "type": "inParams",
+        "validateCode": ""
+      }
+    },
+    "identity_document": {
+      "url": "https://www.nffund.com/main/files/2026/03/19/126105702839.pdf",
+      "retrieved_at": "2026-09-15T08:07:15.114243+08:00",
+      "http_status": 200,
+      "bytes": 47062,
+      "body_sha256": "46aaf843103786ea4b933a1d75826eb49bfc4e01eae9f882f0f808400b22ae05",
+      "transport": "wsl_urllib",
+      "published_at": "2026-03-20",
+      "verified_terms": [
+        "512100",
+        "南方中证1000交易型开放式指数证券投资基金",
+        "中证1000ETF南方",
+        "2026年3月20日"
+      ]
+    },
+    "review": "The complete one-page SSE fund-announcement query from 2026-09-01 through 2026-09-15 returned no notices. The official Southern Fund document identifies code 512100 as 南方中证1000交易型开放式指数证券投资基金 with extended name 中证1000ETF南方. No termination, liquidation, suspension, dividend, split, or share-conversion evidence was found at the cutoff. Neither source proves current exchange TRADING."
+  },
+  "latest_fund_review": {
+    "path": "data/inbox/2026-09-14-funds.json",
+    "sha256": "b84e88fc4ea6e45dde46c1ded12610c9c9459584a4eea042f21bb4e6409bc567",
+    "as_of": "2026-09-14T22:30:00+08:00",
+    "decision": "WATCH_ONLY"
+  },
+  "boundary": {
+    "prices": "Only immutable data/inbox/2026-09-14.json and its hash-pinned raw Tencent/Sina close batch are admissible.",
+    "trading_status": "UNVERIFIED_PREOPEN; current TRADING and dual-source opening price must be reproved at 09:30-09:35.",
+    "fund_research": "The 2026-09-14 fund review is discovery/cross-check only; rankings cannot trigger an order.",
+    "deepseek_calls": 0,
+    "broker_connections": 0
+  }
+}
