@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "automation_id": "vibe-finance-3",
+  "heartbeat_trigger_utc": "2026-09-15T07:08:34.599Z",
+  "heartbeat_trigger_local": "2026-09-15T15:08:34.599+08:00",
+  "created_at_utc": "2026-09-15T07:11:18.242766Z",
+  "timezone": "Asia/Shanghai",
+  "simulation_only": true,
+  "task_status": "FAILED",
+  "notification": "DONT_NOTIFY",
+  "baseline_monitor": {
+    "path": "reports/monitor/20260915T090822+0800.json",
+    "sha256": "4ee005c00e76ad05fd33bf4e053b3de09cbdf848c3fa831e36064c8469631c9b",
+    "manifest_path": "reports/automation-runs/activity-monitor/20260915T091905+0800.json",
+    "manifest_sha256": "807b6eb49c96881ddc1073d3380c1e36b7e8a9480dc5c2d29b92c34d78e4df24"
+  },
+  "status_command": {
+    "command": "python3 -m vibe_finance status",
+    "exit_code": 0,
+    "status": "ACTIVE",
+    "heartbeat_age_hours_at_trigger": 5.602,
+    "heartbeat_age_hours_observed": 5.614,
+    "max_age_hours": 36.0,
+    "last_success_at": "2026-09-15T01:32:26.084885+00:00",
+    "last_run_id": "c2c6c8fe90ab44bf9f02d7f4aaff2cbf",
+    "last_run_date": "2026-09-15",
+    "last_mode": "open_settlement",
+    "decision_report_count": 35,
+    "pending_orders": 0,
+    "positions": 6,
+    "filled_trade_count": 27,
+    "last_filled_trade_date": "2026-09-15",
+    "project_equity_cny": 29798.0,
+    "total_pnl_cny": -202.0,
+    "total_return_pct": -0.006733333333333333
+  },
+  "calendar_context": {
+    "local_weekday": "Tuesday",
+    "trading_day": true,
+    "latest_due_short_cycle": "2026-09-14 close-analysis",
+    "latest_due_preopen": "2026-09-15 preopen-review",
+    "latest_due_open_settlement": "2026-09-15 open-settlement",
+    "next_due_cycle": "2026-09-15 16:30 Asia/Shanghai close-analysis",
+    "next_due_cycle_due_at_trigger": false
+  },
+  "short_cycle": {
+    "status": "CURRENT_WITH_CARRIED_HISTORICAL_GAPS",
+    "latest_completed_close_date": "2026-09-14",
+    "latest_completed_preopen_date": "2026-09-15",
+    "latest_completed_open_date": "2026-09-15",
+    "current_due_cycles_complete": true,
+    "pending_next_open_orders": 0
+  },
+  "long_cycle": {
+    "status": "PASS_WITH_FINDINGS",
+    "latest_week": "2026-W37",
+    "generated_at": "2026-09-14T09:25:50+08:00",
+    "age_days_at_trigger": 1.238,
+    "max_age_days": 8.0,
+    "input_hash_checks": {"passed": 43, "total": 43},
+    "report_sha256": "479891cc00b232488367d2d040bd86e95767618ec20d6fc7cbc5a6802596ccd6",
+    "report_md_sha256": "02d4bc4e9b9cae4faf593730d411a4a18ca68752033cd2251f146a246bc1f63c",
+    "w36_report_exists": false,
+    "official_w37_return_computed": false
+  },
+  "owner_cycle_update": {
+    "daily_order_guard": {
+      "task_status": "READY",
+      "manifest": "reports/automation-runs/daily-order-guard/20260915T092156+0800.json",
+      "manifest_sha256": "b60410360e194e0320ded3d9a8c0abdc4de77f0a2dc0ea086b9c1a9306a9eb65",
+      "financial_state_changed": false
+    },
+    "open_settlement": {
+      "task_status": "PASS",
+      "report_as_of": "2026-09-15T09:31:58+08:00",
+      "run_id": "c2c6c8fe90ab44bf9f02d7f4aaff2cbf",
+      "manifest": "reports/automation-runs/open-settlement/20260915T093700+0800.json",
+      "manifest_sha256": "14b2b9ba547fc8fdb6f6acfcbad0d9ae0a9272d938fbe24c7224a3b984d7cc3a",
+      "settled_virtual_orders": 1,
+      "pending_orders_after": 0,
+      "filled_trade_count_after": 27
+    },
+    "open_recovery_check": {
+      "task_status": "PASS_ALREADY_FILLED",
+      "manifest": "reports/automation-runs/open-settlement/20260915T130644+0800.json",
+      "manifest_sha256": "3271731fd0eb956338bcd27db7fa2e7f671dd381a798524914ccdd2713e1662f",
+      "financial_state_changed": false
+    }
+  },
+  "ledger": {
+    "json_parse": {
+      "status": "PASS",
+      "scope": "repository canonical artifacts excluding .codex and work scratch trees",
+      "json_files": 1293,
+      "jsonl_files": 3,
+      "jsonl_rows": 92,
+      "errors": 0
+    },
+    "event_chain": {
+      "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+      "event_count": 90,
+      "committed_event_count": 90,
+      "legacy_event_count": 4,
+      "v2_event_count": 86,
+      "head_event_sha256": "43a841cc3dc9ae9f74a917ca439f2d9832212a0975362cb2c8f2ed6648ab7f8f",
+      "git_commit": "8f4a8a838b0a7935a25ab8f2bac90ddf8d5842fa"
+    },
+    "portfolio_projection": {
+      "status": "PASS",
+      "filled_event_count": 27,
+      "pending_orders": 0,
+      "position_count": 6,
+      "completed_round_trip_count": 1,
+      "eligible_sample_count": 0,
+      "cash_replay_complete": true,
+      "cash_delta_cny": "-20947.00",
+      "cumulative_fees_cny": "135.00"
+    },
+    "latest_transaction": {
+      "status": "COMMITTED",
+      "run_id": "c2c6c8fe90ab44bf9f02d7f4aaff2cbf",
+      "projection_status": "PASS",
+      "prepare_sha256": "18a2318249a7e52bb85dd8dceee7ef235121b79a4300196ce164ac68081d7d06",
+      "commit_sha256": "e7e7539d13c59d85c1c508bf8fafdd89e856a533ddb54c830c88a8f0994e2834"
+    }
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "called_by_monitor": false,
+    "api_cost_rows": 1,
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0,
+    "remaining_cny": 100.0
+  },
+  "historical_gap_governance": {
+    "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+    "path": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+    "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "checks_passed": 22,
+    "checks_total": 22,
+    "evidence_hashes_match": true,
+    "exact_listed_path_states_match": true,
+    "new_due_cycle_gaps_suppressed": false
+  },
+  "current_reports": {
+    "broken_local_markdown_links": 40,
+    "baseline_broken_local_markdown_links": 40,
+    "broken_links_delta": 0,
+    "latest_document_log_broken_links": 339,
+    "latest_document_log_date_name_issues": 10,
+    "document_log_state": "UNCHANGED",
+    "by_report": {
+      "reports/daily/2026-09-14-short.md": 11,
+      "reports/funds/2026-09-14-funds.md": 11,
+      "reports/preopen/guard/2026-09-08-preopen.md": 5,
+      "reports/preopen/2026-09-15-preopen.md": 13,
+      "reports/execution/2026-09-15-open.md": 0,
+      "reports/weekly/2026-W37.md": 0
+    }
+  },
+  "report_consistency": {
+    "status": "PASS",
+    "latest_transaction_matches_open_report_and_financial_state_hashes": true,
+    "weekly_input_hashes_match": true,
+    "historical_reconciliation_hashes_match": true
+  },
+  "active_alerts_unchanged": [
+    "NEW_FUND_CYCLE_INTERRUPTED_AND_MISSING",
+    "TODAY_PREOPEN_AND_SETTLEMENT_WINDOWS_MISSED",
+    "DUE_REFLECTION_SYNC_BLOCKED_AND_WEEKLY_REFERENCES_LOCAL_UNSYNCED_ARTIFACT",
+    "UNACKNOWLEDGED_HISTORICAL_SHORT_GAPS",
+    "PRIOR_DAILY_ORDER_GUARD_MANIFEST_UNTRACKED",
+    "STRATEGY_GOVERNANCE_INCONSISTENCY",
+    "DUE_W36_REFLECTION_AND_WEEKLY_OUTPUTS_MISSING",
+    "W37_WEEKLY_TRIGGER_LATE",
+    "W37_OFFICIAL_RETURN_NOT_COMPUTED_MISSING_COMPLETE_BASELINE",
+    "PREOPEN_PROVENANCE_LABEL_WARNING",
+    "CURRENT_REPORT_MARKDOWN_LINKS_BROKEN",
+    "DOCUMENT_LOG_INTEGRITY_FINDINGS_EXPANDED"
+  ],
+  "new_alerts": [],
+  "expanded_alerts": [],
+  "resolved_alerts": [],
+  "current_run_repair_assessment": {
+    "repairable_by_monitor": false,
+    "reason": "All current-cycle commands and validations pass; remaining findings concern immutable history or owner-scoped renderer/governance artifacts.",
+    "minimum_repair": "Governance-code-release owner should fix future Markdown path rendering with a distinguishing test. Do not rewrite historical reports or backfill missing cutoff-bound evidence.",
+    "next_retry_points": {
+      "close_analysis": "2026-09-15T16:30:00+08:00",
+      "markdown_renderer": "Governance-code-release owner before the next generated decision report.",
+      "reflection_evolution": "After governed disposition of the unreferenced 20260818 baseline, reuse the existing W37 proposal and rerun its governed sync without new analysis."
+    }
+  },
+  "governance": {
+    "financial_state_mutated_by_monitor": false,
+    "historical_reports_mutated_by_monitor": false,
+    "deepseek_called_by_monitor": false,
+    "trade_analysis_started_by_monitor": false,
+    "protected_tracked_digest_before_report": {
+      "count": 1227,
+      "sha256": "3e72dc697cbea3e760eac513916858d809474621f945f6be11184444b9bfdb53"
+    },
+    "foreign_untracked_digest_before_report": {
+      "count": 125,
+      "sha256": "f5fe726af25aa8bcd6d7a6a5f6b1339b356cf52ed15b94bec7a4d986de8f555f"
+    }
+  },
+  "verification_summary": {
+    "status_command": "PASS_ACTIVE",
+    "json_jsonl_parse": "PASS",
+    "ledger_chain": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+    "portfolio_projection": "PASS",
+    "latest_transaction": "COMMITTED",
+    "deepseek_budget": "CONSISTENT",
+    "historical_gap_governance": "PASS_22_OF_22",
+    "weekly_input_hashes": "PASS_43_OF_43",
+    "experience_validate": "PASS",
+    "task_contracts": "PASS",
+    "current_report_links": "40_BROKEN_UNCHANGED"
+  },
+  "input_manifest": {
+    "README.md": "4bacf1ba235f6d0f422ae476a322d8d2dd9ce20f170903b9233a46db0822ac27",
+    "MASTER_PROMPT.md": "ff6f7eae26187728d8fa4df4820962e7cda1cb8dc7a0e5c822665cc621a988ff",
+    "MODE_LOCK.md": "fadaae7101288a1b32f1fc797d5896dbb476a23172bf4cd57a5233aee903419d",
+    "config/strategy.json": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "config/task_contracts.json": "397780aa39912ec362a1ff0af3419e0afd2a63586b1862a65e7388f837e23e43",
+    "config/universe.json": "23a8197aa3e9166949f669070318422861d77e3ff3d8af1da12be3ebaf7d29b7",
+    "docs/AUTOMATION.md": "c6cdcb1b0dce205d4a0c1060f2e4be80cba906283743156e803c2b817a4aaa7e",
+    "scripts/sync_github.sh": "1f0abf2bda7dbfecb0da95ab483806b3374e52a962b9d610281a47e8685f1120",
+    "data/ledger/heartbeat.json": "95b5afad4bcdadeb91d0a9f96fcc964e59b1ecf9219e6b5bc4588f94cf0a34a7",
+    "data/ledger/orders.jsonl": "04c2e0969d8d37a4c609b6fb454f799aa1bd1c644061894e7a684e06c5399d11",
+    "data/ledger/portfolio.json": "cb27c258252f3e10115f7c8dcd5acd71c2edb01e54dddd988071fe962ecce268",
+    "data/ledger/api_costs.jsonl": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "data/inbox/2026-09-15-preopen.json": "7f5659de4a4b9fff41c7ae1050f0b548a4a7c58d7abdcf125967e1ed47d705da",
+    "data/inbox/2026-09-15-open.json": "6e7382512c398a4dd4452138da5dc4ab03660fd59e5939f2f50651ed497afb99",
+    "reports/preopen/2026-09-15-preopen.json": "f5a876cbdc76f15b0b63b5fe4c51d6324a84fac0ceb5fd77df48db37fe48203c",
+    "reports/preopen/2026-09-15-preopen.md": "a80931f091c16aaf705bbfbb1dd1a45321e8948ac7592ef6a44a25b02562c44b",
+    "reports/execution/2026-09-15-open.json": "0fe4fef48a1660b0049a8dd331ede2b19f0d293340edcf4369733a4750fa2b32",
+    "reports/execution/2026-09-15-open.md": "de2ac46c627f2c7b7691f63d13d3d5ca72460faaf005f8e1364f344bf9a8e686",
+    "data/ledger/transactions/c2c6c8fe90ab44bf9f02d7f4aaff2cbf/prepare.json": "18a2318249a7e52bb85dd8dceee7ef235121b79a4300196ce164ac68081d7d06",
+    "data/ledger/transactions/c2c6c8fe90ab44bf9f02d7f4aaff2cbf/commit.json": "e7e7539d13c59d85c1c508bf8fafdd89e856a533ddb54c830c88a8f0994e2834",
+    "reports/automation-runs/daily-order-guard/20260915T092156+0800.json": "b60410360e194e0320ded3d9a8c0abdc4de77f0a2dc0ea086b9c1a9306a9eb65",
+    "reports/automation-runs/open-settlement/20260915T093700+0800.json": "14b2b9ba547fc8fdb6f6acfcbad0d9ae0a9272d938fbe24c7224a3b984d7cc3a",
+    "reports/automation-runs/open-settlement/20260915T130644+0800.json": "3271731fd0eb956338bcd27db7fa2e7f671dd381a798524914ccdd2713e1662f",
+    "reports/daily/2026-09-14-short.json": "3f1be2485c0dbf85e1a467e45acbcfdbf5dd8df9749fe08ec03827d21199dd24",
+    "reports/daily/2026-09-14-short.md": "d7cc21bad6b17b8b088d68aed6d743328970972568908d72f8edb68864d39d29",
+    "reports/funds/2026-09-14-funds.json": "1f5e45f53a30866d5a87d704a8a784888795f80ba600591be453bc7c1599e93a",
+    "reports/funds/2026-09-14-funds.md": "2ec63d458a69e3e33ad05a2bed46587950b8e1021c2cd6fd964def88e72e7dff",
+    "reports/weekly/2026-W37.json": "479891cc00b232488367d2d040bd86e95767618ec20d6fc7cbc5a6802596ccd6",
+    "reports/weekly/2026-W37.md": "02d4bc4e9b9cae4faf593730d411a4a18ca68752033cd2251f146a246bc1f63c",
+    "reports/document-log/2026-09-14-2312.json": "3f6459f7f07c31137ec44f032a87dcc04aad4c30f18d00337eb7ed3d6b76a577",
+    "reports/research/2026-08-17-operational-gap-reconciliation.json": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "reports/monitor/20260915T090822+0800.json": "4ee005c00e76ad05fd33bf4e053b3de09cbdf848c3fa831e36064c8469631c9b",
+    "reports/automation-runs/activity-monitor/20260915T091905+0800.json": "807b6eb49c96881ddc1073d3380c1e36b7e8a9480dc5c2d29b92c34d78e4df24"
+  },
+  "disclaimer": "This is a virtual portfolio experiment for research and agent evaluation only. It is not connected to any real trading account and does not constitute investment advice."
+}
