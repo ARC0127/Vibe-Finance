@@ -2,7 +2,7 @@
   "cash_cny": 9830.8,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "6733e380a73c40779a4ed61f4e35ac17",
+  "last_run_id": "7a3b3bdcd4fc425a9443a02c2385e853",
   "pending_orders": [
     {
       "exit_plan": {
@@ -46,7 +46,7 @@
     "investable_value_cny": 29728.3,
     "last_filled_trade_date": "2026-09-16",
     "last_partial_valuation_as_of": "2026-09-09T22:30:00+08:00",
-    "last_valuation_as_of": "2026-09-16T16:30:00+08:00",
+    "last_valuation_as_of": "2026-09-16T22:30:00+08:00",
     "project_equity_cny": 29828.3,
     "realized_pnl_cny": -286.8,
     "total_pnl_cny": -171.7,
@@ -1107,6 +1107,12 @@
       "mode": "short",
       "run_date": "2026-09-16",
       "run_id": "6733e380a73c40779a4ed61f4e35ac17"
+    },
+    {
+      "input_sha256": "c3453850e8b047296e5ddf9b0c60cfc90b6152d25111759c66f0f5e15815821a",
+      "mode": "fund_nav",
+      "run_date": "2026-09-16",
+      "run_id": "7a3b3bdcd4fc425a9443a02c2385e853"
     }
   ],
   "schema_version": 1
