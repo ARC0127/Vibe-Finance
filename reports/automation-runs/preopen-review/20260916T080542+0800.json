@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "task_status": "PASS_WITH_PROVENANCE_LABEL_WARNING_AND_SIGNAL_DIRECTION_OPEN_RECHECK",
+  "run_timestamp": "2026-09-16 08:05:42 CST",
+  "run_id": "719ccdb95e0b4a598171cc26ccb497be",
+  "branch": "main",
+  "base_commit": "f2aa9e1990597297ee21291d80f729327d1ff54e",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": " M",
+      "path": "README.md",
+      "bytes": 18006,
+      "sha256": "122519c6d6afa4e763215acadb4d2d00c7eca0ea5810eb3dd87495481ed442f8"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/heartbeat.json",
+      "bytes": 265,
+      "sha256": "31bab68ed6f58b4721f8d090142a28ea4e41060fd2fb70405b33c4f5d8df2daf"
+    },
+    {
+      "git_status": " M",
+      "path": "data/ledger/portfolio.json",
+      "bytes": 38728,
+      "sha256": "2fa320bde65192c198b1dc510dfee23b7ddbb9320238a7fcceb61093f0197ed0"
+    },
+    {
+      "git_status": "??",
+      "path": "data/inbox/2026-09-16-preopen.json",
+      "bytes": 212954,
+      "sha256": "911cbdd487f995042e44af34c147ca0aab1460510b64bc6a582d769d6d3a33d7"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/719ccdb95e0b4a598171cc26ccb497be/commit.json",
+      "bytes": 982,
+      "sha256": "27d8538f1f53e55e614c61a0d1db836cc79c910e4949a50b1251a780b3ffa84b"
+    },
+    {
+      "git_status": "??",
+      "path": "data/ledger/transactions/719ccdb95e0b4a598171cc26ccb497be/prepare.json",
+      "bytes": 73018,
+      "sha256": "63a5c1f9348a34aee0fb8c5837b4386f1eeaf6e46048d20bd9647400f7e6d151"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-09-16-preopen.json",
+      "bytes": 17722,
+      "sha256": "4aad2f208a3831c35981124ccc50536e1e54063418db105b68fe1e5520099bae"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/preopen/2026-09-16-preopen.md",
+      "bytes": 11985,
+      "sha256": "af233dcd20f317087a917f130313194194b91cb6ce1682ea1c4c735544507906"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-09-16-preopen-review-audit.md",
+      "bytes": 2791,
+      "sha256": "973a767f19b9870d06a849cb6cae69d8c6e771c97388a9853b9f3209fd8a4acc"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-09-16-preopen-review-evidence.json",
+      "bytes": 5829,
+      "sha256": "681e18cbbd9a785dca56b1c524a025e68855790a88253013364535ffb89fca08"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-16T00:05:42.422777+00:00",
+  "simulation_only": true
+}
