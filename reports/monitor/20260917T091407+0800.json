@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "automation_id": "vibe-finance-3",
+  "heartbeat_trigger_utc": "2026-09-17T01:14:07.274Z",
+  "heartbeat_trigger_local": "2026-09-17T09:14:07.274+08:00",
+  "audit_recorded_at_utc": "2026-09-17T01:22:11.210257+00:00",
+  "timezone": "Asia/Shanghai",
+  "simulation_only": true,
+  "task_status": "FAILED",
+  "notification": "NOTIFY_NEW_DUE_CYCLE_FAILURE",
+  "baseline_monitor": {
+    "path": "reports/monitor/20260917T031301+0800.json",
+    "sha256": "f0418338ff5a25a6fb94dc96ca0908164a9625685813db4b9416911226b308e5",
+    "manifest_path": "reports/automation-runs/activity-monitor/20260917T031629+0800.json",
+    "manifest_sha256": "f83fc8bf3bfdedcc839aea99308afbf8fe82be23f95877fec6dd14053532b96d"
+  },
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 10.817,
+    "max_age_hours": 36,
+    "last_success_at": "2026-09-16T14:33:01.339470+00:00",
+    "last_run_id": "7a3b3bdcd4fc425a9443a02c2385e853",
+    "last_run_date": "2026-09-16",
+    "last_mode": "fund_nav",
+    "decision_report_count": 37,
+    "pending_orders": 1,
+    "positions": 6,
+    "filled_trade_count": 28,
+    "last_filled_trade_date": "2026-09-16",
+    "project_equity_cny": 29828.3,
+    "total_pnl_cny": -171.7,
+    "total_return_pct": -0.005723333333333357,
+    "deepseek_actual_calls": 0,
+    "deepseek_spent_cny": 0,
+    "deepseek_remaining_cny": 100,
+    "command": "python3 -m vibe_finance status",
+    "exit_code": 0,
+    "heartbeat_age_hours_at_trigger": 10.685
+  },
+  "calendar_context": {
+    "local_weekday": "Thursday",
+    "latest_due_close_date": "2026-09-16",
+    "latest_due_fund_date": "2026-09-16",
+    "latest_due_preopen_date": "2026-09-17",
+    "latest_due_open_date": "2026-09-16",
+    "is_trading_day_in_latest_snapshot": true,
+    "current_due_cycles_complete": false,
+    "official_calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+    "calendar_basis": "SSE annual holiday schedule was verified on September 16 and the September 17 guard audit independently classifies September 17 as a trading day using its cited official calendar. Weekends are excluded. The latest fund snapshot is dated September 16 and is not substituted for a missing September 17 preopen snapshot.",
+    "next_due_cycle": "2026-09-17T09:30:00+08:00 open-settlement",
+    "next_due_cycle_due_at_trigger": false,
+    "today_calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+    "today_calendar_classification": "TRADING_DAY",
+    "latest_snapshot_date": "2026-09-16"
+  },
+  "fund_nav": {
+    "status": "NO_TRADE",
+    "manifest": "reports/automation-runs/fund-nav/20260916T223839+0800.json",
+    "manifest_sha256": "0a2bfbfa1d28f94f04bba1eeb47a371900f6aed61cfc5be8715410fb3c443c40",
+    "owner_validation": {
+      "secret_scan": "PASS",
+      "json_jsonl_parse": "PASS",
+      "git_diff_check": "PASS",
+      "unit_tests": "PASS"
+    },
+    "owner_changed_file_hash_checks": {
+      "passed": 8,
+      "total": 8
+    },
+    "report_as_of": "2026-09-16T22:30:00+08:00",
+    "daily_execution_status": null,
+    "new_orders": 0,
+    "blocks": [
+      "LEGACY_UNSCOPED_PRICE_SOURCES:000051",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:000198",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:001052",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:002610",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:012644",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:110020",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:110037",
+      "NAV_NOT_PUBLISHED"
+    ]
+  },
+  "ledger": {
+    "json_parse": {
+      "status": "PASS",
+      "scope": "canonical repository excluding .git, .codex and work",
+      "json_files": 1348,
+      "jsonl_files": 3,
+      "jsonl_rows": 95,
+      "errors": []
+    },
+    "event_chain": {
+      "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+      "event_count": 93,
+      "legacy_event_count": 4,
+      "v2_event_count": 89,
+      "head_event_sha256": "c286bb2d3d6257b12a7d5e12473e989093d6b643b1fed9e3dc2aa75dccd9a30d",
+      "git_head_prefix": {
+        "status": "VERIFIED_GIT_HEAD_PREFIX",
+        "commit": "f9e9bdc90f6168ecb15792a365e390b8ba462ad1",
+        "blob_oid": "349cc205690b4200beabf930f8f6d3e10be116d3",
+        "ledger_path": "data/ledger/orders.jsonl",
+        "committed_event_count": 93,
+        "canonical_payload_sha256": "253897418fa4b52b973a7a07b0edcb89fe3712d111f7a6c5ac2f45e91399078d"
+      }
+    },
+    "portfolio_projection": {
+      "status": "PASS",
+      "filled_event_count": 28,
+      "pending_orders": 1,
+      "position_count": 6,
+      "cash_replay_complete": true
+    },
+    "latest_transaction": {
+      "status": "COMMITTED",
+      "run_id": "7a3b3bdcd4fc425a9443a02c2385e853",
+      "checks": {
+        "decision": true,
+        "report": true,
+        "heartbeat": true,
+        "portfolio": true,
+        "prepare": true,
+        "run_id": true,
+        "projection": true,
+        "event_count": true,
+        "event_head": true,
+        "input": true
+      },
+      "prepare_sha256": "51ee6c6b8e38b8e7014bd089436171de6b61d05314234c049c9c441d095caa1a",
+      "commit_sha256": "b489781dd0b357e8d296e5d26d640700dce18d227746880d5ca164b1af76a24f"
+    }
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "api_cost_rows": 1,
+    "actual_calls": 0,
+    "spent_cny": 0,
+    "reserved_cny": 100,
+    "remaining_cny": 100,
+    "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+    "called_by_monitor": false
+  },
+  "long_cycle": {
+    "status": "PASS_WITH_FINDINGS",
+    "latest_week": "2026-W37",
+    "generated_at": "2026-09-14T09:25:50+08:00",
+    "age_days_at_trigger": 2.992,
+    "max_age_days": 8,
+    "input_hash_checks": {
+      "passed": 43,
+      "total": 43
+    },
+    "w36_missing_paths": [
+      "reports/weekly/2026-W36.json",
+      "reports/weekly/2026-W36.md"
+    ],
+    "official_w37_return_status": "NOT_COMPUTED_MISSING_2026_09_07_CLOSE_AND_COMPLETE_PERIOD_OPEN_BASELINE"
+  },
+  "historical_gap_governance": {
+    "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+    "path": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+    "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "checks_passed": 22,
+    "checks_total": 22,
+    "failed_paths": [],
+    "evidence_hashes_and_exact_path_states_match": true,
+    "only_exact_listed_gaps_suppressed": true,
+    "new_due_cycle_gaps_suppressed": false
+  },
+  "historical_missing_report_paths_outside_exact_governance": [
+    "reports/daily/2026-08-17-short.json",
+    "reports/funds/2026-08-17-funds.json",
+    "reports/execution/2026-08-17-open.json",
+    "reports/daily/2026-08-18-short.json",
+    "reports/funds/2026-08-18-funds.json",
+    "reports/execution/2026-08-18-open.json",
+    "reports/execution/2026-08-19-open.json",
+    "reports/preopen/2026-08-20-preopen.json",
+    "reports/execution/2026-08-20-open.json",
+    "reports/execution/2026-08-21-open.json",
+    "reports/funds/2026-09-02-funds.json",
+    "reports/preopen/2026-09-03-preopen.json",
+    "reports/execution/2026-09-03-open.json",
+    "reports/daily/2026-09-04-short.json",
+    "reports/daily/2026-09-07-short.json",
+    "reports/preopen/2026-09-07-preopen.json",
+    "reports/execution/2026-09-07-open.json",
+    "reports/preopen/2026-09-08-preopen.json",
+    "reports/daily/2026-09-09-short.json"
+  ],
+  "historical_path_scan_scope": "Weekday canonical close/fund/preopen/open paths from August 17 through September 16; September 17 business cycles are not yet due. Missing timely facts are not repaired or accepted from later substitutes.",
+  "current_reports": {
+    "broken_local_markdown_links": 50,
+    "baseline_broken_local_markdown_links": 50,
+    "broken_links_delta": 0,
+    "by_report": {
+      "reports/daily/2026-09-16-short.md": 15,
+      "reports/funds/2026-09-16-funds.md": 15,
+      "reports/preopen/guard/2026-09-08-preopen.md": 5,
+      "reports/preopen/2026-09-16-preopen.md": 15,
+      "reports/execution/2026-09-16-open.md": 0,
+      "reports/weekly/2026-W37.md": 0
+    },
+    "broken_link_examples": {
+      "reports/daily/2026-09-16-short.md": [
+        "data/inbox/2026-08-19-preopen.json",
+        "data/inbox/2026-08-14.json"
+      ],
+      "reports/funds/2026-09-16-funds.md": [
+        "data/inbox/2026-08-19-preopen.json",
+        "data/inbox/2026-08-14.json"
+      ],
+      "reports/preopen/guard/2026-09-08-preopen.md": [
+        "data/inbox/2026-08-19-preopen.json",
+        "data/inbox/2026-08-14.json"
+      ],
+      "reports/preopen/2026-09-16-preopen.md": [
+        "data/inbox/2026-08-19-preopen.json",
+        "data/inbox/2026-08-14.json"
+      ],
+      "reports/execution/2026-09-16-open.md": [],
+      "reports/weekly/2026-W37.md": []
+    },
+    "latest_document_log_broken_links": 423,
+    "latest_document_log_date_name_issues": 10,
+    "document_log_is_prior_snapshot_not_current_ledger_projection": true,
+    "baseline_document_log_broken_links": 423,
+    "document_log_broken_links_delta": 0,
+    "baseline_document_log_date_name_issues": 10,
+    "document_log_date_name_issues_delta": 0
+  },
+  "active_alerts": [
+    "CURRENT_REPORT_MARKDOWN_LINKS_BROKEN",
+    "HISTORICAL_CANONICAL_REPORT_PATHS_MISSING_OUTSIDE_EXACT_GOVERNANCE",
+    "W36_WEEKLY_REPORT_MISSING",
+    "W37_OFFICIAL_RETURN_NOT_COMPUTED_MISSING_BASELINE",
+    "SEPTEMBER_17_TIMELY_PREOPEN_ARTIFACTS_MISSING",
+    "SEPTEMBER_17_DAILY_ORDER_GUARD_FAILED_TIME_WINDOW_CLOSED",
+    "PREOPEN_STALE_TRIGGER_DATE_MISMATCH_OBSERVED"
+  ],
+  "new_alerts": [
+    "SEPTEMBER_17_TIMELY_PREOPEN_ARTIFACTS_MISSING",
+    "SEPTEMBER_17_DAILY_ORDER_GUARD_FAILED_TIME_WINDOW_CLOSED",
+    "PREOPEN_STALE_TRIGGER_DATE_MISMATCH_OBSERVED"
+  ],
+  "expanded_alerts": [],
+  "current_run_repair_assessment": {
+    "repairable_by_monitor": false,
+    "reason": "The current timely preopen evidence and 09:10 review are absent after their cutoffs. Existing order cannot be certified READY. Failure audit attributes the preopen attempt to a stale September 2 trigger observed September 17; scheduler root cause remains UNKNOWN. Monitoring cannot change owner automations, reconstruct cutoff-bound evidence or run the financial pipeline.",
+    "minimum_repair": "Scheduler/dispatch owner must inspect date mismatch and ensure the next new-dated preopen dispatch. Preserve committed failure audits and the existing virtual order without claiming READY. Governance-code-release owner should fix future Markdown relative paths with a distinguishing test; reconcile historical missing paths from immutable evidence, without backfill.",
+    "next_retry_points": {
+      "independent_open_gates": "2026-09-17T09:30:00+08:00; open owner must independently satisfy timely evidence gates and fail closed if unavailable",
+      "normal_preopen": "2026-09-18T08:00:00+08:00",
+      "normal_guard": "2026-09-18T09:10:00+08:00",
+      "activity_monitor": "Next six-hour heartbeat, nominally 2026-09-17T15:14:07+08:00",
+      "scheduler_dispatch": "Owner investigation as soon as available; no confirmed root-cause fix in this read-only monitor"
+    }
+  },
+  "governance": {
+    "financial_state_mutated_by_monitor": false,
+    "historical_reports_mutated_by_monitor": false,
+    "trade_analysis_started_by_monitor": false,
+    "deepseek_called_by_monitor": false,
+    "protected_tracked_digest_before_report": {
+      "count": 1279,
+      "sha256": "aee30c6940bdb9aa4820cebc869f7eb3ca5d1ba7eb777db23ba3090ff062197d"
+    },
+    "foreign_untracked_digest_before_report": {
+      "count": 131,
+      "sha256": "3ac55c41da55c9ec79051134260f4bce459dfa89b7661f62b0f004b2b932c1f3"
+    }
+  },
+  "verification_commands": {
+    "python3 -m vibe_finance status": {
+      "exit_code": 0,
+      "status": "ACTIVE",
+      "error": null
+    },
+    "python3 -m vibe_finance experience-validate": {
+      "exit_code": 0,
+      "status": "PASS",
+      "error": null
+    },
+    "python3 -m vibe_finance task-contracts": {
+      "exit_code": 0,
+      "status": "PASS",
+      "error": null
+    }
+  },
+  "input_manifest": {
+    "docs/AUTOMATION.md": "c6cdcb1b0dce205d4a0c1060f2e4be80cba906283743156e803c2b817a4aaa7e",
+    "config/task_contracts.json": "397780aa39912ec362a1ff0af3419e0afd2a63586b1862a65e7388f837e23e43",
+    "scripts/sync_github.sh": "1f0abf2bda7dbfecb0da95ab483806b3374e52a962b9d610281a47e8685f1120",
+    "config/strategy.json": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "data/ledger/heartbeat.json": "45aeebf8258c37a26bc28d3f9808df1a03a89838e4026979a7aec54bcc4d81a3",
+    "data/ledger/orders.jsonl": "b40e83f60caf6f47d506736b5264d138ebfc6b3a4e73ee41b48b2764cb159e48",
+    "data/ledger/portfolio.json": "f0509980a06cf5affa5cb6bddd0fb259bdbd9d23ed617400c2fd85fee4b1a9c1",
+    "data/ledger/api_costs.jsonl": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "data/inbox/2026-09-16.json": "7dc4c61fc71e95579044bc8cef5c4a2c9e57af6de3199e7d8489c9122d43aa06",
+    "data/ledger/transactions/7a3b3bdcd4fc425a9443a02c2385e853/prepare.json": "51ee6c6b8e38b8e7014bd089436171de6b61d05314234c049c9c441d095caa1a",
+    "data/ledger/transactions/7a3b3bdcd4fc425a9443a02c2385e853/commit.json": "b489781dd0b357e8d296e5d26d640700dce18d227746880d5ca164b1af76a24f",
+    "reports/daily/2026-09-16-short.json": "6baec98d7ea613fea35980fdf1a193253aef0f9c570928319750e65a0dbe7d8a",
+    "reports/automation-runs/fund-nav/20260916T223839+0800.json": "0a2bfbfa1d28f94f04bba1eeb47a371900f6aed61cfc5be8715410fb3c443c40",
+    "reports/funds/2026-09-16-funds.json": "360770d8e1466f909505951e4686c1510e95303f7809d77a940acbfc83b95577",
+    "reports/preopen/2026-09-16-preopen.json": "4aad2f208a3831c35981124ccc50536e1e54063418db105b68fe1e5520099bae",
+    "reports/execution/2026-09-16-open.json": "b5bb6b48ec283e3f434fd6be51174f8d27a7bac87bbdce55096c31cc71949ab1",
+    "reports/weekly/2026-W37.json": "479891cc00b232488367d2d040bd86e95767618ec20d6fc7cbc5a6802596ccd6",
+    "reports/research/2026-08-17-operational-gap-reconciliation.json": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "reports/document-log/2026-09-16-2311.json": "f616f708c13405f768e84ad0a83af64f8665c5c4e9dbb55c9f62c96bb4491ddf",
+    "reports/monitor/20260917T031301+0800.json": "f0418338ff5a25a6fb94dc96ca0908164a9625685813db4b9416911226b308e5",
+    "reports/automation-runs/activity-monitor/20260917T031629+0800.json": "f83fc8bf3bfdedcc839aea99308afbf8fe82be23f95877fec6dd14053532b96d",
+    "reports/daily/2026-09-16-short.md": "1be1d36eb8d0b64795e02e5ca10f2e509d4408d6eb21e49c913597913eadfc32",
+    "reports/funds/2026-09-16-funds.md": "48dcd11a3c51c9cfb8f1ae9faf011072779c96bf68eb2f277959993eeeabe742",
+    "reports/preopen/guard/2026-09-08-preopen.md": "cf956ec3d16755012d229d45777f83eed4aed1c47f6882821eee9f85df73c887",
+    "reports/preopen/2026-09-16-preopen.md": "af233dcd20f317087a917f130313194194b91cb6ce1682ea1c4c735544507906",
+    "reports/execution/2026-09-16-open.md": "60be730dda5031f61779dec4e1beff39a0b0db0ebb8685c5ad028227fd4cb6b0",
+    "reports/weekly/2026-W37.md": "02d4bc4e9b9cae4faf593730d411a4a18ca68752033cd2251f146a246bc1f63c",
+    "reports/automation-runs/document-log/20260916T231317+0800.json": "1156556cf0a4f91e0e5d62a56f0880a7d8fbc19fff309212bf4205fc1ec2d72c",
+    "reports/document-log/2026-09-16-2311.md": "ee24b2d5a7cc879fab4f0163523619fdb2a10a3940e9b18b2496e245c9da4395",
+    "docs/DOCUMENT_LOG_INDEX.md": "f98ad57b0627f571e0a63606b3063aa5fd63cc1796e5438e38e97b497dcadaba",
+    "data/inbox/2026-09-16-funds.json": "c3453850e8b047296e5ddf9b0c60cfc90b6152d25111759c66f0f5e15815821a",
+    "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.json": "6323f02b16d759fedb5242b21484bf0600698931fc028973d22b0de81218d427",
+    "reports/automation-runs/preopen-review/20260917T080728+0800.json": "66ed7a2d577154569e36ddb22d77cd17deeba074759e0891a7a1a0794750b33b",
+    "reports/research/2026-09-17-daily-order-guard-failed-time-window.json": "5a527f3758e90cacf47a24e532244867ccd84208820446f5ce0cb0f5ee1cb730",
+    "reports/automation-runs/daily-order-guard/20260917T091511+0800.json": "43fe34e1ea08dcdf3075118b9fa7de44d2c4302a76c4bbaef3b52c30a06b3218",
+    "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.md": "d44445711d3b1161a11b8db804bf4222263fc5f8b28e4e2ecedd964b43676c70",
+    "reports/research/2026-09-17-daily-order-guard-failed-time-window.md": "ce23841447710c33898f954d4ff1545992e5ade175c93f211c0ac96915cb7393"
+  },
+  "disclaimer": "Virtual portfolio experiment only; no real trading account or investment advice.",
+  "document_log_owner": {
+    "manifest": "reports/automation-runs/document-log/20260916T231317+0800.json",
+    "manifest_sha256": "1156556cf0a4f91e0e5d62a56f0880a7d8fbc19fff309212bf4205fc1ec2d72c",
+    "task_status": "PASS_WITH_FINDINGS",
+    "validation": {
+      "secret_scan": "PASS",
+      "json_jsonl_parse": "PASS",
+      "git_diff_check": "PASS",
+      "unit_tests": "PASS"
+    },
+    "changed_file_hash_checks": {
+      "passed": 3,
+      "total": 3
+    },
+    "snapshot_at": "2026-09-16T23:11:09+08:00",
+    "parse_failures": 0,
+    "order_events": 93
+  },
+  "preopen_failure": {
+    "status": "FAILED_TIME_WINDOW_CLOSED",
+    "failure_code": "FAILED_LATE_DISPATCH",
+    "failure_reason": "STALE_TRIGGER_DATE_MISMATCH",
+    "requested_run_date": "2026-09-02",
+    "actual_processing_clock": "2026-09-17T08:04:46+08:00",
+    "scope": "FAILURE_GOVERNANCE_ONLY_NOT_PREOPEN_EVIDENCE",
+    "scheduler_root_cause": "UNKNOWN",
+    "original_september_2_cycle_invalidated": false,
+    "failure_report": "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.json",
+    "manifest": "reports/automation-runs/preopen-review/20260917T080728+0800.json",
+    "owner_validation": {
+      "secret_scan": "PASS",
+      "json_jsonl_parse": "PASS",
+      "git_diff_check": "PASS",
+      "unit_tests": "PASS"
+    },
+    "owner_changed_file_hash_checks": {
+      "passed": 2,
+      "total": 2
+    }
+  },
+  "daily_order_guard": {
+    "status": "FAILED_TIME_WINDOW_CLOSED",
+    "failure_reason": "MISSING_TIMELY_PREOPEN_SNAPSHOT_AND_STATUS_REVIEW",
+    "failure_report": "reports/research/2026-09-17-daily-order-guard-failed-time-window.json",
+    "manifest": "reports/automation-runs/daily-order-guard/20260917T091511+0800.json",
+    "owner_validation": {
+      "secret_scan": "PASS",
+      "json_jsonl_parse": "PASS",
+      "git_diff_check": "PASS",
+      "unit_tests": "PASS"
+    },
+    "owner_changed_file_hash_checks": {
+      "passed": 2,
+      "total": 2
+    },
+    "ledger_hash_checks": {
+      "data/ledger/portfolio.json": true,
+      "data/ledger/orders.jsonl": true
+    },
+    "pending_order_still_present": true,
+    "existing_order_not_certified_ready": true,
+    "readiness": "NOT_READY_MISSING_TIMELY_PREOPEN_PROVENANCE"
+  },
+  "new_due_cycle_missing_paths": [
+    "data/inbox/2026-09-17-preopen.json",
+    "reports/preopen/2026-09-17-preopen.json",
+    "reports/preopen/2026-09-17-preopen.md"
+  ],
+  "external_configuration_observation": {
+    "path": "D:/codex/home/automations/vibe-finance-4/automation.toml",
+    "sha256": "dd0fe5a3d7a345fe2b891e0106d23f1c1a684c46b15e8517063ad39833eb0682",
+    "observed_status": "ACTIVE",
+    "observed_schedule": "Weekdays at 08:00 Asia/Shanghai",
+    "prompt_has_no_fixed_September_2_cycle_date": true,
+    "mutated_by_monitor": false,
+    "root_cause_fixed": false,
+    "interpretation": "Correct current stored schedule and date-neutral prompt do not prove correct delivery of the observed queued heartbeat."
+  }
+}
