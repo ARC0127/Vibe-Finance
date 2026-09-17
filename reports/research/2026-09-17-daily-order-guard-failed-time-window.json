@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "automation_id": "vibe-finance-9",
+  "task_id": "daily-order-guard",
+  "status": "FAILED_TIME_WINDOW_CLOSED",
+  "run_date": "2026-09-17",
+  "timezone": "Asia/Shanghai",
+  "scheduled_guard_cutoff": "2026-09-17T09:10:00+08:00",
+  "heartbeat_received_at": "2026-09-17T09:11:07.249+08:00",
+  "observed_at": "2026-09-17T09:13:46.8956278+08:00",
+  "failure_reason": "MISSING_TIMELY_PREOPEN_SNAPSHOT_AND_STATUS_REVIEW",
+  "finding": "The existing virtual order predates 09:10, but today's preopen input/report and timely current official-event review are absent. READY cannot be established. Creating evidence now cannot prove that it existed by 09:10.",
+  "calendar": {
+    "status": "TRADING_DAY",
+    "basis": "Thursday outside the official 2026 holiday closure intervals; September closure starts September 25.",
+    "source_url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+    "published_at": "2025-12-22",
+    "verification_scope": "Read during this guard; not new historical market evidence."
+  },
+  "missing_artifacts": ["data/inbox/2026-09-17-preopen.json", "reports/preopen/2026-09-17-preopen.json", "reports/preopen/2026-09-17-preopen.md"],
+  "snapshot_audit": {
+    "required_asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"],
+    "required_symbols": ["159915", "159928", "510050", "510300", "510500", "510880", "511010", "511880", "512100", "512170", "512480", "518880", "588000"],
+    "covered_today": 0,
+    "required_count": 13,
+    "history_dual_sealed_prices_price_as_of": "UNVERIFIED_FOR_TODAY_PREOPEN",
+    "latest_close_snapshot": "data/inbox/2026-09-16.json",
+    "latest_close_sha256": "7dc4c61fc71e95579044bc8cef5c4a2c9e57af6de3199e7d8489c9122d43aa06",
+    "latest_close_history_points": 34,
+    "cash_bond_candidate_entry_today": "UNVERIFIED_NO_TODAY_PIPELINE_REPORT"
+  },
+  "pending_order": {
+    "order_id": "54bcdb6c851f4c1c9b363a5efcab26d2",
+    "symbol": "518880",
+    "side": "BUY",
+    "quantity": 100,
+    "status": "PENDING_NEXT_OPEN",
+    "signal_as_of": "2026-09-16T16:30:00+08:00",
+    "signal_before_guard_cutoff": true,
+    "portfolio_orders_ledger_reconciled": true,
+    "identity_at_today_cutoff": "UNVERIFIED",
+    "termination_risk_at_today_cutoff": "UNVERIFIED",
+    "corporate_actions_at_today_cutoff": "UNVERIFIED",
+    "suspension_delisting_price_conflict_review_at_today_cutoff": "UNVERIFIED",
+    "simulation_only": true
+  },
+  "ledger_hashes": {
+    "data/ledger/portfolio.json": "f0509980a06cf5affa5cb6bddd0fb259bdbd9d23ed617400c2fd85fee4b1a9c1",
+    "data/ledger/orders.jsonl": "b40e83f60caf6f47d506736b5264d138ebfc6b3a4e73ee41b48b2764cb159e48"
+  },
+  "base_commit": "a44c08ee9f4c5ac1deb923010ceb93fc2d671345",
+  "governance_action": "Failure evidence only; no retrodated snapshot, new signal, cancellation without confirmed invalidity, or simulated settlement. Existing order is not certified READY.",
+  "next_retry": "2026-09-18 08:00 preopen and 09:10 guard Asia/Shanghai. Any intervening settlement must independently satisfy its own timely evidence gates.",
+  "reproduce": ["Check existence of missing_artifacts", "Reconcile pending order in portfolio.json with latest orders.jsonl event", "Verify ledger_hashes", "python3 -m vibe_finance status"],
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "deepseek": {"actual_calls": 0, "spent_cny": 0.0}
+}
