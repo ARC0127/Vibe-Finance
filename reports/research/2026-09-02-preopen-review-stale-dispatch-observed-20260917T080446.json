@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "automation_id": "vibe-finance-4",
+  "task_id": "preopen-review",
+  "run_id": "20260902-preopen-stale-dispatch-observed-20260917T080446",
+  "status": "FAILED_TIME_WINDOW_CLOSED",
+  "failure_code": "FAILED_LATE_DISPATCH",
+  "failure_reason": "STALE_TRIGGER_DATE_MISMATCH",
+  "claim_boundary": "FAILURE_GOVERNANCE_ONLY_NOT_PREOPEN_EVIDENCE",
+  "run_date": "2026-09-02",
+  "timezone": "Asia/Shanghai",
+  "scheduled_evidence_cutoff": "2026-09-02T08:00:00+08:00",
+  "trigger_reported_time": "2026-09-02T08:01:36.359+08:00",
+  "actual_processing_clock_verified_at": "2026-09-17T08:04:46+08:00",
+  "scheduler_root_cause": "UNKNOWN",
+  "finding": "The latest visible heartbeat requests the September 2 preopen cycle, but the actual clock and environment date are September 17. September 2 already has a committed preopen decision and subsequent virtual fill. This expired repeat request must not rerun, overwrite, invalidate, or backfill that historical business cycle. The failure status belongs only to this observed stale-trigger processing attempt, not to the original September 2 run.",
+  "evidence_chain": [
+    {"node": "TIME_BOUNDARY", "result": "FAIL_CLOSED", "basis": "Actual UTC clock 2026-09-17 00:04:46 is later than requested September 2 preopen and settlement windows."},
+    {"node": "HISTORICAL_IMMUTABILITY", "result": "PASS", "basis": "All five preopen input/report/transaction artifacts referenced by the original committed manifest retain their recorded SHA-256."},
+    {"node": "CURRENT_LEDGER_READ_ONLY", "result": "PASS", "basis": "Canonical latest pending IDs reconcile with portfolio; update-readme left README and financial-state hashes unchanged."},
+    {"node": "GOVERNED_CLOSEOUT", "result": "REQUIRED", "basis": "Only this failure evidence pair and the generated preopen-review manifest may be synchronized."}
+  ],
+  "trading_day_check": {
+    "date": "2026-09-02",
+    "classification": "TRADING_DAY",
+    "basis": "Wednesday outside both exchanges' official 2026 holiday closure intervals; the September holiday closure is September 25-27.",
+    "scope": "CURRENT_CALENDAR_GOVERNANCE_CHECK_NOT_RETROACTIVE_MARKET_EVIDENCE",
+    "sources": [
+      {"authority": "Shanghai Stock Exchange", "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml", "published_on": "2025-12-22", "access_status": "VERIFIED_WEB_READ"},
+      {"authority": "Shenzhen Stock Exchange", "url": "https://investor.szse.cn/disclosure/notice/general/t20251222_618087.html", "published_on": "2025-12-22", "access_status": "VERIFIED_WSL_HTTPS_READ", "raw_sha256": "1656d8708d5faed33c7588538639d96128f39fdface02cfa6eb66d796c40f14e", "retry_history": ["Web fetch timeout", "Windows HTTPS SSL connection failure", "Alternate official www.szse.cn web fetch timeout", "WSL curl HTTPS read succeeded with closure paragraph"]}
+    ]
+  },
+  "experience_context": {
+    "validation_status": "PASS",
+    "scope": "CURRENT_GOVERNANCE_CHECK_NOT_RETROACTIVE_PREOPEN_CONTEXT",
+    "record_count": 3,
+    "experience_count": 3,
+    "promoted_rule_count": 0,
+    "proposed_only_count": 0,
+    "strategy_sha256": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "ledger_sha256": "fd55fafbcf38eec9495ab512ed64a535a64d5dea85da5e9e1ef6c7e1b2e92e21",
+    "experiences": [
+      {"experience_id": "EXP-W33-EXIT-CLOSED-LOOP", "validation_status": "OBSERVED", "strategy_status": "NON_BINDING"},
+      {"experience_id": "EXP-W33-FACTOR-DIVERSIFICATION", "validation_status": "OBSERVED", "strategy_status": "NON_BINDING"},
+      {"experience_id": "EXP-W33-FEE-FRICTION", "validation_status": "OBSERVED", "strategy_status": "NON_BINDING"}
+    ],
+    "effect_on_ranking_sizing_orders": "NONE"
+  },
+  "historical_cycle_preservation": {
+    "policy": "PRESERVE_ORIGINAL_STATUS_AND_ALL_COMMITTED_ARTIFACTS",
+    "original_preopen_run_id": "65a2a24e639d48628a4b5cb514e5744b",
+    "original_preopen_report_status": "ORDER_SCHEDULED",
+    "original_sync_status": "PASS",
+    "original_sync_commit": "207f8543c2c47d13a5c0c604c89c626369467b37",
+    "original_manifest": {"path": "reports/automation-runs/preopen-review/20260902T081139+0800.json", "sha256": "2ec5939f6a02598e20cf979729936177de8726a90e9901545ec969aa419d3772"},
+    "preopen_input": {"path": "data/inbox/2026-09-02-preopen.json", "sha256": "9883529642fca2712256c8c8899fe8d0a6cd7734289bd58ea45d9a2d14ad870a"},
+    "preopen_json": {"path": "reports/preopen/2026-09-02-preopen.json", "sha256": "9978cc4fc64fb63d10b0f45676d2a5f0a37dd0497333a4814ecfabde2cb3b52d"},
+    "preopen_markdown": {"path": "reports/preopen/2026-09-02-preopen.md", "sha256": "75dec35d844af1e5ad6816ac40c21153073e250e2906183b29722d3cc994603b"},
+    "original_manifest_immutable_payload_hash_checks": "PASS_5_OF_5",
+    "recorded_virtual_fill_on_requested_date": {"order_id": "873ca05756ed43b689f7501efbe924fe", "symbol": "159928", "side": "BUY", "quantity": 100, "fill_price": 0.674, "fill_as_of": "2026-09-02T09:32:23+08:00", "scope": "HISTORICAL_CANONICAL_LEDGER_OBSERVATION_NOT_A_NEW_FILL"},
+    "original_cycle_invalidated_by_this_attempt": false
+  },
+  "business_pipeline_actions": {
+    "preopen_snapshot_created": false,
+    "preopen_validation_run": false,
+    "preopen_strategy_run": false,
+    "preopen_business_report_created": false,
+    "new_orders": 0,
+    "new_fills": 0,
+    "estimated_new_order_notional_cny": 0.0,
+    "financial_heartbeat_written": false,
+    "strategy_or_experience_modified": false,
+    "post_cutoff_market_data_collected_or_backfilled": false,
+    "update_readme": "COMPLETED_BYTE_IDENTICAL"
+  },
+  "current_ledger_observation": {
+    "scope": "SEPTEMBER_17_LOCAL_READ_ONLY_GOVERNANCE_NOT_SEPTEMBER_2_PREOPEN_FACTS",
+    "valuation_as_of": "2026-09-16T22:30:00+08:00",
+    "project_equity_cny": 29828.3,
+    "cash_cny": 9830.8,
+    "positions": 6,
+    "exposure_groups": 6,
+    "canonical_event_count": 93,
+    "portfolio_and_canonical_pending_ids_match": true,
+    "pending_next_nav_count": 0,
+    "pending_next_open_count": 1,
+    "pending_next_open": [{"order_id": "54bcdb6c851f4c1c9b363a5efcab26d2", "symbol": "518880", "side": "BUY", "quantity": 100, "signal_as_of": "2026-09-16T16:30:00+08:00", "signal_close": 8.905, "signal_price_notional_cny": 890.5, "limit_price": 9.17215, "action_by_this_task": "NONE", "readiness": "NOT_REVALIDATED_BY_STALE_TRIGGER"}],
+    "orders_sha256": "b40e83f60caf6f47d506736b5264d138ebfc6b3a4e73ee41b48b2764cb159e48",
+    "portfolio_sha256": "f0509980a06cf5affa5cb6bddd0fb259bdbd9d23ed617400c2fd85fee4b1a9c1",
+    "heartbeat_sha256": "45aeebf8258c37a26bc28d3f9808df1a03a89838e4026979a7aec54bcc4d81a3",
+    "readme_sha256_before_and_after": "6d050832834de28eaeef5af48814dbcaf11fcb5002cc4621065c6f3eb7078cc3"
+  },
+  "coverage_and_evidence_gates": {
+    "configured_listed_count": 13,
+    "configured_asset_type_counts": {"equity_etf": 10, "gold_etf": 1, "bond_etf": 1, "cash_etf": 1},
+    "new_snapshot_coverage": "NOT_REBUILT_TIME_WINDOW_CLOSED",
+    "new_history_dual_source_price_and_price_as_of_records": 0,
+    "stock_shortlist_and_fund_buckets": "NOT_RESEARCHED_FOR_EXPIRED_PREOPEN_TRIGGER",
+    "risk_and_diversification_projection": "NOT_COMPUTED_FOR_EXPIRED_TRIGGER",
+    "security_identity_status": "UNVERIFIED_THIS_REPLAY_ATTEMPT",
+    "st_delisting_status": "UNVERIFIED_THIS_REPLAY_ATTEMPT",
+    "corporate_action_status": "UNVERIFIED_THIS_REPLAY_ATTEMPT"
+  },
+  "repair_disposition": "ELAPSED_HISTORICAL_WINDOW_NOT_SAFELY_REPAIRABLE_NO_BUSINESS_REPLAY",
+  "governed_sync": {
+    "required_command": "scripts/sync_github.sh preopen-review FAILED_TIME_WINDOW_CLOSED",
+    "base_head_and_origin_main": "314d5d110d1c9b9b58c906a49dcbd8e157293f07",
+    "expected_payload": ["this failure JSON", "same-name failure Markdown", "new preopen-review sync manifest"],
+    "exclude": ["all original financial artifacts", "data/ledger", "README.md", "other task artifacts", "preexisting untracked work"]
+  },
+  "deepseek": {"actual_calls": 0, "spent_cny": 0.0},
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "not_investment_advice": true,
+  "next_scheduled_preopen_retry": "2026-09-18T08:00:00+08:00",
+  "next_retry_boundary": "A new dated trigger must use its own timely evidence; this stale September 2 request grants no authority to create a September 17 cycle."
+}

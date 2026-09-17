@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "preopen-review",
+  "task_status": "FAILED_TIME_WINDOW_CLOSED",
+  "run_timestamp": "2026-09-17 08:07:28 CST",
+  "run_id": "20260902-preopen-stale-dispatch-observed-20260917T080446",
+  "branch": "main",
+  "base_commit": "314d5d110d1c9b9b58c906a49dcbd8e157293f07",
+  "allowlist": [
+    "reports/preopen",
+    "reports/research",
+    "data/inbox",
+    "data/research",
+    "data/ledger",
+    "README.md"
+  ],
+  "changed_files_before_manifest": [
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.json",
+      "bytes": 8333,
+      "sha256": "6323f02b16d759fedb5242b21484bf0600698931fc028973d22b0de81218d427"
+    },
+    {
+      "git_status": "??",
+      "path": "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.md",
+      "bytes": 4299,
+      "sha256": "d44445711d3b1161a11b8db804bf4222263fc5f8b28e4e2ecedd964b43676c70"
+    }
+  ],
+  "validation": {
+    "secret_scan": "PASS",
+    "json_jsonl_parse": "PASS",
+    "git_diff_check": "PASS",
+    "unit_tests": "PASS"
+  },
+  "strategy_version": "0.4.0",
+  "evolution_decision": "NOT_APPLICABLE",
+  "rollback_base": "NOT_APPLICABLE",
+  "evolution_gate": null,
+  "deepseek": {
+    "actual_calls": 0,
+    "spent_cny": 0.0,
+    "reserved_cny": 100.0
+  },
+  "created_at_utc": "2026-09-17T00:07:29.093522+00:00",
+  "simulation_only": true
+}
