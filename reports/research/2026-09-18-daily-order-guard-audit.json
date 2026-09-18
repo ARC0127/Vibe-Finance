@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "daily-order-guard",
+  "automation_id": "vibe-finance-9",
+  "status": "READY",
+  "run_date": "2026-09-18",
+  "observed_at": "2026-09-18T09:13:42.6675445+08:00",
+  "scheduled_cutoff": "2026-09-18T09:10:00+08:00",
+  "temporal_note": "Audit ran after 09:10. Input and order existed before 09:10; this audit does not claim an on-time guard execution.",
+  "is_trading_day": true,
+  "calendar_evidence": "reports/research/2026-09-18-preopen-review-evidence.json",
+  "input": "data/inbox/2026-09-18-preopen.json",
+  "input_sha256": "8a52c55eee1c7ff0c8203b3eb5c2933ecedfc25eb782153f03ab774d7cb50d8c",
+  "input_as_of": "2026-09-18T08:00:00+08:00",
+  "input_created_at": "2026-09-18T08:05:17.190340+08:00",
+  "validate": "PASS",
+  "snapshot_coverage": {
+    "required_count": 13,
+    "covered_count": 13,
+    "missing": [],
+    "asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"],
+    "history_points_each": 34,
+    "independent_sealed_price_sources_each": ["tencent_finance", "sina_finance"],
+    "sealed_price_day": "2026-09-16",
+    "price_conflicts": [],
+    "missing_sealed_close_sessions": ["2026-09-17"],
+    "limitation": "Latest available sealed close is September 16, not September 17; validate accepts its age under the unchanged 120-hour gate. No price or history was fabricated. Holdings and pending target are included."
+  },
+  "pending_order": {
+    "order_id": "54bcdb6c851f4c1c9b363a5efcab26d2",
+    "symbol": "518880",
+    "side": "BUY",
+    "quantity": 100,
+    "status": "PENDING_NEXT_OPEN",
+    "signal_as_of": "2026-09-16T16:30:00+08:00",
+    "signal_before_cutoff": true,
+    "portfolio_ledger_reconciliation": "PASS",
+    "identity": "VERIFIED_ETF_518880",
+    "termination_risk": "NO_TERMINATION_OR_LIQUIDATION_NOTICE_FOUND_IN_OFFICIAL_REVIEW_AT_CUTOFF",
+    "corporate_actions": "NO_UNADJUSTED_ACTION_FOUND_AT_CUTOFF",
+    "trading_status": "UNVERIFIED_PREOPEN",
+    "suspension_status": "UNVERIFIED_PREOPEN_NO_CURRENT_EXCHANGE_TRADING_PROOF",
+    "simulation_only": true
+  },
+  "official_review": {
+    "announcement_source": "sse_518880_announcements_preopen_20260918",
+    "identity_source": "huaan_518880_historical_pcf_20260917",
+    "evidence_bundle": "reports/research/2026-09-18-preopen-review-evidence.json",
+    "evidence_bundle_sha256": "1b4540da98a415e554482be30ecaef57e7048d94899b7f3559d68b6bee957f06",
+    "guard_live_recheck_at": "2026-09-18T09:13:42.6675445+08:00",
+    "guard_live_recheck_note": "Read-only repeat of the same SSE date-bounded query returned only the August 31 interim report, consistent with the sealed 08:04 review. No same-day item needed publication-time classification. This later retrieval is not retrodated historical evidence.",
+    "guard_live_recheck_result": [{"SSEDATE": "2026-08-31", "SECURITY_CODE": "518880", "TITLE": "华安易富黄金交易型开放式证券投资基金2026年中期报告"}],
+    "confirmed_invalidity": false
+  },
+  "cash_bond_entry": {
+    "511010": "WATCH: PREOPEN_EXECUTION_STATUS_PENDING, SECURITY_IDENTITY_NOT_CLEARED, TERMINATION_RISK_NOT_CLEARED",
+    "511880": "WATCH: CASH_MANAGEMENT_ELIGIBLE, PREOPEN_EXECUTION_STATUS_PENDING, MAXIMUM_POSITIONS_REACHED",
+    "execution_eligible_asset_types": ["equity_etf", "gold_etf", "bond_etf", "cash_etf"]
+  },
+  "ledger_hashes": {
+    "data/ledger/portfolio.json": "4c3c01e66e37c92db0b03a69e1b88a8d7c8436e0cfe691bc66bc56fd0971c620",
+    "data/ledger/orders.jsonl": "b40e83f60caf6f47d506736b5264d138ebfc6b3a4e73ee41b48b2764cb159e48"
+  },
+  "action": "Retain existing conditional virtual order; no duplicate pipeline run or recovery input required.",
+  "next_verification": "09:30-09:35 Asia/Shanghai: independently prove TRADING and dual-source opening price before virtual settlement; hard-block suspension, termination risk, price conflict or unprocessed corporate action.",
+  "simulation_only": true,
+  "broker_connection": "NOT_USED",
+  "deepseek": {"actual_calls": 0, "spent_cny": 0.0}
+}
