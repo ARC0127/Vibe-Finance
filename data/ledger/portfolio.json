@@ -1,56 +1,22 @@
 {
-  "cash_cny": 9830.8,
+  "cash_cny": 8930.8,
   "initial_project_capital_cny": 30000.0,
   "initialized_at": "2026-07-19T00:00:00+08:00",
-  "last_run_id": "747a1df04ae54023afb08a4fc31b00b9",
-  "pending_orders": [
-    {
-      "exit_plan": {
-        "hard_stop_loss_return": -0.08,
-        "hard_trend_below_ma20_ratio": 0.95,
-        "overweight_tolerance": 0.02,
-        "partial_reduce_fraction": 0.5,
-        "profit_protection_activation_return": 0.12,
-        "profit_protection_drawdown_from_peak": -0.05,
-        "soft_trend_below_ma20_ratio": 1.0,
-        "strategy_version": "0.4.0"
-      },
-      "exposure_group": "gold",
-      "limit_price": 9.17215,
-      "lot_size": 100,
-      "name": "华安黄金易ETF",
-      "order_id": "54bcdb6c851f4c1c9b363a5efcab26d2",
-      "quantity": 100,
-      "reasons": [
-        "COLD_START_GOLD_DIVERSIFIER",
-        "POSITION_TOO_SMALL_AFTER_DIVERSIFICATION",
-        "DAILY_EXPLORATION_FALLBACK"
-      ],
-      "risk_bucket": "gold",
-      "side": "BUY",
-      "signal_as_of": "2026-09-16T16:30:00+08:00",
-      "signal_close": 8.905,
-      "signal_date": "2026-09-16",
-      "signal_score": 0.1,
-      "signal_type": "DAILY_EXPLORATION_FALLBACK",
-      "simulation_only": true,
-      "status": "PENDING_NEXT_OPEN",
-      "symbol": "518880"
-    }
-  ],
+  "last_run_id": "472c64bbd6804fc8844a05bb4ef959ea",
+  "pending_orders": [],
   "performance": {
-    "cumulative_buy_notional_cny": 26821.5,
-    "cumulative_fees_cny": 140.0,
+    "cumulative_buy_notional_cny": 27716.5,
+    "cumulative_fees_cny": 145.0,
     "cumulative_sell_notional_cny": 6892.3,
-    "filled_trade_count": 28,
-    "investable_value_cny": 29728.3,
-    "last_filled_trade_date": "2026-09-16",
+    "filled_trade_count": 29,
+    "investable_value_cny": 29716.9,
+    "last_filled_trade_date": "2026-09-18",
     "last_partial_valuation_as_of": "2026-09-17T22:30:00+08:00",
-    "last_valuation_as_of": "2026-09-18T08:00:00+08:00",
-    "project_equity_cny": 29828.3,
+    "last_valuation_as_of": "2026-09-18T09:30:33+08:00",
+    "project_equity_cny": 29816.9,
     "realized_pnl_cny": -286.8,
-    "total_pnl_cny": -171.7,
-    "total_return_pct": -0.005723333333333357,
+    "total_pnl_cny": -183.1,
+    "total_return_pct": -0.0061033333333332844,
     "valuation_complete": true,
     "valuation_stale_symbols": []
   },
@@ -74,7 +40,7 @@
       "highest_mark_since_entry": 0.684,
       "last_buy_date": "2026-09-02",
       "last_price": 0.648,
-      "last_price_as_of": "2026-09-16T16:14:24+08:00",
+      "last_price_as_of": "2026-09-18T09:30:33+08:00",
       "market_value_cny": 2268.0,
       "name": "汇添富中证主要消费ETF",
       "quantity": 3500,
@@ -99,13 +65,13 @@
       "exposure_group": "csi300",
       "highest_mark_since_entry": 4.726,
       "last_buy_date": "2026-07-21",
-      "last_price": 4.55,
-      "last_price_as_of": "2026-09-16T16:14:46+08:00",
-      "market_value_cny": 5460.0,
+      "last_price": 4.556,
+      "last_price_as_of": "2026-09-18T09:30:31+08:00",
+      "market_value_cny": 5467.2,
       "name": "华泰柏瑞沪深300ETF",
       "quantity": 1200,
       "risk_bucket": "core_equity",
-      "unrealized_pnl_cny": -157.4
+      "unrealized_pnl_cny": -150.2
     },
     "510500": {
       "acquired_date": "2026-07-27",
@@ -125,13 +91,13 @@
       "exposure_group": "csi500",
       "highest_mark_since_entry": 7.998,
       "last_buy_date": "2026-09-10",
-      "last_price": 7.71,
-      "last_price_as_of": "2026-09-16T16:14:32+08:00",
-      "market_value_cny": 2313.0,
+      "last_price": 7.746,
+      "last_price_as_of": "2026-09-18T09:30:32+08:00",
+      "market_value_cny": 2323.8,
       "name": "南方中证500ETF",
       "quantity": 300,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 0.85
+      "unrealized_pnl_cny": 11.65
     },
     "510880": {
       "acquired_date": "2026-07-28",
@@ -151,13 +117,13 @@
       "exposure_group": "dividend",
       "highest_mark_since_entry": 3.501,
       "last_buy_date": "2026-08-24",
-      "last_price": 3.367,
-      "last_price_as_of": "2026-09-16T16:14:33+08:00",
-      "market_value_cny": 4377.1,
+      "last_price": 3.333,
+      "last_price_as_of": "2026-09-18T09:30:32+08:00",
+      "market_value_cny": 4332.9,
       "name": "华泰柏瑞上证红利ETF",
       "quantity": 1300,
       "risk_bucket": "dividend_equity",
-      "unrealized_pnl_cny": 146.87
+      "unrealized_pnl_cny": 102.67
     },
     "512100": {
       "acquired_date": "2026-07-21",
@@ -177,18 +143,18 @@
       "exposure_group": "csi1000",
       "highest_mark_since_entry": 3.15,
       "last_buy_date": "2026-09-15",
-      "last_price": 3.082,
-      "last_price_as_of": "2026-09-16T16:14:51+08:00",
-      "market_value_cny": 3698.4,
+      "last_price": 3.091,
+      "last_price_as_of": "2026-09-18T09:30:33+08:00",
+      "market_value_cny": 3709.2,
       "name": "南方中证1000ETF",
       "quantity": 1200,
       "risk_bucket": "small_growth_equity",
-      "unrealized_pnl_cny": 205.1
+      "unrealized_pnl_cny": 215.9
     },
     "518880": {
       "acquired_date": "2026-08-12",
       "asset_type": "gold_etf",
-      "average_cost": 9.041066666666667,
+      "average_cost": 9.027366666666667,
       "exit_plan": {
         "hard_stop_loss_return": -0.08,
         "hard_trend_below_ma20_ratio": 0.95,
@@ -202,14 +168,14 @@
       "exit_plan_bound_at": "2026-08-19T09:09:59+08:00",
       "exposure_group": "gold",
       "highest_mark_since_entry": 9.607,
-      "last_buy_date": "2026-09-14",
-      "last_price": 8.905,
-      "last_price_as_of": "2026-09-16T16:14:54+08:00",
-      "market_value_cny": 1781.0,
+      "last_buy_date": "2026-09-18",
+      "last_price": 8.95,
+      "last_price_as_of": "2026-09-18T09:30:33+08:00",
+      "market_value_cny": 2685.0,
       "name": "华安黄金易ETF",
-      "quantity": 200,
+      "quantity": 300,
       "risk_bucket": "gold",
-      "unrealized_pnl_cny": -27.21
+      "unrealized_pnl_cny": -23.21
     }
   },
   "research_infrastructure": {
@@ -1125,6 +1091,12 @@
       "mode": "preopen",
       "run_date": "2026-09-18",
       "run_id": "747a1df04ae54023afb08a4fc31b00b9"
+    },
+    {
+      "input_sha256": "b745f357a0b08b9d816c5371e2e1f70e22f511bc7efff89fb44c8a5b13def57e",
+      "mode": "open_settlement",
+      "run_date": "2026-09-18",
+      "run_id": "472c64bbd6804fc8844a05bb4ef959ea"
     }
   ],
   "schema_version": 1
