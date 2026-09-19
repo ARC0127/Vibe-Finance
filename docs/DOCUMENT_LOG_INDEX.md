@@ -1,6 +1,6 @@
 # Vibe Finance 本地文档与日志索引
 
-最近整理截点：2026-09-18 23:10:59 CST。
+最近整理截点：2026-09-19 23:11:29 CST。
 
 本索引只提供当前入口和历史定位，不替代原始文件。历史报告、输入、订单与账本遵循不可覆盖原则；需要更正时新增带时间戳的记录。Excel 仅为周度派生展示，不是权威账本。
 
@@ -433,6 +433,8 @@
 - [reports/evolution/20260829-w35-no-decidable-experience/proposal.json](../reports/evolution/20260829-w35-no-decidable-experience/proposal.json)
 - [reports/evolution/20260912-w37-no-decidable-experience/gate.json](../reports/evolution/20260912-w37-no-decidable-experience/gate.json)
 - [reports/evolution/20260912-w37-no-decidable-experience/proposal.json](../reports/evolution/20260912-w37-no-decidable-experience/proposal.json)
+- [reports/evolution/20260919-w38-no-decidable-experience/gate.json](../reports/evolution/20260919-w38-no-decidable-experience/gate.json)
+- [reports/evolution/20260919-w38-no-decidable-experience/proposal.json](../reports/evolution/20260919-w38-no-decidable-experience/proposal.json)
 
 ## 周度派生仪表盘
 
@@ -929,6 +931,10 @@
 - [reports/automation-runs/activity-monitor/20260918T092331+0800.json](../reports/automation-runs/activity-monitor/20260918T092331%2B0800.json)
 - [reports/automation-runs/activity-monitor/20260918T153330+0800.json](../reports/automation-runs/activity-monitor/20260918T153330%2B0800.json)
 - [reports/automation-runs/activity-monitor/20260918T212428+0800.json](../reports/automation-runs/activity-monitor/20260918T212428%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260919T033213+0800.json](../reports/automation-runs/activity-monitor/20260919T033213%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260919T092747+0800.json](../reports/automation-runs/activity-monitor/20260919T092747%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260919T152618+0800.json](../reports/automation-runs/activity-monitor/20260919T152618%2B0800.json)
+- [reports/automation-runs/activity-monitor/20260919T212812+0800.json](../reports/automation-runs/activity-monitor/20260919T212812%2B0800.json)
 - [reports/automation-runs/close-analysis/20260723T164318+0800.json](../reports/automation-runs/close-analysis/20260723T164318%2B0800.json)
 - [reports/automation-runs/close-analysis/20260725T200931+0800.json](../reports/automation-runs/close-analysis/20260725T200931%2B0800.json)
 - [reports/automation-runs/close-analysis/20260727T190346+0800.json](../reports/automation-runs/close-analysis/20260727T190346%2B0800.json)
@@ -1052,6 +1058,7 @@
 - [reports/automation-runs/document-log/20260915T231454+0800.json](../reports/automation-runs/document-log/20260915T231454%2B0800.json)
 - [reports/automation-runs/document-log/20260916T231317+0800.json](../reports/automation-runs/document-log/20260916T231317%2B0800.json)
 - [reports/automation-runs/document-log/20260917T231427+0800.json](../reports/automation-runs/document-log/20260917T231427%2B0800.json)
+- [reports/automation-runs/document-log/20260918T231249+0800.json](../reports/automation-runs/document-log/20260918T231249%2B0800.json)
 - [reports/automation-runs/experience-ledger-release/20260817T095623+0800.json](../reports/automation-runs/experience-ledger-release/20260817T095623%2B0800.json)
 - [reports/automation-runs/fund-nav/20260721T092153+0800.json](../reports/automation-runs/fund-nav/20260721T092153%2B0800.json)
 - [reports/automation-runs/fund-nav/20260722T224205+0800.json](../reports/automation-runs/fund-nav/20260722T224205%2B0800.json)
@@ -1328,6 +1335,8 @@
 - [reports/document-log/2026-09-16-2311.md](../reports/document-log/2026-09-16-2311.md)
 - [reports/document-log/2026-09-17-2312.json](../reports/document-log/2026-09-17-2312.json)
 - [reports/document-log/2026-09-17-2312.md](../reports/document-log/2026-09-17-2312.md)
+- [reports/document-log/2026-09-18-2310.json](../reports/document-log/2026-09-18-2310.json)
+- [reports/document-log/2026-09-18-2310.md](../reports/document-log/2026-09-18-2310.md)
 - [reports/monitor/20260720T184102+0800.json](../reports/monitor/20260720T184102%2B0800.json)
 - [reports/monitor/20260721T004024+0800.json](../reports/monitor/20260721T004024%2B0800.json)
 - [reports/monitor/20260721T064315+0800.json](../reports/monitor/20260721T064315%2B0800.json)
@@ -1515,6 +1524,10 @@
 - [reports/monitor/20260918T091738+0800.json](../reports/monitor/20260918T091738%2B0800.json)
 - [reports/monitor/20260918T152814+0800.json](../reports/monitor/20260918T152814%2B0800.json)
 - [reports/monitor/20260918T211851+0800.json](../reports/monitor/20260918T211851%2B0800.json)
+- [reports/monitor/20260919T031927+0800.json](../reports/monitor/20260919T031927%2B0800.json)
+- [reports/monitor/20260919T092103+0800.json](../reports/monitor/20260919T092103%2B0800.json)
+- [reports/monitor/20260919T152239+0800.json](../reports/monitor/20260919T152239%2B0800.json)
+- [reports/monitor/20260919T212314+0800.json](../reports/monitor/20260919T212314%2B0800.json)
 - [reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json](../reports/skill-memory/reviews/2026-07-24/review-5b216919d841.json)
 - [reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md](../reports/skill-memory/reviews/2026-07-24/review-5b216919d841.md)
 - [reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md](../reports/skill-memory/reviews/2026-07-24/semantic-review-review-skill-memory-candidates--eb7f1dc8fabf.md)
