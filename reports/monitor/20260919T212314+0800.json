@@ -1,0 +1,1506 @@
+{
+  "schema_version": 1,
+  "task_id": "activity-monitor",
+  "automation_id": "vibe-finance-3",
+  "heartbeat_trigger_utc": "2026-09-19T13:23:14.385Z",
+  "audit_recorded_at_utc": "2026-09-19T13:25:50.298936+00:00",
+  "audit_recorded_at_local": "2026-09-19T21:25:50.298936+08:00",
+  "trigger_handling": {
+    "status": "CURRENT_DATE_MATCH",
+    "requested_date": "2026-09-19",
+    "observed_date": "2026-09-19",
+    "audit_date_basis": "CURRENT_TRIGGER_AND_ACTUAL_OBSERVATION_CLOCK",
+    "business_pipeline_invoked": false,
+    "historical_backfill_performed": false
+  },
+  "timezone": "Asia/Shanghai",
+  "simulation_only": true,
+  "task_status": "FAILED",
+  "notification": "NOTIFY_NEW_REFLECTION_GITHUB_SYNC_FAILURE",
+  "baseline_monitor": {
+    "path": "reports/monitor/20260919T152239+0800.json",
+    "sha256": "eee5f1526677ad2e656af7e315a4fe014d360c201a478e1aa0249b414c0c0186"
+  },
+  "status_command": {
+    "status": "ACTIVE",
+    "heartbeat_age_hours": 22.877,
+    "max_age_hours": 36,
+    "last_success_at": "2026-09-18T14:33:15.064519+00:00",
+    "last_run_id": "eaf9bc9fc4d04e598208eae41d7d9c38",
+    "last_run_date": "2026-09-18",
+    "last_mode": "fund_nav",
+    "decision_report_count": 37,
+    "pending_orders": 0,
+    "positions": 6,
+    "filled_trade_count": 29,
+    "last_filled_trade_date": "2026-09-18",
+    "project_equity_cny": 29816.9,
+    "total_pnl_cny": -183.1,
+    "total_return_pct": -0.0061033333333332844,
+    "deepseek_actual_calls": 0,
+    "deepseek_spent_cny": 0,
+    "deepseek_remaining_cny": 100,
+    "command": "python3 -m vibe_finance status",
+    "exit_code": 0,
+    "stale_after_local_if_no_new_success": "2026-09-20T10:33:15.064519+08:00"
+  },
+  "calendar_context": {
+    "classification": "WEEKEND_NON_TRADING",
+    "official_calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+    "verified_today": true,
+    "latest_due_close_date": "2026-09-18",
+    "latest_due_fund_date": "2026-09-18",
+    "latest_due_preopen_date": "2026-09-18",
+    "latest_due_open_date": "2026-09-18",
+    "intraday_recovery_due": false,
+    "next_due_cycle": "2026-09-20T20:00:00+08:00 weekly-review",
+    "next_due_cycle_due_at_observation": false,
+    "official_calendar_last_verified_date": "2026-09-19",
+    "current_local_date": "2026-09-19",
+    "local_weekday": "Saturday",
+    "september_18_business_cycles_due_at_observation": [
+      "preopen-review",
+      "daily-order-guard",
+      "open-settlement",
+      "intraday-recovery-check",
+      "close-analysis"
+    ],
+    "latest_due_guard_date": "2026-09-18",
+    "next_official_holiday": "2026-09-25 to 2026-09-27",
+    "official_calendar_verification_basis": "Official SSE 2026 closure calendar opened in current run; ordinary Saturday weekend. No new September 19 financial business-cycle gaps are due.",
+    "latest_due_intraday_check_date": "2026-09-18",
+    "intraday_no_action_reason": "Opening filled the only pending order before the 13:00 check; committed 13:05 manifest PASS_ALREADY_FILLED has empty financial payload.",
+    "september_18_close_due": true,
+    "september_18_fund_not_yet_due": false,
+    "next_financial_business_cycle": "2026-09-21T08:00:00+08:00 preopen-review",
+    "next_long_cycle": "2026-09-20T20:00:00+08:00 weekly-review",
+    "september_18_fund_completed": true,
+    "no_september_19_financial_business_cycles_due": true,
+    "reflection_evolution_due": true,
+    "reflection_evolution_local_result": "NOT_APPLICABLE_UNSYNCED"
+  },
+  "ledger": {
+    "json_parse": {
+      "status": "PASS",
+      "json_files": 1400,
+      "jsonl_files": 3,
+      "jsonl_rows": 96,
+      "errors": [],
+      "scope": "canonical repository excluding .git, .codex and work"
+    },
+    "event_chain": {
+      "status": "PASS_COMMITTED_PREFIX_AND_CHAIN",
+      "ledger_path": "/mnt/f/Git/Vibe Finance/data/ledger/orders.jsonl",
+      "event_count": 94,
+      "legacy_event_count": 4,
+      "v2_event_count": 90,
+      "head_event_sha256": "00870f3ddc32b2bbb945c737efaeac5a921cc8d458a37fb15a84af8cf956e82b",
+      "next_sequence": 95,
+      "anchor": {
+        "status": "VERIFIED_LEGACY_GIT_ANCHORED",
+        "line_count": 4,
+        "canonical_payload_sha256": "fe0c8a8c372e92ad8ad36c3b963faf9bdf86047af37a7ad9f16aa77ccd62da44",
+        "chain_head_sha256": "7c060e5b0ff0f7b9222a194e407cff592dcb7dfc08bef06bbe65379957a8f72f",
+        "source_commit": "573ec97da3a2acd4292b2fd2cbaee7460af8a02c",
+        "source_blob_oid": "94516381a2ad5615958051bc3c798193f4b16f29"
+      },
+      "git_head_prefix": {
+        "status": "VERIFIED_GIT_HEAD_PREFIX",
+        "commit": "2ad74ab44a95056fbdaf16eca896bc397532cbfa",
+        "blob_oid": "3d194bffca8db5cbdff817b33797620b9c3d3f10",
+        "ledger_path": "data/ledger/orders.jsonl",
+        "committed_event_count": 94,
+        "canonical_payload_sha256": "b8be5a076fcba218cfb7a33075a6b323fba00b9dbcafb85d61bc5d8e3e75ab5c"
+      }
+    },
+    "portfolio_projection": {
+      "status": "PASS",
+      "filled_event_count": 29,
+      "pending_orders": 0,
+      "position_count": 6,
+      "cash_replay_complete": true
+    },
+    "latest_transaction": {
+      "status": "COMMITTED",
+      "run_id": "eaf9bc9fc4d04e598208eae41d7d9c38",
+      "checks": {
+        "decision": true,
+        "report": true,
+        "heartbeat": true,
+        "portfolio": true,
+        "prepare": true,
+        "run_id": true,
+        "projection": true,
+        "event_count": true,
+        "event_head": true,
+        "input": true
+      },
+      "commit_sha256": "dd0e9f52d98d1b1c9c347e772d52242482507d9935c543559f186c92cd7e0e3d",
+      "prepare_sha256": "40122e221064ab3e6f6a25654a4537724b0fb0e25b123f45fe7683d01b0d6b2c"
+    }
+  },
+  "resolved_input_path_exceptions": [
+    {
+      "report": "reports/daily/2026-07-22-short.json",
+      "canonical_input": "data/inbox/2026-07-22.json",
+      "actual_hash_bound_input": "data/inbox/2026-07-22-close-recovery-2024.json",
+      "transaction_commit": "data/ledger/transactions/88bbd1b60ca149ae9d5b30d9cce624cb/commit.json",
+      "claim_boundary": "HASH_CONSISTENCY_ONLY_NOT_TIMELINESS_CERTIFICATION"
+    }
+  ],
+  "decision_report_input_hash_checks": {
+    "passed": 111,
+    "total": 111,
+    "failed": []
+  },
+  "deepseek_budget": {
+    "status": "CONSISTENT",
+    "api_cost_rows": 1,
+    "actual_calls": 0,
+    "spent_cny": 0,
+    "reserved_cny": 100,
+    "remaining_cny": 100,
+    "balance_basis": "USER_STATED_NOT_API_VERIFIED",
+    "called_by_monitor": false
+  },
+  "long_cycle": {
+    "status": "PASS_WITH_FINDINGS",
+    "latest_week": "2026-W37",
+    "generated_at": "2026-09-14T09:25:50+08:00",
+    "age_days_at_observation": 5.5,
+    "max_age_days": 8,
+    "input_hash_checks": {
+      "passed": 43,
+      "total": 43,
+      "failed": []
+    },
+    "w36_missing_paths": [
+      "reports/weekly/2026-W36.json",
+      "reports/weekly/2026-W36.md"
+    ],
+    "official_w37_return_status": "NOT_COMPUTED_MISSING_2026_09_07_CLOSE_AND_COMPLETE_PERIOD_OPEN_BASELINE"
+  },
+  "historical_gap_governance": {
+    "status": "PASS_WITH_ACKNOWLEDGED_IMMUTABLE_GAPS",
+    "path": "reports/research/2026-08-17-operational-gap-reconciliation.json",
+    "sha256": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "checks_passed": 22,
+    "checks_total": 22,
+    "failed_paths": [],
+    "evidence_hashes_and_exact_path_states_match": true,
+    "only_exact_listed_gaps_suppressed": true,
+    "new_due_cycle_gaps_suppressed": false,
+    "dispositions_verified": [
+      "ACKNOWLEDGED_IMMUTABLE_NO_BACKFILL",
+      "SUBSTITUTED_BY_GOVERNED_INTRADAY_RECOVERY"
+    ]
+  },
+  "historical_missing_report_paths_outside_exact_governance": [
+    "reports/daily/2026-08-17-short.json",
+    "reports/funds/2026-08-17-funds.json",
+    "reports/execution/2026-08-17-open.json",
+    "reports/daily/2026-08-18-short.json",
+    "reports/funds/2026-08-18-funds.json",
+    "reports/execution/2026-08-18-open.json",
+    "reports/execution/2026-08-19-open.json",
+    "reports/preopen/2026-08-20-preopen.json",
+    "reports/execution/2026-08-20-open.json",
+    "reports/execution/2026-08-21-open.json",
+    "reports/funds/2026-09-02-funds.json",
+    "reports/preopen/2026-09-03-preopen.json",
+    "reports/execution/2026-09-03-open.json",
+    "reports/daily/2026-09-04-short.json",
+    "reports/daily/2026-09-07-short.json",
+    "reports/preopen/2026-09-07-preopen.json",
+    "reports/execution/2026-09-07-open.json",
+    "reports/preopen/2026-09-08-preopen.json",
+    "reports/daily/2026-09-09-short.json",
+    "reports/daily/2026-09-17-short.json",
+    "reports/preopen/2026-09-17-preopen.json",
+    "reports/execution/2026-09-17-open.json",
+    "reports/daily/2026-09-18-short.json"
+  ],
+  "current_due_artifact_states": {
+    "data/inbox/2026-09-17-preopen.json": "ABSENT",
+    "reports/preopen/2026-09-17-preopen.json": "ABSENT",
+    "reports/preopen/2026-09-17-preopen.md": "ABSENT",
+    "data/inbox/2026-09-17-open.json": "ABSENT",
+    "reports/execution/2026-09-17-open.json": "ABSENT",
+    "reports/execution/2026-09-17-open.md": "ABSENT",
+    "data/inbox/2026-09-17-intraday.json": "ABSENT",
+    "reports/execution/2026-09-17-intraday.json": "ABSENT",
+    "reports/execution/2026-09-17-intraday.md": "ABSENT",
+    "data/inbox/2026-09-17.json": "ABSENT",
+    "reports/daily/2026-09-17-short.json": "ABSENT",
+    "reports/daily/2026-09-17-short.md": "ABSENT",
+    "data/inbox/2026-09-17-funds.json": "PRESENT",
+    "reports/funds/2026-09-17-funds.json": "PRESENT",
+    "reports/funds/2026-09-17-funds.md": "PRESENT",
+    "data/inbox/2026-09-18-preopen.json": "PRESENT",
+    "reports/preopen/2026-09-18-preopen.json": "PRESENT",
+    "reports/preopen/2026-09-18-preopen.md": "PRESENT",
+    "reports/research/2026-09-18-preopen-review-audit.md": "PRESENT",
+    "reports/research/2026-09-18-preopen-review-evidence.json": "PRESENT",
+    "reports/research/2026-09-18-daily-order-guard-audit.json": "PRESENT",
+    "data/inbox/2026-09-18-open.json": "PRESENT",
+    "reports/execution/2026-09-18-open.json": "PRESENT",
+    "reports/execution/2026-09-18-open.md": "PRESENT",
+    "data/inbox/2026-09-18.json": "ABSENT",
+    "reports/daily/2026-09-18-short.json": "ABSENT",
+    "reports/daily/2026-09-18-short.md": "ABSENT",
+    "data/inbox/2026-09-18-funds.json": "PRESENT",
+    "reports/funds/2026-09-18-funds.json": "PRESENT",
+    "reports/funds/2026-09-18-funds.md": "PRESENT"
+  },
+  "owner_run_manifest_verification": [
+    {
+      "manifest": "reports/automation-runs/preopen-review/20260917T080728+0800.json",
+      "sha256": "66ed7a2d577154569e36ddb22d77cd17deeba074759e0891a7a1a0794750b33b",
+      "task_status": "FAILED_TIME_WINDOW_CLOSED",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 2,
+        "total": 2,
+        "items": [
+          {
+            "path": "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "6323f02b16d759fedb5242b21484bf0600698931fc028973d22b0de81218d427"
+          },
+          {
+            "path": "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "d44445711d3b1161a11b8db804bf4222263fc5f8b28e4e2ecedd964b43676c70"
+          }
+        ]
+      },
+      "base_commit": "314d5d110d1c9b9b58c906a49dcbd8e157293f07",
+      "owner_commit": "a44c08ee9f4c5ac1deb923010ceb93fc2d671345",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/daily-order-guard/20260917T091511+0800.json",
+      "sha256": "43fe34e1ea08dcdf3075118b9fa7de44d2c4302a76c4bbaef3b52c30a06b3218",
+      "task_status": "FAILED_TIME_WINDOW_CLOSED",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 2,
+        "total": 2,
+        "items": [
+          {
+            "path": "reports/research/2026-09-17-daily-order-guard-failed-time-window.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "5a527f3758e90cacf47a24e532244867ccd84208820446f5ce0cb0f5ee1cb730"
+          },
+          {
+            "path": "reports/research/2026-09-17-daily-order-guard-failed-time-window.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "ce23841447710c33898f954d4ff1545992e5ade175c93f211c0ac96915cb7393"
+          }
+        ]
+      },
+      "base_commit": "a44c08ee9f4c5ac1deb923010ceb93fc2d671345",
+      "owner_commit": "f9e9bdc90f6168ecb15792a365e390b8ba462ad1",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/open-settlement/20260917T093351+0800.json",
+      "sha256": "77ba04b132cd654be375f55b517b5dd9bb88ac5daf34a07891b50aa08685af8c",
+      "task_status": "FAILED_DAILY_TRADE",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 0,
+        "total": 0,
+        "items": []
+      },
+      "base_commit": "1169727d8bc796f9fbc2a60851cbdf702ee722ed",
+      "owner_commit": "2e5ad25b91ed05c880fa38396a4e4cd9ec42f443",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/open-settlement/20260917T130554+0800.json",
+      "sha256": "7654c683fd0ce0cd1df2df8e0c2b1da4162e97158bc80e1e2fcef350f28f796a",
+      "task_status": "FAILED_NO_PREOPEN_BASE",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 0,
+        "total": 0,
+        "items": []
+      },
+      "base_commit": "2e5ad25b91ed05c880fa38396a4e4cd9ec42f443",
+      "owner_commit": "7bca9828aceb46d52989698332eaf68f6f3bb50d",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/fund-nav/20260917T223814+0800.json",
+      "sha256": "8e4a836303ead2f541c65ac4874fa40dcb00a195f26a7e73f8c45d00419211ad",
+      "task_status": "NO_TRADE",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 8,
+        "total": 8,
+        "items": [
+          {
+            "path": "README.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "28330a3b39abca5ef12653f8efeca4c8647e6e3c27831732c62d899121732583"
+          },
+          {
+            "path": "data/ledger/heartbeat.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "81aa1186987e3edf82dba0db756b6ab8f5e181d0b71a2d6af407f4e123b08c27"
+          },
+          {
+            "path": "data/ledger/portfolio.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "a6ea8b5526510ec48665859e6276349aadadadbc26aaa63fa19a9b963e8db4dc"
+          },
+          {
+            "path": "data/inbox/2026-09-17-funds.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "aff7a42bd16d18f98440c908a40bd31b7a9c5719b5ad12400e2dabe9f7d07cb9"
+          },
+          {
+            "path": "data/ledger/transactions/88ad9709656f4d06b340b889de6f7b40/commit.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "02bea8f3cb1d0e99b3666385875cb83798a8508707cf583c58798677152a7481"
+          },
+          {
+            "path": "data/ledger/transactions/88ad9709656f4d06b340b889de6f7b40/prepare.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "7c07a9cf45c939c4d199af5ece8e67b3f85c480d57a8bd0e1ed5a9da34c995c8"
+          },
+          {
+            "path": "reports/funds/2026-09-17-funds.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "5e9c3a616ee8b4f61f92519dcc6cdc4fcc32243c58b9a32d28e0e7c6a2a626e5"
+          },
+          {
+            "path": "reports/funds/2026-09-17-funds.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "68b607f612563872bb162c103044abe08535ae945e19b6817a722adee1f94ce6"
+          }
+        ]
+      },
+      "base_commit": "9e5fd0907af2895aeb3d7091bdec547ddb78a2c1",
+      "owner_commit": "79f9b436404e5cd0e8b3ee590eabd6d7c91ac1d9",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [
+        "README.md",
+        "data/ledger/heartbeat.json",
+        "data/ledger/portfolio.json"
+      ],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/document-log/20260917T231427+0800.json",
+      "sha256": "c85a508075aa6d1e829e6b2ad5577da58bc6aa2b61b83e2a15cdba33267fcfd5",
+      "task_status": "PASS_WITH_FINDINGS",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 3,
+        "total": 3,
+        "items": [
+          {
+            "path": "docs/DOCUMENT_LOG_INDEX.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "98d8558ea3b9b12a429a189cf890596f37ab96c4860e71a35efb9c9c8f24b3a8"
+          },
+          {
+            "path": "reports/document-log/2026-09-17-2312.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "3b787636f5d7f237b2db5df37e37135318c41b87ff92fa912f82f1a1448b7a79"
+          },
+          {
+            "path": "reports/document-log/2026-09-17-2312.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "9fda7016d2bb878d575b770f99df8b619a6dc1f553bea2df0e5564f29e6ab421"
+          }
+        ]
+      },
+      "base_commit": "79f9b436404e5cd0e8b3ee590eabd6d7c91ac1d9",
+      "owner_commit": "cc308bcc6e12969f417c9f02d9ab679a34db106d",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [
+        "docs/DOCUMENT_LOG_INDEX.md"
+      ],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true,
+      "mutable_index_supersession_evidence": {
+        "path": "docs/DOCUMENT_LOG_INDEX.md",
+        "owner_manifest": "reports/automation-runs/document-log/20260918T231249+0800.json",
+        "owner_commit": "7caf2236bbf98d25e7de3c1c37983c6319a817bb",
+        "recorded_sha256": "60beb1752560526dfadb6ac33aec288f937e571a59282afd6b35d0c65cc42588",
+        "current_sha256": "60beb1752560526dfadb6ac33aec288f937e571a59282afd6b35d0c65cc42588",
+        "current_raw_hash_matches_latest_owner": true,
+        "committed_owner_hash_match": true,
+        "owner_task_id_matches": true,
+        "classification": "CANONICAL_MUTABLE_INDEX_UPDATED_BY_LATER_COMMITTED_DOCUMENT_OWNER_NOT_IMMUTABLE_REPORT"
+      }
+    },
+    {
+      "manifest": "reports/automation-runs/preopen-review/20260918T081045+0800.json",
+      "sha256": "2663067163326be4be39f727bb52253f0ceebeb83d03009747a5822b4b4a698d",
+      "task_status": "FAILED_PREOPEN_RISK_REVIEW",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 10,
+        "total": 10,
+        "items": [
+          {
+            "path": "README.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "64351ee112b5401bada1df57811f018b2765b574c5942f93f5151ed6b1627b3b"
+          },
+          {
+            "path": "data/ledger/heartbeat.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "aa8c0c6a9e7cf9f3fa633c71636399ea71a0cfc24dc724f07db2788777c50afb"
+          },
+          {
+            "path": "data/ledger/portfolio.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "4c3c01e66e37c92db0b03a69e1b88a8d7c8436e0cfe691bc66bc56fd0971c620"
+          },
+          {
+            "path": "data/inbox/2026-09-18-preopen.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "8a52c55eee1c7ff0c8203b3eb5c2933ecedfc25eb782153f03ab774d7cb50d8c"
+          },
+          {
+            "path": "data/ledger/transactions/747a1df04ae54023afb08a4fc31b00b9/commit.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "25da492abaee70a8aefd94ef52f68ec98f2c4d5743fe3681c57458ee36d5fcff"
+          },
+          {
+            "path": "data/ledger/transactions/747a1df04ae54023afb08a4fc31b00b9/prepare.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "0e4a08758b1798fe83be27240f0e553a53b41b004eecd47d9229535e13ecf81e"
+          },
+          {
+            "path": "reports/preopen/2026-09-18-preopen.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "42e926d63a572c63100eb9b6375dd32b14b7781b04bb076cd4f987e004aafaa9"
+          },
+          {
+            "path": "reports/preopen/2026-09-18-preopen.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "532ab0caa58c357bcdccd432552bab9329c209b28cf5a7b310e8daa747aa4d4c"
+          },
+          {
+            "path": "reports/research/2026-09-18-preopen-review-audit.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "31cf1a1dcc63a970e348da7c847cfcc5894839937e40e705dc60e0c9408a2eca"
+          },
+          {
+            "path": "reports/research/2026-09-18-preopen-review-evidence.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "1b4540da98a415e554482be30ecaef57e7048d94899b7f3559d68b6bee957f06"
+          }
+        ]
+      },
+      "base_commit": "cc691b7d636f2b7afcb078d9876ac0d2948e12b9",
+      "owner_commit": "167e796a0d1186d7507f3177a0a23036503fdee6",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [
+        "README.md",
+        "data/ledger/heartbeat.json",
+        "data/ledger/portfolio.json"
+      ],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/daily-order-guard/20260918T091510+0800.json",
+      "sha256": "be4f4039f8e2f0f321154bf81bdb2e223dcc512ecbc9913b4e865af5601f0926",
+      "task_status": "READY",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 1,
+        "total": 1,
+        "items": [
+          {
+            "path": "reports/research/2026-09-18-daily-order-guard-audit.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "c5ca8f19c1026a6a021f23449e12e075b7a190b5a3d2c57730e31f3a9ddae1c8"
+          }
+        ]
+      },
+      "base_commit": "167e796a0d1186d7507f3177a0a23036503fdee6",
+      "owner_commit": "b0cb27fa8daca25652b6a497350ebd09c78cec91",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/open-settlement/20260918T093241+0800.json",
+      "sha256": "735c6b22cd16e97ce9bbdcc2226d1604b8dc5b569529faeb650bf8e4571945a0",
+      "task_status": "PASS",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 9,
+        "total": 9,
+        "items": [
+          {
+            "path": "README.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "2e049494806e0f771b36981e1c730439bb06a7b06d7e67d7a8070c85455ca109"
+          },
+          {
+            "path": "data/ledger/heartbeat.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "fbd8b61b91fb097414c3e65dc2e8e23046c04bc4c2b7abe1aae9f7f73bed3bc0"
+          },
+          {
+            "path": "data/ledger/orders.jsonl",
+            "pass": true,
+            "basis": "EXACT_RAW_CURRENT_PREFIX_SHA256_AND_NORMALIZED_COMMITTED_BLOB_BYTES",
+            "recorded_sha256": "9f865c150d0c54b8e979298f5233af86974647db8e1cdafd2f77e4e9faa803b4",
+            "raw_prefix_sha256": "9f865c150d0c54b8e979298f5233af86974647db8e1cdafd2f77e4e9faa803b4",
+            "raw_prefix_bytes": 152796,
+            "committed_blob_bytes": 152735,
+            "committed_rows": 94,
+            "current_rows": 94,
+            "raw_prefix_crlf_count": 61,
+            "exact_raw_prefix_hash_match": true,
+            "normalized_prefix_matches_committed_blob_bytes": true
+          },
+          {
+            "path": "data/ledger/portfolio.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "3e950f450f6b0a8b74cdb723773050bc97e5c2ebccb2564567e2c261b88c4665"
+          },
+          {
+            "path": "data/inbox/2026-09-18-open.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "b745f357a0b08b9d816c5371e2e1f70e22f511bc7efff89fb44c8a5b13def57e"
+          },
+          {
+            "path": "data/ledger/transactions/472c64bbd6804fc8844a05bb4ef959ea/commit.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "476306e77e1a05d343618e0b3000850b5d5679ea6303ca921d8d3bad72504ac0"
+          },
+          {
+            "path": "data/ledger/transactions/472c64bbd6804fc8844a05bb4ef959ea/prepare.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "ab8a178a9bbf5eb4f07265dd09b8d3b176ff3be6df654a9a35b694b98da4fd0f"
+          },
+          {
+            "path": "reports/execution/2026-09-18-open.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "8bfd9752ca1d8e0bed77d60f4e15ab4f144296806e984518e49c2c75764e64d2"
+          },
+          {
+            "path": "reports/execution/2026-09-18-open.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "627a0e26f5540e4f982174ed919796359e0fd0129531c1f1217aa479b7135306"
+          }
+        ]
+      },
+      "base_commit": "af7afdc41cd3d9019fa4b2e269377a011a86f8ce",
+      "owner_commit": "12beb4571b9bac1d6b2bccd8174caf4c7f5219ed",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [
+        "README.md",
+        "data/ledger/heartbeat.json",
+        "data/ledger/portfolio.json"
+      ],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/open-settlement/20260918T130502+0800.json",
+      "sha256": "76b15a11cfc8d066a27312dbb820ab9f987774d90b1f15c7292a297ef1b6fed6",
+      "task_status": "PASS_ALREADY_FILLED",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 0,
+        "total": 0,
+        "items": []
+      },
+      "base_commit": "12beb4571b9bac1d6b2bccd8174caf4c7f5219ed",
+      "owner_commit": "f7a71f8785da02e646b24e706401d1a74831fc1d",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/fund-nav/20260918T223434+0800.json",
+      "sha256": "b21957061f6d4ea1f500b2bdee6702b0dcf21b58f34f863bfa6b0e4d8ce56d6f",
+      "task_status": "NO_TRADE",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 8,
+        "total": 8,
+        "items": [
+          {
+            "path": "README.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "cbd138625a67d7f523380d4970559ba3912c988f851792ce421dd13448792fbf"
+          },
+          {
+            "path": "data/ledger/heartbeat.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "c4ef0239c4c8b1dd1ba4315fa06dd45e9ef611c75fd4c203ee0a30731c854a16"
+          },
+          {
+            "path": "data/ledger/portfolio.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "8e3376d9ed47c13bde22268fa95d3d6e1a0e1d1db05178eb661890e9fd865f3a"
+          },
+          {
+            "path": "data/inbox/2026-09-18-funds.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "dfb32fe38828684b871901feea73b21649ef8d605d6311aeec30e8ec05d9ea9e"
+          },
+          {
+            "path": "data/ledger/transactions/eaf9bc9fc4d04e598208eae41d7d9c38/commit.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "dd0e9f52d98d1b1c9c347e772d52242482507d9935c543559f186c92cd7e0e3d"
+          },
+          {
+            "path": "data/ledger/transactions/eaf9bc9fc4d04e598208eae41d7d9c38/prepare.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "40122e221064ab3e6f6a25654a4537724b0fb0e25b123f45fe7683d01b0d6b2c"
+          },
+          {
+            "path": "reports/funds/2026-09-18-funds.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "ff557a4b6dfcde6e36052206f5047cfaf232661e959e1f6b686063ed4189b472"
+          },
+          {
+            "path": "reports/funds/2026-09-18-funds.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "40c3ffd1a28e21b2d9d40564504c162e64f26ec07ffcbce691eed551cc9aa6d5"
+          }
+        ]
+      },
+      "base_commit": "9840c8f2c19ddb2371e16d6ff6823751be447581",
+      "owner_commit": "2121c7d1dae24807f161ee349955e0d4724f1ee1",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    },
+    {
+      "manifest": "reports/automation-runs/document-log/20260918T231249+0800.json",
+      "sha256": "b34e7fc66e2b4645d14256a00d9912595beab8e6afc0d2c2d15df111cc6e7c01",
+      "task_status": "PASS_WITH_FINDINGS",
+      "validation": {
+        "secret_scan": "PASS",
+        "json_jsonl_parse": "PASS",
+        "git_diff_check": "PASS",
+        "unit_tests": "PASS"
+      },
+      "changed_file_hash_checks": {
+        "passed": 3,
+        "total": 3,
+        "items": [
+          {
+            "path": "docs/DOCUMENT_LOG_INDEX.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "60beb1752560526dfadb6ac33aec288f937e571a59282afd6b35d0c65cc42588"
+          },
+          {
+            "path": "reports/document-log/2026-09-18-2310.json",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "d6b9e0cb6303906db1493af3b28010191fc44e955d7caafc7d034d76fcfb8759"
+          },
+          {
+            "path": "reports/document-log/2026-09-18-2310.md",
+            "pass": true,
+            "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+            "recorded_sha256": "772aedfa22936f87d4abf272cd042e77887947e89ffbd6cc96ed2605fc313d7d"
+          }
+        ]
+      },
+      "base_commit": "2121c7d1dae24807f161ee349955e0d4724f1ee1",
+      "owner_commit": "7caf2236bbf98d25e7de3c1c37983c6319a817bb",
+      "hash_check_basis": "DIRECT_COMMITTED_BLOB_SHA256_OR_EXACT_RAW_LEDGER_PREFIX_AND_LF_NORMALIZED_BLOB_BYTES",
+      "mutable_current_paths_superseded_by_later_committed_owner": [],
+      "unexpected_immutable_drift": [],
+      "committed_to_head": true
+    }
+  ],
+  "current_reports": {
+    "broken_local_markdown_links": 52,
+    "baseline_broken_local_markdown_links": 52,
+    "by_report": {
+      "reports/daily/2026-09-16-short.md": {
+        "broken_count": 15,
+        "examples": [
+          "data/inbox/2026-08-19-preopen.json",
+          "data/inbox/2026-08-14.json"
+        ]
+      },
+      "reports/funds/2026-09-18-funds.md": {
+        "broken_count": 15,
+        "examples": [
+          "data/inbox/2026-08-19-preopen.json",
+          "data/inbox/2026-08-14.json"
+        ]
+      },
+      "reports/preopen/guard/2026-09-08-preopen.md": {
+        "broken_count": 5,
+        "examples": [
+          "data/inbox/2026-08-19-preopen.json",
+          "data/inbox/2026-08-14.json"
+        ]
+      },
+      "reports/preopen/2026-09-18-preopen.md": {
+        "broken_count": 17,
+        "examples": [
+          "data/inbox/2026-08-19-preopen.json",
+          "data/inbox/2026-08-14.json"
+        ]
+      },
+      "reports/execution/2026-09-18-open.md": {
+        "broken_count": 0,
+        "examples": []
+      },
+      "reports/weekly/2026-W37.md": {
+        "broken_count": 0,
+        "examples": []
+      }
+    },
+    "latest_document_log_broken_links": 470,
+    "latest_document_log_date_name_issues": 10,
+    "latest_document_log_path": "reports/document-log/2026-09-18-2310.json",
+    "latest_document_log_sha256": "d6b9e0cb6303906db1493af3b28010191fc44e955d7caafc7d034d76fcfb8759",
+    "latest_document_log_snapshot_at": "2026-09-18T23:10:59+08:00",
+    "baseline_document_log_broken_links": 470,
+    "document_log_broken_links_delta": 0,
+    "baseline_document_log_date_name_issues": 10,
+    "document_log_date_name_issues_delta": 0,
+    "current_preopen_broken_links": {
+      "count": 17,
+      "items": [
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-08-19-preopen.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-08-19-preopen.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-08-14.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-08-14.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "reports/evolution",
+          "resolved_path": "reports/preopen/reports/evolution",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-03.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-03.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-08-open.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-08-open.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-08.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-08.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-10-open.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-10-open.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-10.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-10.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-11-open.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-11-open.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-11.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-11.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-14-open.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-14-open.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-14.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-14.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-15-open.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-15-open.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-15.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-15.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-16-open.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-16-open.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-16.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-16.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        },
+        {
+          "source": "reports/preopen/2026-09-18-preopen.md",
+          "target": "data/inbox/2026-09-17-funds.json",
+          "resolved_path": "reports/preopen/data/inbox/2026-09-17-funds.json",
+          "root_target_exists": true,
+          "resolved_target_exists": false,
+          "classification": "MISRESOLVED_REPOSITORY_ROOT_RELATIVE_LINK"
+        }
+      ]
+    },
+    "latest_document_log_is_historical_snapshot_not_live_total": true,
+    "current_key_report_broken_link_count_delta": 0
+  },
+  "active_alerts": [
+    "CURRENT_REPORT_MARKDOWN_LINKS_BROKEN",
+    "HISTORICAL_CANONICAL_REPORT_PATHS_MISSING_OUTSIDE_EXACT_GOVERNANCE",
+    "W36_WEEKLY_REPORT_MISSING",
+    "W37_OFFICIAL_RETURN_NOT_COMPUTED_MISSING_BASELINE",
+    "SEPTEMBER_17_TIMELY_PREOPEN_ARTIFACTS_MISSING",
+    "SEPTEMBER_17_DAILY_ORDER_GUARD_FAILED_TIME_WINDOW_CLOSED",
+    "PREOPEN_STALE_TRIGGER_DATE_MISMATCH_OBSERVED",
+    "SEPTEMBER_17_OPEN_SETTLEMENT_FAILED_DAILY_TRADE",
+    "SEPTEMBER_17_INTRADAY_RECOVERY_FAILED_NO_PREOPEN_BASE",
+    "SEPTEMBER_17_OPEN_AND_INTRADAY_ARTIFACTS_MISSING",
+    "SEPTEMBER_17_DUE_CLOSE_ARTIFACTS_MISSING",
+    "CLOSE_OWNER_REMOTE_COMPACT_CONNECTION_FAILED",
+    "SEPTEMBER_18_PREOPEN_RISK_REVIEW_FAILED",
+    "EXECUTION_TIME_BUCKET_CAP_RECHECK_MISSING",
+    "DAILY_GUARD_READY_OMITS_COMMITTED_PREOPEN_RISK_BLOCKER",
+    "CURRENT_KEY_REPORT_BROKEN_LINK_COUNT_EXPANDED",
+    "SEPTEMBER_18_ACTUAL_POST_FILL_SMALL_GROWTH_BUCKET_CAP_BREACH",
+    "OPEN_SETTLEMENT_PASS_OMITS_ACTUAL_RISK_CAP_FAILURE",
+    "SEPTEMBER_18_DUE_CLOSE_ARTIFACTS_MISSING",
+    "NO_NEXT_OPEN_PENDING_ORDER_AFTER_DUE_CLOSE",
+    "SEPTEMBER_18_CLOSE_OWNER_REPEAT_PLATFORM_FAILURE_BEFORE_BUSINESS_ITEMS",
+    "LATEST_FUND_VALUATION_STALE_UNTRUSTED_MARKS",
+    "DOCUMENT_LOG_BROKEN_LINK_COUNT_EXPANDED",
+    "SEPTEMBER_19_REFLECTION_GITHUB_SYNC_FAILED_UNREFERENCED_EVOLUTION_ARTIFACT"
+  ],
+  "new_alerts": [
+    "SEPTEMBER_19_REFLECTION_GITHUB_SYNC_FAILED_UNREFERENCED_EVOLUTION_ARTIFACT"
+  ],
+  "resolved_alerts_this_run": [],
+  "current_run_repair_assessment": {
+    "repairable_by_monitor": false,
+    "precise_blocker": "The scheduled September 19 reflection produced a valid local NOT_APPLICABLE gate with zero eligible round trips, but its governed sync failed before staging because the pre-existing untracked 20260818 evolution baseline is an unreferenced extra artifact. Resolving that artifact requires a separate governed/operator decision and is outside activity-monitor read-only authority. Existing valuation, report, platform and execution-risk failures also remain.",
+    "minimum_repair": "A governed operator or reflection owner must decide the pre-existing 20260818 evolution baseline, then rerun evolution-gate, experience-validate and scripts/sync_github.sh reflection-evolution NOT_APPLICABLE for the W38 proposal. Do not delete, move, rewrite or backfill evolution or financial evidence from this monitor.",
+    "runtime_authority": "config/task_contracts.json activity-monitor runtime_write_roots=[reports/monitor]; governance-code-release is a separate task, not monitor allowlist.",
+    "safe_repair_completed_this_run": "Fresh read-only revalidation completed. The W38 proposal and gate were hash-bound and validated locally; no monitor-owned repair can safely resolve the separate task sync blocker.",
+    "next_retry_points": {
+      "close_analysis": "2026-09-21T16:30:00+08:00 next normal weekday cycle; September 18 original-cutoff snapshot must not be reconstructed with later quotes",
+      "fund_nav": "2026-09-21T22:30:00+08:00 next normal weekday NAV cycle",
+      "normal_preopen": "2026-09-21T08:00:00+08:00",
+      "normal_guard": "2026-09-21T09:10:00+08:00",
+      "next_open": "2026-09-21T09:30:00+08:00 full risk enforcement required before new fill",
+      "activity_monitor": "Next six-hour heartbeat nominally September 20 03:23:14 +08:00; actual dispatch unverified",
+      "governed_code_release": "Immediately once a separate code-release workflow is authorized; read-only monitor cannot change code/finance",
+      "platform_connection": "Authenticated host/platform diagnosis as soon as available; no model call or financial rerun from monitor",
+      "reflection_evolution": "Immediately after explicit governed disposition of the pre-existing 20260818 evolution artifact; rerun only from reflection owner",
+      "weekly_review": "2026-09-20T20:00:00+08:00 next scheduled long review; current W37 age is below 8 days"
+    }
+  },
+  "runtime_readiness": {
+    "wsl_python3_verified": true,
+    "zyr_rtk_available": true,
+    "rtk_version": "0.49.0",
+    "headroom_read_exit_code": 0,
+    "repository_code_changed": false,
+    "dependencies_changed_this_run": false,
+    "audit_helper_recovery": "Reused the validated ephemeral read-only auditor through in-memory CRC-protected transport; no repository temp file or financial/code mutation.",
+    "ledger_hash_checker_correction": "Git text=auto cleans CRLF. Require exact original raw working-tree ledger prefix SHA plus normalized-prefix bytes equal the committed Git blob; no financial file or Git setting changed.",
+    "audit_transport_recovery": {
+      "status": "PASS",
+      "windows_os_error_206_recovered": true,
+      "invalid_pty_output_rejected": true,
+      "closed_noninteractive_stdin_recovered": true,
+      "compressed_script_chunk_count": 10,
+      "crc_decoding_succeeded": true,
+      "full_noninteractive_json_output_parsed": true,
+      "transport_temp_files_created": false
+    }
+  },
+  "governance": {
+    "financial_state_mutated_by_monitor": false,
+    "historical_reports_mutated_by_monitor": false,
+    "trade_analysis_started_by_monitor": false,
+    "deepseek_called_by_monitor": false,
+    "protected_tracked_digest_before_report": {
+      "count": 1316,
+      "sha256": "f268f43a728f44854f62e2028f06b645e837acfd96f7a1596b2149434242de67"
+    },
+    "foreign_untracked_digest_before_report": {
+      "count": 293,
+      "sha256": "2ac81e037545d8b3455cada35246ee0a0cc0e1659f4d359c562972fb5ba873b9"
+    },
+    "legitimate_mutable_index_supersession": {
+      "path": "docs/DOCUMENT_LOG_INDEX.md",
+      "owner_manifest": "reports/automation-runs/document-log/20260918T231249+0800.json",
+      "owner_commit": "7caf2236bbf98d25e7de3c1c37983c6319a817bb",
+      "recorded_sha256": "60beb1752560526dfadb6ac33aec288f937e571a59282afd6b35d0c65cc42588",
+      "current_sha256": "60beb1752560526dfadb6ac33aec288f937e571a59282afd6b35d0c65cc42588",
+      "current_raw_hash_matches_latest_owner": true,
+      "committed_owner_hash_match": true,
+      "owner_task_id_matches": true,
+      "classification": "CANONICAL_MUTABLE_INDEX_UPDATED_BY_LATER_COMMITTED_DOCUMENT_OWNER_NOT_IMMUTABLE_REPORT"
+    },
+    "current_foreign_untracked_inventory": {
+      "untracked_count": 291,
+      "root_counts": {
+        ".codex": 83,
+        "reports": 30,
+        "work": 178
+      },
+      "newest_mtime_utc": "2026-09-18T14:35:13.640288+00:00",
+      "newest_mtime_before_current_trigger": true,
+      "scope_boundary": "Foreign fund collection/evidence-tree files predate current trigger; preserved, not deleted or included in monitor commit. Mtime is not producer attestation."
+    }
+  },
+  "verification_commands": {
+    "python3 -m vibe_finance status": {
+      "exit_code": 0,
+      "status": "ACTIVE"
+    },
+    "python3 -m vibe_finance experience-validate": {
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    "python3 -m vibe_finance task-contracts": {
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  },
+  "input_manifest": {
+    "docs/AUTOMATION.md": "c6cdcb1b0dce205d4a0c1060f2e4be80cba906283743156e803c2b817a4aaa7e",
+    "config/task_contracts.json": "397780aa39912ec362a1ff0af3419e0afd2a63586b1862a65e7388f837e23e43",
+    "scripts/sync_github.sh": "1f0abf2bda7dbfecb0da95ab483806b3374e52a962b9d610281a47e8685f1120",
+    "config/strategy.json": "05f1733eb7952fd7bdfad2ef931cd6a51016f2de34a4a871f3c82d0e122d5c0a",
+    "data/ledger/heartbeat.json": "c4ef0239c4c8b1dd1ba4315fa06dd45e9ef611c75fd4c203ee0a30731c854a16",
+    "data/ledger/orders.jsonl": "9f865c150d0c54b8e979298f5233af86974647db8e1cdafd2f77e4e9faa803b4",
+    "data/ledger/portfolio.json": "8e3376d9ed47c13bde22268fa95d3d6e1a0e1d1db05178eb661890e9fd865f3a",
+    "data/ledger/api_costs.jsonl": "80d3a0ae6e96122ebf79a58b498e14c640b0e8720a47dcd41953b0ba2852a884",
+    "data/inbox/2026-09-16.json": "7dc4c61fc71e95579044bc8cef5c4a2c9e57af6de3199e7d8489c9122d43aa06",
+    "data/ledger/transactions/7a3b3bdcd4fc425a9443a02c2385e853/prepare.json": "51ee6c6b8e38b8e7014bd089436171de6b61d05314234c049c9c441d095caa1a",
+    "data/ledger/transactions/7a3b3bdcd4fc425a9443a02c2385e853/commit.json": "b489781dd0b357e8d296e5d26d640700dce18d227746880d5ca164b1af76a24f",
+    "reports/daily/2026-09-16-short.json": "6baec98d7ea613fea35980fdf1a193253aef0f9c570928319750e65a0dbe7d8a",
+    "reports/automation-runs/fund-nav/20260916T223839+0800.json": "0a2bfbfa1d28f94f04bba1eeb47a371900f6aed61cfc5be8715410fb3c443c40",
+    "reports/funds/2026-09-16-funds.json": "360770d8e1466f909505951e4686c1510e95303f7809d77a940acbfc83b95577",
+    "reports/preopen/2026-09-16-preopen.json": "4aad2f208a3831c35981124ccc50536e1e54063418db105b68fe1e5520099bae",
+    "reports/execution/2026-09-16-open.json": "b5bb6b48ec283e3f434fd6be51174f8d27a7bac87bbdce55096c31cc71949ab1",
+    "reports/weekly/2026-W37.json": "479891cc00b232488367d2d040bd86e95767618ec20d6fc7cbc5a6802596ccd6",
+    "reports/research/2026-08-17-operational-gap-reconciliation.json": "20890a2ddfa279c79bc1a992e9557de27702bd6ac61d6895b2abf9dd1cb91952",
+    "reports/document-log/2026-09-16-2311.json": "f616f708c13405f768e84ad0a83af64f8665c5c4e9dbb55c9f62c96bb4491ddf",
+    "reports/daily/2026-09-16-short.md": "1be1d36eb8d0b64795e02e5ca10f2e509d4408d6eb21e49c913597913eadfc32",
+    "reports/funds/2026-09-16-funds.md": "48dcd11a3c51c9cfb8f1ae9faf011072779c96bf68eb2f277959993eeeabe742",
+    "reports/preopen/guard/2026-09-08-preopen.md": "cf956ec3d16755012d229d45777f83eed4aed1c47f6882821eee9f85df73c887",
+    "reports/preopen/2026-09-16-preopen.md": "af233dcd20f317087a917f130313194194b91cb6ce1682ea1c4c735544507906",
+    "reports/execution/2026-09-16-open.md": "60be730dda5031f61779dec4e1beff39a0b0db0ebb8685c5ad028227fd4cb6b0",
+    "reports/weekly/2026-W37.md": "02d4bc4e9b9cae4faf593730d411a4a18ca68752033cd2251f146a246bc1f63c",
+    "reports/automation-runs/document-log/20260916T231317+0800.json": "1156556cf0a4f91e0e5d62a56f0880a7d8fbc19fff309212bf4205fc1ec2d72c",
+    "reports/document-log/2026-09-16-2311.md": "ee24b2d5a7cc879fab4f0163523619fdb2a10a3940e9b18b2496e245c9da4395",
+    "docs/DOCUMENT_LOG_INDEX.md": "60beb1752560526dfadb6ac33aec288f937e571a59282afd6b35d0c65cc42588",
+    "data/inbox/2026-09-16-funds.json": "c3453850e8b047296e5ddf9b0c60cfc90b6152d25111759c66f0f5e15815821a",
+    "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.json": "6323f02b16d759fedb5242b21484bf0600698931fc028973d22b0de81218d427",
+    "reports/automation-runs/preopen-review/20260917T080728+0800.json": "66ed7a2d577154569e36ddb22d77cd17deeba074759e0891a7a1a0794750b33b",
+    "reports/research/2026-09-17-daily-order-guard-failed-time-window.json": "5a527f3758e90cacf47a24e532244867ccd84208820446f5ce0cb0f5ee1cb730",
+    "reports/automation-runs/daily-order-guard/20260917T091511+0800.json": "43fe34e1ea08dcdf3075118b9fa7de44d2c4302a76c4bbaef3b52c30a06b3218",
+    "reports/research/2026-09-02-preopen-review-stale-dispatch-observed-20260917T080446.md": "d44445711d3b1161a11b8db804bf4222263fc5f8b28e4e2ecedd964b43676c70",
+    "reports/research/2026-09-17-daily-order-guard-failed-time-window.md": "ce23841447710c33898f954d4ff1545992e5ade175c93f211c0ac96915cb7393",
+    "reports/daily/2026-07-22-short.json": "956deb4684c5f7bd6682d29012831fad33fa6760277cbc5bddbb3e381494621d",
+    "data/inbox/2026-07-22-close-recovery-2024.json": "8e3e6294384d625cb796229505a3e454c30bbf21b3665f892a5011354907da9e",
+    "data/ledger/transactions/88bbd1b60ca149ae9d5b30d9cce624cb/commit.json": "bfa93645a77f7d7fbf07e0cdc757226bcf9601c3a32b9a4d9b4b93443ac3df0f",
+    "reports/automation-runs/open-settlement/20260917T093351+0800.json": "77ba04b132cd654be375f55b517b5dd9bb88ac5daf34a07891b50aa08685af8c",
+    "reports/automation-runs/open-settlement/20260917T130554+0800.json": "7654c683fd0ce0cd1df2df8e0c2b1da4162e97158bc80e1e2fcef350f28f796a",
+    "README.md": "cbd138625a67d7f523380d4970559ba3912c988f851792ce421dd13448792fbf",
+    "reports/automation-runs/fund-nav/20260917T223814+0800.json": "8e4a836303ead2f541c65ac4874fa40dcb00a195f26a7e73f8c45d00419211ad",
+    "data/inbox/2026-09-17-funds.json": "aff7a42bd16d18f98440c908a40bd31b7a9c5719b5ad12400e2dabe9f7d07cb9",
+    "data/ledger/transactions/88ad9709656f4d06b340b889de6f7b40/commit.json": "02bea8f3cb1d0e99b3666385875cb83798a8508707cf583c58798677152a7481",
+    "data/ledger/transactions/88ad9709656f4d06b340b889de6f7b40/prepare.json": "7c07a9cf45c939c4d199af5ece8e67b3f85c480d57a8bd0e1ed5a9da34c995c8",
+    "reports/funds/2026-09-17-funds.json": "5e9c3a616ee8b4f61f92519dcc6cdc4fcc32243c58b9a32d28e0e7c6a2a626e5",
+    "reports/funds/2026-09-17-funds.md": "68b607f612563872bb162c103044abe08535ae945e19b6817a722adee1f94ce6",
+    "reports/automation-runs/document-log/20260917T231427+0800.json": "c85a508075aa6d1e829e6b2ad5577da58bc6aa2b61b83e2a15cdba33267fcfd5",
+    "reports/document-log/2026-09-17-2312.json": "3b787636f5d7f237b2db5df37e37135318c41b87ff92fa912f82f1a1448b7a79",
+    "reports/document-log/2026-09-17-2312.md": "9fda7016d2bb878d575b770f99df8b619a6dc1f553bea2df0e5564f29e6ab421",
+    "reports/automation-runs/preopen-review/20260918T081045+0800.json": "2663067163326be4be39f727bb52253f0ceebeb83d03009747a5822b4b4a698d",
+    "data/inbox/2026-09-18-preopen.json": "8a52c55eee1c7ff0c8203b3eb5c2933ecedfc25eb782153f03ab774d7cb50d8c",
+    "data/ledger/transactions/747a1df04ae54023afb08a4fc31b00b9/commit.json": "25da492abaee70a8aefd94ef52f68ec98f2c4d5743fe3681c57458ee36d5fcff",
+    "data/ledger/transactions/747a1df04ae54023afb08a4fc31b00b9/prepare.json": "0e4a08758b1798fe83be27240f0e553a53b41b004eecd47d9229535e13ecf81e",
+    "reports/preopen/2026-09-18-preopen.json": "42e926d63a572c63100eb9b6375dd32b14b7781b04bb076cd4f987e004aafaa9",
+    "reports/preopen/2026-09-18-preopen.md": "532ab0caa58c357bcdccd432552bab9329c209b28cf5a7b310e8daa747aa4d4c",
+    "reports/research/2026-09-18-preopen-review-audit.md": "31cf1a1dcc63a970e348da7c847cfcc5894839937e40e705dc60e0c9408a2eca",
+    "reports/research/2026-09-18-preopen-review-evidence.json": "1b4540da98a415e554482be30ecaef57e7048d94899b7f3559d68b6bee957f06",
+    "reports/automation-runs/daily-order-guard/20260918T091510+0800.json": "be4f4039f8e2f0f321154bf81bdb2e223dcc512ecbc9913b4e865af5601f0926",
+    "reports/research/2026-09-18-daily-order-guard-audit.json": "c5ca8f19c1026a6a021f23449e12e075b7a190b5a3d2c57730e31f3a9ddae1c8",
+    "vibe_finance/pipeline.py": "6decffcd7caa9dd19a82e65009813f58d45107f80436a8e6e6fa434f9fa6e478",
+    ".gitattributes": "1a1dbe176bc233b499d35a57db7513f2941c99ab9759f177830c9149be99005b",
+    "reports/automation-runs/open-settlement/20260918T093241+0800.json": "735c6b22cd16e97ce9bbdcc2226d1604b8dc5b569529faeb650bf8e4571945a0",
+    "data/inbox/2026-09-18-open.json": "b745f357a0b08b9d816c5371e2e1f70e22f511bc7efff89fb44c8a5b13def57e",
+    "data/ledger/transactions/472c64bbd6804fc8844a05bb4ef959ea/commit.json": "476306e77e1a05d343618e0b3000850b5d5679ea6303ca921d8d3bad72504ac0",
+    "data/ledger/transactions/472c64bbd6804fc8844a05bb4ef959ea/prepare.json": "ab8a178a9bbf5eb4f07265dd09b8d3b176ff3be6df654a9a35b694b98da4fd0f",
+    "reports/execution/2026-09-18-open.json": "8bfd9752ca1d8e0bed77d60f4e15ab4f144296806e984518e49c2c75764e64d2",
+    "reports/execution/2026-09-18-open.md": "627a0e26f5540e4f982174ed919796359e0fd0129531c1f1217aa479b7135306",
+    "reports/automation-runs/open-settlement/20260918T130502+0800.json": "76b15a11cfc8d066a27312dbb820ab9f987774d90b1f15c7292a297ef1b6fed6",
+    "reports/automation-runs/fund-nav/20260918T223434+0800.json": "b21957061f6d4ea1f500b2bdee6702b0dcf21b58f34f863bfa6b0e4d8ce56d6f",
+    "data/inbox/2026-09-18-funds.json": "dfb32fe38828684b871901feea73b21649ef8d605d6311aeec30e8ec05d9ea9e",
+    "data/ledger/transactions/eaf9bc9fc4d04e598208eae41d7d9c38/commit.json": "dd0e9f52d98d1b1c9c347e772d52242482507d9935c543559f186c92cd7e0e3d",
+    "data/ledger/transactions/eaf9bc9fc4d04e598208eae41d7d9c38/prepare.json": "40122e221064ab3e6f6a25654a4537724b0fb0e25b123f45fe7683d01b0d6b2c",
+    "reports/funds/2026-09-18-funds.json": "ff557a4b6dfcde6e36052206f5047cfaf232661e959e1f6b686063ed4189b472",
+    "reports/funds/2026-09-18-funds.md": "40c3ffd1a28e21b2d9d40564504c162e64f26ec07ffcbce691eed551cc9aa6d5",
+    "reports/automation-runs/document-log/20260918T231249+0800.json": "b34e7fc66e2b4645d14256a00d9912595beab8e6afc0d2c2d15df111cc6e7c01",
+    "reports/document-log/2026-09-18-2310.json": "d6b9e0cb6303906db1493af3b28010191fc44e955d7caafc7d034d76fcfb8759",
+    "reports/document-log/2026-09-18-2310.md": "772aedfa22936f87d4abf272cd042e77887947e89ffbd6cc96ed2605fc313d7d",
+    "reports/monitor/20260919T152239+0800.json": "eee5f1526677ad2e656af7e315a4fe014d360c201a478e1aa0249b414c0c0186",
+    "reports/automation-runs/activity-monitor/20260918T212428+0800.json": "516ed82d7b8082ace22041b9400c5c92f535a023dc4f9db3259a7c48248a4274",
+    "reports/evolution/20260919-w38-no-decidable-experience/proposal.json": "598d389d53587768a914b50141b09ea3caee482c1d2905dcc03e5130c177dbe9",
+    "reports/evolution/20260919-w38-no-decidable-experience/gate.json": "f5efa444967c17c746f332ba5d544b0c8aef9c9606f038efe9c0a449b151462d"
+  },
+  "pre_sync_git": {
+    "branch": "main",
+    "head": "2ad74ab44a95056fbdaf16eca896bc397532cbfa",
+    "origin_main": "2ad74ab44a95056fbdaf16eca896bc397532cbfa",
+    "live_remote_main": "2ad74ab44a95056fbdaf16eca896bc397532cbfa"
+  },
+  "disclaimer": "Virtual portfolio experiment only; no real trading account or investment advice.",
+  "expanded_alerts": [],
+  "fund_nav": {
+    "status": "NO_TRADE",
+    "manifest": "reports/automation-runs/fund-nav/20260918T223434+0800.json",
+    "report_as_of": "2026-09-18T22:30:00+08:00",
+    "run_id": "eaf9bc9fc4d04e598208eae41d7d9c38",
+    "new_orders": 0,
+    "filled_events": 0,
+    "blocks": [
+      "LEGACY_UNSCOPED_PRICE_SOURCES:000051",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:000198",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:001052",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:002610",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:012644",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:110020",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:110037",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:159915",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:159928",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:510050",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:510300",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:510500",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:510880",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:511010",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:511880",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:512100",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:512170",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:512480",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:518880",
+      "LEGACY_UNSCOPED_PRICE_SOURCES:588000",
+      "NAV_NOT_PUBLISHED",
+      "POSITION_MARK_UNTRUSTED:159928",
+      "POSITION_MARK_UNTRUSTED:510300",
+      "POSITION_MARK_UNTRUSTED:510500",
+      "POSITION_MARK_UNTRUSTED:510880",
+      "POSITION_MARK_UNTRUSTED:512100",
+      "POSITION_MARK_UNTRUSTED:518880"
+    ],
+    "position_mark_untrusted_symbols": [
+      "159928",
+      "510300",
+      "510500",
+      "510880",
+      "512100",
+      "518880"
+    ],
+    "valuation_mark_status": "STALE",
+    "price_as_of_by_position": {
+      "159928": "2026-09-18T09:30:33+08:00",
+      "510300": "2026-09-18T09:30:31+08:00",
+      "510500": "2026-09-18T09:30:32+08:00",
+      "510880": "2026-09-18T09:30:32+08:00",
+      "512100": "2026-09-18T09:30:33+08:00",
+      "518880": "2026-09-18T09:30:33+08:00"
+    },
+    "fresh_heartbeat_does_not_certify_fresh_trusted_prices": true,
+    "called_by_monitor": false,
+    "scope_boundary": "Latest September 18 22:30 fund report. All six position marks carried forward from opening; archived NAV/source blocks are cutoff findings, not live September 19 market/API assertions."
+  },
+  "latest_due_decision_reports": {
+    "short": {
+      "run_date": "2026-09-18",
+      "report_json": "reports/daily/2026-09-18-short.json",
+      "report_markdown": "reports/daily/2026-09-18-short.md",
+      "input": "data/inbox/2026-09-18.json",
+      "status": "MISSING_AFTER_DUE_TIME",
+      "latest_available_json": "reports/daily/2026-09-16-short.json",
+      "latest_available_input_hash_match": true
+    },
+    "fund_nav": {
+      "run_date": "2026-09-18",
+      "report_json": "reports/funds/2026-09-18-funds.json",
+      "report_markdown": "reports/funds/2026-09-18-funds.md",
+      "input": "data/inbox/2026-09-18-funds.json",
+      "input_hash_match": true,
+      "status": "NO_TRADE",
+      "valuation_mark_status": "STALE"
+    },
+    "preopen": {
+      "run_date": "2026-09-18",
+      "report_json": "reports/preopen/2026-09-18-preopen.json",
+      "input": "data/inbox/2026-09-18-preopen.json",
+      "input_hash_match": true,
+      "pipeline_status": "PASS",
+      "independent_risk_review_status": "FAILED_PREOPEN_RISK_REVIEW",
+      "new_orders": 0,
+      "fills": 0,
+      "sealed_price_day": "2026-09-16",
+      "missing_close_session": "2026-09-17"
+    },
+    "open": {
+      "run_date": "2026-09-18",
+      "report_json": "reports/execution/2026-09-18-open.json",
+      "input": "data/inbox/2026-09-18-open.json",
+      "input_hash_match": true,
+      "reported_status": "PASS",
+      "filled_events": 1,
+      "pending_before": 1,
+      "pending_after": 0,
+      "independent_risk_status": "FAILED_POST_FILL_BUCKET_CAP_BREACH"
+    }
+  },
+  "preopen_guard_consistency": {
+    "status": "FAILED_READY_VERDICT_OMITS_PREOPEN_RISK_BLOCKER",
+    "preopen_manifest_status": "FAILED_PREOPEN_RISK_REVIEW",
+    "preopen_audit": "reports/research/2026-09-18-preopen-review-audit.md",
+    "guard_audit": "reports/research/2026-09-18-daily-order-guard-audit.json",
+    "guard_reported_status": "READY",
+    "guard_observed_at": "2026-09-18T09:13:42.6675445+08:00",
+    "guard_temporal_note": "Audit ran after 09:10. Input and order existed before 09:10; this audit does not claim an on-time guard execution.",
+    "underlying_identity_and_hash_checks": {
+      "input_hash": true,
+      "official_evidence_hash": true,
+      "ledger_hashes_bound_to_guard_commit": true,
+      "pending_order_identity_at_guard_commit": true,
+      "guard_time_bucket_weight_matches_preopen_audit": true
+    },
+    "configured_bucket_cap": 0.2,
+    "preopen_blockers": [
+      "PREEXISTING_SMALL_GROWTH_BUCKET_ABOVE_20_PERCENT",
+      "SETTLEMENT_PATH_NO_EXECUTION_TIME_BUCKET_CAP_RECHECK",
+      "PREOPEN_TASK_CONTRACT_EXCLUDES_PRODUCTION_CODE_RELEASE"
+    ],
+    "settlement_code_reference": "vibe_finance/pipeline.py:743-883 _settle_pending BUY branch",
+    "monitor_code_inspection": "BUY branch performs price limit/cash checks then mutates positions; no execution-time bucket_weight_caps recheck in this function",
+    "order_id": "54bcdb6c851f4c1c9b363a5efcab26d2",
+    "signal_as_of": "2026-09-16T16:30:00+08:00",
+    "signal_before_cutoff": true,
+    "current_trading_status": "UNVERIFIED_PREOPEN",
+    "settlement_authorized_by_monitor": false,
+    "execution_enforcing_guard_verified": false,
+    "hard_stop_required": "Historical READY did not constitute full execution-risk authorization. The opening owner subsequently filled this order; preserve the immutable fill and conflicting reports.",
+    "projection_boundary": "CURRENT_LEDGER_AUDIT_ONLY; original preopen projected purchase is not an executed fill; no trading analysis or simulation invoked by monitor.",
+    "scope_boundary": "Historical guard-time state verified at its committed tree, not the newer post-fill current portfolio.",
+    "guard_owner_commit": "b0cb27fa8daca25652b6a497350ebd09c78cec91",
+    "guard_time_small_growth_bucket_weight": 0.20221136089181016,
+    "guard_time_bucket_above_cap": true,
+    "ledger_hash_binding_evidence": [
+      {
+        "path": "data/ledger/portfolio.json",
+        "pass": true,
+        "basis": "DIRECT_COMMITTED_BLOB_SHA256",
+        "recorded_sha256": "4c3c01e66e37c92db0b03a69e1b88a8d7c8436e0cfe691bc66bc56fd0971c620"
+      },
+      {
+        "path": "data/ledger/orders.jsonl",
+        "pass": true,
+        "basis": "EXACT_RAW_CURRENT_PREFIX_SHA256_AND_NORMALIZED_COMMITTED_BLOB_BYTES",
+        "recorded_sha256": "b40e83f60caf6f47d506736b5264d138ebfc6b3a4e73ee41b48b2764cb159e48",
+        "raw_prefix_sha256": "b40e83f60caf6f47d506736b5264d138ebfc6b3a4e73ee41b48b2764cb159e48",
+        "raw_prefix_bytes": 150773,
+        "committed_blob_bytes": 150712,
+        "committed_rows": 93,
+        "current_rows": 94,
+        "raw_prefix_crlf_count": 61,
+        "exact_raw_prefix_hash_match": true,
+        "normalized_prefix_matches_committed_blob_bytes": true
+      }
+    ]
+  },
+  "close_analysis_owner": {
+    "thread_id": "019f933f-3c42-77d0-ad63-71c5fcb7a5a5",
+    "title": "Vibe Finance 短周期收盘分析",
+    "status": {
+      "type": "systemError"
+    },
+    "turn_id": "01a0b3a4-a774-7de3-b2c1-3ec709a3b687",
+    "turn_status": "failed",
+    "error": {
+      "message": "Error running remote compact task: Connection failed: error sending request",
+      "additionalDetails": null
+    },
+    "started_at_utc": "2026-09-18T08:31:47.000Z",
+    "completed_at_utc": "2026-09-18T08:33:22.000Z",
+    "items_count": 0,
+    "claim_boundary": "LATEST_RECORDED_SEPTEMBER_18_REMOTE_COMPACT_FAILURE_BEFORE_BUSINESS_ITEMS; no authenticated worker recovery or financial retry from monitor."
+  },
+  "close_analysis_owner_verified_current_run": true,
+  "execution_risk_audit": {
+    "status": "FAILED_ACTUAL_POST_FILL_BUCKET_CAP_BREACH",
+    "execution_report": "reports/execution/2026-09-18-open.json",
+    "execution_reported_status": "PASS",
+    "opening_owner_manifest_status": "PASS",
+    "intraday_owner_manifest_status": "PASS_ALREADY_FILLED",
+    "order_id": "54bcdb6c851f4c1c9b363a5efcab26d2",
+    "symbol": "518880",
+    "side": "BUY",
+    "quantity": 100,
+    "status_recorded": "FILLED",
+    "fill_as_of": "2026-09-18T09:30:33+08:00",
+    "fill_price": 8.95,
+    "fees_cny": 5,
+    "pending_now": 0,
+    "filled_trade_count_now": 29,
+    "investable_value_cny": 29716.9,
+    "bucket_weights": {
+      "industry_equity": 0.07632020836628316,
+      "core_equity": 0.18397612133163285,
+      "small_growth_equity": 0.20301579236057596,
+      "dividend_equity": 0.14580592188283434,
+      "gold": 0.09035262762939607
+    },
+    "bucket_violations": {
+      "small_growth_equity": {
+        "market_value_cny": 6033,
+        "weight": 0.20301579236057596,
+        "cap": 0.2
+      }
+    },
+    "post_fill_valuation_matches_ledger": true,
+    "execution_event_matches_canonical_ledger": true,
+    "small_growth_bucket_weight_pct": 20.3015792360576,
+    "preexisting_guard_time_small_growth_bucket_weight_pct": 20.221136089181016,
+    "settlement_implementation_unchanged_from_prior_monitor": true,
+    "execution_time_bucket_cap_key_present_in_settle_pending": false,
+    "code_reference": "vibe_finance/pipeline.py:743 _settle_pending BUY branch",
+    "report_consistency_boundary": "PASS reports completed fill, not full risk compliance: post-fill small-growth allocation exceeds unchanged 20% cap. No transaction/projection/hash corruption inferred.",
+    "monitor_did_not_execute_this_fill": true,
+    "monitor_risk_check_is_ledger_arithmetic_not_trading_analysis": true,
+    "immutable_fill_preserved": true,
+    "future_code_enforcement_verified": false,
+    "current_valuation_mark_status": "STALE",
+    "current_stale_symbols": [
+      "159928",
+      "510300",
+      "510500",
+      "510880",
+      "512100",
+      "518880"
+    ],
+    "valuation_time_basis": "Actual September 18 09:30:33 opening valuation retained by latest September 18 22:30 STALE fund ledger; not current September 19 quotes."
+  },
+  "platform_transport_probe": {
+    "status": "PUBLIC_UNAUTHENTICATED_HTTPS_REACHABLE_EXPECTED_401",
+    "command": "curl.exe --ssl-revoke-best-effort --proxy http://127.0.0.1:7890 -sS -o NUL --max-time 20 -w %{http_code} https://api.openai.com/v1/models",
+    "exit_code": 0,
+    "http_status": 401,
+    "credentials_read_or_sent": false,
+    "response_body_stored": false,
+    "deepseek_called": false,
+    "scope_boundary": "TLS/HTTP to public OpenAI API through known Windows proxy only; no authenticated compact-worker endpoint, no business pipeline, no model call, no authenticated recovery proven.",
+    "verified_current_run": false,
+    "last_observed_monitor": "reports/monitor/20260919T152239+0800.json",
+    "last_observed_monitor_sha256": "eee5f1526677ad2e656af7e315a4fe014d360c201a478e1aa0249b414c0c0186",
+    "claim_boundary": "Previous September 18 evening unauthenticated public proxy probe only; not rerun or claimed fresh on September 19. No authenticated compact-worker recovery proven."
+  },
+  "reflection_evolution": {
+    "status": "NOT_APPLICABLE_LOCAL_GOVERNED_SYNC_FAILED",
+    "run_id": "20260919-w38-no-decidable-experience",
+    "proposal_path": "reports/evolution/20260919-w38-no-decidable-experience/proposal.json",
+    "proposal_sha256": "598d389d53587768a914b50141b09ea3caee482c1d2905dcc03e5130c177dbe9",
+    "gate_path": "reports/evolution/20260919-w38-no-decidable-experience/gate.json",
+    "gate_sha256": "f5efa444967c17c746f332ba5d544b0c8aef9c9606f038efe9c0a449b151462d",
+    "decision": "NOT_APPLICABLE",
+    "eligible_round_trips": 0,
+    "completed_round_trips": 1,
+    "candidate_strategy_present": false,
+    "experience_record_present": false,
+    "governed_manifest_present": false,
+    "local_paths_untracked": true,
+    "sync_failure_basis": "CURRENT_OWNER_AUTOMATION_MEMORY_AND_ABSENT_GOVERNED_MANIFEST",
+    "sync_blocker": "PREEXISTING_UNTRACKED_20260818_EVOLUTION_BASELINE_REQUIRES_GOVERNED_OPERATOR_DECISION",
+    "monitor_did_not_modify_or_retry_reflection": true
+  }
+}
